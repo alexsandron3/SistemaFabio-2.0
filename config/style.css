@@ -1,0 +1,23 @@
+input[type=text] {
+    text-transform: uppercase;
+}
+
+
+
+@media screen and (max-width: 1360px){
+    #idadeCliente{
+        width: 80px !important;
+    }
+}
+
+@media screen and (min-width: 1920px){
+    #idadeCliente{
+        width: 126px !important;
+    }
+}
+
+@media screen and (max-width: 360px){
+    #idadeCliente{
+        margin-left: 5%;
+    }
+}
