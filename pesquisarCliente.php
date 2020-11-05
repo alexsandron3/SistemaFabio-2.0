@@ -62,7 +62,7 @@
   <!-- TODO FORM -->
   <div class="container-fluid mt-4">
     <div class="container-fluid ">
-      <p class="h2 text-center">PESQUISAR CLIenTE</p>
+      <p class="h2 text-center">PESQUISAR CLIENTE</p>
       <form action="" autocomplete="off" method="POST">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="nomeCliente">NOME DO CLIENTE</label>
@@ -84,12 +84,12 @@
       <thead>
         <tr>
           <th>NOME</th>
-          <th>NASCIMenTO</th>
+          <th>NASCIMENTO</th>
           <th>IDADE</th>
           <th>REFERÊNCIA</th>
-          <th>TEL. CLIenTE</th>
+          <th>TEL. CLIENTE</th>
           <th>EMAIL</th>
-          <th>REDES SOCIAIS</th>
+          <th></th>
 
 
         </tr>
@@ -110,8 +110,8 @@
           <td><?php echo $nomeCliente ['referencia']. "<BR/>";?></td>
           <td><?php echo $nomeCliente ['telefoneCliente']. "<BR/>";?></td>
           <td><?php echo $nomeCliente ['emailCliente']. "<BR/>";?></td>
-          <td><?php echo $nomeCliente ['idadeCliente']. "<BR/>";?></td>
-          <td><?php echo $nomeCliente ['referencia']. "<BR/>";?></td>
+          <td></td>
+          <td></td>
           <td>
             <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarUsuario.php?id=" . $nomeCliente['idCliente'] . "'>Editar</a><br>"; ?>
           </td>

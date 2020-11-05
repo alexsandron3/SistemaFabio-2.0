@@ -1,7 +1,8 @@
 <?php
     session_start();
     include_once("../PHP/conexao.php");
-
+    
+    $passeiosLista                   = filter_input(INPUT_POST, 'passeioSelecionado',           FILTER_SANITIZE_NUMBER_INT);
     $valorIngresso                   = filter_input(INPUT_POST, 'valorIngresso',                FILTER_SANITIZE_NUMBER_INT);
     $valorOnibus                     = filter_input(INPUT_POST, 'valorOnibus',                  FILTER_SANITIZE_NUMBER_INT);
     $valorMicro                      = filter_input(INPUT_POST, 'valorMicro',                   FILTER_SANITIZE_NUMBER_INT);
@@ -22,20 +23,14 @@
     $lucroLiquido                    = filter_input(INPUT_POST, 'lucroLiquido',                 FILTER_SANITIZE_NUMBER_INT);
     $totalDespesas                   = filter_input(INPUT_POST, 'totalDespesas',                FILTER_SANITIZE_NUMBER_INT);
     
-
-    $getData = " INSERT INTO 
-    passeio (valorIngresso, valorOnibus, valorMicro, valorVan, valorEscuna, valorSeguroViagem, valorAlmocoCliente, valorAlmocoMotorista, valorEstacionamento, valorGuia, valorAutorizacaoTransporte, valorTaxi, valorKitLanche, valorMarketing, 
-            valorImpulsionamento, outros, lucroBruto, lucroLiquido, totalDespesas)
-    VALUES  ('$valorIngresso', '$valorOnibus', '$valorMicro','$valorVan', '$valorEscuna', '$valorSeguroViagem', '$valorAlmocoCliente', '$valorAlmocoMotorista', '$valorEstacionamento', '$valorGuia', '$valorAutorizacaoTransporte', '$valorTaxi', 
-            '$valorKitLanche', '$valorMarketing', '$valorImpulsionamento', '$outros', '$lucroBruto', '$lucroLiquido', '$totalDespesas')
-    ";
+    $getData = "UPDATE passeio SET valorIngresso='$valorIngresso' WHERE idPasseio='$passeiosLista'";
 
     $insertData = mysqli_query($conexao, $getData);
-    if(mysqli_insert_id($conexao)){
-        $_SESSION['msg'] = "<p style='color:green;'>Despesas cadastrados com sucesso</p>";
+    if(mysqli_affected_rows($conexao)){
+        $_SESSION['msg'] = "<p style='color:green;'>Despesas ATUALIZADAS com SUCESSO</p>";
         header("Location:../cadastroDespesas.php");
     }else{
-        $_SESSION['msg'] = "<p style='color:red;'>Despesas não foram cadastradas com sucesso</p>";
+        $_SESSION['msg'] = "<p style='color:red;'>Despesas NÃO foram ATUALIZADAS</p>";
         header("Location:../cadastroDespesas.php");
 }
 

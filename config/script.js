@@ -89,4 +89,20 @@ function upperCaseF(a){
     }, 1);
 }
 
+//
+function passeioSelecionado(){
+    var selectIdPasseio   = document.getElementById('idPasseio').value; 
+    console.log(selectIdPasseio);
+    var valorTotal      = a;
+   
+   if(valorTotal) {
+       document.getElementById('valorTotal').value = valorTotal;
+   }else{
+        document.getElementById('valorTotal').value = 0; 
+   }
+
+
+}
+
+
 

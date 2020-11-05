@@ -1,6 +1,6 @@
 <?php
     session_start();
-    /* include_once("PHP/conexao.php"); */
+    include_once("PHP/conexao.php");
 
 ?>
 <!DOCTYPE html>
@@ -69,21 +69,37 @@
     }
     ?>
     <div class="container-fluid ">
+      <form action="" method="POST" autocomplete="OFF">
+        <div class="form-group row">
+        <label class="col-sm-1 col-form-label" for="nomePasseio">PASSEIO</label>
+        <input type="hidden" name="nomePasseio" value=" ">
+        
+        <select class="form-control ml-3 col-sm-3" name="passeiosLista" id="selectIdPasseio" onblur="passeioSelecionado()">
+          <option value="">SELECIONAR</option>
+        
+        <?php
+          $enviaPesqNome = filter_input(INPUT_POST, 'enviaPesqNome', FILTER_SANITIZE_STRING);
+          //if($enviaPesqNome){
+            $nomePasseio = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
+            $resultadoBuscaNomePasseio = "SELECT * FROM passeio WHERE nomePasseio LIKE '%$nomePasseio%' ORDER BY dataPasseio";
+            $resultadoNomePasseio = mysqli_query($conexao, $resultadoBuscaNomePasseio);
+            while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
+              ?>
+              <option value="<?php echo $rowNomePasseio ['idPasseio'];?>"><?php echo $rowNomePasseio ['nomePasseio']; ?></option>    
+          <?php }
+          //}
+        ?>
+        <!-- <input type="submit" class="btn btn-primary btn-sm ml-2" value="CARREGAR PASSEIOS" name="enviaPesqNome"> -->
+        </select>
+
+      </form>      
+    </div>
       <form action="SCRIPTS/registroDespesas.php" autocomplete="off" method="POST">
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="nomePasseio">PASSEIO</label>
-          <select class="form-control col-sm-3 ml-3" name="nomePasseio" id="nomePasseio">
-            <option value="nomePasseio"> SELECIONAR</option>
-            <?php
-                            
-            ?>
-          </select>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="valorIngresso"> VALOR DO INGRESSO</label>
+          <label class="col-sm-1 col-form-label" for="valorIngresso">INGRESSO</label>
           <div class="col-sm-6">
             <input type="number" class="form-control" name="valorIngresso" id="valorIngresso"
-              placeholder="VALOR DO INGRESSO" value="0" onblur="totalCount()">
+              placeholder="VALOR DO INGRESSO" value="<?php echo $rowNomePasseio ['idPasseio'];?> " onchange="">
           </div>
         </div>
         <div class="form-group row">
@@ -106,6 +122,7 @@
             <input type="number" class="form-control col-sm-4" name="valorTotal" id="valorTotal" readonly="readonly"
               onblur="totalCount()">
           </div>
+        </div>
         </div>
         <!-- <div class="form-group row">
                     <label class="col-sm-1 col-form-label" for=""></label>
@@ -155,7 +172,8 @@
                       <input type="text" class="form-control" name="" id="" placeholder="">
                     </div>
                 </div> -->
-
+        <input type="hidden" class="form-control col-sm-4" name="passeioSelecionado" id="passeioSelecionado" readonly="readonly"
+          onblur="passeioSelecionado()">
         <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">CADASTRAR</button>
       </form>
     </div>
