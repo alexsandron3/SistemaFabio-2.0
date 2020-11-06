@@ -42,6 +42,15 @@ function totalCount(){
     
 
 }
+function idPasseioSelecionado(){
+    var idPasseioSelecionado = document.getElementById('selectIdPasseio').value;  
+    console.log(idPasseioSelecionado);
+
+    document.getElementById('passeioSelecionado').value = idPasseioSelecionado ;
+
+
+}
+
 
 //DEFININDO DATA ATUAL DEFAULT NO CAMPO dataConsulta
 function setInputDate(_id){
@@ -89,17 +98,4 @@ function upperCaseF(a){
     }, 1);
 }
 
-function passeioSelecionado(){
-    var selectIdPasseio   = document.getElementById('selectIdPasseio').value; 
-    console.log(selectIdPasseio);
-    var valorTotal      = selectIdPasseio;
-   
-   if(valorTotal) {
-       document.getElementById('passeioSelecionado').value = valorTotal;
-   }else{
-        document.getElementById('passeioSelecionado').value = 0; 
-   }
-
-
-}
 

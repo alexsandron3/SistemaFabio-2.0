@@ -69,114 +69,65 @@
     }
     ?>
     <div class="container-fluid ">
-      <form action="" method="POST" autocomplete="OFF">
+      <form action="cadastroDespesas.php" method="POST" autocomplete="OFF">
         <div class="form-group row">
         <label class="col-sm-1 col-form-label" for="nomePasseio">PASSEIO</label>
         <input type="hidden" name="nomePasseio" value=" ">
         
-        <select class="form-control ml-3 col-sm-3" name="passeiosLista" id="selectIdPasseio" onblur="passeioSelecionado()">
-          <option value="">SELECIONAR</option>
+        <select class="form-control ml-3 col-sm-3" name="passeiosLista" id="selectIdPasseio" onchange="idPasseioSelecionado()">
+          <option value="1">SELECIONAR</option>
         
         <?php
-          $enviaPesqNome = filter_input(INPUT_POST, 'enviaPesqNome', FILTER_SANITIZE_STRING);
-          //if($enviaPesqNome){
+          
             $nomePasseio = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
             $resultadoBuscaNomePasseio = "SELECT * FROM passeio WHERE nomePasseio LIKE '%$nomePasseio%' ORDER BY dataPasseio";
             $resultadoNomePasseio = mysqli_query($conexao, $resultadoBuscaNomePasseio);
             while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
               ?>
-              <option value="<?php echo $rowNomePasseio ['idPasseio'];?>"><?php echo $rowNomePasseio ['nomePasseio']; ?></option>    
+              <option value="<?php echo $rowNomePasseio ['idPasseio'];?>"><?php echo $rowNomePasseio ['nomePasseio'];?>  </option>    
           <?php }
-          //}
+          
         ?>
-        <!-- <input type="submit" class="btn btn-primary btn-sm ml-2" value="CARREGAR PASSEIOS" name="enviaPesqNome"> -->
+        <input type="submit" class="btn btn-primary btn-sm ml-2" value="CARREGAR PASSEIOS" name="enviaPesqNome">
+        <input type="text" class="form-control col-sm-1 ml-3" name="passeioSelecionado" id="passeioSelecionado" 
+        onchange="idPasseioSelecionado()" readonly="readonly">
+        
         </select>
-
+                      
       </form>      
     </div>
       <form action="SCRIPTS/registroDespesas.php" autocomplete="off" method="POST">
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="valorIngresso">INGRESSO</label>
-          <div class="col-sm-6">
-            <input type="number" class="form-control" name="valorIngresso" id="valorIngresso"
-              placeholder="VALOR DO INGRESSO" value="<?php echo $rowNomePasseio ['idPasseio'];?> " onchange="">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="valorOnibus">VALOR ONIBUS</label>
-          <div class="col-sm-6">
-            <input type="number" class="form-control" name="valorOnibus" id="valorOnibus" placeholder="VALOR DO PASSEIO"
-              value="0" onblur="totalCount()">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="valorMicro">VALOR MICRO</label>
-          <div class="col-sm-6">
-            <input type="number" class="form-control" name="valorMicro" id="valorMicro" placeholder="VALOR MICRO"
-              value="0" onblur="totalCount()">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="valorTotal">VALOR TOTAL</label>
-          <div class="col-sm-6">
-            <input type="number" class="form-control col-sm-4" name="valorTotal" id="valorTotal" readonly="readonly"
-              onblur="totalCount()">
-          </div>
-        </div>
-        </div>
-        <!-- <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-1 col-form-label" for=""></label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="" id="" placeholder="">
-                    </div>
-                </div> -->
-        <input type="hidden" class="form-control col-sm-4" name="passeioSelecionado" id="passeioSelecionado" readonly="readonly"
-          onblur="passeioSelecionado()">
-        <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">CADASTRAR</button>
+        
+          <!-- <label class='col-sm-1 col-form-label' for='valorIngresso'>INGRESSO</label> -->
+          <?php
+            $passeiosLista = filter_input(INPUT_POST, 'passeioSelecionado', FILTER_SANITIZE_NUMBER_INT);
+            $valorPasseio = "SELECT * FROM passeio WHERE idPasseio='$passeiosLista'";
+            $resultadoValorPasseio = mysqli_query($conexao, $valorPasseio);
+            $rowValorPasseio = mysqli_fetch_assoc($resultadoValorPasseio);
+            $enviaPesqNome = filter_input(INPUT_POST, 'enviaPesqNome', FILTER_SANITIZE_STRING);
+            if($enviaPesqNome){
+              //
+              if($rowValorPasseio != 0){
+                echo"<div class='form-group row'>";
+                  echo"<label class='col-sm-1 col-form-label' for='valorIngresso'>INGRESSO</label>";
+                  echo"<div class='col-sm-6'>";
+                    echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='".$rowValorPasseio ['valorIngresso'] . "'>";
+                  echo"</div>";
+                echo"</div>";
+                echo"<div class='form-group row'>";
+                  echo"<label class='col-sm-1 col-form-label' for='valorOnibus'>INGRESSO</label>";
+                  echo"<div class='col-sm-6'>";
+                    echo"<input type='text' class='form-control' name='valorOnibus' id='valorOnibus' placeholder='VALOR DO INGRESSO' value='".$rowValorPasseio ['valorOnibus'] . "'>";
+                  echo"</div>";
+                echo"</div>";
+                echo"<button type='submit' name='cadastrarClienteBtn' id='submit' class='btn btn-primary btn-lg'>CADASTRAR</button>";  
+              }else{
+                echo"";
+              } 
+            }    
+          ?>
+        
       </form>
-    </div>
   </div>
   <script src="config/script.php"></script>
 </body>
