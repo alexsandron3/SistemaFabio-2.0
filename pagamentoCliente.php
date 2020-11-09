@@ -1,5 +1,11 @@
 <?php
     session_start();
+    include_once("PHP/conexao.php");
+    $idCliente = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $resultadoBuscaIdCliente = "SELECT * FROM cliente WHERE idCliente = '$idCliente'";
+    $resultadoIdCliente = mysqli_query($conexao, $resultadoBuscaIdCliente);
+    $rowIdCliente = mysqli_fetch_assoc($resultadoIdCliente);
+
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -67,49 +73,13 @@
     }
     ?>
     <div class="container-fluid ">
-      <form action="SCRIPTS/pagamentoCliente.php" autocomplete="off" method="POST">
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="nomeCliente">NOME</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" name="nomeCliente" id="" placeholder="NOME COMPLETO"
-              onkeydown="upperCaseF(this)">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
-          <div class="col-sm-6">
-          <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"
-            onchange="ageCount()">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="telefoneContato">TELEF. CONTATO</label>
-          <input class="form-control col-sm-3 ml-3" type="tel" name="telefoneContato" id="telefoneContato"
-            placeholder="XX 9 XXXX-XXXX">
-        </div>
-        <fieldset class="form-group">
-          <div class="row">
-            <legend class="col-form-label col-sm-1 pt-0">SEGURO VIAGEM</legend>
-            <div class="col-sm-5">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="seguroViagemCliente" id="seguroViagemClienteSim"
-                  value="1">
-                <label class="form-check-label" for="seguroViagemClienteSim">
-                  SIM
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="seguroViagemCliente" id="seguroViagemClientenao"
-                  value="0">
-                <label class="form-check-label" for="seguroViagemClientenao">
-                  NÃO
-                </label>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">CADASTRAR</button>
-      </form>
+      <?php
+        echo"<form action='SCRIPTS/pagamentoCliente.php' autocomplete='off' method='POST'>";
+          
+
+          echo"<button type='submit' name='cadastrarClienteBtn 'id='submit' class='btn btn-primary btn-lg'>CADASTRAR</button>";
+        echo"</form>";
+      ?>
     </div>
   </div>
   <script src="config/script.php"></script>

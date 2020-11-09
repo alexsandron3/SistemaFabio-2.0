@@ -27,17 +27,32 @@ function ageCount() {
     document.getElementById('idadeCliente').value = ageY;
     }
 
-function totalCount(){
-    var valorIngresso   = document.getElementById('valorIngresso').value; //15010
-    var valorOnibus     = document.getElementById('valorOnibus').value;   //10 
-    var valorMicro      = document.getElementById('valorMicro').value;
-    var valorTotal      = parseInt(valorIngresso, 10) + parseInt(valorOnibus, 10) + parseInt(valorMicro, 10);
+
+function calculoTotalDespesas(){
+    var valorIngresso               = document.getElementById('valorIngresso').value;
+    var valorOnibus                 = document.getElementById('valorOnibus').value;
+    var valorMicro                  = document.getElementById('valorMicro').value;
+    var valorVan                    = document.getElementById('valorVan').value;
+    var valorEscuna                 = document.getElementById('valorEscuna').value;
+    var valorSeguroViagem           = document.getElementById('valorSeguroViagem').value;
+    var valorAlmocoCliente          = document.getElementById('valorAlmocoCliente').value;
+    var valorAlmocoMotorista        = document.getElementById('valorAlmocoMotorista').value;
+    var valorEstacionamento         = document.getElementById('valorEstacionamento').value;
+    var valorGuia                   = document.getElementById('valorGuia').value;
+    var valorAutorizacaoTransporte  = document.getElementById('valorAutorizacaoTransporte').value;
+    var valorTaxi                   = document.getElementById('valorTaxi').value;
+    var valorMarketing              = document.getElementById('valorMarketing').value;
+    var valorImpulsionamento        = document.getElementById('valorImpulsionamento').value;
+    var outros                      = document.getElementById('outros').value; 
+    var valorTotal                  = parseInt(valorIngresso, 10) + parseInt(valorOnibus, 10) + parseInt(valorMicro, 10) + parseInt(valorVan, 10) + parseInt(valorEscuna, 10) + parseInt(valorSeguroViagem, 10) + parseInt(valorAlmocoCliente, 10) 
+                                    + parseInt(valorAlmocoMotorista, 10) + parseInt(valorEstacionamento, 10) + parseInt(valorGuia, 10) + parseInt(valorAutorizacaoTransporte, 10) + parseInt(valorTaxi, 10) + parseInt(valorMarketing, 10) 
+                                    + parseInt(valorImpulsionamento, 10) + parseInt(outros, 10);
    
    if(valorTotal) {
        document.getElementById('valorTotal').value = valorTotal;
    }else{
         document.getElementById('valorTotal').value = 0; 
-   }
+}
 
     
 

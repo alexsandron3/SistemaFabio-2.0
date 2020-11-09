@@ -31,7 +31,7 @@
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">RELATÓRIOS </a>
+          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -191,6 +191,11 @@
           <label class="col-sm-1 col-form-label" for="nomeContato">PESSOA CONTATO</label>
           <input class="form-control col-sm-3 ml-3" type="text" name="nomeContato" id="nomeContato"
             placeholder="QUEM CONTATAR" onkeydown="upperCaseF(this)">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label" for="redeSocial">REDES SOCIAIS</label>
+          <textarea class="form-control col-sm-3 ml-3" name="redeSocial" id="redeSocial" cols="3" rows="1"
+            placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"></textarea>
         </div>
         <fieldset class="form-group">
           <div class="row">

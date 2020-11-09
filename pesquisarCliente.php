@@ -32,7 +32,7 @@
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">RELATÓRIOS </a>
+          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -67,7 +67,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="nomeCliente">NOME DO CLIENTE</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control col-sm-6" name="nomeCliente" id="" placeholder="NOME DO CLIenTE"
+            <input type="text" class="form-control col-sm-6" name="nomeCliente" id="" placeholder="NOME DO CLIENTE"
               onkeydown="upperCaseF(this)">
           </div>
 
@@ -113,10 +113,10 @@
           <td></td>
           <td></td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarUsuario.php?id=" . $nomeCliente['idCliente'] . "'>Editar</a><br>"; ?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $nomeCliente['idCliente'] . "'>Editar</a><br>"; ?>
           </td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' href='apagarUsuario.php?id="  . $nomeCliente['idCliente'] . "' >Apagar</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $nomeCliente['idCliente'] . "' >PAGAR</a><br><hr>";?>
           </td>
           <!-- <td>
                 ?php

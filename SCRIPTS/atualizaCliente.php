@@ -1,7 +1,8 @@
 <?php
     session_start();
     include_once("../PHP/conexao.php");
-
+    
+    $idCliente              = filter_input(INPUT_POST, 'idCliente',             FILTER_SANITIZE_NUMBER_INT);
     $nome                   = filter_input(INPUT_POST, 'nomeCliente',           FILTER_SANITIZE_STRING);
     $email                  = filter_input(INPUT_POST, 'emailCliente',          FILTER_SANITIZE_EMAIL);
     $rg                     = filter_input(INPUT_POST, 'rgCliente',             FILTER_SANITIZE_STRING);
@@ -18,31 +19,22 @@
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $seguroViagemCliente    = filter_input(INPUT_POST, 'seguroViagemCliente',   FILTER_VALIDATE_BOOLEAN);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
-
-    
-    if($seguroViagemCliente == 1){
-        if($idade <=40){
-            $valorSeguroViagemCliente =2.23;
-        }else if($idade >=41 && $idade <=60 ){
-            $valorSeguroViagemCliente = 2.73;
-        }else{
-            $valorSeguroViagemCliente =5.93;
-        }
-    }else {
-        $valorSeguroViagemCliente = 0;
-    } 
     
 
-    $getData = "INSERT INTO 
-    CLIenTE (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, transporte, telefoneContato, pessoaContato, seguroViagem, valorSeguroViagemCliente, redeSocial, created )
-    VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$meioTransporte', '$telefoneContato', '$nomeContato', '$seguroViagemCliente', '$valorSeguroViagemCliente', '$redeSocial', NOW())
-    ";
+    $getData = "UPDATE cliente SET 
+                nomeCliente='$nome', emailCliente='$email', rgCliente='$rg', orgaoEmissor='$emissor', cpfCliente='$cpf', telefoneCliente='$telefoneCliente', dataNascimento='$dataNascimento', idadeCliente='$idade', 
+                cpfConsultado='$cpfConsultado', dataCpfConsultado='$dataConsulta', referencia='$referenciaCliente', transporte='$meioTransporte', telefoneContato='$telefoneContato', pessoaContato='$nomeContato', 
+                seguroViagem='$seguroViagemCliente', redeSocial='$redeSocial' 
+                WHERE idCliente='$idCliente'";
+   
     $insertData = mysqli_query($conexao, $getData);
-    if(mysqli_insert_id($conexao)){
-        $_SESSION['msg'] = "<p style='color:green;'>Usuário cadastrado com sucesso</p>";
-        header("Location:../cadastroCliente.php");
+    if(mysqli_affected_rows($conexao)){
+        $_SESSION['msg'] = "<p style='color:green;'>Usuário ATUALIZADO com sucesso</p>";
+        header("Location:../editarCliente.php?id=$idCliente");
     }else{
-        $_SESSION['msg'] = "<p style='color:red;'>Usuário não foi cadastrado com sucesso</p>";
-        header("Location:../cadastroCliente.php");
+        $_SESSION['msg'] = "<p style='color:red;'>Usuário não foi ATUALIZADO </p>";
+        header("Location:../editarCliente.php?id=$idCliente");
     }
- ?>   
+
+
+?>

@@ -32,7 +32,7 @@
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">RELATÓRIOS </a>
+          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

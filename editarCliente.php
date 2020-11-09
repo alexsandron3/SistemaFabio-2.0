@@ -1,5 +1,10 @@
 <?php
     session_start();
+    include_once("PHP/conexao.php");
+    $idClienteGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $buscaPeloIdCliente = "SELECT * FROM cliente WHERE idCliente='$idClienteGet'";
+    $resultadoBuscaPeloIdCliente = mysqli_query($conexao, $buscaPeloIdCliente);
+    $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdCliente);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -15,7 +20,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
-  <title>INÍCIO</title>
+  <title>EDITAR CLIENTE</title>
 </head>
 
 <body>
@@ -31,10 +36,10 @@
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">RELATÓRIOS </a>
+          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             PESQUISAR
           </a>
@@ -50,7 +55,7 @@
             CADASTRAR
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item active" href="cadastroCliente.php">CLIENTE</a>
+            <a class="dropdown-item " href="cadastroCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
@@ -67,31 +72,32 @@
     }
     ?>
     <div class="container-fluid ">
-      <form action="SCRIPTS/registroCliente.php" autocomplete="off" method="POST">
+      <form action="SCRIPTS/atualizaCliente.php" autocomplete="off" method="POST" onclick=ageCount()>
+      <input type="hidden" name="idCliente" id="idCliente" value="<?php echo $rowResultadoBuscaPeloIdCliente ['idCliente'] ?>">
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="nomeCliente">NOME</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="nomeCliente" id="" placeholder="NOME COMPLETO"
-              onkeydown="upperCaseF(this)">
+              onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['nomeCliente']; ?>">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="emailCliente">EMAIL</label>
           <div class="col-sm-6">
             <input type="email" class="form-control" name="emailCliente" id="emailCliente"
-              placeholder="EMAIL DO CLIenTE">
+              placeholder="EMAIL DO CLIENTE" value="<?php echo $rowResultadoBuscaPeloIdCliente ['emailCliente']; ?>">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="rgCliente">RG</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="rgCliente" id="rgCliente" placeholder="RG">
+            <input type="text" class="form-control" name="rgCliente" id="rgCliente" placeholder="RG" value="<?php echo $rowResultadoBuscaPeloIdCliente ['rgCliente']; ?>">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="orgaoEmissor">EMISSOR</label>
           <select class="form-control col-sm-3 ml-3" name="orgaoEmissor" id="orgaoEmissor">
-            <option value="">SELECIONAR</option>
+            <option value="<?php echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?>"><?php echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?></option>
             <option value="DETRAN">DETRAN</option>
             <option value="IFP"> IFP</option>
             <option value="OAB">OAB</option>
@@ -120,20 +126,20 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="cpfCliente">CPF</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control " name="cpfCliente" id="cpfCliente" placeholder="CPF DO CLIenTE">
+            <input type="text" class="form-control " name="cpfCliente" id="cpfCliente" placeholder="CPF DO CLIENTE" value="<?php echo $rowResultadoBuscaPeloIdCliente ['cpfCliente']; ?>">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="telefoneCliente">TELEFONE</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="telefoneCliente" id="telefoneCliente"
-              placeholder="XX 9 XXXX-XXXX"> <!-- pattern="[0-9]{2}[9]{1}[0-9]{4}[0-9]{4}"-->
+              placeholder="XX 9 XXXX-XXXX" value="<?php echo $rowResultadoBuscaPeloIdCliente ['telefoneCliente']; ?>">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
           <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
-            onchange="ageCount()">
+            onchange="ageCount()" value="<?php echo $rowResultadoBuscaPeloIdCliente ['dataNascimento']; ?>">
           <label class="col-sm-2 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
           <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"
             onchange="ageCount()">
@@ -143,18 +149,41 @@
             <legend class="col-form-label col-sm-1 pt-0">CPF CONSULTADO</legend>
             <div class="col-sm-5">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="cpfConsultado" id="cpfConsultadoSim" value="1"
-                  onclick="changeInputDate()">
-                <label class="form-check-label" for="cpfConsultadoSim">
-                  SIM
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="cpfConsultado" id="cpfConsultadoNao" value="0"
-                  onclick="changeInputDate()">
-                <label class="form-check-label" for="cpfConsultadoNao">
-                  NÃO
-                </label>
+                <?php
+                  if( $rowResultadoBuscaPeloIdCliente ['cpfConsultado'] == 1){
+                    echo"
+                    <div class='form-check'>  
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoSim' value='1'
+                      onclick='changeInputDate()' checked>
+                      <label class='form-check-label' for='cpfConsultadoSim'>
+                        SIM
+                      </label>
+                    </div>
+                    <div class='form-check'>  
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoNao' value='0'
+                      onclick='changeInputDate()' >
+                      <label class='form-check-label' for='cpfConsultadoNao'>
+                        NÃO
+                      </label>
+                    </div>";
+                  }else {
+                    echo"
+                    <div class='form-check'>  
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoSim' value='1'
+                      onclick='changeInputDate()' >
+                      <label class='form-check-label' for='cpfConsultadoSim'>
+                        SIM
+                      </label>
+                    </div>
+                    <div class='form-check'>  
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoNao' value='0'
+                      onclick='changeInputDate()' checked >
+                      <label class='form-check-label' for='cpfConsultadoNao'>
+                        NÃO
+                      </label>
+                    </div>";
+                  }
+                ?>
               </div>
             </div>
 
@@ -164,18 +193,18 @@
           <label class="col-sm-1 col-form-label" for="dataCpfConsultado">DATA DA CONSULTA</label>
           <!-- <div class="col-sm-5"> -->
           <input type="date" class="form-control col-sm-3 ml-3" name="dataCpfConsultado" id="dataCpfConsultado"
-            placeholder="MM/DD/AAAA" onclick="setInputDate()">
+            placeholder="MM/DD/AAAA" onclick="setInputDate()" value="<?php echo $rowResultadoBuscaPeloIdCliente ['dataCpfConsultado']; ?>">
         </div>
         <!-- </div> -->
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="referenciaCliente">REFERÊNCIA</label>
           <textarea class="form-control col-sm-3 ml-3" name="referenciaCliente" id="referenciaCliente" cols="3" rows="1"
-            placeholder="INFORMAÇÕES" onkeydown="upperCaseF(this)"></textarea>
+            placeholder="INFORMAÇÕES" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente ['referencia'] ?></textarea>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="meioTransporte">TRANSPORTE</label>
           <select class="form-control col-sm-3 ml-3" name="meioTransporte" id="meioTransporte">
-            <option value="" selected> SELECIONAR</option>
+            <option value="<?php echo $rowResultadoBuscaPeloIdCliente ['transporte']; ?>" > <?php echo $rowResultadoBuscaPeloIdCliente ['transporte']; ?></option>
             <option value="Carro">CARRO</option>
             <option value="Onibus">ÔNIBUS</option>
             <option value="Micro">MICRO</option>
@@ -185,35 +214,63 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="telefoneContato">TELEF. CONTATO</label>
           <input class="form-control col-sm-3 ml-3" type="tel" name="telefoneContato" id="telefoneContato"
-            placeholder="XX 9 XXXX-XXXX">
+            placeholder="XX 9 XXXX-XXXX" value="<?php echo $rowResultadoBuscaPeloIdCliente ['telefoneContato']; ?>">
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="nomeContato">PESSOA CONTATO</label>
           <input class="form-control col-sm-3 ml-3" type="text" name="nomeContato" id="nomeContato"
-            placeholder="QUEM CONTATAR" onkeydown="upperCaseF(this)">
+            placeholder="QUEM CONTATAR" onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['pessoaContato']; ?>">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label" for="redeSocial">REDES SOCIAIS</label>
+          <textarea class="form-control col-sm-3 ml-3" name="redeSocial" id="redeSocial" cols="10" rows="5"
+            placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente ['redeSocial'] ?></textarea>
         </div>
         <fieldset class="form-group">
           <div class="row">
             <legend class="col-form-label col-sm-1 pt-0">SEGURO VIAGEM</legend>
             <div class="col-sm-5">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="seguroViagemCliente" id="seguroViagemClienteSim"
-                  value="1">
-                <label class="form-check-label" for="seguroViagemClienteSim">
-                  SIM
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="seguroViagemCliente" id="seguroViagemClientenao"
-                  value="0">
-                <label class="form-check-label" for="seguroViagemClientenao">
-                  NÃO
-                </label>
+                <?php
+                    if( $rowResultadoBuscaPeloIdCliente ['seguroViagem'] == 1){
+                      echo"
+                      <div class='form-check'>  
+                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim' value='1'
+                        onclick='changeInputDate()' checked>
+                        <label class='form-check-label' for='seguroViagemCliente'>
+                          SIM
+                        </label>
+                      </div>
+                      <div class='form-check'>  
+                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteNao' value='0'
+                        onclick='changeInputDate()' >
+                        <label class='form-check-label' for='seguroViagemClienteNao'>
+                          NÃO
+                        </label>
+                      </div>";
+                    }else {
+                      echo"
+                      <div class='form-check'>  
+                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim' value='1'
+                        onclick='changeInputDate()' >
+                        <label class='form-check-label' for='seguroViagemClienteSim'>
+                          SIM
+                        </label>
+                      </div>
+                      <div class='form-check'>  
+                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteNao' value='0'
+                        onclick='changeInputDate()' checked >
+                        <label class='form-check-label' for='seguroViagemClienteNao'>
+                          NÃO
+                        </label>
+                      </div>";
+                    }
+                  ?>
               </div>
             </div>
           </div>
         </fieldset>
-        <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">CADASTRAR</button>
+        <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">ATUALIZAR</button>
       </form>
     </div>
   </div>
