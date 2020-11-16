@@ -2,31 +2,113 @@
 $('input[name="cpfCliente"]').mask('000.000.000-00');
 $('input[name="telefoneCliente"]').mask('(00) 0 0000-0000');
 $('input[name="telefoneContato"]').mask('(00) 0 0000-0000'); 
-$('input[name="data"]').mask('00/00/0000');
+$('input[name="rgCliente"]').mask('000000000000000'); 
+
+//RESTRINGINDO OS VALORES DOS INPUTS
+(function($) {
+  $.fn.inputFilter = function(inputFilter) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  };
+}(jQuery));
+
+
+// INPUT FILTERS PADRÕES BASE
+$("#intTextBox").inputFilter(function(value) {
+  return /^-?\d*$/.test(value); });
+$("#uintTextBox").inputFilter(function(value) {
+  return /^\d*$/.test(value); });
+$("#intLimitTextBox").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+$("#floatTextBox").inputFilter(function(value) {
+  return /^-?\d*[.]?\d*$/.test(value); });
+$("#currencyTextBox").inputFilter(function(value) {
+  return /^-?\d*[.]?\d{0,2}$/.test(value); });
+$("#latinTextBox").inputFilter(function(value) {
+  return /^[a-z à-ù á-ú]*$/i.test(value); });
+$("#hexTextBox").inputFilter(function(value) {
+  return /^[0-9a-f]*$/i.test(value); });
+
+    //TEXT
+    $("#nomeCliente").inputFilter(function(value) {
+      return /^[A-Z À-Ù Á-Ú ]*$/i.test(value); });
+    $("#nomeContato").inputFilter(function(value) {
+      return /^[A-Z À-Ù Á-Ú]*$/i.test(value); });
+    $("#nomePasseio").inputFilter(function(value) {
+      return /^[A-Z À-Ù Á-Ú]*$/i.test(value); });
+    $("#LocalPasseiolatinTextBox").inputFilter(function(value) {
+      return /^[a-z à-ù á-ú]*$/i.test(value); });
+    //CURRENCY
+    $("#valorIngresso").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorOnibus").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorIngresso").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorMicro").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorVan").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorEscuna").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorSeguroViagem").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorAlmocoCliente").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorAlmocoMotorista").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorEstacionamento").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorGuia").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorAutorizacaoTransporte").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorTaxi").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorMarketing").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorKitLanche").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorImpulsionamento").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#outros").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
 
 
 
-//CALCULANDO DATA DE NASCIMenTO DO CAMPO dataNascimento
+
+//CALCULANDO DATA DE NASCIMENTO
 function ageCount() {
-    var now = new Date();                            //getting current date
-    var currentY= now.getFullYear();                //extracting year from the date
-    var currentM= now.getMonth();                   //extracting month from the date
-    var currentD= now.getDate();                    //extractubg day from the date
+    var now = new Date();                           
+    var currentY= now.getFullYear();                
+    var currentM= now.getMonth();                   
+    var currentD= now.getDate();                    
       
-    var dobget =document.getElementById("dataNascimento").value; //getting user input
-    var dob= new Date(dobget);                             //formatting input as date
-    var prevY= dob.getFullYear();                          //extracting year from input date
-    var prevM= dob.getMonth();                             //extracting month from input date
-    var prevD= dob.getDate();                               //extracting day from input date
+    var dobget =document.getElementById("dataNascimento").value; 
+    var dob= new Date(dobget);                          
+    var prevY= dob.getFullYear();                          
+    var prevM= dob.getMonth();                             
+    var prevD= dob.getDate();                               
       
     var ageY =currentY - prevY;
-    var ageM =Math.abs(currentM- prevM);          //converting any negative value to positive
+    var ageM =Math.abs(currentM- prevM);          
     var ageD = Math.abs(currentD-prevD -1);
 
       
     document.getElementById('idadeCliente').value = ageY;
     }
 
+//CALCULO DESPESAS PASSEIO
 function calculoTotalDespesas(){
     var valorIngresso               = document.getElementById('valorIngresso').value;
     var valorOnibus                 = document.getElementById('valorOnibus').value;
@@ -40,27 +122,48 @@ function calculoTotalDespesas(){
     var valorGuia                   = document.getElementById('valorGuia').value;
     var valorAutorizacaoTransporte  = document.getElementById('valorAutorizacaoTransporte').value;
     var valorTaxi                   = document.getElementById('valorTaxi').value;
+    var valorKitLanche              = document.getElementById('valorKitLanche').value;
     var valorMarketing              = document.getElementById('valorMarketing').value;
     var valorImpulsionamento        = document.getElementById('valorImpulsionamento').value;
     var outros                      = document.getElementById('outros').value; 
-    var valorTotal                  = parseInt(valorIngresso, 10) + parseInt(valorOnibus, 10) + parseInt(valorMicro, 10) + parseInt(valorVan, 10) + parseInt(valorEscuna, 10) + parseInt(valorSeguroViagem, 10) + parseInt(valorAlmocoCliente, 10) 
-                                    + parseInt(valorAlmocoMotorista, 10) + parseInt(valorEstacionamento, 10) + parseInt(valorGuia, 10) + parseInt(valorAutorizacaoTransporte, 10) + parseInt(valorTaxi, 10) + parseInt(valorMarketing, 10) 
-                                    + parseInt(valorImpulsionamento, 10) + parseInt(outros, 10);
+    var valorTotal                  = Number(valorIngresso) + Number(valorOnibus) + Number(valorMicro) + Number(valorVan) + Number(valorEscuna) + Number(valorSeguroViagem) + Number(valorAlmocoCliente) 
+                                    + Number(valorAlmocoMotorista) + Number(valorEstacionamento) + Number(valorGuia) + Number(valorAutorizacaoTransporte) + Number(valorTaxi) + Number(valorMarketing) 
+                                    + Number(valorImpulsionamento) + Number(outros) + Number(valorKitLanche);
    console.log(valorTotal);
    if(valorTotal) {
        document.getElementById('totalDespesas').value = valorTotal;
-   }else{
+   }else{   
         document.getElementById('totalDespesas').value = 0; 
+    }
+}
+
+//CALCULO PAGAMENTO CLIENTE     document.getElementById('valorPago').value         = sinalCliente; 
+function calculoPagamentoCliente(){
+    var valorVendido                                   = document.getElementById('valorVendido').value;
+    var sinalCliente                                   = document.getElementById('sinalCliente').value;
+    var valorPago                                      = document.getElementById('valorPago').value;
+    var valorPendenteCliente                                  = Number(valorPago) + Number(sinalCliente ) - Number(valorVendido);
+    
+    if(valorPendenteCliente < 0){
+        document.getElementById('valorPendenteCliente').value = valorPendenteCliente;
+        document.getElementById('statusPagamento').value = 0;  //NÃO PAGO
+    }else if(valorPendenteCliente == 0){
+        document.getElementById('statusPagamento').value = 1; //PAGO
+        document.getElementById('valorPendenteCliente').value = valorPendenteCliente;
+    }else{
+        document.getElementById('valorPendenteCliente').value = "VALOR INCORRETO";
+    }
+    console.log(Number(valorPendenteCliente));
+
 }
 
     
-
-}
-function idPasseioSelecionado(){
+//DEFININDO PASSEIO DO SELECT
+function idPasseioSelecionadoFun(){
     var idPasseioSelecionado = document.getElementById('selectIdPasseio').value;  
     console.log(idPasseioSelecionado);
 
-    document.getElementById('passeioSelecionado').value = idPasseioSelecionado;
+    document.getElementById('idPasseioSelecionado').value = idPasseioSelecionado;
     
 }
 

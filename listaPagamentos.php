@@ -1,11 +1,15 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
+  $idCliente = filter_input(INPUT_GET, 'idCliente', FILTER_SANITIZE_NUMBER_INT);
+  $idPasseio = filter_input(INPUT_GET, 'idPasseio', FILTER_SANITIZE_NUMBER_INT);
+  $pesquisaPagamento = "SELECT * FROM pagamento_passeio WHERE idCliente='$idCliente' AND idPasseio='$idPasseio'";
+  $resultadoPesquisaPagamento = mysqli_query($conexao, $pesquisaPagamento);
+  $rowResultadoPesquisaPagamento = mysqli_fetch_assoc($resultadoPesquisaPagamento);
+
+  echo $rowResultadoPesquisaPagamento ['valorPago'];
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="PT-BR">
 
@@ -21,7 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
   
-  <title>LISTA DE PASSEIO</title>
+  <title>LISTA DE PAGAMENTOS</title>
 </head>
 
 <body>
@@ -76,30 +80,6 @@
   </nav>
   <div class="container-fluid">
     <form action="" method="POST" autocomplete="off">
-      <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="nomePasseio">PASSEIO</label>
-      <input type="hidden" name="nomePasseio" value=" ">
-      
-      <select class="form-control ml-3 col-sm-3" name="passeiosLista" id="selectIdPasseio" onchange="idPasseioSelecionado()">
-        <option value="1">SELECIONAR</option>
-        <?php
-            $nomePasseio = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
-            $resultadoBuscaNomePasseio = "SELECT * FROM passeio WHERE nomePasseio LIKE '%$nomePasseio%' ORDER BY dataPasseio";
-            $resultadoNomePasseio = mysqli_query($conexao, $resultadoBuscaNomePasseio);
-            while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
-              ?>
-              <option value="<?php echo $rowNomePasseio ['idPasseio'] ;?>"><?php echo $rowNomePasseio ['nomePasseio']; echo " "; echo $rowNomePasseio ['dataPasseio'];?>  </option>    
-          <?php }    
-        ?>
-        <input type="submit" class="btn btn-primary btn-sm ml-2" value="CARREGAR PASSEIOS" name="buscaIdPasseio">
-        <input type="text" class="form-control col-sm-1 ml-3" name="passeioSelecionado" id="passeioSelecionado" 
-        onchange="idPasseioSelecionado()" readonly="readonly">
-      </select>                      
-    </form>
-    <form action="registroDespesas.php" method="POST" autocomplete="off">
-        <?php
-          
-        ?>  
 
     </form> 
   </div>

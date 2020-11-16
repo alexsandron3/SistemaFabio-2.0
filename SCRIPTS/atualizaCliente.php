@@ -26,15 +26,23 @@
                 cpfConsultado='$cpfConsultado', dataCpfConsultado='$dataConsulta', referencia='$referenciaCliente', transporte='$meioTransporte', telefoneContato='$telefoneContato', pessoaContato='$nomeContato', 
                 seguroViagem='$seguroViagemCliente', redeSocial='$redeSocial' 
                 WHERE idCliente='$idCliente'";
-   
-    $insertData = mysqli_query($conexao, $getData);
-    if(mysqli_affected_rows($conexao)){
-        $_SESSION['msg'] = "<p style='color:green;'>Usuário ATUALIZADO com sucesso</p>";
-        header("Location:../editarCliente.php?id=$idCliente");
-    }else{
-        $_SESSION['msg'] = "<p style='color:red;'>Usuário não foi ATUALIZADO </p>";
-        header("Location:../editarCliente.php?id=$idCliente");
-    }
+    
+    /* $verificaSeClienteExiste = "SELECT c.cpfCliente FROM cliente c WHERE c.cpfCliente='$cpf'";
+    $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
+    $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente); */
+    //if(mysqli_num_rows($resultadoVerificaCliente) == 0){
+        $insertData = mysqli_query($conexao, $getData);
+        if(mysqli_affected_rows($conexao)){
+            $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário ATUALIZADO com sucesso</p>";
+            header("Location:../editarCliente.php?id=$idCliente");
+        }else{
+            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário não foi ATUALIZADO </p>";
+            header("Location:../editarCliente.php?id=$idCliente");
+        }
+    /* }else{
+            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
+            header("Location:../editarCliente.php?id=$idCliente");
+    } */
 
 
 ?>

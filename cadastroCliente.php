@@ -15,7 +15,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
-  <title>INÍCIO</title>
+  <title>CADASTRAR CLIENTE</title>
 </head>
 
 <body>
@@ -29,10 +29,6 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -42,6 +38,17 @@
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
             <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            LISTAGEM
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="">CLIENTE</a>
+            <a class="dropdown-item" href="">PASSEIO</a>
+            <a class="dropdown-item" href="">PAGAMENTO</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -71,7 +78,7 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="nomeCliente">NOME</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="nomeCliente" id="" placeholder="NOME COMPLETO"
+            <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="NOME COMPLETO" required="required"
               onkeydown="upperCaseF(this)">
           </div>
         </div>
@@ -79,7 +86,7 @@
           <label class="col-sm-1 col-form-label" for="emailCliente">EMAIL</label>
           <div class="col-sm-6">
             <input type="email" class="form-control" name="emailCliente" id="emailCliente"
-              placeholder="EMAIL DO CLIenTE">
+              placeholder="EMAIL DO CLIENTE">
           </div>
         </div>
         <div class="form-group row">
@@ -111,11 +118,6 @@
             <option value="CNH">CNH</option>
             <option value="MTPS">MTPS</option>
           </select>
-
-          <!-- <label class="col-sm-1 col-form-label" for="orgaoEmissor">EMISSOR</label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR" onkeydown="upperCaseF(this)" >
-                    </div> -->
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="cpfCliente">CPF</label>
@@ -127,7 +129,7 @@
           <label class="col-sm-1 col-form-label" for="telefoneCliente">TELEFONE</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="telefoneCliente" id="telefoneCliente"
-              placeholder="XX 9 XXXX-XXXX"> <!-- pattern="[0-9]{2}[9]{1}[0-9]{4}[0-9]{4}"-->
+              placeholder="XX 9 XXXX-XXXX">
           </div>
         </div>
         <div class="form-group row">
@@ -162,11 +164,9 @@
         </fieldset>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataCpfConsultado">DATA DA CONSULTA</label>
-          <!-- <div class="col-sm-5"> -->
           <input type="date" class="form-control col-sm-3 ml-3" name="dataCpfConsultado" id="dataCpfConsultado"
             placeholder="MM/DD/AAAA" onclick="setInputDate()">
         </div>
-        <!-- </div> -->
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="referenciaCliente">REFERÊNCIA</label>
           <textarea class="form-control col-sm-3 ml-3" name="referenciaCliente" id="referenciaCliente" cols="3" rows="1"
@@ -181,7 +181,7 @@
             <option value="Micro">MICRO</option>
             <option value="Van">VAN</option>
           </select>
-        </div>
+        </div> 
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="telefoneContato">TELEF. CONTATO</label>
           <input class="form-control col-sm-3 ml-3" type="tel" name="telefoneContato" id="telefoneContato"

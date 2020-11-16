@@ -11,38 +11,38 @@
     $dataNascimento         = filter_input(INPUT_POST, 'dataNascimento',        FILTER_SANITIZE_STRING);
     $idade                  = filter_input(INPUT_POST, 'idadeCliente',          FILTER_SANITIZE_NUMBER_INT);
     $cpfConsultado          = filter_input(INPUT_POST, 'cpfConsultado',         FILTER_VALIDATE_BOOLEAN);
-    $dataConsulta           = filter_input(INPUT_POST, 'dataCpfConsultado',     FILTER_SANITIZE_STRING);
+    $cpfConsultado          = filter_input(INPUT_POST, 'cpfConsultado',         FILTER_VALIDATE_BOOLEAN);
+    $seguroViagemCliente    = filter_input(INPUT_POST, 'seguroViagemCliente',   FILTER_SANITIZE_STRING);
     $referenciaCliente      = filter_input(INPUT_POST, 'referenciaCliente',     FILTER_SANITIZE_STRING);
     $meioTransporte         = filter_input(INPUT_POST, 'meioTransporte',        FILTER_SANITIZE_STRING);
     $telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
-    $seguroViagemCliente    = filter_input(INPUT_POST, 'seguroViagemCliente',   FILTER_VALIDATE_BOOLEAN);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
-
-    
-    if($seguroViagemCliente == 1){
-        if($idade <=40){
-            $valorSeguroViagemCliente =2.23;
-        }else if($idade >=41 && $idade <=60 ){
-            $valorSeguroViagemCliente = 2.73;
-        }else{
-            $valorSeguroViagemCliente =5.93;
-        }
-    }else {
-        $valorSeguroViagemCliente = 0;
-    } 
-    
-
     $getData = "INSERT INTO 
-    CLIenTE (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, transporte, telefoneContato, pessoaContato, seguroViagem, valorSeguroViagemCliente, redeSocial, created )
-    VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$meioTransporte', '$telefoneContato', '$nomeContato', '$seguroViagemCliente', '$valorSeguroViagemCliente', '$redeSocial', NOW())
+    CLIENTE (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato, transporte, redeSocial, seguroViagem, created )
+    VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$meioTransporte' ,'$redeSocial', '$seguroViagemCliente', NOW())
     ";
-    $insertData = mysqli_query($conexao, $getData);
-    if(mysqli_insert_id($conexao)){
-        $_SESSION['msg'] = "<p style='color:green;'>Usuário cadastrado com sucesso</p>";
-        header("Location:../cadastroCliente.php");
+    
+   /*  */
+    
+    $verificaSeClienteExiste = "SELECT c.cpfCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf'";
+    $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
+    $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
+    if(mysqli_num_rows($resultadoVerificaCliente) == 0){
+        $insertData = mysqli_query($conexao, $getData);
+        if(mysqli_insert_id($conexao)){
+            $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário CADASTRADO com sucesso</p>";
+            header("Location:../cadastroCliente.php");
+        }else{
+            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário NÃO foi CADASTRADO </p>";
+            header("Location:../cadastroCliente.php");
+        }
+
     }else{
-        $_SESSION['msg'] = "<p style='color:red;'>Usuário não foi cadastrado com sucesso</p>";
-        header("Location:../cadastroCliente.php");
+        $idCliente = $rowResultadoVerificaCliente ['idCliente'];
+        $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
+        header("Location:../editarCliente.php?id=$idCliente");
     }
+    
+    
  ?>   

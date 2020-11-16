@@ -1,5 +1,10 @@
 <?php
     session_start();
+    include_once("PHP/conexao.php");
+    $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $buscaPeloIdPasseio = "SELECT * FROM passeio p WHERE idPasseio='$idPasseioGet'";
+    $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
+    $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -15,7 +20,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
-  <title>CADASTRAR PASSEIO</title>
+  <title>EDITAR PASSEIO</title>
 </head>
 
 <body>
@@ -29,8 +34,6 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
-        </li>
-        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -77,46 +80,47 @@
     ?>
     
     <div class="container-fluid ">
-      <form action="SCRIPTS/registroPasseio.php" autocomplete="off" method="POST">
+      <form action="SCRIPTS/atualizaPasseio.php" autocomplete="off" method="POST">
         <div class="form-group row">
           <label class="col-sm-1 col-form-label latinTextBox" for="nomePasseio">NOME DO PASSEIO</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="nomePasseio" id="nomePasseio" placeholder="NOME DO PASSEIO" required="required"
+            <input type="text" class="form-control" name="nomePasseio" id="latinTextBox" placeholder="NOME DO PASSEIO" required="required" value="<?php echo $rowBuscaPasseio ['nomePasseio'] ?>"
               onkeydown="upperCaseF(this)">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="localPasseio">LOCAL DO PASSEIO</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="localPasseio" id="LocalPasseiolatinTextBox" placeholder="LOCAL DO PASSEIO"
+            <input type="text" class="form-control" name="localPasseio" id="LocalPasseiolatinTextBox" placeholder="LOCAL DO PASSEIO" value="<?php echo $rowBuscaPasseio ['localPasseio'] ?>"
               onkeydown="upperCaseF(this)">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="valorPasseio">VALOR DO PASSEIO</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO"
+            <input type="text" class="form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO" value="<?php echo $rowBuscaPasseio ['valorPasseio'] ?>"
               onkeydown="upperCaseF(this)">
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="lotacao"> LOTAÇÃO</label>
+          <label class="col-sm-1 col-form-label" for="quantidadeCliente"> LOTAÇÃO</label>
           <div class="col-sm-1">
-            <input type="text" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="0-200">
+            <input type="text" class="form-control" name="quantidadeCliente" id="intLimitTextBox" placeholder="0-200" value="<?php echo $rowBuscaPasseio ['quantidadeCliente'] ?>">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataPasseio">DATA DO PASSEIO</label>
           <div class="col-sm-6">
-            <input type="date" class="form-control col-sm-4" name="dataPasseio" id="dataPasseio" required="required">
+            <input type="date" class="form-control col-sm-4" name="dataPasseio" id="dataPasseio" required="required" value="<?php echo $rowBuscaPasseio ['dataPasseio'] ?>">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
-          <textarea class="form-control col-sm-3 ml-3" name="anotacoesPasseio" id="anotacoesPasseio" cols="3" rows="1"
+          <textarea class="form-control col-sm-3 ml-3" name="anotacoesPasseio" id="anotacoesPasseio" cols="3" rows="1" value="<?php echo $rowBuscaPasseio ['anotacoes'] ?>"
             placeholder="ANOTAÇÕES" onkeydown="upperCaseF(this)"></textarea>
         </div>
-        <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">CADASTRAR</button>
+        <input type="hidden" name="idPasseio" id="idPasseio" value="<?php echo $rowBuscaPasseio ['idPasseio'] ?>">
+        <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">ATUALIZAR</button>
       </form>
     </div>
   </div>

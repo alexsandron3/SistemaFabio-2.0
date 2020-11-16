@@ -2,32 +2,33 @@
 $('input[name="cpfCliente"]').mask('000.000.000-00');
 $('input[name="telefoneCliente"]').mask('(00) 0 0000-0000');
 $('input[name="telefoneContato"]').mask('(00) 0 0000-0000'); 
-$('input[name="data"]').mask('00/00/0000');
 
 
 
-//CALCULANDO DATA DE NASCIMenTO DO CAMPO dataNascimento
+
+
+//CALCULANDO DATA DE NASCIMENTO
 function ageCount() {
-    var now = new Date();                            //getting current date
-    var currentY= now.getFullYear();                //extracting year from the date
-    var currentM= now.getMonth();                   //extracting month from the date
-    var currentD= now.getDate();                    //extractubg day from the date
+    var now = new Date();                           
+    var currentY= now.getFullYear();                
+    var currentM= now.getMonth();                   
+    var currentD= now.getDate();                    
       
-    var dobget =document.getElementById("dataNascimento").value; //getting user input
-    var dob= new Date(dobget);                             //formatting input as date
-    var prevY= dob.getFullYear();                          //extracting year from input date
-    var prevM= dob.getMonth();                             //extracting month from input date
-    var prevD= dob.getDate();                               //extracting day from input date
+    var dobget =document.getElementById("dataNascimento").value; 
+    var dob= new Date(dobget);                          
+    var prevY= dob.getFullYear();                          
+    var prevM= dob.getMonth();                             
+    var prevD= dob.getDate();                               
       
     var ageY =currentY - prevY;
-    var ageM =Math.abs(currentM- prevM);          //converting any negative value to positive
+    var ageM =Math.abs(currentM- prevM);          
     var ageD = Math.abs(currentD-prevD -1);
 
       
     document.getElementById('idadeCliente').value = ageY;
     }
 
-
+//CALCULO DESPESAS PASSEIO
 function calculoTotalDespesas(){
     var valorIngresso               = document.getElementById('valorIngresso').value;
     var valorOnibus                 = document.getElementById('valorOnibus').value;
@@ -44,26 +45,45 @@ function calculoTotalDespesas(){
     var valorMarketing              = document.getElementById('valorMarketing').value;
     var valorImpulsionamento        = document.getElementById('valorImpulsionamento').value;
     var outros                      = document.getElementById('outros').value; 
-    var valorTotal                  = parseInt(valorIngresso, 10) + parseInt(valorOnibus, 10) + parseInt(valorMicro, 10) + parseInt(valorVan, 10) + parseInt(valorEscuna, 10) + parseInt(valorSeguroViagem, 10) + parseInt(valorAlmocoCliente, 10) 
-                                    + parseInt(valorAlmocoMotorista, 10) + parseInt(valorEstacionamento, 10) + parseInt(valorGuia, 10) + parseInt(valorAutorizacaoTransporte, 10) + parseInt(valorTaxi, 10) + parseInt(valorMarketing, 10) 
-                                    + parseInt(valorImpulsionamento, 10) + parseInt(outros, 10);
-   
+    var valorTotal                  = Number(valorIngresso) + Number(valorOnibus) + Number(valorMicro) + Number(valorVan) + Number(valorEscuna) + Number(valorSeguroViagem) + Number(valorAlmocoCliente) 
+                                    + Number(valorAlmocoMotorista) + Number(valorEstacionamento) + Number(valorGuia) + Number(valorAutorizacaoTransporte) + Number(valorTaxi) + Number(valorMarketing) 
+                                    + Number(valorImpulsionamento) + Number(outros);
+   console.log(valorTotal);
    if(valorTotal) {
-       document.getElementById('valorTotal').value = valorTotal;
-   }else{
-        document.getElementById('valorTotal').value = 0; 
+       document.getElementById('totalDespesas').value = valorTotal;
+   }else{   
+        document.getElementById('totalDespesas').value = 0; 
+    }
+}
+
+//CALCULO PAGAMENTO CLIENTE     document.getElementById('valorPago').value         = sinalCliente; 
+function calculoPagamentoCliente(){
+    var valorVendido                                   = document.getElementById('valorVendido').value;
+    var sinalCliente                                   = document.getElementById('sinalCliente').value;
+    var valorPago                                      = document.getElementById('valorPago').value;
+    var valorPendente                                  = (Number(valorPago) + Number(sinalCliente ) - Number(valorVendido));
+    
+    if(valorPendente < 0){
+        document.getElementById('valorPendente').value = valorPendente;
+        document.getElementById('statusPagamento').value = 0;  //NÃO PAGO
+    }else if(valorPendente == 0){
+        document.getElementById('statusPagamento').value = 1; //PAGO
+        document.getElementById('valorPendente').value = valorPendente;
+    }else{
+        document.getElementById('valorPendente').value = "VALOR INCORRETO";
+    }
+    console.log(Number(valorPendente));
+
 }
 
     
-
-}
-function idPasseioSelecionado(){
+//DEFININDO PASSEIO DO SELECT
+function idPasseioSelecionadoFun(){
     var idPasseioSelecionado = document.getElementById('selectIdPasseio').value;  
     console.log(idPasseioSelecionado);
 
-    document.getElementById('passeioSelecionado');
-
-
+    document.getElementById('idPasseioSelecionado').value = idPasseioSelecionado;
+    
 }
 
 

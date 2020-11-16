@@ -34,10 +34,6 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -48,6 +44,17 @@
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
             <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            LISTAGEM
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="">CLIENTE</a>
+            <a class="dropdown-item" href="">PASSEIO</a>
+            <a class="dropdown-item" href="">PAGAMENTO</a>
+          </div>
+        </li>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -77,7 +84,7 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="nomeCliente">NOME</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="nomeCliente" id="" placeholder="NOME COMPLETO"
+            <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="NOME COMPLETO"
               onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['nomeCliente']; ?>">
           </div>
         </div>
@@ -191,11 +198,9 @@
         </fieldset>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataCpfConsultado">DATA DA CONSULTA</label>
-          <!-- <div class="col-sm-5"> -->
           <input type="date" class="form-control col-sm-3 ml-3" name="dataCpfConsultado" id="dataCpfConsultado"
             placeholder="MM/DD/AAAA" onclick="setInputDate()" value="<?php echo $rowResultadoBuscaPeloIdCliente ['dataCpfConsultado']; ?>">
         </div>
-        <!-- </div> -->
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="referenciaCliente">REFERÊNCIA</label>
           <textarea class="form-control col-sm-3 ml-3" name="referenciaCliente" id="referenciaCliente" cols="3" rows="1"

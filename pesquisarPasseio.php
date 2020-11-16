@@ -30,11 +30,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
-        </li>
-        <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             PESQUISAR
@@ -46,12 +42,23 @@
           </div>
         </li>
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            LISTAGEM
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="">CLIENTE</a>
+            <a class="dropdown-item" href="">PASSEIO</a>
+            <a class="dropdown-item" href="">PAGAMENTO</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             CADASTRAR
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="cadastroCliente.php">CLIeENE</a>
+            <a class="dropdown-item" href="cadastroCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
@@ -65,14 +72,13 @@
       <p class="h2 text-center">PESQUISAR PASSEIO</p>
       <form action="" autocomplete="off" method="POST">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label" for="nomePasseio">NOME DO PASSEIO</label>
+          <label class="col-sm-2 col-form-label" for="nomePasseio">PESQUISAR</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control col-sm-6" name="nomePasseio" id="" placeholder="NOME DO PASSEIO"
+            <input type="text" class="form-control col-sm-6" name="valorPesquisaPasseio" id="" placeholder="NOME OU LOCAL"
               onkeydown="upperCaseF(this)">
           </div>
         </div>
         <input type="submit" value="PESQUISAR" name="enviaPesqNome" class="btn btn-primary btn-lg">
-        <!-- <button type="submit" name="enviaPesqNome" id="submit" class="btn btn-primary btn-lg">PESQUISAR</button> -->
       </form>
     </div>
   </div>
@@ -90,21 +96,26 @@
         <?php
           $enviaPesqNome = filter_input(INPUT_POST, 'enviaPesqNome', FILTER_SANITIZE_STRING);
           if($enviaPesqNome) {
-              $nomePasseio = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
-              $resultadoBuscaNomePasseio = "SELECT * FROM passeio WHERE nomePasseio LIKE '%$nomePasseio%' ORDER BY dataPasseio";
-              $resultadoNomePasseio = mysqli_query($conexao, $resultadoBuscaNomePasseio);
-              while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
+              $valorPesquisaPasseio = filter_input(INPUT_POST, 'valorPesquisaPasseio', FILTER_SANITIZE_STRING);
+              $PesquisaPasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio, p.localPasseio, p.idPasseio 
+                                  FROM passeio p WHERE p.nomePasseio LIKE '%$valorPesquisaPasseio%' OR p.localPasseio LIKE '%$valorPesquisaPasseio%' ORDER BY dataPasseio";
+              $resultadoPesquisaPasseio = mysqli_query($conexao, $PesquisaPasseio);
+              while($valorPesquisaPasseio = mysqli_fetch_assoc($resultadoPesquisaPasseio)){
+                $dataPasseio =  date_create($valorPesquisaPasseio['dataPasseio']);
         ?>
         <tr>
-          <th><?php echo $rowNomePasseio ['idPasseio']. "<BR/>";?></th>
-          <td><?php echo $rowNomePasseio ['nomePasseio']. "<BR/>";?></td>
-          <td><?php echo $rowNomePasseio ['dataPasseio']. "<BR/>";?></td>
-          <td><?php echo $rowNomePasseio ['localPasseio']. "<BR/>";?></td>
+          <th><?php echo $valorPesquisaPasseio ['idPasseio']. "<BR/>";?></th>
+          <td><?php echo $valorPesquisaPasseio ['nomePasseio']. "<BR/>";?></td>
+          <td><?php echo date_format($dataPasseio, "d/m/Y") ."<BR/>";?></td>
+          <td><?php echo $valorPesquisaPasseio ['localPasseio']. "<BR/>";?></td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarUsuario.php?id=" . $rowNomePasseio['idPasseio'] . "'>Editar</a><br>"; ?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR</a><br>"; ?>
           </td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' href='apagarUsuario.php?id="  . $rowNomePasseio['idPasseio'] . "' >Apagar</a><br><hr>";?>
+            <?php //echo "<a class='btn btn-primary btn-sm' href='#.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >Apagar</a><br><hr>";?>
+          </td>
+          <td>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
           </td>
         </tr>
         <?php

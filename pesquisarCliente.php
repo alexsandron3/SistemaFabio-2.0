@@ -16,7 +16,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
-  <title>PESQUISAR PASSEIO</title>
+  <title>PESQUISAR CLIENTE</title>
 </head>
 
 <body>
@@ -30,10 +30,6 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="listaPasseio.php">LISTAGEM </a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -43,6 +39,17 @@
             <a class="dropdown-item active" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
             <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            LISTAGEM
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="">CLIENTE</a>
+            <a class="dropdown-item" href="">PASSEIO</a>
+            <a class="dropdown-item" href="">PAGAMENTO</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -65,16 +72,15 @@
       <p class="h2 text-center">PESQUISAR CLIENTE</p>
       <form action="" autocomplete="off" method="POST">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label" for="nomeCliente">NOME DO CLIENTE</label>
+          <label class="col-sm-2 col-form-label" for="nomeCliente">INSIRA: </label>
           <div class="col-sm-6">
-            <input type="text" class="form-control col-sm-6" name="nomeCliente" id="" placeholder="NOME DO CLIENTE"
+            <input type="text" class="form-control col-sm-6" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME"
               onkeydown="upperCaseF(this)">
           </div>
 
 
         </div>
         <input type="submit" value="PESQUISAR" name="enviarPesqCliente" class="btn btn-primary btn-lg">
-        <!-- <button type="submit" name="enviarPesqNome" id="submit" class="btn btn-primary btn-lg">PESQUISAR</button> -->
       </form>
 
     </div>
@@ -89,7 +95,7 @@
           <th>REFERÊNCIA</th>
           <th>TEL. CLIENTE</th>
           <th>EMAIL</th>
-          <th></th>
+          <th>REDE SOCIAL</th>
 
 
         </tr>
@@ -98,29 +104,33 @@
         <?php
           $enviarPesqNome = filter_input(INPUT_POST, 'enviarPesqCliente', FILTER_SANITIZE_STRING);
           if($enviarPesqNome) {
-              $nomeCliente = filter_input(INPUT_POST, 'nomeCliente', FILTER_SANITIZE_STRING);
-              $resultadoBuscaNomeCliente = "SELECT * FROM cliente WHERE nomeCliente LIKE '%$nomeCliente%' ORDER BY idCliente";
-              $resultadoNomeCliente = mysqli_query($conexao, $resultadoBuscaNomeCliente);
-              while($nomeCliente = mysqli_fetch_assoc($resultadoNomeCliente)){
+              $valorPesquisaCliente = filter_input(INPUT_POST, 'valorPesquisaCliente', FILTER_SANITIZE_STRING);
+              $PesquisaCliente = "SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
+              $resultadoPesquisaCliente = mysqli_query($conexao, $PesquisaCliente);
+              while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
+                $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);
         ?>
         <tr>
-          <th><?php echo $nomeCliente ['nomeCliente']. "<BR/>";?></th>
-          <td><?php echo $nomeCliente ['dataNascimento']. "<BR/>";?></td>
-          <td><?php echo $nomeCliente ['idadeCliente']. "<BR/>";?></td>
-          <td><?php echo $nomeCliente ['referencia']. "<BR/>";?></td>
-          <td><?php echo $nomeCliente ['telefoneCliente']. "<BR/>";?></td>
-          <td><?php echo $nomeCliente ['emailCliente']. "<BR/>";?></td>
-          <td></td>
+          <th><?php echo $valorPesquisaCliente ['nomeCliente']. "<BR/>";?></th> 
+          <td><?php echo date_format($dataNascimento, "d/m/Y") ."<BR/>";?></td>
+          <td><?php echo $valorPesquisaCliente ['idadeCliente']. "<BR/>";?></td>
+          <td><?php echo $valorPesquisaCliente ['referencia']. "<BR/>";?></td>
+          <td><?php echo $valorPesquisaCliente ['telefoneCliente']. "<BR/>";?></td>
+          <td><?php echo $valorPesquisaCliente ['emailCliente']. "<BR/>";?></td>
+          <td><?php echo $valorPesquisaCliente ['redeSocial']. "<BR/>";?></td>
           <td></td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $nomeCliente['idCliente'] . "'>Editar</a><br>"; ?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $valorPesquisaCliente['idCliente'] . "'>EDITAR</a><br>"; ?>
           </td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $nomeCliente['idCliente'] . "' >PAGAR</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $valorPesquisaCliente['idCliente'] . "' >PAGAR</a><br><hr>";?>
+          </td>
+          <td>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $valorPesquisaCliente['idCliente'] . "' >DELETAR</a><br><hr>";?>
           </td>
           <!-- <td>
                 ?php
-                /* if($nomeCliente['cpfConsultado'] == 1){ 
+                /* if($valorPesquisaCliente['cpfConsultado'] == 1){ 
                     echo "SIM";
                 }else {
                     echo "NÃO";
