@@ -18,17 +18,16 @@
     $telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
+
     $getData = "INSERT INTO 
     CLIENTE (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato, transporte, redeSocial, seguroViagem, created )
     VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$meioTransporte' ,'$redeSocial', '$seguroViagemCliente', NOW())
     ";
-    
-   /*  */
-    
+
     $verificaSeClienteExiste = "SELECT c.cpfCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf'";
     $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
     $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
-    if(mysqli_num_rows($resultadoVerificaCliente) == 0){
+    if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){
         $insertData = mysqli_query($conexao, $getData);
         if(mysqli_insert_id($conexao)){
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário CADASTRADO com sucesso</p>";
@@ -43,6 +42,7 @@
         $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
         header("Location:../editarCliente.php?id=$idCliente");
     }
+
     
     
  ?>   
