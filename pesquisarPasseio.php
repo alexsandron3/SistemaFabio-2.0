@@ -109,10 +109,10 @@
           <td><?php echo date_format($dataPasseio, "d/m/Y") ."<BR/>";?></td>
           <td><?php echo $valorPesquisaPasseio ['localPasseio']. "<BR/>";?></td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR</a><br>"; ?>
+            <?php echo "<a class='btn btn-primary btn-sm' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >LISTA</a><br><hr>";?>
           </td>
           <td>
-            <?php //echo "<a class='btn btn-primary btn-sm' href='#.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >Apagar</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR</a><br>"; ?>
           </td>
           <td>
             <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>

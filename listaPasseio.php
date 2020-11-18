@@ -1,7 +1,11 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
-
+  $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+  $buscaPeloIdPasseio = "SELECT DISTINCT p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente,  pp.statusPagamento, pp.idPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+  $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
+  
+  
 ?>
 
 
@@ -39,7 +43,7 @@
           <a class="nav-link" href="#">RELATÓRIOS </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             PESQUISAR
           </a>
@@ -74,36 +78,65 @@
       </ul>
     </div>
   </nav>
-  <div class="container-fluid">
-    <form action="" method="POST" autocomplete="off">
-      <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="nomePasseio">PASSEIO</label>
-      <input type="hidden" name="nomePasseio" value=" ">
-      
-      <select class="form-control ml-3 col-sm-3" name="passeiosLista" id="selectIdPasseio" onchange="idPasseioSelecionado()">
-        <option value="1">SELECIONAR</option>
-        <?php
-            $nomePasseio = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
-            $resultadoBuscaNomePasseio = "SELECT * FROM passeio WHERE nomePasseio LIKE '%$nomePasseio%' ORDER BY dataPasseio";
-            $resultadoNomePasseio = mysqli_query($conexao, $resultadoBuscaNomePasseio);
-            while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
-              ?>
-              <option value="<?php echo $rowNomePasseio ['idPasseio'] ;?>"><?php echo $rowNomePasseio ['nomePasseio']; echo " "; echo $rowNomePasseio ['dataPasseio'];?>  </option>    
-          <?php }    
-        ?>
-        <input type="submit" class="btn btn-primary btn-sm ml-2" value="CARREGAR PASSEIOS" name="buscaIdPasseio">
-        <input type="text" class="form-control col-sm-1 ml-3" name="passeioSelecionado" id="passeioSelecionado" 
-        onchange="idPasseioSelecionado()" readonly="readonly">
-      </select>                      
-    </form>
-    <form action="registroDespesas.php" method="POST" autocomplete="off">
-        <?php
-          
-        ?>  
+  <div class="table mt-5">
+      <table class="table table-hover table-dark">
+          <thead> 
+            <tr>
+                <th>NOME</th>
+                <th>CPF</th>
+                <th>EMISSOR</th>
+                <th>IDADE</th>
+                <th>Status do Pagamento</th>
+            </tr>
+          </thead>
+        
+        <tbody>
+          <?php
+            while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
+              $idPagamento = $rowBuscaPasseio ['idPagamento'];
+              if ($rowBuscaPasseio ['statusPagamento'] == 0){
+                $statusPagamento = "NÃO QUITADO";
+              }else{
+                $statusPagamento = "QUITADO";
+              }
+              $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
+            
+            ?>
+          <tr>
+            <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['cpfCliente']. "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['orgaoEmissor']. "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['idadeCliente']. "<BR/>";?></th>
+            <th><?php echo "<a class='btn btn-link ' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>" ?></th>
+          </tr>
 
-    </form> 
+          <?php
+            }
+          ?>
+        </tbody>
+      </table>
+      <?php
+        echo"<div class='text-center'>";
+          echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir</a>";
+          echo"<button onclick='Export()' class='btn btn-primary ml-2'>Exportar para arquivo EXCEL</button>";
+        echo"</div>";
+
+
+      ?>
+       
   </div>
 <script src="config/script.php"></script>
+<script>
+  function Export()
+        {
+            var conf = confirm("Exportar para EXCEL?");
+            if(conf == true)
+            {
+                window.open("SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet?>", '_blank');
+            }
+        }
+
+</script>
 </body>
 
 </html>

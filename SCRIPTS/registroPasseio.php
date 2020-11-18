@@ -13,7 +13,7 @@
     VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao')
     ";
 
-    $verificaSeExistePasseio = "SELECT  upper(p.nomePasseio), p.dataPasseio FROM passeio p WHERE p.nomePasseio='$nomePasseio' AND p.dataPasseio='$dataPasseio' ";
+    $verificaSeExistePasseio = "SELECT  upper(p.nomePasseio), p.dataPasseio, p.idPasseio FROM passeio p WHERE p.nomePasseio='$nomePasseio' AND p.dataPasseio='$dataPasseio' ";
     $resultadoVerificaSeExistePasseio = mysqli_query($conexao, $verificaSeExistePasseio);
     $rowPasseioVerificado = mysqli_fetch_assoc($resultadoVerificaSeExistePasseio );
     if(mysqli_num_rows($resultadoVerificaSeExistePasseio) == 0 ){
@@ -28,8 +28,9 @@
         }
         
     }else{
+        $idPasseio = $rowPasseioVerificado ['idPasseio']; 
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME </p>";
-        header("Location:../cadastroPasseio.php");
+        header("Location:../editarPasseio.php?id=$idPasseio");
         
     }
 
