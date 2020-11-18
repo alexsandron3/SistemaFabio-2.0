@@ -100,7 +100,7 @@
             }
           ?>
           <input type="submit" class="btn btn-primary btn-sm ml-2" value="CARREGAR PASSEIOS" name="buttonEnviaNomePasseio">
-          <input type="text" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" onchange="idPasseioSelecionadoFun()" readonly="readonly">
+          <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" onchange="idPasseioSelecionadoFun()" readonly="readonly">
         </select>
                       
       </form>      
@@ -229,7 +229,7 @@
                   echo"<p class='h4 text-center alert-warning'>JÁ EXISTEM DESPESAS CADASTRADAS PARA ESSE PASSEIO, REDIRECIONANDO PARA A ÁREA DE DESPESAS </p>";
                   echo" <script>
                               setTimeout(function () {
-                                window.location.href = 'editaDespesas.php?idPasseio=".$idPasseioLista."';
+                                window.location.href = 'editaDespesas.php?id=".$idPasseioLista."';
                             }, 5000);
                           </script>
                     ";

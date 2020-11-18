@@ -35,7 +35,7 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             PESQUISAR
           </a>
@@ -63,7 +63,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="cadastroCliente.php">CLIENTE</a>
-            <a class="dropdown-item active" href="cadastroPasseio.php">PASSEIO</a>
+            <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
         </li>
@@ -105,7 +105,7 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="quantidadeCliente"> LOTAÇÃO</label>
           <div class="col-sm-1">
-            <input type="text" class="form-control" name="quantidadeCliente" id="intLimitTextBox" placeholder="0-200" value="<?php echo $rowBuscaPasseio ['quantidadeCliente'] ?>">
+            <input type="text" class="form-control" name="quantidadeCliente" id="intLimitTextBox" placeholder="0-200" value="<?php echo $rowBuscaPasseio ['qtdCliente'] ?>">
           </div>
         </div>
         <div class="form-group row">

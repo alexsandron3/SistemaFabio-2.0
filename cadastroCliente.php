@@ -66,7 +66,7 @@
     </div>
   </nav>
   <!-- TODO FORM -->
-  <div class="container-fluid mt-4">
+  <div class="container-fluid mt-4" onblur="ageCount()">
     <?php
     if(isset($_SESSION['msg'])){
       echo $_SESSION['msg'];
@@ -134,11 +134,11 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
-          <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
-            onchange="ageCount()">
+          <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento" required="required"
+            onblur="ageCount()" >
           <label class="col-sm-2 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
           <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"
-            onchange="ageCount()">
+            onblur="ageCount()">
         </div>
         <fieldset class="form-group">
           <div class="row">

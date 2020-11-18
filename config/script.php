@@ -104,9 +104,14 @@ function ageCount() {
     var ageM =Math.abs(currentM- prevM);          
     var ageD = Math.abs(currentD-prevD -1);
 
-      
-    document.getElementById('idadeCliente').value = ageY;
+    
+    if(ageY < 0 || ageY > 150){
+      document.getElementById('dataNascimento').value = "00/00/3333" ;
+      var idadeConfirm = confirm("IDADE INVÁLIDA");
+    }else{  
+      document.getElementById('idadeCliente').value = ageY;
     }
+}
 
 //CALCULO DESPESAS PASSEIO
 function calculoTotalDespesas(){
@@ -214,4 +219,13 @@ function upperCaseF(a){
     }, 1);
 }
 
+//VERIFICAÇÃO DE DATA DO PASSEIO
+function verificaDataPasseio(){
+  anoPasseio = document.getElementById('dataPasseio').value;
+  if(anoPasseio < "2017-01-01"){
+    document.getElementById('dataPasseio').value = "yyyy-MM-dd" ;
+    var idadeConfirm = confirm("IDADE INVÁLIDA");
+  }
+  console.log(anoPasseio);
+}
 

@@ -74,7 +74,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="nomeCliente">INSIRA: </label>
           <div class="col-sm-6">
-            <input type="text" class="form-control col-sm-6" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME"
+            <input type="text" class="form-control col-sm-6" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE"
               onkeydown="upperCaseF(this)">
           </div>
 
@@ -105,7 +105,7 @@
           $enviarPesqNome = filter_input(INPUT_POST, 'enviarPesqCliente', FILTER_SANITIZE_STRING);
           if($enviarPesqNome) {
               $valorPesquisaCliente = filter_input(INPUT_POST, 'valorPesquisaCliente', FILTER_SANITIZE_STRING);
-              $PesquisaCliente = "SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
+              $PesquisaCliente = "SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
               $resultadoPesquisaCliente = mysqli_query($conexao, $PesquisaCliente);
               while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
                 $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);

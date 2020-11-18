@@ -8,13 +8,13 @@
     $valorPago                   = filter_input(INPUT_POST, 'valorPago',              FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $previsaoPagamento           = filter_input(INPUT_POST, 'previsaoPagamento',      FILTER_SANITIZE_STRING);
     $sinalCliente                = filter_input(INPUT_POST, 'sinalCliente',           FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    //$valorPendente               = filter_input(INPUT_POPST, 'valorPendente',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    //$valorPendente               = filter_input(INPUT_POST, 'valorPendente',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_VALIDATE_BOOLEAN);
     $seguroViagemCliente         = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     //$transporteCliente           = filter_input(INPUT_POST, 'transporteCliente',      FILTER_SANITIZE_STRING);
 
     
-
+    $valorPendente = -$valorVendido + ($valorPago +$sinalCliente);
     $getData = "INSERT INTO pagamento_passeio 
                 (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, sinalCliente, valorPendente, statusPagamento/* , transporte */)  
                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$sinalCliente', '$valorPendente', '$statusPagamento'/* , '$transporteCliente' */)

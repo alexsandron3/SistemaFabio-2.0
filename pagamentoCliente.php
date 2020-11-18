@@ -210,7 +210,7 @@
                     echo"<p class='h4 text-center alert-warning'>ESTE CLIENTE JÁ REALIZOU O PAGAMENTO PARA ESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE PAGAMENTO </p>";
                     echo" <script>
                               setTimeout(function () {
-                                window.location.href = 'listaPagamentos.php?idCliente=".$idCliente."&idPasseio=".$idPasseio."';
+                                window.location.href = 'listaPasseio.php?id=".$idPasseio."';
                             }, 5000);
                           </script>
                     ";
