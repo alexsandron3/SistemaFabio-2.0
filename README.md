@@ -10,7 +10,7 @@ http://fabiopasseios.hopto.org/novoSistema/index.php
 - [X] CRIAR LISTA DE PASSEIO   <a href="#012"> V0.1.2</a>
 - [X] IMPRIMIR LISTA DE PASSEIO  <a href="#012"> V0.1.2</a>
 - [X] EXPORTAR LISTA DE PASSEIO  <a href="#012"> V0.1.2</a>
-- [ ] DEPENDETES(CRIANÇAS)
+- [ ] DEPENDENTES(CRIANÇAS)
 - [ ] INTEGRAÇÃO COM A RF PARA VERIFICAÇÃO DE CPF
 
 ## FUNCIONALIDADES SECUNDÁRIAS
