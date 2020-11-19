@@ -83,7 +83,13 @@ $("#hexTextBox").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#outros").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
-
+    $("#valorVendido").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#sinalCliente").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorPendenteCliente").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
+  
 
 
 
