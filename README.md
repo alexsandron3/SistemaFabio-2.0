@@ -2,13 +2,13 @@
 
 ## FUNCIONALIDADES PRINCIPAIS
 
-- [X] CADASTRAR, PESQUISAR, EDITAR E DELETAR CLIENTES          | <a href="#010"> V0.1.0 </a>
-- [X] CADASTRAR, PESQUISAR, EDITAR E DELETAR PASSEIOS          | <a href="#010"> V0.1.0 </a>
-- [X] CADASTRAR, PESQUISAR, EDITAR DESPESAS                    | <a href="#010"> V0.1.0 </a>
-- [X] CADASTRAR, PESQUISAR, EDITAR PAGAMENTOS                  | <p> <a href="#010"> V0.1.0 </a> - <a href="#012"> V0.1.2 </a> </p>
-- [X] CRIAR LISTA DE PASSEIO                                   | <a href="#012"> V0.1.2</a>
-- [X] IMPRIMIR LISTA DE PASSEIO                                | <a href="#012"> V0.1.2</a>
-- [X] EXPORTAR LISTA DE PASSEIO                                | <a href="#012"> V0.1.2</a>
+- [X] CADASTRAR, PESQUISAR, EDITAR E DELETAR CLIENTES | <a href="#010"> V0.1.0 </a>
+- [X] CADASTRAR, PESQUISAR, EDITAR E DELETAR PASSEIOS | <a href="#010"> V0.1.0 </a>
+- [X] CADASTRAR, PESQUISAR, EDITAR DESPESAS           | <a href="#010"> V0.1.0 </a>
+- [X] CADASTRAR, PESQUISAR, EDITAR PAGAMENTOS         | <p> <a href="#010"> V0.1.0 </a> - <a href="#012"> V0.1.2 </a> </p>
+- [X] CRIAR LISTA DE PASSEIO                          | <a href="#012"> V0.1.2</a>
+- [X] IMPRIMIR LISTA DE PASSEIO                       | <a href="#012"> V0.1.2</a>
+- [X] EXPORTAR LISTA DE PASSEIO                       | <a href="#012"> V0.1.2</a>
 - [ ] DEPENDETES(CRIANÇAS)
 - [ ] INTEGRAÇÃO COM A RF PARA VERIFICAÇÃO DE CPF
 
