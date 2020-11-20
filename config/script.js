@@ -30,6 +30,7 @@ function ageCount() {
 
 //CALCULO DESPESAS PASSEIO
 function calculoTotalDespesas(){
+    var quantidadeCliente           = document.getElementById('quantidadeCliente').value;
     var valorIngresso               = document.getElementById('valorIngresso').value;
     var valorOnibus                 = document.getElementById('valorOnibus').value;
     var valorMicro                  = document.getElementById('valorMicro').value;

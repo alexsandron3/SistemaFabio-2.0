@@ -116,7 +116,7 @@
           onchange="idPasseioSelecionado()" readonly="readonly">
         </div>
       </form>
-      <form action="SCRIPTS/realizaPagamento.php" method="post" autocomplete="OFF">
+      <form action="SCRIPTS/realizaPagamento.php" method="post" autocomplete="OFF" >
       <div class="form-group-row">
           <?php
             $idPasseioSelecionado = filter_input(INPUT_POST, 'passeiosLista', FILTER_SANITIZE_NUMBER_INT);
@@ -166,45 +166,50 @@
                         echo"<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' placeholder='PREVISÃO PAGAMENTO'>";
                       echo"</div>";
                     echo"</div>";
-                    echo"
-                    <div class='form-group row'>
-                      <label class='col-sm-2 col-form-label' for='transporteCliente'>TRANSPORTE</label>
-                      <select class='form-control col-sm-3 ml-3 name='transporteCliente' id='transporteCliente'>
-                        <option value=''>SELECIONAR</option>
-                        <option value='ONIBUS'>ONIBUS</option>
-                        <option value='MICRO'> MICRO</option>
-                        <option value='VAN'>VAN</option>
-                        <option value='CARRO'>CARRO</option>
-                      </select>
-                    </div>";
+                    echo"";
+                    echo"<div class='form-group row'>";
+                      echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
+                      echo"<select class='form-control col-sm-3 ml-3' name='meioTransporte' id='meioTransporte'>";
+                        echo"<option value='' selected> SELECIONAR</option>";
+                        echo"<option value='CARRO'>CARRO</option>";
+                        echo"<option value='ONIBUS'>ÔNIBUS</option>";
+                        echo"<option value='MICRO'>MICRO</option>";
+                        echo"<option value='VAN'>VAN</option>";
+                      echo"</select>";
+                    echo"</div>";
                     echo"<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
+                    echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$rowIdCliente ['idadeCliente'] . "'>";
                     echo"<div class='form-group row'>";
                       echo "<label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>";
                       echo"<textarea class='form-control col-sm-3 ml-3' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled'
                         placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)'>".$rowIdCliente ['referencia'].  "</textarea> ";
                     echo"</div>";
-                    /* echo"<fieldset class='form-group'>
-                      <div class='row'>
-                        <legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>
-                        <div class='col-sm-5'>
-                          <div class='form-check'>
-                            <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                              value='1'>
-                            <label class='form-check-label' for='seguroViagemClienteSim'>
+                    echo"<fieldset class='form-group'>";
+                      echo"<div class='row'>";
+                        echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
+                        echo"<div class='col-sm-5'>";
+                          echo"<div class='form-check'>";
+                            echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
+                            value='1' onclick='seguroViagem()'>";
+                            echo"<label class='form-check-label' for='seguroViagemClienteSim'>
                               SIM
-                            </label>
-                          </div>
-                          <div class='form-check'>
-                            <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                              value='0'>
-                            <label class='form-check-label' for='seguroViagemClientenao'>
+                            </label>";
+                          echo"</div>";
+                          echo"<div class='form-check'>";
+                            echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
+                            value='0' onclick='seguroViagem()'>";
+                            echo"<label class='form-check-label' for='seguroViagemClientenao'>
                               NÃO
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                  </fieldset>
-                  "; */
+                            </label>";
+                          echo"</div>";
+                        echo"</div>";
+                      echo"</div>";
+                      $valorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
+                      $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
+                      $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
+                      echo"<input type='hidden' value=' ".$rowSeguroViagem['valorSeguroViagem'] .  "'id='valorSeguroViagem' onclick='seguroViagem()'>";
+                      echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
+                    echo"</fieldset>"; 
                   }else{
                     echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$rowPasseioSelecionado ['dataPasseio'] ."</p>";
                     echo"<p class='h4 text-center alert-warning'>ESTE CLIENTE JÁ REALIZOU O PAGAMENTO PARA ESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE PAGAMENTO </p>";
