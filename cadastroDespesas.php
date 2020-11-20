@@ -1,6 +1,7 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+    
 
 ?>
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="">CLIENTE</a>
             <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
+            <a class="dropdown-item" href="">Despesa</a>
           </div>
         </li>
         </li>
@@ -108,18 +109,23 @@
       <form action="SCRIPTS/registroDespesas.php" autocomplete="off" method="POST" onclick="calculoTotalDespesas()">
           <?php
             $idPasseioLista = filter_input(INPUT_POST, 'idPasseioSelecionado', FILTER_SANITIZE_NUMBER_INT);
+            $buscaQuantidadeCliente ="SELECT qtdCliente FROM passeio WHERE idPasseio='$idPasseioLista'";
+            $resultadoBuscaQuantidadeCliente = mysqli_query($conexao, $buscaQuantidadeCliente);
+            $rowQuantidadeCliente = mysqli_fetch_assoc($resultadoBuscaQuantidadeCliente);
 
-            $queryBuscaPagamento = "SELECT * FROM despesa WHERE idPasseio='$idPasseioLista'";
-            $resultadoBuscaPagamento = mysqli_query($conexao, $queryBuscaPagamento);
-            $rowBuscaPagamento = mysqli_fetch_assoc($resultadoBuscaPagamento);
+            $queryBuscaDespesa = "SELECT * FROM despesa WHERE idPasseio='$idPasseioLista'";
+            $resultadoBuscaDespesa = mysqli_query($conexao, $queryBuscaDespesa);
+            $rowBuscaDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
             $buttonEnviaNomePasseio = filter_input(INPUT_POST, 'buttonEnviaNomePasseio', FILTER_SANITIZE_STRING);
             if($buttonEnviaNomePasseio){
               if($idPasseioLista != 0){
-                if($rowBuscaPagamento == 0){
+                if($rowBuscaDespesa == 0){
                   $queryBuscaInformacoesPasseio = "SELECT p.nomePasseio, p.dataPasseio FROM passeio p WHERE idPasseio='$idPasseioLista'";
                   $resultadoBuscaInformacoesPasseio = mysqli_query($conexao, $queryBuscaInformacoesPasseio);
                   $rowBuscaInformacoesPasseio = mysqli_fetch_assoc($resultadoBuscaInformacoesPasseio);
                   $data =  date_create($rowBuscaInformacoesPasseio['dataPasseio']);
+
+                  echo"<input type='hidden'  id='' value='". $rowQuantidadeCliente ['qtdCliente']."'> ";
                   
                   echo"<p class='h4 text-center alert-info'>". $rowBuscaInformacoesPasseio  ['nomePasseio']. " ".date_format($data, "d/m/Y") ."</p>";
                   echo"<div class='form-group row'>";
@@ -127,11 +133,17 @@
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
                     echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeCliente' id='quantidadeCliente' placeholder='QTD'  value='". $rowQuantidadeCliente ['qtdCliente']."'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorOnibus'>ONIBUS</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorOnibus' id='valorOnibus' placeholder='VALOR DO ONIBUS' value='' onchange='calculoTotalDespesas()' >";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeOnibus' id='quantidadeOnibus' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
@@ -139,11 +151,17 @@
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorMicro' id='valorMicro' placeholder='VALOR DO MICRO' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeMicro' id='quantidadeMicro' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorVan'>VAN</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorVan' id='valorVan' placeholder='VALOR DO VAN' value=''onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeVan' id='quantidadeVan' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
@@ -151,17 +169,23 @@
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorEscuna' id='valorEscuna' placeholder='VALOR DO ESCUNA' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
-                  echo"</div>";
-                  echo"<div class='form-group row'>";
-                    echo"<label class='col-sm-2 col-form-label' for='valorSeguroViagem'>SEGURO VIAGEM</label>";
-                    echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value=''onchange='calculoTotalDespesas()'>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeEscuna' id='quantidadeEscuna' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
+                  /* echo"<div class='form-group row'>";
+                    echo"<label class='col-sm-2 col-form-label' for='valorSeguroViagem'>SEGURO VIAGEM</label>";
+                    echo"<div class='col-sm-6'>";
+                      echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value=''onchange='calculoTotalDespesas()' >";
+                    echo"</div>";
+                  echo"</div>"; */
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorAlmocoCliente'>ALMOCO CLIENTE</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorAlmocoCliente' id='valorAlmocoCliente' placeholder='ALMOCO CLIENTE' value=''onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeAlmocoCliente' id='quantidadeAlmocoCliente' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
@@ -169,11 +193,17 @@
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorAlmocoMotorista' id='valorAlmocoMotorista' placeholder='ALMOCO MOTORISTA' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeAlmocoMotorista' id='quantidadeAlmocoMotorista' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorEstacionamento'>ESTACIONAMENTO</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorEstacionamento' id='valorEstacionamento' placeholder='ESTACIONAMENTO' value=''onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeEstacionamento' id='quantidadeEstacionamento' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
@@ -181,11 +211,17 @@
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorGuia' id='valorGuia' placeholder='VALOR GUIA' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeGuia' id='quantidadeGuia' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorAutorizacaoTransporte'>TRANSPORTE</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorAutorizacaoTransporte' id='valorAutorizacaoTransporte' placeholder='AUTORIZACAO TRANSPORTE' value=''onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeAutorizacaoTransporte' id='quantidadeAutorizacaoTransporte' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
@@ -193,11 +229,17 @@
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorTaxi' id='valorTaxi' placeholder='TAXI' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeTaxi' id='quantidadeTaxi' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorMarketing'>MARKETING</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorMarketing' id='valorMarketing' placeholder='MARKETING' value=''onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeMarketing' id='quantidadeMarketing' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
@@ -205,11 +247,17 @@
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorKitLanche' id='valorKitLanche' placeholder='KIT LANCHE' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeKitLanche' id='quantidadeKitLanche' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorImpulsionamento'>IMPULSIONAMENTO</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorImpulsionamento' id='valorImpulsionamento' placeholder='INMPULSIONAMENTO' value=''onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorImpulsionamento' id='valorImpulsionamento' placeholder='IMPULSIONAMENTO' value=''onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeImpulsionamento' id='quantidadeImpulsionamento' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";

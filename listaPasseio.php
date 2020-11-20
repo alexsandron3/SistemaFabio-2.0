@@ -2,7 +2,7 @@
   session_start();
   include_once("PHP/conexao.php");
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-  $buscaPeloIdPasseio = "SELECT DISTINCT p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente,  pp.statusPagamento, pp.idPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+  $buscaPeloIdPasseio = "SELECT DISTINCT p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
   $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
   
   
@@ -25,7 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
   
-  <title>LISTA DE PASSEIO</title>
+  <title>SEGURO VIAGEM </title>
 </head>
 
 <body>
@@ -84,8 +84,7 @@
             <tr>
                 <th>NOME</th>
                 <th>CPF</th>
-                <th>EMISSOR</th>
-                <th>IDADE</th>
+                <th>DATA NASCIMENTO</th>
                 <th>Status do Pagamento</th>
             </tr>
           </thead>
@@ -105,8 +104,7 @@
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['cpfCliente']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['orgaoEmissor']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['idadeCliente']. "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['dataNascimento']. "<BR/>";?></th>
             <th><?php echo "<a class='btn btn-link ' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>" ?></th>
           </tr>
 
@@ -117,7 +115,7 @@
       </table>
       <?php
         echo"<div class='text-center'>";
-          echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir</a>";
+          echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir Lista de Passeio</a>";
           echo"<button onclick='Export()' class='btn btn-primary ml-2'>Exportar para arquivo EXCEL</button>";
         echo"</div>";
 
