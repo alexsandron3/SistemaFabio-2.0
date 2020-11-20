@@ -3,7 +3,7 @@
   include_once("PHP/conexao.php");
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   $nomePasseioGet = filter_input(INPUT_GET, 'nomePasseio', FILTER_SANITIZE_STRING);
-  $buscaPeloIdPasseio = "SELECT DISTINCT p.nomePasseio, p.dataPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente,  pp.statusPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+  $buscaPeloIdPasseio = "SELECT DISTINCT c.nomeCliente, c.rgCliente, c.dataNascimento, c.idadeCliente,  pp.statusPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
   $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
  
   
@@ -30,9 +30,8 @@
           <thead> 
             <tr>
                 <th>NOME</th>
-                <th>CPF</th>
-                <th>EMISSOR</th>
-                <th>IDADE</th>
+                <th>DATA NASCIMENTO</th>
+                <th>RG</th>
             </tr>
           </thead>
         
@@ -49,9 +48,8 @@
             ?>
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['cpfCliente']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['orgaoEmissor']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['idadeCliente']. "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['dataNascimento']. "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
           </tr>
 
           <?php

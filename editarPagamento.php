@@ -174,7 +174,7 @@
         </div>
         <input type="submit" class="btn btn-primary btn-sm" value="FINALIZAR PAGAMENTO" name="buttonFinalizarPagamento">
         
-        <input type="text" class="form-control col-sm-1 ml-3" name="idPagamento" id="idCliente" 
+        <input type="hidden" class="form-control col-sm-1 ml-3" name="idPagamento" id="idCliente" 
           readonly="readonly" value="<?php echo $idPagamento ?>">
       </form>
     </div>
