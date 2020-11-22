@@ -124,11 +124,6 @@
             <option value="CNH">CNH</option>
             <option value="MTPS">MTPS</option>
           </select>
-
-          <!-- <label class="col-sm-1 col-form-label" for="orgaoEmissor">EMISSOR</label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR" onkeydown="upperCaseF(this)" >
-                    </div> -->
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="cpfCliente">CPF</label>
@@ -207,16 +202,6 @@
             placeholder="INFORMAÇÕES" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente ['referencia'] ?></textarea>
         </div>
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="meioTransporte">TRANSPORTE</label>
-          <select class="form-control col-sm-3 ml-3" name="meioTransporte" id="meioTransporte">
-            <option value="<?php echo $rowResultadoBuscaPeloIdCliente ['transporte']; ?>" > <?php echo $rowResultadoBuscaPeloIdCliente ['transporte']; ?></option>
-            <option value="Carro">CARRO</option>
-            <option value="Onibus">ÔNIBUS</option>
-            <option value="Micro">MICRO</option>
-            <option value="Van">VAN</option>
-          </select>
-        </div>
-        <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="telefoneContato">TELEF. CONTATO</label>
           <input class="form-control col-sm-3 ml-3" type="tel" name="telefoneContato" id="telefoneContato"
             placeholder="XX 9 XXXX-XXXX" value="<?php echo $rowResultadoBuscaPeloIdCliente ['telefoneContato']; ?>">
@@ -231,50 +216,6 @@
           <textarea class="form-control col-sm-3 ml-3" name="redeSocial" id="redeSocial" cols="10" rows="5"
             placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente ['redeSocial'] ?></textarea>
         </div>
-        <fieldset class="form-group">
-          <div class="row">
-            <legend class="col-form-label col-sm-1 pt-0">SEGURO VIAGEM</legend>
-            <div class="col-sm-5">
-              <div class="form-check">
-                <?php
-                    if( $rowResultadoBuscaPeloIdCliente ['seguroViagem'] == 1){
-                      echo"
-                      <div class='form-check'>  
-                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim' value='1'
-                        onclick='changeInputDate()' checked>
-                        <label class='form-check-label' for='seguroViagemCliente'>
-                          SIM
-                        </label>
-                      </div>
-                      <div class='form-check'>  
-                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteNao' value='0'
-                        onclick='changeInputDate()' >
-                        <label class='form-check-label' for='seguroViagemClienteNao'>
-                          NÃO
-                        </label>
-                      </div>";
-                    }else {
-                      echo"
-                      <div class='form-check'>  
-                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim' value='1'
-                        onclick='changeInputDate()' >
-                        <label class='form-check-label' for='seguroViagemClienteSim'>
-                          SIM
-                        </label>
-                      </div>
-                      <div class='form-check'>  
-                        <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteNao' value='0'
-                        onclick='changeInputDate()' checked >
-                        <label class='form-check-label' for='seguroViagemClienteNao'>
-                          NÃO
-                        </label>
-                      </div>";
-                    }
-                  ?>
-              </div>
-            </div>
-          </div>
-        </fieldset>
         <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">ATUALIZAR</button>
       </form>
     </div>
