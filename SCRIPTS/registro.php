@@ -50,10 +50,10 @@
     $insert_data->bindParam(':nomeCliente', $nomeCliente);
     
     if($insert_data->execute()){
-        header("Location:../index.php");
+        header("refresh:2; url=../index.php");
     }else{
         $_SESSION['msg'] = "<p style='color:tomato;background:#fff;'>Não foi possível enviar suas informações, verifique e tente novamente.</p>";
-        header("Location:../cadastroCliente.php");
+        header("refresh:2; url=../cadastroCliente.php");
     }
     
 

@@ -121,7 +121,7 @@ function ageCount() {
 
 //CALCULO DESPESAS PASSEIO
 function calculoTotalDespesas(){
-    var quantidadeCliente                         = document.getElementById('quantidadeCliente').value;
+    var quantidadeIngresso                         = document.getElementById('quantidadeIngresso').value;
     var quantidadeOnibus                          = document.getElementById('quantidadeOnibus').value;
     var quantidadeMicro                           = document.getElementById('quantidadeMicro').value;
     var quantidadeVan                             = document.getElementById('quantidadeVan').value;
@@ -151,7 +151,7 @@ function calculoTotalDespesas(){
     var valorMarketing              = document.getElementById('valorMarketing').value;
     var valorImpulsionamento        = document.getElementById('valorImpulsionamento').value;
     var outros                      = document.getElementById('outros').value; 
-    var valorTotal                  = Number(valorIngresso) * Number(quantidadeCliente)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) <!-- + Number(valorSeguroViagem) --> 
+    var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) <!-- + Number(valorSeguroViagem) --> 
                                     + Number(valorAlmocoCliente) * Number(quantidadeAlmocoCliente) + Number(valorAlmocoMotorista) * Number(quantidadeAlmocoMotorista) + Number(valorEstacionamento) * Number(quantidadeEstacionamento) + Number(valorGuia) * Number(quantidadeGuia) 
                                     + Number(valorAutorizacaoTransporte) * Number(quantidadeAutorizacaoTransporte) + Number(valorTaxi) * Number(quantidadeTaxi) + Number(valorMarketing) * Number(quantidadeMarketing)  + Number(valorImpulsionamento) * Number(quantidadeImpulsionamento) 
                                     + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche);
@@ -245,7 +245,7 @@ function verificaDataPasseio(){
   anoPasseio = document.getElementById('dataPasseio').value;
   if(anoPasseio < "2017-01-01"){
     document.getElementById('dataPasseio').value = "yyyy-MM-dd" ;
-    var idadeConfirm = confirm("IDADE INVÁLIDA");
+    var idadeConfirm = confirm("DATA INVÁLIDA");
   }
   console.log(anoPasseio);
 }
@@ -256,6 +256,7 @@ function seguroViagem(){
   var seguroViagem = document.querySelector('input[name="seguroViagemCliente"]:checked').value;
   var valorSeguroViagem = document.getElementById('valorSeguroViagem').value;
   var antigoValorSeguroViagem = Number(valorSeguroViagem);
+  
   if(seguroViagem == 1){
     if(idadeCliente >= 0 && idadeCliente <=40){
       novoValorSeguroViagem = Number(valorSeguroViagem) + 2.23; 
@@ -277,4 +278,3 @@ function seguroViagem(){
 
 
 }
-

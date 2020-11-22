@@ -31,10 +31,10 @@
                                         ";
     if(mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>SEGURO VIAGEM ATUALIZADO</p>";
-        header("Location:../index.php?id=$idPasseio&idade=$idadeCliente");
+        header("refresh:0.5; url=../index.php?id=$idPasseio&idade=$idadeCliente");
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>SEGURO VIAGEM não foi ATUALIZADO </p>";
-        header("Location:../index.php?id=$idPasseio&idade=$idadeCliente");
+        header("refresh:0.5; url=../index.php?id=$idPasseio&idade=$idadeCliente");
     }
 
 ?>

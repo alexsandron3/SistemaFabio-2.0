@@ -103,9 +103,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="quantidadeCliente"> LOTAÇÃO</label>
+          <label class="col-sm-1 col-form-label" for="lotacao"> LOTAÇÃO</label>
           <div class="col-sm-1">
-            <input type="text" class="form-control" name="quantidadeCliente" id="intLimitTextBox" placeholder="0-200" value="<?php echo $rowBuscaPasseio ['qtdCliente'] ?>">
+            <input type="text" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="0-200" value="<?php echo $rowBuscaPasseio ['lotacao'] ?>">
           </div>
         </div>
         <div class="form-group row">

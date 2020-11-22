@@ -134,7 +134,7 @@
                       echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
-                      echo"<input type='text' class='form-control' name='quantidadeCliente' id='quantidadeCliente' placeholder='QTD'  value='". $rowQuantidadeCliente ['qtdCliente']."'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='quantidadeIngresso' id='quantidadeIngresso' placeholder='QTD'  value='1' onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
                   echo"<div class='form-group row'>";

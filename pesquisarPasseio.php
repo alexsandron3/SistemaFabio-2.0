@@ -67,6 +67,12 @@
     </div>
   </nav>
   <!-- TODO FORM -->
+  <?php
+    if(isset($_SESSION['msg'])){
+      echo $_SESSION['msg'];
+      unset($_SESSION['msg']);
+    }
+    ?>
   <div class="container-fluid mt-4">
     <div class="container-fluid ">
       <p class="h2 text-center">PESQUISAR PASSEIO</p>
@@ -102,6 +108,7 @@
               $resultadoPesquisaPasseio = mysqli_query($conexao, $PesquisaPasseio);
               while($valorPesquisaPasseio = mysqli_fetch_assoc($resultadoPesquisaPasseio)){
                 $dataPasseio =  date_create($valorPesquisaPasseio['dataPasseio']);
+                $idPasseio = $valorPesquisaPasseio['idPasseio'];
         ?>
         <tr>
           <th><?php echo $valorPesquisaPasseio ['idPasseio']. "<BR/>";?></th>
@@ -115,7 +122,7 @@
             <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR</a><br>"; ?>
           </td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
+          <?php echo"<button onclick='apagarPasseio()' class='btn btn-primary btn-sm'>DELETAR</button>";?>  
           </td>
         </tr>
         <?php
@@ -126,6 +133,14 @@
     </table>
   </div>
   <script src="config/script.php"></script>
+  <script>
+    function apagarPasseio(){
+      var conf = confirm("APAGAR PASSEIO??");
+        if(conf == true){
+            window.open("SCRIPTS/apagarPasseio.php?id=<?php echo $idPasseio ?>", '_blank');
+        }
+    }
+  </script>
 </body>
 
 </html>

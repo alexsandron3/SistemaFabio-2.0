@@ -3,7 +3,7 @@
     include_once("PHP/conexao.php");
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_FLOAT);
     $buscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorSeguroViagem, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
-                     d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.totalDespesas, d.idDespesa, p.nomePasseio, p.dataPasseio, p.qtdCliente   FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
+                     d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.totalDespesas, d.idDespesa, d.quantidadeIngresso, p.nomePasseio, p.dataPasseio, p.qtdCliente   FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
     $resultadoBuscaDespesa = mysqli_query($conexao, $buscaDespesa);
     $rowDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
     $dataPasseio =  date_create($rowDespesa['dataPasseio']);
@@ -94,7 +94,7 @@
                 echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='". $rowDespesa['valorIngresso']. "' onchange='calculoTotalDespesas()' >";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                      echo"<input type='text' class='form-control' name='quantidadeCliente' id='quantidadeCliente' placeholder='QTD'  value='". $rowDespesa ['qtdCliente']."'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='quantidadeCliente' id='quantidadeCliente' placeholder='QTD'  value='". $rowDespesa ['quantidadeIngresso']."'onchange='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
