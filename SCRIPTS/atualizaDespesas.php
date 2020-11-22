@@ -30,10 +30,10 @@
     $insertData = mysqli_query($conexao, $getData);
     if(mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
-        header("Location:../editaDespesas.php?id=$idPasseio");
+        header("refresh:0.5; url=../editaDespesas.php?id=$idPasseio");
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
-        header("Location:../editaDespesas.php?id=$idPasseio");
+        header("refresh:0.5; url=../editaDespesas.php?id=$idPasseio");
     }
 
 ?>

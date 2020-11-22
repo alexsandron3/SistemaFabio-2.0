@@ -20,17 +20,17 @@
         $insertData = mysqli_query($conexao, $getData);
         if(mysqli_insert_id($conexao)){
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Passeio CADASTRADO com sucesso</p>";
-            header("Location:../cadastroPasseio.php");
+            header("refresh:0.5; url=../cadastroPasseio.php");
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Passeio NÃO foi CADASTRADO </p>";
-            header("Location:../cadastroPasseio.php");
+            header("refresh:0.5; url=../cadastroPasseio.php");
             
         }
         
     }else{
         $idPasseio = $rowPasseioVerificado ['idPasseio']; 
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME </p>";
-        header("Location:../editarPasseio.php?id=$idPasseio");
+        header("refresh:0.5; url=../editarPasseio.php?id=$idPasseio");
         
     }
 

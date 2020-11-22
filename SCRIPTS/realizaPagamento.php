@@ -14,10 +14,10 @@
     $idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
     $valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     
-    $valorPendente = -$valorVendido + ($valorPago +$sinalCliente);
+    $valorPendente = -$valorVendido + ($valorPago + $sinalCliente);
     $getDataPagamentoPasseio = "INSERT INTO pagamento_passeio 
-                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, sinalCliente, valorPendente, statusPagamento, transporte)  
-                VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$sinalCliente', '$valorPendente', '$statusPagamento', '$transporteCliente')
+                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, sinalCliente, valorPendente, statusPagamento, transporte, seguroViagem)  
+                VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$sinalCliente', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente')
      ";
 
     $recebeNumeroVagas = "SELECT qtdCliente, lotacao FROM passeio WHERE idPasseio='$idPasseio'";
@@ -37,7 +37,7 @@
     $insertDataPagamentoPasseio = mysqli_query($conexao, $getDataPagamentoPasseio);
     if(mysqli_insert_id($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
-        header("Location:../pagamentoCliente.php?id=$idCliente");
+        header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
         
         if($qtdCliente < $lotacaoPasseio){
             $insertDataqtdCliente = mysqli_query($conexao, $getDataQtdCliente);
@@ -50,8 +50,8 @@
 
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
-        header("Location:../pagamentoCliente.php?id=$idCliente");
-        echo "$idCliente";
+        header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+        
     }
 
 

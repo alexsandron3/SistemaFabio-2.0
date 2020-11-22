@@ -34,14 +34,14 @@
         $insertData = mysqli_query($conexao, $getData);
         if(mysqli_affected_rows($conexao)){
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário ATUALIZADO com sucesso</p>";
-            header("Location:../editarCliente.php?id=$idCliente");
+            header("refresh:0.5; url=../editarCliente.php?id=$idCliente");
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário não foi ATUALIZADO </p>";
-            header("Location:../editarCliente.php?id=$idCliente");
+            header("refresh:0.5; url=../editarCliente.php?id=$idCliente");
         }
     /* }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
-            header("Location:../editarCliente.php?id=$idCliente");
+            header("refresh:0.5; url=../editarCliente.php?id=$idCliente");
     } */
 
 

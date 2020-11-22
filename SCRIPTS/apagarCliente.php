@@ -8,18 +8,20 @@ if(!empty($id)){
     
     if( mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário APAGADO com sucesso</p>";
-        header("Location:../index.php");
+        echo '<script> window.setTimeout("window.close()", 2000); </script>';
+
     
     }else {
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário NÃO foi APAGADO </p>";
-        header("Location: index.php");
+        header("refresh:0.5; url= index.php");
     
     }
 
 
 }else {
     $_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um usuário</p>";
-    header("Location:../pesquisaCliente.php");
+    header("refresh:0.5; url=../pesquisaCliente.php");
 
 }
 
+?>

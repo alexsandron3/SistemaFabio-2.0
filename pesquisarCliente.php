@@ -109,6 +109,7 @@
               $resultadoPesquisaCliente = mysqli_query($conexao, $PesquisaCliente);
               while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
                 $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);
+                $idCliente =  $valorPesquisaCliente['idCliente']
         ?>
         <tr>
           <th><?php echo $valorPesquisaCliente ['nomeCliente']. "<BR/>";?></th> 
@@ -126,26 +127,26 @@
             <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $valorPesquisaCliente['idCliente'] . "' >PAGAR</a><br><hr>";?>
           </td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $valorPesquisaCliente['idCliente'] . "' >DELETAR</a><br><hr>";?>
+            <?php echo"<button onclick='apagarCliente()' class='btn btn-primary btn-sm'>DELETAR</button>";?>
           </td>
-          <!-- <td>
-                ?php
-                /* if($valorPesquisaCliente['cpfConsultado'] == 1){ 
-                    echo "SIM";
-                }else {
-                    echo "NÃO";
-                } */
-                ?>
-                </td> -->
         </tr>
         <?php
               }
           };
-        ?>    
+        ?>
+          
       </tbody>
     </table>
   </div>
   <script src="config/script.js"></script>
+  <script>
+    function apagarCliente(){
+      var conf = confirm("APAGAR CLIENTE??");
+        if(conf == true){
+            window.open("SCRIPTS/apagarCliente.php?id=<?php echo $idCliente ?>", '_blank');
+        }
+    }
+  </script>
 </body>
 
 </html>

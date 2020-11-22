@@ -11,11 +11,10 @@
     $dataNascimento         = filter_input(INPUT_POST, 'dataNascimento',        FILTER_SANITIZE_STRING);
     $idade                  = filter_input(INPUT_POST, 'idadeCliente',          FILTER_SANITIZE_NUMBER_INT);
     $cpfConsultado          = filter_input(INPUT_POST, 'cpfConsultado',         FILTER_VALIDATE_BOOLEAN);
-    $cpfConsultado          = filter_input(INPUT_POST, 'cpfConsultado',         FILTER_VALIDATE_BOOLEAN);
-    //$seguroViagemCliente    = filter_input(INPUT_POST, 'seguroViagemCliente',   FILTER_SANITIZE_STRING);
+    $dataConsulta           = filter_input(INPUT_POST, 'dataCpfConsultado',     FILTER_SANITIZE_STRING);
     $referenciaCliente      = filter_input(INPUT_POST, 'referenciaCliente',     FILTER_SANITIZE_STRING);
     $meioTransporte         = filter_input(INPUT_POST, 'meioTransporte',        FILTER_SANITIZE_STRING);
-    //$telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
+    $telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
 
@@ -31,16 +30,16 @@
         $insertData = mysqli_query($conexao, $getData);
         if(mysqli_insert_id($conexao)){
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário CADASTRADO com sucesso</p>";
-            header("Location:../cadastroCliente.php");
+            header("refresh:0.5; url=../cadastroCliente.php");
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário NÃO foi CADASTRADO </p>";
-            header("Location:../cadastroCliente.php");
+            header("refresh:0.5; url=../cadastroCliente.php");
         }
 
     }else{
         $idCliente = $rowResultadoVerificaCliente ['idCliente'];
         $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
-        header("Location:../editarCliente.php?id=$idCliente");
+        header("refresh:0.5; url=../editarCliente.php?id=$idCliente");
     }
 
     

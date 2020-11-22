@@ -38,6 +38,7 @@
         <tbody>
           <?php
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
+              $dataNascimento =  date_create($rowBuscaPasseio['dataNascimento']);
               if ($rowBuscaPasseio ['statusPagamento'] == 0){
                 $statusPagamento = "NÃO QUITADO";
               }else{
@@ -48,7 +49,7 @@
             ?>
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['dataNascimento']. "<BR/>";?></th>
+            <th><?php echo date_format($dataNascimento, "d/m/Y"). "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
           </tr>
 

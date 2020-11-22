@@ -2,7 +2,7 @@
   session_start();
   include_once("PHP/conexao.php");
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-  $buscaPeloIdPasseio = "SELECT DISTINCT p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+  $buscaPeloIdPasseio = "SELECT DISTINCT p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento, pp.idCliente FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
   $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
   
   
@@ -78,7 +78,13 @@
       </ul>
     </div>
   </nav>
-  <div class="table mt-5">
+  <?php
+    if(isset($_SESSION['msg'])){
+      echo $_SESSION['msg'];
+      unset($_SESSION['msg']);
+    }
+    ?>
+  <div class="table mt-3">
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
@@ -91,8 +97,14 @@
         
         <tbody>
           <?php
+            $controleListaPasseio = 0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
+              $dataNascimento =  date_create($rowBuscaPasseio['dataNascimento']);
+              $idCliente = $rowBuscaPasseio['idCliente'];
+              $idPasseio = $rowBuscaPasseio['idPasseio'];
+              $idadeCliente = $rowBuscaPasseio['idadeCliente'];
+
               if ($rowBuscaPasseio ['statusPagamento'] == 0){
                 $statusPagamento = "NÃO QUITADO";
               }else{
@@ -104,20 +116,30 @@
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['cpfCliente']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['dataNascimento']. "<BR/>";?></th>
-            <th><?php echo "<a class='btn btn-link ' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>" ?></th>
+            <th><?php echo date_format($dataNascimento, "d/m/Y"). "<BR/>";?></th>
+            
+            <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
+            <th><?php echo "<a class='btn btn-primary btn-sm' rel='noopener noreferrer' href='SCRIPTS/apagarPagamento.php?idCliente=" . $idCliente. "&idPasseio=".$idPasseio ."&idadeCliente=" .$idadeCliente ."'>REMOVER</a><br>";?></th>
           </tr>
 
           <?php
+          $controleListaPasseio =+1;
             }
           ?>
         </tbody>
       </table>
       <?php
-        echo"<div class='text-center'>";
-          echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir Lista de Passeio</a>";
-          echo"<button onclick='Export()' class='btn btn-primary ml-2'>Exportar para arquivo EXCEL</button>";
-        echo"</div>";
+        if($controleListaPasseio > 0){
+          echo"<div class='text-center'>";
+            echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir Lista de Passeio</a>";
+            echo"<button onclick='Export()' class='btn btn-primary ml-2'>Exportar para arquivo EXCEL</button>";
+          echo"</div>";
+        }else{
+          echo"<div class='text-center'>";
+          echo"<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
+          echo"</div>";
+
+        }
 
 
       ?>

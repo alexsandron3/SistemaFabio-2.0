@@ -134,82 +134,96 @@
                   echo"NENHUM PASSEIO SELECIONADO";
                 }else{
                   if(mysqli_num_rows($resultadoBuscaSeJaExiste) == 0 ){
-                    //echo"<p class='text-center alert-success'>SUCESSO, ESTE CLIENTE AINDA NÃO FEZ UMA COMPRA NESSE PASSEIO </p>";  
-                    echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$rowPasseioSelecionado ['dataPasseio'] ."</p>";
-                    echo"<div class='form-group row'>";
-                      echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
-                      echo"<div class='col-sm-6'>";
-                        echo"<input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' onblur='calculoPagamentoCliente()'>";
-                      echo"</div>";
-                    echo"</div>";
-                    echo"<div class='form-group row'>";
-                      echo"<label class='col-sm-2 col-form-label' for='sinalCliente'>SINAL CLIENTE</label>";
-                      echo"<div class='col-sm-6'>";
-                        echo"<input type='text' class='form-control' name='sinalCliente' id='sinalCliente' placeholder='SINAL CLIENTE' onblur='calculoPagamentoCliente()'>";
-                      echo"</div>";
-                    echo"</div>";
-                    echo"<div class='form-group row'>";
-                      echo"<label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>";
-                      echo"<div class='col-sm-6'>";
-                        echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' onblur='calculoPagamentoCliente()'>";
-                      echo"</div>";
-                    echo"</div>";
-                    echo"<div class='form-group row'>";
-                      echo"<label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>";
-                      echo"<div class='col-sm-6'>";
-                        echo"<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' readonly='readonly' onblur='calculoPagamentoCliente()'>";
-                      echo"</div>";
-                    echo"</div>";
-                    echo"<div class='form-group row'>";
-                      echo"<label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>";
-                      echo"<div class='col-sm-3'>";
-                        echo"<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' placeholder='PREVISÃO PAGAMENTO'>";
-                      echo"</div>";
-                    echo"</div>";
-                    echo"";
-                    echo"<div class='form-group row'>";
-                      echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
-                      echo"<select class='form-control col-sm-3 ml-3' name='meioTransporte' id='meioTransporte'>";
-                        echo"<option value='' selected> SELECIONAR</option>";
-                        echo"<option value='CARRO'>CARRO</option>";
-                        echo"<option value='ONIBUS'>ÔNIBUS</option>";
-                        echo"<option value='MICRO'>MICRO</option>";
-                        echo"<option value='VAN'>VAN</option>";
-                      echo"</select>";
-                    echo"</div>";
-                    echo"<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
-                    echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$rowIdCliente ['idadeCliente'] . "'>";
-                    echo"<div class='form-group row'>";
-                      echo "<label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>";
-                      echo"<textarea class='form-control col-sm-3 ml-3' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled'
-                        placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)'>".$rowIdCliente ['referencia'].  "</textarea> ";
-                    echo"</div>";
-                    echo"<fieldset class='form-group'>";
-                      echo"<div class='row'>";
-                        echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
-                        echo"<div class='col-sm-5'>";
-                          echo"<div class='form-check'>";
-                            echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                            value='1' onclick='seguroViagem()'>";
-                            echo"<label class='form-check-label' for='seguroViagemClienteSim'>
-                              SIM
-                            </label>";
-                          echo"</div>";
-                          echo"<div class='form-check'>";
-                            echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                            value='0' onclick='seguroViagem()'>";
-                            echo"<label class='form-check-label' for='seguroViagemClientenao'>
-                              NÃO
-                            </label>";
-                          echo"</div>";
+                    $verificaSeExisteDespesa = "SELECT d.idPasseio, p.idPasseio FROM despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND d.idDespesa='$idPasseioSelecionado'";
+                    $resultadoVerificaSeExisteDespesa = mysqli_query($conexao, $verificaSeExisteDespesa);
+                    if(mysqli_num_rows($resultadoVerificaSeExisteDespesa) !=0){
+                      //echo"<p class='text-center alert-success'>SUCESSO, ESTE CLIENTE AINDA NÃO FEZ UMA COMPRA NESSE PASSEIO </p>";  
+                      echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$rowPasseioSelecionado ['dataPasseio'] ."</p>";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
+                        echo"<div class='col-sm-6'>";
+                          echo"<input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO'  required onblur='calculoPagamentoCliente()'>";
                         echo"</div>";
                       echo"</div>";
-                      $valorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
-                      $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
-                      $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-                      echo"<input type='hidden' value=' ".$rowSeguroViagem['valorSeguroViagem'] .  "'id='valorSeguroViagem' onclick='seguroViagem()'>";
-                      echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
-                    echo"</fieldset>"; 
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='sinalCliente'>SINAL CLIENTE</label>";
+                        echo"<div class='col-sm-6'>";
+                          echo"<input type='text' class='form-control' name='sinalCliente' id='sinalCliente' placeholder='SINAL CLIENTE' value='0' onblur='calculoPagamentoCliente()'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>";
+                        echo"<div class='col-sm-6'>";
+                          echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO'  value='0' onblur='calculoPagamentoCliente()'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>";
+                        echo"<div class='col-sm-6'>";
+                          echo"<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente'  placeholder='VALOR PENDENTE' readonly='readonly' onblur='calculoPagamentoCliente()'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>";
+                        echo"<div class='col-sm-3'>";
+                          echo"<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' placeholder='PREVISÃO PAGAMENTO'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
+                        echo"<select class='form-control col-sm-3 ml-3' name='meioTransporte' id='meioTransporte'>";
+                          echo"<option value='' selected> SELECIONAR</option>";
+                          echo"<option value='CARRO'>CARRO</option>";
+                          echo"<option value='ONIBUS'>ÔNIBUS</option>";
+                          echo"<option value='MICRO'>MICRO</option>";
+                          echo"<option value='VAN'>VAN</option>";
+                        echo"</select>";
+                      echo"</div>";
+                      echo"<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
+                      echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$rowIdCliente ['idadeCliente'] . "'>";
+                      echo"<div class='form-group row'>";
+                        echo "<label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>";
+                        echo"<textarea class='form-control col-sm-3 ml-3' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled'
+                          placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)'>".$rowIdCliente ['referencia'].  "</textarea> ";
+                      echo"</div>";
+                      echo"<fieldset class='form-group'>";
+                        echo"<div class='row'>";
+                          echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
+                          echo"<div class='col-sm-5'>";
+                            echo"<div class='form-check'>";
+                              echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
+                              value='1' onclick='seguroViagem()'>";
+                              echo"<label class='form-check-label' for='seguroViagemClienteSim'>
+                                SIM
+                              </label>";
+                            echo"</div>";
+                            echo"<div class='form-check'>";
+                              echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
+                              value='0' onclick='seguroViagem()'>";
+                              echo"<label class='form-check-label' for='seguroViagemClientenao'>
+                                NÃO
+                              </label>";
+                            echo"</div>";
+                          echo"</div>";
+                        echo"</div>";
+                        $valorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
+                        $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
+                        $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
+                        echo"<input type='hidden' value=' ".$rowSeguroViagem['valorSeguroViagem'] .  "'id='valorSeguroViagem' onclick='seguroViagem()'>";
+                        echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
+                      echo"</fieldset>"; 
+                    }else{
+                    
+                      echo"<p class='h4 text-center alert-warning'>VOCÊ PRECISA CRIAR AS DESPESAS DESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE CRIAÇÃO DE DESPESAS</p>";
+                      echo" <script>
+                                setTimeout(function () {
+                                  window.location.href = 'cadastroDespesas.php';
+                              }, 5000);
+                            </script>
+                      ";
+
+                    }
                   }else{
                     echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$rowPasseioSelecionado ['dataPasseio'] ."</p>";
                     echo"<p class='h4 text-center alert-warning'>ESTE CLIENTE JÁ REALIZOU O PAGAMENTO PARA ESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE PAGAMENTO </p>";
