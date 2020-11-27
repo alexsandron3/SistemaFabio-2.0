@@ -1,10 +1,14 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+/* -----------------------------------------------------------------------------------------------------  */
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    $buscaPeloIdPasseio = "SELECT * FROM passeio p WHERE idPasseio='$idPasseioGet'";
-    $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
-    $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio);
+/* -----------------------------------------------------------------------------------------------------  */
+
+    $queryBuscaPeloIdPasseio = "SELECT * FROM passeio p WHERE idPasseio='$idPasseioGet'";
+                            $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
+                            $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio);
+/* -----------------------------------------------------------------------------------------------------  */
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">

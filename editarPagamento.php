@@ -1,14 +1,19 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+/* -----------------------------------------------------------------------------------------------------  */
     $idPagamento = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    $resultadoBuscaIdPagamento = "SELECT DISTINCT c.nomeCliente, c.referencia, c.idadeCliente , p.idPasseio, p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.transporte ,pp.idCliente, pp.idPasseio, pp.valorPago, pp.valorVendido, pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem FROM cliente c, passeio p, pagamento_passeio pp WHERE idPagamento='$idPagamento' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
-    $resultadoIdPagamento = mysqli_query($conexao, $resultadoBuscaIdPagamento);
-    $rowIdPagamento = mysqli_fetch_assoc($resultadoIdPagamento);
-    $idPasseio = $rowIdPagamento ['idPasseio'];
-    $statusSeguroViagem = $rowIdPagamento ['seguroViagem'];
-    $idadeCliente = $rowIdPagamento ['idadeCliente'];
-    $transporte = $rowIdPagamento ['transporte'];
+/* -----------------------------------------------------------------------------------------------------  */
+    $queryBuscaIdPagamento = "    SELECT DISTINCT c.nomeCliente, c.referencia, c.idadeCliente , p.idPasseio, p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.transporte , pp.idPasseio, pp.valorPago, pp.valorVendido, 
+                                  pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem 
+                                  FROM cliente c, passeio p, pagamento_passeio pp WHERE idPagamento='$idPagamento' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+                                  $resultadoIdPagamento = mysqli_query($conexao, $queryBuscaIdPagamento);
+                                  $rowIdPagamento = mysqli_fetch_assoc($resultadoIdPagamento);
+/* -----------------------------------------------------------------------------------------------------  */
+                                  $idPasseio = $rowIdPagamento ['idPasseio'];
+                                  $statusSeguroViagem = $rowIdPagamento ['seguroViagem'];
+                                  $idadeCliente = $rowIdPagamento ['idadeCliente'];
+                                  $transporte = $rowIdPagamento ['transporte'];
 
 ?>
 <!DOCTYPE html>
@@ -51,7 +56,6 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -99,10 +103,7 @@
             $anotacoes  = $rowIdPagamento ['anotacoes'];
             $valorPago     = $rowIdPagamento ['valorPago'];
             $valorPendente = $rowIdPagamento ['valorPendente'];
-            //$transporte = $rowIdPagamento ['transporte'];
-            //echo"<p class='text-center alert-success'>SUCESSO, ESTE CLIENTE AINDA NÃO FEZ UMA COMPRA NESSE PASSEIO </p>";  
             echo"<p class='h4 text-center alert-info'> ". $rowIdPagamento ['nomeCliente']. " | ". $rowIdPagamento ['nomePasseio']. " ". date_format($dataPasseio, "d/m/Y") ."</p>";
-            //echo"<p class='h4 text-center alert-info'>"</p>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
                 echo"<div class='col-sm-6'>";
@@ -165,13 +166,8 @@
                   echo"</div>";
                 echo"</div>";
               echo"</div>";
-              $valorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
-              $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
-              $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
               echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
               echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
-              echo"<input type='hidden' value=' ".$rowSeguroViagem['valorSeguroViagem'] .  "'id='valorSeguroViagem' onclick='seguroViagem()'>";
-              echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
             }else{
               echo"<div class='row'>";
                 echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
@@ -192,16 +188,8 @@
                   echo"</div>";
                 echo"</div>";
               echo"</div>";
-              $valorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
-              $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
-              $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
               echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
-              //echo"<input type='text' name='valorPagoAtual' id='valorPagoAtual'   value='".$valorPago. "'>";
               echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
-              echo"<input type='hidden' value=' ".$rowSeguroViagem['valorSeguroViagem'] .  "'id='valorSeguroViagem' onclick='seguroViagem()'>";
-              echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
-
-
             }
             echo"</fieldset>"; 
             echo"<div class='form-group row'>";
@@ -215,7 +203,7 @@
         </div>
         <input type="submit" class="btn btn-primary btn-sm" value="FINALIZAR PAGAMENTO" name="buttonFinalizarPagamento">
         
-        <input type="hidden" class="form-control col-sm-1 ml-3" name="idPagamento" id="idCliente" 
+        <input type="hidden" class="form-control col-sm-1 ml-3" name="idPagamento" id="" 
           readonly="readonly" value="<?php echo $idPagamento ?>">
       </form>
     </div>

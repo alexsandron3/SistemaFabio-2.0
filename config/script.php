@@ -246,35 +246,7 @@ function verificaDataPasseio(){
   }
   console.log(anoPasseio);
 }
-//CALCULO SEGURO VIAGEM
 
-function seguroViagem(){
-  var idadeCliente = document.getElementById('idadeCliente').value;
-  var seguroViagem = document.querySelector('input[name="seguroViagemCliente"]:checked').value;
-  var valorSeguroViagem = document.getElementById('valorSeguroViagem').value;
-  var antigoValorSeguroViagem = Number(valorSeguroViagem);
-  
-  if(seguroViagem == 1){
-    if(idadeCliente >= 0 && idadeCliente <=40){
-      novoValorSeguroViagem = Number(valorSeguroViagem) + 2.23; 
-      document.getElementById('novoValorSeguroViagem').value = novoValorSeguroViagem ;
-    }else if (idadeCliente >=41 && idadeCliente <=60){
-      novoValorSeguroViagem = Number(valorSeguroViagem) + 2.73; 
-      document.getElementById('novoValorSeguroViagem').value = novoValorSeguroViagem ;
-    }else if(idadeCliente > 60){
-      novoValorSeguroViagem = Number(valorSeguroViagem) + 5.93; 
-      document.getElementById('novoValorSeguroViagem').value = novoValorSeguroViagem ;
-        
-    }else{
-      document.getElementById('novoValorSeguroViagem').value = novoValorSeguroViagem ;
-      novoValorSeguroViagem = Number(valorSeguroViagem); 
-    }
-  }else{
-    document.getElementById('novoValorSeguroViagem').value = antigoValorSeguroViagem;
-    }
-
-
-}
 
 function confirmationDelete(anchor)
 {

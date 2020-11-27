@@ -42,7 +42,6 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item active" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -112,14 +111,19 @@
       </thead>
       <tbody>
         <?php
+/* -----------------------------------------------------------------------------------------------------  */
           $enviarPesqNome = filter_input(INPUT_POST, 'enviarPesqCliente', FILTER_SANITIZE_STRING);
+/* -----------------------------------------------------------------------------------------------------  */
           if($enviarPesqNome) {
+/* -----------------------------------------------------------------------------------------------------  */
               $valorPesquisaCliente = filter_input(INPUT_POST, 'valorPesquisaCliente', FILTER_SANITIZE_STRING);
-              $PesquisaCliente = "SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
-              $resultadoPesquisaCliente = mysqli_query($conexao, $PesquisaCliente);
-              while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
-                $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);
-                $idCliente =  $valorPesquisaCliente['idCliente'];
+/* -----------------------------------------------------------------------------------------------------  */
+              $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente 
+                                            FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
+                                            $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
+                                            while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
+                                              $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);
+                                              $idCliente =  $valorPesquisaCliente['idCliente'];
         ?>
         <tr>
           <th><?php echo $valorPesquisaCliente ['nomeCliente']. "<BR/>";?></th> 

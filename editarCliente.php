@@ -1,10 +1,13 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+/* -----------------------------------------------------------------------------------------------------  */
     $idClienteGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    $buscaPeloIdCliente = "SELECT * FROM cliente WHERE idCliente='$idClienteGet'";
-    $resultadoBuscaPeloIdCliente = mysqli_query($conexao, $buscaPeloIdCliente);
-    $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdCliente);
+/* -----------------------------------------------------------------------------------------------------  */
+    $queryBuscaPeloIdCliente = "SELECT * FROM cliente WHERE idCliente='$idClienteGet'";
+                          $resultadoBuscaPeloIdCliente = mysqli_query($conexao, $queryBuscaPeloIdCliente);
+                          $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdCliente);
+/* -----------------------------------------------------------------------------------------------------  */
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">

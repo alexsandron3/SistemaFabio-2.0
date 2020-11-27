@@ -104,15 +104,19 @@
       </thead>
       <tbody>
         <?php
+/* -----------------------------------------------------------------------------------------------------  */
           $enviaPesqNome = filter_input(INPUT_POST, 'enviaPesqNome', FILTER_SANITIZE_STRING);
+/* -----------------------------------------------------------------------------------------------------  */
           if($enviaPesqNome) {
+/* -----------------------------------------------------------------------------------------------------  */
               $valorPesquisaPasseio = filter_input(INPUT_POST, 'valorPesquisaPasseio', FILTER_SANITIZE_STRING);
-              $PesquisaPasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio, p.localPasseio, p.idPasseio 
-                                  FROM passeio p WHERE p.nomePasseio LIKE '%$valorPesquisaPasseio%' OR p.localPasseio LIKE '%$valorPesquisaPasseio%' ORDER BY dataPasseio";
-              $resultadoPesquisaPasseio = mysqli_query($conexao, $PesquisaPasseio);
-              while($valorPesquisaPasseio = mysqli_fetch_assoc($resultadoPesquisaPasseio)){
-                $dataPasseio =  date_create($valorPesquisaPasseio['dataPasseio']);
-                $idPasseio = $valorPesquisaPasseio['idPasseio'];
+/* -----------------------------------------------------------------------------------------------------  */
+              $queryPesquisaPasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio, p.localPasseio, p.idPasseio 
+                                      FROM passeio p WHERE p.nomePasseio LIKE '%$valorPesquisaPasseio%' OR p.localPasseio LIKE '%$valorPesquisaPasseio%' ORDER BY dataPasseio";
+                                      $resultadoPesquisaPasseio = mysqli_query($conexao, $queryPesquisaPasseio);
+                                      while($valorPesquisaPasseio = mysqli_fetch_assoc($resultadoPesquisaPasseio)){
+                                        $dataPasseio =  date_create($valorPesquisaPasseio['dataPasseio']);
+                                        $idPasseio = $valorPesquisaPasseio['idPasseio'];
         ?>
         <tr>
           <th><?php echo $valorPesquisaPasseio ['idPasseio']. "<BR/>";?></th>

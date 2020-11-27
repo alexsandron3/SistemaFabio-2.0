@@ -44,7 +44,6 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -91,13 +90,13 @@
         
         <?php
           
-            $pegaNomePasseio = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
-            $queryBuscaPeloNomePasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio FROM passeio p WHERE nomePasseio LIKE '%$pegaNomePasseio%' ORDER BY dataPasseio";
+            $nomePasseioPost = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
+            $queryBuscaPeloNomePasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio FROM passeio p WHERE nomePasseio LIKE '%$nomePasseioPost%' ORDER BY dataPasseio";
+            /* -----------------------------------------------------------------------------------------------------  */
             $resultadoNomePasseio = mysqli_query($conexao, $queryBuscaPeloNomePasseio);
+            /* -----------------------------------------------------------------------------------------------------  */
             while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
               $dataPasseioLista =  date_create($rowNomePasseio['dataPasseio']);
-
-              
         ?>
               <option value="<?php echo $rowNomePasseio ['idPasseio'] ;?>"><?php echo $rowNomePasseio ['nomePasseio']; echo " "; echo date_format($dataPasseioLista, "d/m/Y") ;?>  </option>    
           <?php 
@@ -172,12 +171,6 @@
                       echo"<input type='text' class='form-control' name='quantidadeEscuna' id='quantidadeEscuna' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
-                  /* echo"<div class='form-group row'>";
-                    echo"<label class='col-sm-2 col-form-label' for='valorSeguroViagem'>SEGURO VIAGEM</label>";
-                    echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value=''onchange='calculoTotalDespesas()' >";
-                    echo"</div>";
-                  echo"</div>"; */
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorAlmocoCliente'>ALMOCO CLIENTE</label>";
                     echo"<div class='col-sm-6'>";

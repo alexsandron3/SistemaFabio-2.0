@@ -12,7 +12,6 @@
     $seguroViagemCliente         = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
     $idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
-    //$valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorPendente               = -$valorVendido + $valorPago;
 
     /* -----------------------------------------------------------------------------------------------------  */
@@ -46,9 +45,10 @@
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getDataPagamentoPasseio = "INSERT INTO pagamento_passeio 
-    (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, valorSeguroViagemCliente)  
-    VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', '$valorSeguroViagem')
-    ";
+                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, valorSeguroViagemCliente)  
+                                VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
+                                '$valorSeguroViagem')
+                                ";
 
     /* -----------------------------------------------------------------------------------------------------  */
 

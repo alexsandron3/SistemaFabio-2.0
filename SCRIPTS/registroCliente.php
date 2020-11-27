@@ -18,17 +18,26 @@
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
 
+    /* -----------------------------------------------------------------------------------------------------  */
+
     $getData = "INSERT INTO 
-    CLIENTE (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial, created )
-    VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial',  NOW())
-    ";
+                CLIENTE (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial, created )
+                VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial',  NOW())
+                ";
+
+    /* -----------------------------------------------------------------------------------------------------  */
 
     $verificaSeClienteExiste = "SELECT c.cpfCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'";
     $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
     $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
+
+    /* -----------------------------------------------------------------------------------------------------  */
     
     if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){
+    /* -----------------------------------------------------------------------------------------------------  */
         $insertData = mysqli_query($conexao, $getData);
+
+    /* -----------------------------------------------------------------------------------------------------  */
         if(mysqli_insert_id($conexao)){
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário CADASTRADO com sucesso</p>";
             header("refresh:0.5; url=../cadastroCliente.php");

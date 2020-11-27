@@ -1,14 +1,18 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
+/* -----------------------------------------------------------------------------------------------------  */
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-  $buscaPeloIdPasseio = "SELECT  p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento, pp.idCliente FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
-  $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
-  
+/* -----------------------------------------------------------------------------------------------------  */
+
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento, pp.idCliente FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+                          $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
+/* -----------------------------------------------------------------------------------------------------  */
   $pegarNomePasseio = "SELECT nomePasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
-  $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
-  $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
-  $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
+                        $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
+                        $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
+                        $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
+/* -----------------------------------------------------------------------------------------------------  */
 ?>
 
 

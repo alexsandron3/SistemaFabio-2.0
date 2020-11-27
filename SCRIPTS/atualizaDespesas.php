@@ -34,7 +34,7 @@
      $quantidadeImpulsionamento       = filter_input(INPUT_POST, 'quantidadeImpulsionamento',    FILTER_SANITIZE_NUMBER_INT);
      $valorImpulsionamento            = filter_input(INPUT_POST, 'valorImpulsionamento',         FILTER_SANITIZE_NUMBER_INT);
      $outros                          = filter_input(INPUT_POST, 'outros',                       FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-
+    /* -----------------------------------------------------------------------------------------------------  */
     $getData = "UPDATE despesa SET
                 valorIngresso='$valorIngresso', valorOnibus='$valorOnibus', valorMicro='$valorMicro', valorVan='$valorVan', valorEscuna='$valorEscuna', valorSeguroViagem='$valorSeguroViagem', valorAlmocoCliente='$valorAlmocoCliente', 
                 valorAlmocoMotorista='$valorAlmocoMotorista', valorEstacionamento='$valorEstacionamento', valorGuia='$valorGuia', valorAutorizacaoTransporte='$valorAutorizacaoTransporte', valorTaxi='$valorTaxi', valorKitLanche='$valorKitLanche', 
@@ -44,7 +44,11 @@
                 valorImpulsionamento='$valorImpulsionamento'
                 WHERE idDespesa='$idDespesa'
                 ";
+    /* -----------------------------------------------------------------------------------------------------  */
+
     $insertData = mysqli_query($conexao, $getData);
+
+    /* -----------------------------------------------------------------------------------------------------  */
     if(mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
         header("refresh:0.5; url=../editaDespesas.php?id=$idPasseio");
