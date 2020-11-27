@@ -23,7 +23,7 @@
     VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial',  NOW())
     ";
 
-    $verificaSeClienteExiste = "SELECT c.cpfCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf'";
+    $verificaSeClienteExiste = "SELECT c.cpfCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'";
     $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
     $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
     if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){

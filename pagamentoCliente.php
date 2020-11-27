@@ -36,9 +36,9 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
-        <!-- <li class="nav-item ">
-          <a class="nav-link active" href="#" >PAGAMENTO </a>
-        </li> -->
+        <li class="nav-item ">
+        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -146,12 +146,6 @@
                         echo"</div>";
                       echo"</div>";
                       echo"<div class='form-group row'>";
-                        echo"<label class='col-sm-2 col-form-label' for='sinalCliente'>SINAL CLIENTE</label>";
-                        echo"<div class='col-sm-6'>";
-                          echo"<input type='text' class='form-control' name='sinalCliente' id='sinalCliente' placeholder='SINAL CLIENTE' value='0' onblur='calculoPagamentoCliente()'>";
-                        echo"</div>";
-                      echo"</div>";
-                      echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>";
                         echo"<div class='col-sm-6'>";
                           echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO'  value='0' onblur='calculoPagamentoCliente()'>";
@@ -185,15 +179,15 @@
                       echo"<div class='form-group row'>";
                         echo "<label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>";
                         echo"<textarea class='form-control col-sm-3 ml-3' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled'
-                          placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)'>".$rowIdCliente ['referencia'].  "</textarea> ";
+                          placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'>".$rowIdCliente ['referencia'].  "</textarea> ";
                       echo"</div>";
-                      echo"<fieldset class='form-group'>";
+                      echo"<fieldset class='form-group' >";
                         echo"<div class='row'>";
                           echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
                           echo"<div class='col-sm-5'>";
                             echo"<div class='form-check'>";
                               echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                              value='1' onclick='seguroViagem()'>";
+                              value='1' onclick='seguroViagem()' required>";
                               echo"<label class='form-check-label' for='seguroViagemClienteSim'>
                                 SIM
                               </label>";
@@ -210,9 +204,14 @@
                         $valorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
                         $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
                         $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-                        echo"<input type='hidden' value=' ".$rowSeguroViagem['valorSeguroViagem'] .  "'id='valorSeguroViagem' onclick='seguroViagem()'>";
+                        echo"<input type='hidden' value=''id='valorSeguroViagem' onclick='seguroViagem()'>";
                         echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
-                      echo"</fieldset>"; 
+                      echo"</fieldset>";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>";
+                          echo"<textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='5' rows='3'
+                          placeholder='ANOTAÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>";
+                      echo"</div>"; 
                     }else{
                     
                       echo"<p class='h4 text-center alert-warning'>VOCÊ PRECISA CRIAR AS DESPESAS DESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE CRIAÇÃO DE DESPESAS</p>";

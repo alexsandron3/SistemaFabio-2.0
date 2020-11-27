@@ -8,7 +8,8 @@ if(!empty($id)){
     
     if( mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário APAGADO com sucesso</p>";
-        echo '<script> window.setTimeout("window.close()", 2000); </script>';
+        header("refresh:0.5; url= ../pesquisarCliente.php");
+        //echo '<script> window.setTimeout("window.close()", 2000); </script>';
 
     
     }else {

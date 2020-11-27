@@ -2,7 +2,7 @@
     session_start();
     include_once("PHP/conexao.php");
     $idPagamento = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    $resultadoBuscaIdPagamento = "SELECT DISTINCT c.nomeCliente, c.referencia, c.idadeCliente , p.idPasseio, p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.transporte ,pp.idCliente, pp.idPasseio, pp.valorPago, pp.valorVendido, pp.previsaoPagamento, pp.sinalCliente, pp.valorPendente, pp.statusPagamento, pp.seguroViagem FROM cliente c, passeio p, pagamento_passeio pp WHERE idPagamento='$idPagamento' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+    $resultadoBuscaIdPagamento = "SELECT DISTINCT c.nomeCliente, c.referencia, c.idadeCliente , p.idPasseio, p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.transporte ,pp.idCliente, pp.idPasseio, pp.valorPago, pp.valorVendido, pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem FROM cliente c, passeio p, pagamento_passeio pp WHERE idPagamento='$idPagamento' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
     $resultadoIdPagamento = mysqli_query($conexao, $resultadoBuscaIdPagamento);
     $rowIdPagamento = mysqli_fetch_assoc($resultadoIdPagamento);
     $idPasseio = $rowIdPagamento ['idPasseio'];
@@ -40,9 +40,9 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
-        <!-- <li class="nav-item ">
-          <a class="nav-link active" href="#" >PAGAMENTO </a>
-        </li> -->
+        <li class="nav-item ">
+        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -96,7 +96,7 @@
             
             $nomePasseioSelelecionado = $rowIdPagamento ['nomePasseio'];
             $valorVendido  = $rowIdPagamento ['valorVendido'];
-            $sinalCliente  = $rowIdPagamento ['sinalCliente'];
+            $anotacoes  = $rowIdPagamento ['anotacoes'];
             $valorPago     = $rowIdPagamento ['valorPago'];
             $valorPendente = $rowIdPagamento ['valorPendente'];
             //$transporte = $rowIdPagamento ['transporte'];
@@ -110,27 +110,21 @@
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
-                echo"<label class='col-sm-2 col-form-label' for='sinalCliente'>SINAL CLIENTE</label>";
-                echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='sinalCliente' id='sinalCliente' placeholder='SINAL CLIENTE' value='$sinalCliente' onblur='calculoPagamentoCliente()'>";
-                echo"</div>";
-            echo"</div>";
-            echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>";
                 echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='$valorPago' onblur='calculoPagamentoCliente()'>";
+                  echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='$valorPago' onblur='calculoPagamentoCliente()'>";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>";
                 echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' value='$valorPendente' readonly='readonly' onblur='calculoPagamentoCliente()'>";
+                  echo"<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' value='$valorPendente' readonly='readonly' onblur='calculoPagamentoCliente()'>";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>";
                 echo"<div class='col-sm-3'>";
-                echo"<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' value='".$rowIdPagamento ['previsaoPagamento'] . "' placeholder='PREVISÃO PAGAMENTO'>";
+                  echo"<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' value='".$rowIdPagamento ['previsaoPagamento'] . "' placeholder='PREVISÃO PAGAMENTO'>";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -202,6 +196,7 @@
               $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
               $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
               echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
+              //echo"<input type='text' name='valorPagoAtual' id='valorPagoAtual'   value='".$valorPago. "'>";
               echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
               echo"<input type='hidden' value=' ".$rowSeguroViagem['valorSeguroViagem'] .  "'id='valorSeguroViagem' onclick='seguroViagem()'>";
               echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
@@ -209,6 +204,11 @@
 
             }
             echo"</fieldset>"; 
+            echo"<div class='form-group row'>";
+              echo"<label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>";
+              echo"<textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='6' rows='3'
+              placeholder='ANOTAÕES' onkeydown='upperCaseF(this)' maxlength='500'> $anotacoes</textarea>";
+            echo"</div>"; 
           ?>
           
           </select>

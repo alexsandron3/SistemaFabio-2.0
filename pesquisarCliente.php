@@ -30,6 +30,10 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
+        </li>
+        <li class="nav-item ">
+        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -66,6 +70,12 @@
       </ul>
     </div>
   </nav>
+  <?php
+    if(isset($_SESSION['msg'])){
+      echo $_SESSION['msg'];
+      unset($_SESSION['msg']);
+    }
+    ?>
   <!-- TODO FORM -->
   <div class="container-fluid mt-4">
     <div class="container-fluid ">
@@ -109,7 +119,7 @@
               $resultadoPesquisaCliente = mysqli_query($conexao, $PesquisaCliente);
               while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
                 $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);
-                $idCliente =  $valorPesquisaCliente['idCliente']
+                $idCliente =  $valorPesquisaCliente['idCliente'];
         ?>
         <tr>
           <th><?php echo $valorPesquisaCliente ['nomeCliente']. "<BR/>";?></th> 
@@ -121,13 +131,13 @@
           <td><?php echo $valorPesquisaCliente ['redeSocial']. "<BR/>";?></td>
           <td></td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $valorPesquisaCliente['idCliente'] . "'>EDITAR</a><br>"; ?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $idCliente . "'>EDITAR</a><br>"; ?>
           </td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $valorPesquisaCliente['idCliente'] . "' >PAGAR</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $idCliente . "' >PAGAR</a><br><hr>";?>
           </td>
           <td>
-            <?php echo"<button onclick='apagarCliente()' class='btn btn-primary btn-sm'>DELETAR</button>";?>
+          <?php echo "<a class='btn btn-primary btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "' >DELETAR</a><br><hr>";?>
           </td>
         </tr>
         <?php
@@ -138,15 +148,8 @@
       </tbody>
     </table>
   </div>
-  <script src="config/script.js"></script>
-  <script>
-    function apagarCliente(){
-      var conf = confirm("APAGAR CLIENTE??");
-        if(conf == true){
-            window.open("SCRIPTS/apagarCliente.php?id=<?php echo $idCliente ?>", '_blank');
-        }
-    }
-  </script>
+  <script src="config/script.php"></script>
+  
 </body>
 
 </html>
