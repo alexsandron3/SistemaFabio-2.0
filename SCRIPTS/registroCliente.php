@@ -26,6 +26,7 @@
     $verificaSeClienteExiste = "SELECT c.cpfCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'";
     $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
     $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
+    
     if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){
         $insertData = mysqli_query($conexao, $getData);
         if(mysqli_insert_id($conexao)){

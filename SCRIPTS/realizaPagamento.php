@@ -50,11 +50,6 @@
     VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', '$valorSeguroViagem')
     ";
 
-
-
-    
-
-
     /* -----------------------------------------------------------------------------------------------------  */
 
     if($lotacaoPasseio > $qtdCliente){
