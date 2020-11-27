@@ -2,10 +2,13 @@
   session_start();
   include_once("PHP/conexao.php");
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-  $buscaPeloIdPasseio = "SELECT DISTINCT p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento, pp.idCliente FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+  $buscaPeloIdPasseio = "SELECT  p.nomePasseio, p.dataPasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento, pp.idCliente FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
   $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
   
-  
+  $pegarNomePasseio = "SELECT nomePasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
+  $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
+  $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
+  $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
 ?>
 
 
@@ -40,7 +43,7 @@
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">RELATÓRIOS </a>
+        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -85,6 +88,7 @@
     }
     ?>
   <div class="table mt-3">
+        <?php  echo"<p class='h4 text-center alert-info'>" .$nomePasseioTitulo. "</p>"; ?>
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
@@ -117,9 +121,8 @@
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['cpfCliente']. "<BR/>";?></th>
             <th><?php echo date_format($dataNascimento, "d/m/Y"). "<BR/>";?></th>
-            
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
-            <th><?php echo "<a class='btn btn-primary btn-sm' rel='noopener noreferrer' href='SCRIPTS/apagarPagamento.php?idCliente=" . $idCliente. "&idPasseio=".$idPasseio ."&idadeCliente=" .$idadeCliente ."'>REMOVER</a><br>";?></th>
+            <th><?php echo"<button onclick='apagarPagamento()' class='btn btn-primary btn-sm'>DELETAR</button>";?></th>
           </tr>
 
           <?php
@@ -155,6 +158,14 @@
                 window.open("SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet?>", '_blank');
             }
         }
+  function apagarPagamento(){
+    var abrirJanela;
+    var conf = confirm("APAGAR PAGAMENTO??");
+      if(conf == true){
+          abrirJanela = window.open("SCRIPTS/apagarPagamento.php?idCliente=<?php echo $idCliente ?>&idPasseio= <?php echo $idPasseio ?>", '_blank');
+          abrirJanela = window.close();
+      }
+  }
 
 </script>
 </body>

@@ -33,6 +33,9 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
         </li>
+        <li class="nav-item ">
+        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -109,11 +112,9 @@
       <form action="SCRIPTS/registroDespesas.php" autocomplete="off" method="POST" onclick="calculoTotalDespesas()">
           <?php
             $idPasseioLista = filter_input(INPUT_POST, 'idPasseioSelecionado', FILTER_SANITIZE_NUMBER_INT);
-            $buscaQuantidadeCliente ="SELECT qtdCliente FROM passeio WHERE idPasseio='$idPasseioLista'";
-            $resultadoBuscaQuantidadeCliente = mysqli_query($conexao, $buscaQuantidadeCliente);
-            $rowQuantidadeCliente = mysqli_fetch_assoc($resultadoBuscaQuantidadeCliente);
 
-            $queryBuscaDespesa = "SELECT * FROM despesa WHERE idPasseio='$idPasseioLista'";
+
+            $queryBuscaDespesa = "SELECT idPasseio FROM despesa WHERE idPasseio='$idPasseioLista'";
             $resultadoBuscaDespesa = mysqli_query($conexao, $queryBuscaDespesa);
             $rowBuscaDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
             $buttonEnviaNomePasseio = filter_input(INPUT_POST, 'buttonEnviaNomePasseio', FILTER_SANITIZE_STRING);
@@ -124,14 +125,12 @@
                   $resultadoBuscaInformacoesPasseio = mysqli_query($conexao, $queryBuscaInformacoesPasseio);
                   $rowBuscaInformacoesPasseio = mysqli_fetch_assoc($resultadoBuscaInformacoesPasseio);
                   $data =  date_create($rowBuscaInformacoesPasseio['dataPasseio']);
-
-                  echo"<input type='hidden'  id='' value='". $rowQuantidadeCliente ['qtdCliente']."'> ";
-                  
                   echo"<p class='h4 text-center alert-info'>". $rowBuscaInformacoesPasseio  ['nomePasseio']. " ".date_format($data, "d/m/Y") ."</p>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
+                      echo"<input type='hidden' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeIngresso' id='quantidadeIngresso' placeholder='QTD'  value='1' onchange='calculoTotalDespesas()'>";
