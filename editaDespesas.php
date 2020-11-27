@@ -3,12 +3,32 @@
     include_once("PHP/conexao.php");
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_FLOAT);
     $buscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorSeguroViagem, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
-                     d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.totalDespesas, d.idDespesa, d.quantidadeIngresso, p.nomePasseio, p.dataPasseio, p.qtdCliente   FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
+                     d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
+                     d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento,                     
+                     p.nomePasseio, p.dataPasseio   
+                     FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
     $resultadoBuscaDespesa = mysqli_query($conexao, $buscaDespesa);
     $rowDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
     $dataPasseio =  date_create($rowDespesa['dataPasseio']);
 
+
+    $valorSeguroViagem = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio";
+    $resultadoValorSeguroViagem = mysqli_query($conexao, $valorSeguroViagem);
+    $rowValorSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
+    $valorTotalSeguroViagem = $rowValorSeguroViagem ['totalSeguroViagem'];
+
+
+    $totalDespesas = "SELECT (valorIngresso * quantidadeIngresso) + (valorOnibus * quantidadeOnibus) + (valorMicro * quantidadeMicro) + (valorVan * quantidadeVan) + (valorEscuna * quantidadeEscuna) + (valorAlmocoCliente * quantidadeAlmocoCliente)
+		                         + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
+                             + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros + $valorTotalSeguroViagem
+                             AS totalDespesas FROM despesa WHERE idPasseio=$idPasseioGet";
+    $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
+    $rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas);
+    $valorTotalDespesas = $rowTotalDespesa ['totalDespesas'];
+
+
     
+    //echo $valorTotalSeguroViagem;
 
 ?>
 <!DOCTYPE html>
@@ -39,6 +59,9 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
+        </li>
+        <li class="nav-item ">
+        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -85,7 +108,7 @@
     }
     ?>
     <div class="container-fluid ">
-      <form action="SCRIPTS/atualizarDespesas.php" autocomplete="off" method="POST" onclick="calculoTotalDespesas()">
+      <form action="SCRIPTS/atualizaDespesas.php" autocomplete="off" method="POST" onclick="calculoTotalDespesas()">
           <?php
             echo"<p class='h4 text-center alert-info'>". $rowDespesa  ['nomePasseio']. " ".date_format($dataPasseio, "d/m/Y") ."</p>";
             echo"<div class='form-group row'>";
@@ -94,7 +117,7 @@
                 echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='". $rowDespesa['valorIngresso']. "' onchange='calculoTotalDespesas()' >";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                      echo"<input type='text' class='form-control' name='quantidadeCliente' id='quantidadeCliente' placeholder='QTD'  value='". $rowDespesa ['quantidadeIngresso']."'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='quantidadeIngresso' id='quantidadeIngresso' placeholder='QTD'  value='". $rowDespesa ['quantidadeIngresso']."'onchange='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -103,7 +126,7 @@
                 echo"<input type='text' class='form-control' name='valorOnibus' id='valorOnibus' placeholder='VALOR DO ONIBUS' value='". $rowDespesa['valorOnibus']. "'onchange='calculoTotalDespesas()' >";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeOnibus' id='quantidadeOnibus' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeOnibus' id='quantidadeOnibus' placeholder='QTD' value='". $rowDespesa ['quantidadeOnibus']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -112,7 +135,7 @@
                 echo"<input type='text' class='form-control' name='valorMicro' id='valorMicro' placeholder='VALOR DO MICRO' value='". $rowDespesa['valorMicro']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeMicro' id='quantidadeMicro' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeMicro' id='quantidadeMicro' placeholder='QTD' value='". $rowDespesa ['quantidadeMicro']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -121,7 +144,7 @@
                 echo"<input type='text' class='form-control' name='valorVan' id='valorVan' placeholder='VALOR DO VAN' value='". $rowDespesa['valorVan']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeVan' id='quantidadeVan' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' > ";
+                echo"<input type='text' class='form-control' name='quantidadeVan' id='quantidadeVan' placeholder='QTD' value='". $rowDespesa ['quantidadeVan']."'onchange='calculoTotalDespesas()' > ";
               echo"</div>"; 
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -130,16 +153,16 @@
                 echo"<input type='text' class='form-control' name='valorEscuna' id='valorEscuna' placeholder='VALOR DO ESCUNA' value='". $rowDespesa['valorEscuna']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeEscuna' id='quantidadeEscuna' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeEscuna' id='quantidadeEscuna' placeholder='QTD' value='". $rowDespesa ['quantidadeEscuna']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorSeguroViagem'>SEGURO VIAGEM</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value='". $rowDespesa['valorSeguroViagem']. "'onchange='calculoTotalDespesas()' disabled='disabled' >";
+                echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value='".number_format($valorTotalSeguroViagem,2) ."'onchange='calculoTotalDespesas()' disabled='disabled' >";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='' id='' placeholder='QTD' value='".$rowDespesa['qtdCliente'] ."'onchange='calculoTotalDespesas()' disabled='disabled'>";
+                echo"<input type='text' class='form-control' name='' id='' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' disabled='disabled'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -148,7 +171,7 @@
                 echo"<input type='text' class='form-control' name='valorAlmocoCliente' id='valorAlmocoCliente' placeholder='ALMOCO CLIENTE' value='". $rowDespesa['valorAlmocoCliente']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeAlmocoCliente' id='quantidadeAlmocoCliente' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='quantidadeAlmocoCliente' id='quantidadeAlmocoCliente' placeholder='QTD' value='". $rowDespesa ['quantidadeAlmocoCliente']."'onchange='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -157,7 +180,7 @@
                 echo"<input type='text' class='form-control' name='valorAlmocoMotorista' id='valorAlmocoMotorista' placeholder='ALMOCO MOTORISTA' value='". $rowDespesa['valorAlmocoMotorista']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeAlmocoMotorista' id='quantidadeAlmocoMotorista' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='quantidadeAlmocoMotorista' id='quantidadeAlmocoMotorista' placeholder='QTD' value='". $rowDespesa ['quantidadeAlmocoMotorista']."'onchange='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -166,7 +189,7 @@
                 echo"<input type='text' class='form-control' name='valorEstacionamento' id='valorEstacionamento' placeholder='ESTACIONAMENTO' value='". $rowDespesa['valorEstacionamento']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeEstacionamento' id='quantidadeEstacionamento' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeEstacionamento' id='quantidadeEstacionamento' placeholder='QTD' value='". $rowDespesa ['quantidadeEstacionamento']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -175,7 +198,7 @@
                 echo"<input type='text' class='form-control' name='valorGuia' id='valorGuia' placeholder='VALOR GUIA' value='". $rowDespesa['valorGuia']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeGuia' id='quantidadeGuia' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='quantidadeGuia' id='quantidadeGuia' placeholder='QTD' value='". $rowDespesa ['quantidadeGuia']."'onchange='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -184,7 +207,7 @@
                 echo"<input type='text' class='form-control' name='valorAutorizacaoTransporte' id='valorAutorizacaoTransporte' placeholder='AUTORIZACAO TRANSPORTE' value='". $rowDespesa['valorAutorizacaoTransporte']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeAutorizacaoTransporte' id='quantidadeAutorizacaoTransporte' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeAutorizacaoTransporte' id='quantidadeAutorizacaoTransporte' placeholder='QTD' value='". $rowDespesa ['quantidadeAutorizacaoTransporte']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -193,7 +216,7 @@
                 echo"<input type='text' class='form-control' name='valorTaxi' id='valorTaxi' placeholder='TAXI' value='". $rowDespesa['valorTaxi']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeTaxi' id='quantidadeTaxi' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeTaxi' id='quantidadeTaxi' placeholder='QTD' value='". $rowDespesa ['quantidadeTaxi']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -202,7 +225,7 @@
                 echo"<input type='text' class='form-control' name='valorMarketing' id='valorMarketing' placeholder='MARKETING' value='". $rowDespesa['valorMarketing']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeMarketing' id='quantidadeMarketing' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeMarketing' id='quantidadeMarketing' placeholder='QTD' value='". $rowDespesa ['quantidadeMarketing']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -211,7 +234,7 @@
                 echo"<input type='text' class='form-control' name='valorKitLanche' id='valorKitLanche' placeholder='KIT LANCHE' value='". $rowDespesa['valorKitLanche']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeKitLanche' id='quantidadeKitLanche' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='quantidadeKitLanche' id='quantidadeKitLanche' placeholder='QTD' value='". $rowDespesa ['quantidadeKitLanche']."'onchange='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -220,7 +243,7 @@
                 echo"<input type='text' class='form-control' name='valorImpulsionamento' id='valorImpulsionamento' placeholder='INMPULSIONAMENTO' value='". $rowDespesa['valorImpulsionamento']. "'onchange='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='quantidadeImpulsionamento' id='quantidadeImpulsionamento' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='quantidadeImpulsionamento' id='quantidadeImpulsionamento' placeholder='QTD' value='". $rowDespesa ['quantidadeImpulsionamento']."'onchange='calculoTotalDespesas()' >";
               echo"</div>";  
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -232,7 +255,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='totalDespesas'>TOTAL DESPESAS</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='totalDespesas' id='totalDespesas' placeholder='TOTAL DESPESAS' value='". $rowDespesa['totalDespesas']. "'readonly='readonly' onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='totalDespesas' id='totalDespesas' placeholder='TOTAL DESPESAS' value='". number_format($valorTotalDespesas,2). "'readonly='readonly' onblur='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
             echo"<button type='submit' name='cadastrarClienteBtn' id='submit' class='btn btn-primary btn-lg'>ATUALIZAR</button>";  

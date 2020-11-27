@@ -30,6 +30,10 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">INÍCIO </a>
+        </li>
+        <li class="nav-item ">
+        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
+        </li>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -116,13 +120,12 @@
           <td><?php echo date_format($dataPasseio, "d/m/Y") ."<BR/>";?></td>
           <td><?php echo $valorPesquisaPasseio ['localPasseio']. "<BR/>";?></td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >LISTA</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm ml-4' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >LISTA</a><br>";?>
+            <?php echo "<a class='btn btn-primary btn-sm mt-1' target='_blank' rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >RELATÓRIOS</a><br>";?>
           </td>
           <td>
-            <?php echo "<a class='btn btn-primary btn-sm' target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR</a><br>"; ?>
-          </td>
-          <td>
-          <?php echo"<button onclick='apagarPasseio()' class='btn btn-primary btn-sm'>DELETAR</button>";?>  
+            <?php echo "<a class='btn btn-primary btn-sm ml-1'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR  </a><br>"; ?>
+            <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
           </td>
         </tr>
         <?php
@@ -133,14 +136,6 @@
     </table>
   </div>
   <script src="config/script.php"></script>
-  <script>
-    function apagarPasseio(){
-      var conf = confirm("APAGAR PASSEIO??");
-        if(conf == true){
-            window.open("SCRIPTS/apagarPasseio.php?id=<?php echo $idPasseio ?>", '_blank');
-        }
-    }
-  </script>
 </body>
 
 </html>

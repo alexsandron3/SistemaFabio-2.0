@@ -85,8 +85,6 @@ $("#hexTextBox").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#valorVendido").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
-    $("#sinalCliente").inputFilter(function(value) {
-    return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#valorPendenteCliente").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
   
@@ -121,7 +119,7 @@ function ageCount() {
 
 //CALCULO DESPESAS PASSEIO
 function calculoTotalDespesas(){
-    var quantidadeIngresso                         = document.getElementById('quantidadeIngresso').value;
+    var quantidadeIngresso                        = document.getElementById('quantidadeIngresso').value;
     var quantidadeOnibus                          = document.getElementById('quantidadeOnibus').value;
     var quantidadeMicro                           = document.getElementById('quantidadeMicro').value;
     var quantidadeVan                             = document.getElementById('quantidadeVan').value;
@@ -140,7 +138,7 @@ function calculoTotalDespesas(){
     var valorMicro                  = document.getElementById('valorMicro').value;
     var valorVan                    = document.getElementById('valorVan').value;
     var valorEscuna                 = document.getElementById('valorEscuna').value;
-    <!-- var valorSeguroViagem           = document.getElementById('valorSeguroViagem').value; -->
+    var valorSeguroViagem           = document.getElementById('valorSeguroViagem').value;
     var valorAlmocoCliente          = document.getElementById('valorAlmocoCliente').value;
     var valorAlmocoMotorista        = document.getElementById('valorAlmocoMotorista').value;
     var valorEstacionamento         = document.getElementById('valorEstacionamento').value;
@@ -151,7 +149,7 @@ function calculoTotalDespesas(){
     var valorMarketing              = document.getElementById('valorMarketing').value;
     var valorImpulsionamento        = document.getElementById('valorImpulsionamento').value;
     var outros                      = document.getElementById('outros').value; 
-    var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) <!-- + Number(valorSeguroViagem) --> 
+    var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) + Number(valorSeguroViagem)
                                     + Number(valorAlmocoCliente) * Number(quantidadeAlmocoCliente) + Number(valorAlmocoMotorista) * Number(quantidadeAlmocoMotorista) + Number(valorEstacionamento) * Number(quantidadeEstacionamento) + Number(valorGuia) * Number(quantidadeGuia) 
                                     + Number(valorAutorizacaoTransporte) * Number(quantidadeAutorizacaoTransporte) + Number(valorTaxi) * Number(quantidadeTaxi) + Number(valorMarketing) * Number(quantidadeMarketing)  + Number(valorImpulsionamento) * Number(quantidadeImpulsionamento) 
                                     + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche);
@@ -163,12 +161,11 @@ function calculoTotalDespesas(){
     }
 }
 
-//CALCULO PAGAMENTO CLIENTE     document.getElementById('valorPago').value         = sinalCliente; 
+//CALCULO PAGAMENTO CLIENTE
 function calculoPagamentoCliente(){
     var valorVendido                                   = document.getElementById('valorVendido').value;
-    var sinalCliente                                   = document.getElementById('sinalCliente').value;
     var valorPago                                      = document.getElementById('valorPago').value;
-    var valorPendenteCliente                                  = Number(valorPago) + Number(sinalCliente ) - Number(valorVendido);
+    var valorPendenteCliente                           = Number(valorPago) - Number(valorVendido);
     
     if(valorPendenteCliente < 0){
         document.getElementById('valorPendenteCliente').value = valorPendenteCliente;
@@ -277,4 +274,11 @@ function seguroViagem(){
     }
 
 
+}
+
+function confirmationDelete(anchor)
+{
+   var conf = confirm('VOCÊ TEM CERTEZA QUE DESEJA APAGAR ESTE REGISTRO??');
+   if(conf)
+      window.location=anchor.attr("href");
 }
