@@ -42,7 +42,6 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item active" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -129,7 +128,7 @@
           </td>
           <td>
             <?php echo "<a class='btn btn-primary btn-sm ml-1'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR  </a><br>"; ?>
-            <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
           </td>
         </tr>
         <?php
