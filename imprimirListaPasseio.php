@@ -3,8 +3,8 @@
   include_once("PHP/conexao.php");
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   $nomePasseioGet = filter_input(INPUT_GET, 'nomePasseio', FILTER_SANITIZE_STRING);
-  $buscaPeloIdPasseio = "SELECT DISTINCT c.nomeCliente, c.rgCliente, c.dataNascimento, c.idadeCliente,  pp.statusPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
-  $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
+  $queryBuscaPeloIdPasseio = "SELECT DISTINCT c.nomeCliente, c.rgCliente, c.dataNascimento, c.idadeCliente,  pp.statusPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+  $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
  
   
 ?>

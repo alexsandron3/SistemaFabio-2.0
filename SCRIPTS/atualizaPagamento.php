@@ -3,7 +3,6 @@
        include_once("../PHP/conexao.php");
 
     $idPagamento                 = filter_input(INPUT_POST, 'idPagamento',            FILTER_SANITIZE_NUMBER_INT);
-    //$idCliente                   = filter_input(INPUT_POST, 'idClienteSelecionado',   FILTER_SANITIZE_NUMBER_INT);
     $idPasseio                   = filter_input(INPUT_POST, 'idPasseioSelecionado',   FILTER_SANITIZE_NUMBER_INT); 
     $valorVendido                = filter_input(INPUT_POST, 'valorVendido',           FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorPago                   = filter_input(INPUT_POST, 'valorPago',              FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -40,15 +39,15 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $getData = "UPDATE pagamento_passeio SET    
-    valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', statusPagamento='$statusPagamento', valorPendente='$valorPendente', seguroViagem='$seguroViagemCliente',
-    transporte='$transporteCliente'
-    WHERE idPagamento='$idPagamento'
-    ";
+    $getData =                  "UPDATE pagamento_passeio SET    
+                                valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', statusPagamento='$statusPagamento', valorPendente='$valorPendente', seguroViagem='$seguroViagemCliente',
+                                transporte='$transporteCliente'
+                                WHERE idPagamento='$idPagamento'
+                                ";
 
     $getDataValorSeguroViagem = "UPDATE despesa SET
-    valorSeguroViagem='$novoValorSeguroViagem' WHERE idPasseio='$idPasseio'
-    ";
+                                valorSeguroViagem='$novoValorSeguroViagem' WHERE idPasseio='$idPasseio'
+                                ";
 
     /* -----------------------------------------------------------------------------------------------------  */
 

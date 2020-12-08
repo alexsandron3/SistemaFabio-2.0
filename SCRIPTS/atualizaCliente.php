@@ -1,4 +1,4 @@
-<?php
+?php
     session_start();
     include_once("../PHP/conexao.php");
     
@@ -19,16 +19,19 @@
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $seguroViagemCliente    = filter_input(INPUT_POST, 'seguroViagemCliente',   FILTER_VALIDATE_BOOLEAN);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
-    
+    /* -----------------------------------------------------------------------------------------------------  */
 
     $getData = "UPDATE cliente SET 
                 nomeCliente='$nome', emailCliente='$email', rgCliente='$rg', orgaoEmissor='$emissor', cpfCliente='$cpf', telefoneCliente='$telefoneCliente', dataNascimento='$dataNascimento', idadeCliente='$idade', 
                 cpfConsultado='$cpfConsultado', dataCpfConsultado='$dataConsulta', referencia='$referenciaCliente', transporte='$meioTransporte', telefoneContato='$telefoneContato', pessoaContato='$nomeContato', 
                 seguroViagem='$seguroViagemCliente', redeSocial='$redeSocial' 
                 WHERE idCliente='$idCliente'";
+    /* -----------------------------------------------------------------------------------------------------  */
     
-  
     $insertData = mysqli_query($conexao, $getData);
+
+    /* -----------------------------------------------------------------------------------------------------  */
+    
     if(mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário ATUALIZADO com sucesso</p>";
         header("refresh:0.5; url=../editarCliente.php?id=$idCliente");

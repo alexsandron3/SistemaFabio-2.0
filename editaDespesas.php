@@ -2,33 +2,32 @@
     session_start();
     include_once("PHP/conexao.php");
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_FLOAT);
-    $buscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorSeguroViagem, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
-                     d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
-                     d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento,                     
-                     p.nomePasseio, p.dataPasseio   
-                     FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
-    $resultadoBuscaDespesa = mysqli_query($conexao, $buscaDespesa);
-    $rowDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
-    $dataPasseio =  date_create($rowDespesa['dataPasseio']);
+    $queryBuscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorSeguroViagem, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
+                          d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
+                          d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento,                     
+                          p.nomePasseio, p.dataPasseio   
+                          FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
+                          $resultadoBuscaDespesa = mysqli_query($conexao, $queryBuscaDespesa);
+                          $rowDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
+                          $dataPasseio =  date_create($rowDespesa['dataPasseio']);
+/* -----------------------------------------------------------------------------------------------------  */
 
+    $queryValorSeguroViagem     = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio";
+                                  $resultadoValorSeguroViagem = mysqli_query($conexao, $queryValorSeguroViagem);
+                                  $rowValorSeguroViagem       = mysqli_fetch_assoc($resultadoValorSeguroViagem);
+                                  $valorTotalSeguroViagem     = $rowValorSeguroViagem ['totalSeguroViagem'];
 
-    $valorSeguroViagem = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio";
-    $resultadoValorSeguroViagem = mysqli_query($conexao, $valorSeguroViagem);
-    $rowValorSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-    $valorTotalSeguroViagem = $rowValorSeguroViagem ['totalSeguroViagem'];
-
-
-    $totalDespesas = "SELECT (valorIngresso * quantidadeIngresso) + (valorOnibus * quantidadeOnibus) + (valorMicro * quantidadeMicro) + (valorVan * quantidadeVan) + (valorEscuna * quantidadeEscuna) + (valorAlmocoCliente * quantidadeAlmocoCliente)
-		                         + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
-                             + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros + $valorTotalSeguroViagem
-                             AS totalDespesas FROM despesa WHERE idPasseio=$idPasseioGet";
-    $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
-    $rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas);
-    $valorTotalDespesas = $rowTotalDespesa ['totalDespesas'];
-
-
-    
-    //echo $valorTotalSeguroViagem;
+/* -----------------------------------------------------------------------------------------------------  */
+    if(!empty($idPasseioGet)){
+      $queryTotalDespesas = "SELECT (valorIngresso * quantidadeIngresso) + (valorOnibus * quantidadeOnibus) + (valorMicro * quantidadeMicro) + (valorVan * quantidadeVan) + (valorEscuna * quantidadeEscuna) + (valorAlmocoCliente * quantidadeAlmocoCliente)
+                                  + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
+                                  + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros 
+                                  AS totalDespesas FROM despesa WHERE idPasseio=$idPasseioGet";
+                                  $resultadoTotalDespesas = mysqli_query($conexao, $queryTotalDespesas);
+                                  $rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas);
+                                  $valorTotalDespesas = $rowTotalDespesa ['totalDespesas'] + $valorTotalSeguroViagem;
+    }
+/* -----------------------------------------------------------------------------------------------------  */
 
 ?>
 <!DOCTYPE html>
@@ -71,9 +70,8 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             LISTAGEM
@@ -82,7 +80,7 @@
             <a class="dropdown-item" href="">CLIENTE</a>
             <a class="dropdown-item" href="">PASSEIO</a>
             <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div>
+          </div> -->
         </li>
         </li>
         <li class="nav-item dropdown">

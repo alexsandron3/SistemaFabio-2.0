@@ -41,10 +41,9 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             LISTAGEM
@@ -53,7 +52,7 @@
             <a class="dropdown-item" href="">CLIENTE</a>
             <a class="dropdown-item" href="">PASSEIO</a>
             <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div>
+          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -138,7 +137,7 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
-          <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento" required="required"
+          <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
             onblur="ageCount()" >
           <label class="col-sm-2 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
           <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"
@@ -176,16 +175,6 @@
           <textarea class="form-control col-sm-3 ml-3" name="referenciaCliente" id="referenciaCliente" cols="3" rows="1"
             placeholder="INFORMAÇÕES" onkeydown="upperCaseF(this)"></textarea>
         </div>
-        <!-- <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="meioTransporte">TRANSPORTE</label>
-          <select class="form-control col-sm-3 ml-3" name="meioTransporte" id="meioTransporte">
-            <option value="" selected> SELECIONAR</option>
-            <option value="Carro">CARRO</option>
-            <option value="Onibus">ÔNIBUS</option>
-            <option value="Micro">MICRO</option>
-            <option value="Van">VAN</option>
-          </select>
-        </div>  -->
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="telefoneContato">TELEF. CONTATO</label>
           <input class="form-control col-sm-3 ml-3" type="tel" name="telefoneContato" id="telefoneContato"
@@ -201,27 +190,6 @@
           <textarea class="form-control col-sm-3 ml-3" name="redeSocial" id="redeSocial" cols="3" rows="1"
             placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"></textarea>
         </div>
-        <!-- <fieldset class="form-group">
-          <div class="row">
-            <legend class="col-form-label col-sm-1 pt-0">SEGURO VIAGEM</legend>
-            <div class="col-sm-5">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="seguroViagemCliente" id="seguroViagemClienteSim"
-                  value="1">
-                <label class="form-check-label" for="seguroViagemClienteSim">
-                  SIM
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="seguroViagemCliente" id="seguroViagemClientenao"
-                  value="0">
-                <label class="form-check-label" for="seguroViagemClientenao">
-                  NÃO
-                </label>
-              </div>
-            </div>
-          </div>
-        </fieldset> -->
         <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">CADASTRAR</button>
       </form>
     </div>

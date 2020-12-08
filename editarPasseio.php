@@ -1,10 +1,14 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+/* -----------------------------------------------------------------------------------------------------  */
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    $buscaPeloIdPasseio = "SELECT * FROM passeio p WHERE idPasseio='$idPasseioGet'";
-    $resultadoBuscaPasseio = mysqli_query($conexao, $buscaPeloIdPasseio);
-    $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio);
+/* -----------------------------------------------------------------------------------------------------  */
+
+    $queryBuscaPeloIdPasseio = "SELECT * FROM passeio p WHERE idPasseio='$idPasseioGet'";
+                            $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
+                            $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio);
+/* -----------------------------------------------------------------------------------------------------  */
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -49,7 +53,7 @@
             <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             LISTAGEM
@@ -58,7 +62,7 @@
             <a class="dropdown-item" href="">CLIENTE</a>
             <a class="dropdown-item" href="">PASSEIO</a>
             <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div>
+          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

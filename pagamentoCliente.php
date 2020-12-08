@@ -1,10 +1,13 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+/* -----------------------------------------------------------------------------------------------------  */
     $idCliente = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    $resultadoBuscaIdCliente = "SELECT * FROM cliente WHERE idCliente = '$idCliente'";
-    $resultadoIdCliente = mysqli_query($conexao, $resultadoBuscaIdCliente);
-    $rowIdCliente = mysqli_fetch_assoc($resultadoIdCliente);
+/* -----------------------------------------------------------------------------------------------------  */
+    $queryBuscaIdCliente = "SELECT nomeCliente, idadeCliente, referencia FROM cliente WHERE idCliente = '$idCliente'";
+                                $resultadoIdCliente = mysqli_query($conexao, $queryBuscaIdCliente);
+                                $rowIdCliente = mysqli_fetch_assoc($resultadoIdCliente);
+/* -----------------------------------------------------------------------------------------------------  */
 
 ?>
 <!DOCTYPE html>
@@ -47,10 +50,9 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             LISTAGEM
@@ -59,7 +61,7 @@
             <a class="dropdown-item" href="">CLIENTE</a>
             <a class="dropdown-item" href="">PASSEIO</a>
             <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div>
+          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -97,7 +99,7 @@
           <label class="col-sm-2 col-form-label" for="nomePasseio">PASSEIO</label>
           
           
-          <select class="form-control ml-3 col-sm-3" name="passeiosLista" id="selectIdPasseio" onchange="idPasseioSelecionado()">
+          <select class="form-control ml-3 col-sm-3" name="passeiosLista" id="selectIdPasseio">
             <option value="0">SELECIONAR</option>
           
           <?php
@@ -119,23 +121,30 @@
       <form action="SCRIPTS/realizaPagamento.php" method="post" autocomplete="OFF" >
       <div class="form-group-row">
           <?php
+/* -----------------------------------------------------------------------------------------------------  */
             $idPasseioSelecionado = filter_input(INPUT_POST, 'passeiosLista', FILTER_SANITIZE_NUMBER_INT);
-            $buscarPasseioPeloId = "SELECT * FROM passeio WHERE idPasseio='$idPasseioSelecionado'";
-            $resultadoPasseioSelecionado = mysqli_query($conexao, $buscarPasseioPeloId);
-            $rowPasseioSelecionado = mysqli_fetch_assoc($resultadoPasseioSelecionado);
+/* -----------------------------------------------------------------------------------------------------  */
+            $queryBuscarPasseioPeloId = "SELECT nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseioSelecionado'";
+                                    $resultadoPasseioSelecionado = mysqli_query($conexao, $queryBuscarPasseioPeloId);
+                                    $rowPasseioSelecionado = mysqli_fetch_assoc($resultadoPasseioSelecionado);
+/* -----------------------------------------------------------------------------------------------------  */
             $buttonCarregarInformacoes = filter_input(INPUT_POST, 'buttonCarregarInformacoes', FILTER_SANITIZE_STRING);
             $idPasseio = $idPasseioSelecionado;
+/* -----------------------------------------------------------------------------------------------------  */
             
-            $buscaSeJaExiste = "SELECT * FROM pagamento_passeio WHERE idCliente='$idCliente' AND idPasseio='$idPasseio'";
-            $resultadoBuscaSeJaExiste = mysqli_query($conexao, $buscaSeJaExiste);
+            $queryBuscaSeJaExistePagamento = "SELECT idPagamento FROM pagamento_passeio WHERE idCliente='$idCliente' AND idPasseio='$idPasseio'";
+                                $resultadoqueryBuscaSeJaExistePagamento = mysqli_query($conexao, $queryBuscaSeJaExistePagamento);
+/* -----------------------------------------------------------------------------------------------------  */
             if($idCliente > 0) {
               if($buttonCarregarInformacoes){
                 if($idPasseioSelecionado == 0){
                   echo"NENHUM PASSEIO SELECIONADO";
                 }else{
-                  if(mysqli_num_rows($resultadoBuscaSeJaExiste) == 0 ){
+                  if(mysqli_num_rows($resultadoqueryBuscaSeJaExistePagamento) == 0 ){
+/* -----------------------------------------------------------------------------------------------------  */
                     $verificaSeExisteDespesa = "SELECT d.idPasseio, p.idPasseio FROM despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND d.idDespesa='$idPasseioSelecionado'";
-                    $resultadoVerificaSeExisteDespesa = mysqli_query($conexao, $verificaSeExisteDespesa);
+                                                $resultadoVerificaSeExisteDespesa = mysqli_query($conexao, $verificaSeExisteDespesa);
+/* -----------------------------------------------------------------------------------------------------  */
                     if(mysqli_num_rows($resultadoVerificaSeExisteDespesa) !=0){
                       //echo"<p class='text-center alert-success'>SUCESSO, ESTE CLIENTE AINDA NÃO FEZ UMA COMPRA NESSE PASSEIO </p>";  
                       echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$rowPasseioSelecionado ['dataPasseio'] ."</p>";
@@ -187,25 +196,20 @@
                           echo"<div class='col-sm-5'>";
                             echo"<div class='form-check'>";
                               echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                              value='1' onclick='seguroViagem()' required>";
+                              value='1'  required>";
                               echo"<label class='form-check-label' for='seguroViagemClienteSim'>
                                 SIM
                               </label>";
                             echo"</div>";
                             echo"<div class='form-check'>";
                               echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                              value='0' onclick='seguroViagem()'>";
+                              value='0' >";
                               echo"<label class='form-check-label' for='seguroViagemClientenao'>
                                 NÃO
                               </label>";
                             echo"</div>";
                           echo"</div>";
                         echo"</div>";
-                        $valorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
-                        $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem);
-                        $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-                        echo"<input type='hidden' value=''id='valorSeguroViagem' onclick='seguroViagem()'>";
-                        echo"<input type='hidden' value='' name='novoValorSeguroViagem' id='novoValorSeguroViagem'onclick='seguroViagem()'> ";
                       echo"</fieldset>";
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>";

@@ -19,7 +19,6 @@
     $valorMarketing                  = filter_input(INPUT_POST, 'valorMarketing',                   FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorImpulsionamento            = filter_input(INPUT_POST, 'valorImpulsionamento',             FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $outros                          = filter_input(INPUT_POST, 'outros',                           FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    //$                   = filter_input(INPUT_POST, '',                    FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $quantidadeIngresso              = filter_input(INPUT_POST, 'quantidadeIngresso',               FILTER_SANITIZE_NUMBER_INT);
     $quantidadeOnibus                = filter_input(INPUT_POST, 'quantidadeOnibus',                 FILTER_SANITIZE_NUMBER_INT);
     $quantidadeMicro                 = filter_input(INPUT_POST, 'quantidadeMicro',                  FILTER_SANITIZE_NUMBER_INT);
@@ -34,23 +33,31 @@
     $quantidadeMarketing             = filter_input(INPUT_POST, 'quantidadeMarketing',              FILTER_SANITIZE_NUMBER_INT);
     $quantidadeKitLanche             = filter_input(INPUT_POST, 'quantidadeKitLanche',              FILTER_SANITIZE_NUMBER_INT);
     $quantidadeImpulsionamento       = filter_input(INPUT_POST, 'quantidadeImpulsionamento',        FILTER_SANITIZE_NUMBER_INT);
+
+    /* -----------------------------------------------------------------------------------------------------  */
+
     $getData = "INSERT INTO 
     despesa (valorIngresso, valorOnibus, valorMicro, valorVan, valorEscuna, valorSeguroViagem, valorAlmocoCliente, valorAlmocoMotorista, valorEstacionamento, valorGuia, valorAutorizacaoTransporte,
              valorTaxi, valorKitLanche, valorMarketing, valorImpulsionamento, outros, idPasseio,  quantidadeIngresso ,quantidadeOnibus, quantidadeMicro, quantidadeEscuna, quantidadeAlmocoCliente, 
              quantidadeAlmocoMotorista, quantidadeEstacionamento, quantidadeGuia, quantidadeAutorizacaoTransporte, quantidadeTaxi, quantidadeMarketing, quantidadeKitLanche, quantidadeImpulsionamento, quantidadeVan)
     VALUES   ('$valorIngresso', '$valorOnibus', '$valorMicro', '$valorVan', '$valorEscuna',  '$valorSeguroViagem', '$valorAlmocoCliente', '$valorAlmocoMotorista', 
-    '$valorEstacionamento', '$valorGuia', '$valorAutorizacaoTransporte', '$valorTaxi', '$valorKitLanche', '$valorMarketing', '$valorImpulsionamento', '$outros', '$idPasseio',
-    '$quantidadeIngresso' ,'$quantidadeOnibus', '$quantidadeMicro', '$quantidadeEscuna', '$quantidadeAlmocoCliente', '$quantidadeAlmocoMotorista', '$quantidadeEstacionamento', '$quantidadeGuia', 
-    '$quantidadeAutorizacaoTransporte', '$quantidadeTaxi', '$quantidadeMarketing', '$quantidadeKitLanche', '$quantidadeImpulsionamento','$quantidadeVan')
-    ";
+            '$valorEstacionamento', '$valorGuia', '$valorAutorizacaoTransporte', '$valorTaxi', '$valorKitLanche', '$valorMarketing', '$valorImpulsionamento', '$outros', '$idPasseio',
+            '$quantidadeIngresso' ,'$quantidadeOnibus', '$quantidadeMicro', '$quantidadeEscuna', '$quantidadeAlmocoCliente', '$quantidadeAlmocoMotorista', '$quantidadeEstacionamento', '$quantidadeGuia', 
+            '$quantidadeAutorizacaoTransporte', '$quantidadeTaxi', '$quantidadeMarketing', '$quantidadeKitLanche', '$quantidadeImpulsionamento','$quantidadeVan')
+            ";
+
+    /* -----------------------------------------------------------------------------------------------------  */
 
     $insertData = mysqli_query($conexao, $getData);
+
+    /* -----------------------------------------------------------------------------------------------------  */
+
     if(mysqli_insert_id($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Despesas CADASTRADAS com SUCESSO</p>";
         header("refresh:0.5; url=../cadastroDespesas.php");
         
     }else{
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Despesas NÃO foram CADASTRADAS".$quantidadeIngresso . "</p>";
+        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Despesas NÃO foram CADASTRADAS, alguma informação não foi inserida dentro dos padrões.</p>";
         header("refresh:0.5; url=../cadastroDespesas.php");
 }
 
