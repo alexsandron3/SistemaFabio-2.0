@@ -57,7 +57,7 @@
         header("refresh:0.5; url=../cadastroDespesas.php");
         
     }else{
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Despesas NÃO foram CADASTRADAS".$quantidadeIngresso . "</p>";
+        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Despesas NÃO foram CADASTRADAS, alguma informação não foi inserida dentro dos padrões.</p>";
         header("refresh:0.5; url=../cadastroDespesas.php");
 }
 

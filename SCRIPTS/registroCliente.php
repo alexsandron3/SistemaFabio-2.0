@@ -21,13 +21,13 @@
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData = "INSERT INTO 
-                CLIENTE (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial, created )
-                VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial',  NOW())
+                cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial )
+                VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial')
                 ";
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $verificaSeClienteExiste = "SELECT c.cpfCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'";
+    $verificaSeClienteExiste = "SELECT c.cpfCliente, c.nomeCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'";
     $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
     $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
 
@@ -42,7 +42,7 @@
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário CADASTRADO com sucesso</p>";
             header("refresh:0.5; url=../cadastroCliente.php");
         }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário NÃO foi CADASTRADO </p>";
+            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário NÃO foi CADASTRADO, alguma informação não foi inserida dentro dos padrões. </p>";
             header("refresh:0.5; url=../cadastroCliente.php");
         }
 

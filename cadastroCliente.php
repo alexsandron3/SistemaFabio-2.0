@@ -43,7 +43,7 @@
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             LISTAGEM
@@ -52,7 +52,7 @@
             <a class="dropdown-item" href="">CLIENTE</a>
             <a class="dropdown-item" href="">PASSEIO</a>
             <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div>
+          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -137,7 +137,7 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
-          <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento" required="required"
+          <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
             onblur="ageCount()" >
           <label class="col-sm-2 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
           <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"

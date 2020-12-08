@@ -25,11 +25,11 @@
         
         $totalDespesas =        "SELECT (valorIngresso * quantidadeIngresso) + (valorOnibus * quantidadeOnibus) + (valorMicro * quantidadeMicro) + (valorVan * quantidadeVan) + (valorEscuna * quantidadeEscuna) + (valorAlmocoCliente * quantidadeAlmocoCliente)
                                 + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
-                                + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros + $valorTotalSeguroViagem
+                                + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros 
                                 AS totalDespesas FROM despesa WHERE idPasseio=$idPasseio"; 
                                 $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
                                 $rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas);
-                                $valorTotalDespesas             = $rowTotalDespesa ['totalDespesas'];
+                                $valorTotalDespesas             = $rowTotalDespesa ['totalDespesas'] + $valorTotalSeguroViagem;
 /* -----------------------------------------------------------------------------------------------------  */
         
         $lucroLiquido                   = $lucroBruto + $valorPendente;
@@ -89,7 +89,7 @@
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             LISTAGEM
@@ -98,7 +98,7 @@
             <a class="dropdown-item" href="">CLIENTE</a>
             <a class="dropdown-item" href="">PASSEIO</a>
             <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div>
+          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -148,6 +148,11 @@
                                             FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
                                             $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
                                             while($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)){
+                                              echo"
+                                              <div class='text-center alert-info'>" .$rowPesquisaIntervaloData ['nomePasseio']. 
+                                              "<a target='_blank' href='listaPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> LISTA </a> |
+                                              <a target='_blank' href='editaDespesas.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> DESPESAS </a> | 
+                                              <a  target='_blank' href='relatoriosPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> RELATÓRIO </a>  </div>";
                                         
                                             $lucroBruto                    = $rowPesquisaIntervaloData['somarValorPago'];
                                             $valorPendente                 = $rowPesquisaIntervaloData['valorPendente'];
@@ -166,15 +171,13 @@
 
                     $totalDespesas =        "SELECT DISTINCT p.idPasseio, p.nomePasseio, (valorIngresso * quantidadeIngresso) + (valorOnibus * quantidadeOnibus) + (valorMicro * quantidadeMicro) + (valorVan * quantidadeVan) + (valorEscuna * quantidadeEscuna) + (valorAlmocoCliente * quantidadeAlmocoCliente)
                                             + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
-                                            + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros + $valorTotalSeguroViagem
+                                            + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros 
                                             AS totalDespesas FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'"; 
                                             $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
                                             while($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)){
-                                              echo"<div class='text-center alert-info'>" .$rowTotalDespesa ['nomePasseio']. 
-                                              "<a href='listaPasseio.php?id=".$rowTotalDespesa ['idPasseio'] ."'> LISTA </a> |
-                                              <a href='editaDespesas.php?id=".$rowTotalDespesa ['idPasseio'] ."'> DESPESAS </a>  </div>";
+                                              
                                             
-                                              $valorTotalDespesas             = $rowTotalDespesa ['totalDespesas'];
+                                              $valorTotalDespesas             = $rowTotalDespesa ['totalDespesas']+ $valorTotalSeguroViagem ;
                         
 /* -----------------------------------------------------------------------------------------------------  */
           

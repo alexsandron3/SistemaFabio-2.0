@@ -87,8 +87,35 @@ $("#hexTextBox").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#valorPendenteCliente").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
-  
-
+  //INT
+  $("#quantidadeIngresso").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeOnibus").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeMicro").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeVan").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeEscuna").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeAlmocoCliente").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeAlmocoMotorista").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeEstacionamento").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeGuia").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeAutorizacaoTransporte").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeTaxi").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeMarketing").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeKitLanche").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeImpulsionamento").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
 
 
 //CALCULANDO DATA DE NASCIMENTO
@@ -133,22 +160,39 @@ function calculoTotalDespesas(){
     var quantidadeMarketing                       = document.getElementById('quantidadeMarketing').value;
     var quantidadeKitLanche                       = document.getElementById('quantidadeKitLanche').value;
     var quantidadeImpulsionamento                 = document.getElementById('quantidadeImpulsionamento').value;    
+
     var valorIngresso               = document.getElementById('valorIngresso').value;
     var valorOnibus                 = document.getElementById('valorOnibus').value;
     var valorMicro                  = document.getElementById('valorMicro').value;
     var valorVan                    = document.getElementById('valorVan').value;
     var valorEscuna                 = document.getElementById('valorEscuna').value;
-    var valorSeguroViagem           = document.getElementById('valorSeguroViagem').value;
     var valorAlmocoCliente          = document.getElementById('valorAlmocoCliente').value;
     var valorAlmocoMotorista        = document.getElementById('valorAlmocoMotorista').value;
     var valorEstacionamento         = document.getElementById('valorEstacionamento').value;
     var valorGuia                   = document.getElementById('valorGuia').value;
     var valorAutorizacaoTransporte  = document.getElementById('valorAutorizacaoTransporte').value;
     var valorTaxi                   = document.getElementById('valorTaxi').value;
-    var valorKitLanche              = document.getElementById('valorKitLanche').value;
     var valorMarketing              = document.getElementById('valorMarketing').value;
+    var valorKitLanche              = document.getElementById('valorKitLanche').value;
     var valorImpulsionamento        = document.getElementById('valorImpulsionamento').value;
     var outros                      = document.getElementById('outros').value; 
+    var valorSeguroViagem           = document.getElementById('valorSeguroViagem').value;
+
+    document.getElementById('valorTotalIngresso').value        = quantidadeIngresso * valorIngresso;
+    document.getElementById('valorTotalOnibus').value          = quantidadeOnibus * valorOnibus;
+    document.getElementById('valorTotalMicro').value           = quantidadeMicro * valorMicro;
+    document.getElementById('valorTotalVan').value             = quantidadeVan * valorVan;
+    document.getElementById('valorTotalEscuna').value          = quantidadeEscuna * valorEscuna;
+    document.getElementById('valorTotalAlmocoCliente').value   = quantidadeAlmocoCliente * valorAlmocoCliente;
+    document.getElementById('valorTotalAlmocoMotorista').value = quantidadeAlmocoMotorista * valorAlmocoMotorista;
+    document.getElementById('valorTotalEstacionamento').value  = quantidadeEstacionamento * valorEstacionamento;
+    document.getElementById('valorTotalGuia').value            = quantidadeGuia * valorGuia;
+    document.getElementById('valorTotalTransporte').value      = quantidadeAutorizacaoTransporte * valorAutorizacaoTransporte;
+    document.getElementById('valorTotalTaxi').value            = quantidadeTaxi * valorTaxi;
+    document.getElementById('valorTotalMarketing').value       = quantidadeMarketing * valorMarketing;
+    document.getElementById('valorTotalKitLanche').value       = quantidadeKitLanche * valorKitLanche;
+    document.getElementById('valorTotalImpulsionamento').value = quantidadeImpulsionamento * valorImpulsionamento;
+    
     var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) + Number(valorSeguroViagem)
                                     + Number(valorAlmocoCliente) * Number(quantidadeAlmocoCliente) + Number(valorAlmocoMotorista) * Number(quantidadeAlmocoMotorista) + Number(valorEstacionamento) * Number(quantidadeEstacionamento) + Number(valorGuia) * Number(quantidadeGuia) 
                                     + Number(valorAutorizacaoTransporte) * Number(quantidadeAutorizacaoTransporte) + Number(valorTaxi) * Number(quantidadeTaxi) + Number(valorMarketing) * Number(quantidadeMarketing)  + Number(valorImpulsionamento) * Number(quantidadeImpulsionamento) 

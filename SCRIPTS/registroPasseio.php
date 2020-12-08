@@ -34,7 +34,7 @@
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Passeio CADASTRADO com sucesso</p>";
             header("refresh:0.5; url=../cadastroPasseio.php");
         }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Passeio NÃO foi CADASTRADO </p>";
+            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Passeio NÃO foi CADASTRADO, alguma informação não foi inserida dentro dos padrões.</p>";
             header("refresh:0.5; url=../cadastroPasseio.php");
             
         }
