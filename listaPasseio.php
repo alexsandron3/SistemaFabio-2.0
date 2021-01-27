@@ -2,17 +2,25 @@
   session_start();
   include_once("PHP/conexao.php");
 /* -----------------------------------------------------------------------------------------------------  */
-  $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+  $idPasseioGet   = filter_input(INPUT_GET, 'id',            FILTER_SANITIZE_NUMBER_INT);
+  $ordemPesquisa  = filter_input(INPUT_GET, 'ordemPesquisa', FILTER_SANITIZE_STRING);
+  if(empty($ordemPesquisa)){
+    $ordemPesquisa = 'nomeCliente';
+  }
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.cpfCliente, c.orgaoEmissor, c.idadeCliente, c.dataNascimento,  pp.statusPagamento, pp.idPagamento, pp.idCliente FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.dataCpfConsultado, 
+                              pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro 
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
+                          //echo $queryBuscaPeloIdPasseio;
 /* -----------------------------------------------------------------------------------------------------  */
  
-  $pegarNomePasseio = "SELECT nomePasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
+  $pegarNomePasseio = "SELECT nomePasseio, lotacao FROM passeio WHERE idPasseio='$idPasseioGet'";
                         $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
                         $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
                         $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
+                        $lotacao = $rowpegarNomePasseio ['lotacao'];
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
 
@@ -33,7 +41,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
   
-  <title>SEGURO VIAGEM </title>
+  <title>LISTA PASSEIO </title>
 </head>
 
 <body>
@@ -93,56 +101,110 @@
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h4 text-center alert-info'>" .$nomePasseioTitulo. "</p>"; ?>
+        <?php  echo"<p class='h5 text-center alert-info  '>" .$nomePasseioTitulo. " 
+        | <span class='h5'> LOTAÇÃO: $lotacao </span> 
+        | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS: </span> 
+        | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS: </span>
+        | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
+        | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  </p>"; ?>
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
-                <th>NOME</th>
-                <th>CPF</th>
-                <th>DATA NASCIMENTO</th>
-                <th>Status do Pagamento</th>
+                <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=nomeCliente"> NOME </a></th>
+                <th>  <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=rgCliente">RG </a></th>
+                <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=cpfConsultado">CPF CONSULTADO </a></th>
+                <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=statusPagamento">STATUS </a></th>
+                <th>CONTATO</th>
             </tr>
           </thead>
         
         <tbody>
           <?php
             $controleListaPasseio = 0;
+            $interessados = 0;
+            $quantidadeClienteParceiro =0;
+            $confirmados = 0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
+              
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
-              $dataNascimento =  date_create($rowBuscaPasseio['dataNascimento']);
+              $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
               $idCliente = $rowBuscaPasseio['idCliente'];
               $idPasseio = $rowBuscaPasseio['idPasseio'];
               $idadeCliente = $rowBuscaPasseio['idadeCliente'];
-
-              if ($rowBuscaPasseio ['statusPagamento'] == 0){
-                $statusPagamento = "NÃO QUITADO";
-              }else{
+              $clienteParceiro = $rowBuscaPasseio['clienteParceiro'];
+              $statusCliente = $rowBuscaPasseio ['statusPagamento'];
+              
+              
+              if($statusCliente == 0){
+                $controleListaPasseio = 1;
+                $interessados = $interessados +1;
+                $statusPagamento = "INTERESSADO";
+              }elseif($statusCliente == 1){
+                $controleListaPasseio = 1;
+                $confirmados = $confirmados +1;
                 $statusPagamento = "QUITADO";
+              }elseif($statusCliente == 2){
+                $controleListaPasseio = 1;
+                $confirmados = $confirmados +1;
+                $statusPagamento = "PARCIAL";
+              }elseif($statusCliente == 3){
+                $controleListaPasseio = 1;
+                $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
+                $statusPagamento = "PARCEIRO";
+              }else{
+                $statusPagamento ="DESCONHECIDO";
               }
+
+              /* if($rowBuscaPasseio ['statusPagamento'] == 2 ){
+                $controleListaPasseio =$controleListaPasseio+1;
+
+                $statusPagamento = " PARCIAL";
+             }elseif ($rowBuscaPasseio ['statusPagamento'] == 0 ){
+                $interessados = $interessados +1;
+                $statusPagamento = "INTERESSADO";
+              }elseif($rowBuscaPasseio ['statusPagamento'] == 3){
+                $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
+                $statusPagamento = "PARCEIRO";
+              }else{
+                $controleListaPasseio =$controleListaPasseio+1;
+
+                $statusPagamento = "QUITADO";
+              } */
               $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
             
             ?>
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
-            <th><?php echo $rowBuscaPasseio ['cpfCliente']. "<BR/>";?></th>
-            <th><?php echo date_format($dataNascimento, "d/m/Y"). "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
+            <th><?php echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";?></th>
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
-            <th><?php echo"<button onclick='apagarPagamento()' class='btn btn-primary btn-sm'>DELETAR</button>";?></th>
+            <th> <a href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
+
+            <th></th>
           </tr>
 
           <?php
-          $controleListaPasseio =+1;
+          
+
             }
+           
           ?>
+          <input type="hidden" name="" id="idPasseio" onclick="Export()" disabled="disabled" value="<?php echo $idPasseioGet;  ?>">
+          <input type="hidden" name="" id="clientesConfirmados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $confirmados;  ?>">
+          <input type="hidden" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo$interessados;  ?>">
+          <input type="hidden" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo$quantidadeClienteParceiro;  ?>">
+          <input type="hidden" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro; echo $vagasDisponiveis;  ?>">
         </tbody>
       </table>
       <?php
+      //echo $idPasseioGet;
         if($controleListaPasseio > 0){
           echo"<div class='text-center'>";
-            echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir Lista de Passeio</a>";
-            echo"<button onclick='Export()' class='btn btn-primary ml-2'>Exportar para arquivo EXCEL</button>";
+            #echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir Lista de Passeio</a>";
+            #echo"<button onclick='Export()' class='btn btn-primary ml-2'>SEGURO VIAGEM</button>";
           echo"</div>";
         }else{
+          
           echo"<div class='text-center'>";
           echo"<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
           echo"</div>";
@@ -155,14 +217,7 @@
   </div>
 <script src="config/script.php"></script>
 <script>
-  function Export()
-        {
-            var conf = confirm("Exportar para EXCEL?");
-            if(conf == true)
-            {
-                window.open("SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet?>", '_blank');
-            }
-        }
+
   function apagarPagamento(){
     var abrirJanela;
     var conf = confirm("APAGAR PAGAMENTO??");

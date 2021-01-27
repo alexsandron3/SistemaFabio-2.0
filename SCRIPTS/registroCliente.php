@@ -17,12 +17,13 @@
     $telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
+    $statusCliente          = 1;
 
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData = "INSERT INTO 
-                cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial )
-                VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial')
+                cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial, statusCliente )
+                VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial', '$statusCliente')
                 ";
 
     /* -----------------------------------------------------------------------------------------------------  */

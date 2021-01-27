@@ -100,6 +100,7 @@
           <th>NOME</th>
           <th>DATA</th>
           <th>LOCAL</th>
+          <th>VAGAS</th>
         </tr>
       </thead>
       <tbody>
@@ -113,7 +114,7 @@
               $valorPesquisaPasseio     = filter_input(INPUT_POST, 'valorPesquisaPasseio', FILTER_SANITIZE_STRING);
               
 /* -----------------------------------------------------------------------------------------------------  */
-              $queryPesquisaPasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio, p.localPasseio, p.idPasseio 
+              $queryPesquisaPasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio, p.localPasseio, p.idPasseio, p.lotacao 
                                       FROM passeio p WHERE p.nomePasseio LIKE '%$valorPesquisaPasseio%' OR p.localPasseio LIKE '%$valorPesquisaPasseio%'  OR p.dataPasseio='$valorPesquisaPasseio' ORDER BY dataPasseio";
                                       $resultadoPesquisaPasseio = mysqli_query($conexao, $queryPesquisaPasseio);
                                       while($valorPesquisaPasseio = mysqli_fetch_assoc($resultadoPesquisaPasseio)){
@@ -125,6 +126,7 @@
           <td><?php echo $valorPesquisaPasseio ['nomePasseio']. "<BR/>";?></td>
           <td><?php echo date_format($dataPasseio, "d/m/Y") ."<BR/>";?></td>
           <td><?php echo $valorPesquisaPasseio ['localPasseio']. "<BR/>";?></td>
+          <td></td>
           <td>
             <?php echo "<a class='btn btn-primary btn-sm ml-4' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >LISTA</a><br>";?>
             <?php echo "<a class='btn btn-primary btn-sm mt-1' target='_blank' rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' >RELATÓRIOS</a><br>";?>

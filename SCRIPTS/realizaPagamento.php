@@ -8,11 +8,18 @@
     $valorPago                   = filter_input(INPUT_POST, 'valorPago',              FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $previsaoPagamento           = filter_input(INPUT_POST, 'previsaoPagamento',      FILTER_SANITIZE_STRING);
     $anotacoes                   = filter_input(INPUT_POST, 'anotacoes',              FILTER_SANITIZE_STRING);
-    $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_VALIDATE_BOOLEAN);
+    $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
     $seguroViagemCliente         = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
     $idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
-    $valorPendente               = -$valorVendido + $valorPago;
+    $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $localEmbarque               = filter_input(INPUT_POST, 'localEmbarque',          FILTER_SANITIZE_STRING);
+    $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',    FILTER_VALIDATE_BOOLEAN);
+    $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
+
+
+
+    $valorPendente               = -$valorVendido + ($valorPago + $taxaPagamento);
 
     /* -----------------------------------------------------------------------------------------------------  */
 
@@ -28,30 +35,28 @@
     $rowQtdCliente           = mysqli_fetch_assoc($resultadoQtdCliente);
     $qtdCliente              = $rowQtdCliente ['qtdClientes'];
 
+    /* -----------------------------------------------------------------------------------------------------  */
 
     if($seguroViagemCliente == 1){
-        if($idadeCliente >= 0 and $idadeCliente <=40 ){
-            $valorSeguroViagem = 2.23;
-        }elseif($idadeCliente >=41 and $idadeCliente <=60){
-            $valorSeguroViagem = 2.73;
-        }elseif($idadeCliente > 60){
-            $valorSeguroViagem = 5.93;
-        }else{
-            $valorSeguroViagem = 0;
+        if($idadeCliente >= 0 and $idadeCliente <=85 ){
+            $valorSeguroViagem = 2.47;
         }
     }else{
         $valorSeguroViagem = 0;
     }
+    
     /* -----------------------------------------------------------------------------------------------------  */
 
+    
+
     $getDataPagamentoPasseio = "INSERT INTO pagamento_passeio 
-                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, valorSeguroViagemCliente)  
+                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, valorSeguroViagemCliente, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento)  
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
-                                '$valorSeguroViagem')
+                                '$valorSeguroViagem', '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento')
                                 ";
 
     /* -----------------------------------------------------------------------------------------------------  */
-
+    $vagasRestantes = ($lotacaoPasseio - $qtdCliente) -1;
     if($lotacaoPasseio > $qtdCliente){
         $insertDataPagamentoPasseio = mysqli_query($conexao, $getDataPagamentoPasseio);
 
@@ -61,6 +66,10 @@
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
             header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+        }
+        if($vagasRestantes > 0 and $vagasRestantes <=10){
+            $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>EXISTEM APENAS ". $vagasRestantes ." VAGAS DISPONÍVEIS</p>";
+
         }
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
