@@ -112,7 +112,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='". number_format($rowDespesa['valorIngresso'],2). "' onblur='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='". number_format((float)$rowDespesa['valorIngresso'],2, '.', ''). "' onblur='calculoTotalDespesas()' >";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeIngresso' id='quantidadeIngresso' placeholder='QTD'  value='". $rowDespesa ['quantidadeIngresso']."'onblur='calculoTotalDespesas()'>";
@@ -125,7 +125,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorOnibus'>ONIBUS</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorOnibus' id='valorOnibus' placeholder='VALOR DO ONIBUS' value='". number_format($rowDespesa['valorOnibus'],2). "'onblur='calculoTotalDespesas()' >";
+                echo"<input type='text' class='form-control' name='valorOnibus' id='valorOnibus' placeholder='VALOR DO ONIBUS' value='". number_format((float)$rowDespesa['valorOnibus'],2, '.', ''). "'onblur='calculoTotalDespesas()' >";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeOnibus' id='quantidadeOnibus' placeholder='QTD' value='". $rowDespesa ['quantidadeOnibus']."'onblur='calculoTotalDespesas()' >";
@@ -138,7 +138,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorMicro'>MICRO</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorMicro' id='valorMicro' placeholder='VALOR DO MICRO' value='". number_format($rowDespesa['valorMicro'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorMicro' id='valorMicro' placeholder='VALOR DO MICRO' value='". number_format((float)$rowDespesa['valorMicro'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeMicro' id='quantidadeMicro' placeholder='QTD' value='". $rowDespesa ['quantidadeMicro']."'onblur='calculoTotalDespesas()' >";
@@ -151,7 +151,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorVan'>VAN</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorVan' id='valorVan' placeholder='VALOR DO VAN' value='". number_format($rowDespesa['valorVan'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorVan' id='valorVan' placeholder='VALOR DO VAN' value='". number_format((float)$rowDespesa['valorVan'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeVan' id='quantidadeVan' placeholder='QTD' value='". $rowDespesa ['quantidadeVan']."'onblur='calculoTotalDespesas()' > ";
@@ -164,7 +164,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorEscuna'>ESCUNA</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorEscuna' id='valorEscuna' placeholder='VALOR DO ESCUNA' value='". number_format($rowDespesa['valorEscuna'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorEscuna' id='valorEscuna' placeholder='VALOR DO ESCUNA' value='". number_format((float)$rowDespesa['valorEscuna'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeEscuna' id='quantidadeEscuna' placeholder='QTD' value='".$rowDespesa ['quantidadeEscuna']."'onblur='calculoTotalDespesas()' >";
@@ -177,7 +177,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorSeguroViagem'>SEGURO VIAGEM</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value='".number_format($valorTotalSeguroViagem,2) ."'onblur='calculoTotalDespesas()' disabled='disabled' >";
+                echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value='".number_format((float)$valorTotalSeguroViagem,2, '.', '') ."'onblur='calculoTotalDespesas()' disabled='disabled' >";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='' id='' placeholder='QTD' value='1'onblur='calculoTotalDespesas()' disabled='disabled'>";
@@ -187,7 +187,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorAlmocoCliente'>ALMOCO CLIENTE</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorAlmocoCliente' id='valorAlmocoCliente' placeholder='ALMOCO CLIENTE' value='". number_format($rowDespesa['valorAlmocoCliente'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorAlmocoCliente' id='valorAlmocoCliente' placeholder='ALMOCO CLIENTE' value='". number_format((float)$rowDespesa['valorAlmocoCliente'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeAlmocoCliente' id='quantidadeAlmocoCliente' placeholder='QTD' value='". $rowDespesa ['quantidadeAlmocoCliente']."'onblur='calculoTotalDespesas()'>";
@@ -200,7 +200,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorAlmocoMotorista'>ALMOCO MOTORISTA</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorAlmocoMotorista' id='valorAlmocoMotorista' placeholder='ALMOCO MOTORISTA' value='". number_format($rowDespesa['valorAlmocoMotorista'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorAlmocoMotorista' id='valorAlmocoMotorista' placeholder='ALMOCO MOTORISTA' value='". number_format((float)$rowDespesa['valorAlmocoMotorista'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeAlmocoMotorista' id='quantidadeAlmocoMotorista' placeholder='QTD' value='". $rowDespesa ['quantidadeAlmocoMotorista']."'onblur='calculoTotalDespesas()'>";
@@ -213,7 +213,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorEstacionamento'>ESTACIONAMENTO</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorEstacionamento' id='valorEstacionamento' placeholder='ESTACIONAMENTO' value='". number_format($rowDespesa['valorEstacionamento'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorEstacionamento' id='valorEstacionamento' placeholder='ESTACIONAMENTO' value='". number_format((float)$rowDespesa['valorEstacionamento'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeEstacionamento' id='quantidadeEstacionamento' placeholder='QTD' value='". $rowDespesa ['quantidadeEstacionamento']."'onblur='calculoTotalDespesas()' >";
@@ -226,7 +226,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorGuia'>GUIA</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorGuia' id='valorGuia' placeholder='VALOR GUIA' value='". number_format($rowDespesa['valorGuia'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorGuia' id='valorGuia' placeholder='VALOR GUIA' value='". number_format((float)$rowDespesa['valorGuia'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeGuia' id='quantidadeGuia' placeholder='QTD' value='". $rowDespesa ['quantidadeGuia']."'onblur='calculoTotalDespesas()'>";
@@ -239,7 +239,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorAutorizacaoTransporte'>AUTORIZAÇÃO</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorAutorizacaoTransporte' id='valorAutorizacaoTransporte' placeholder='AUTORIZACAO TRANSPORTE' value='". number_format($rowDespesa['valorAutorizacaoTransporte'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorAutorizacaoTransporte' id='valorAutorizacaoTransporte' placeholder='AUTORIZACAO TRANSPORTE' value='". number_format((float)$rowDespesa['valorAutorizacaoTransporte'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeAutorizacaoTransporte' id='quantidadeAutorizacaoTransporte' placeholder='QTD' value='". $rowDespesa ['quantidadeAutorizacaoTransporte']."'onblur='calculoTotalDespesas()' >";
@@ -252,7 +252,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorTaxi'>TAXI</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorTaxi' id='valorTaxi' placeholder='TAXI' value='". number_format($rowDespesa['valorTaxi'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorTaxi' id='valorTaxi' placeholder='TAXI' value='". number_format((float)$rowDespesa['valorTaxi'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeTaxi' id='quantidadeTaxi' placeholder='QTD' value='". $rowDespesa ['quantidadeTaxi']."'onblur='calculoTotalDespesas()' >";
@@ -265,7 +265,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorMarketing'>MARKETING</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorMarketing' id='valorMarketing' placeholder='MARKETING' value='". number_format($rowDespesa['valorMarketing'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorMarketing' id='valorMarketing' placeholder='MARKETING' value='". number_format((float)$rowDespesa['valorMarketing'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeMarketing' id='quantidadeMarketing' placeholder='QTD' value='". $rowDespesa ['quantidadeMarketing']."'onblur='calculoTotalDespesas()' >";
@@ -278,7 +278,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorKitLanche'>KIT LANCHE</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorKitLanche' id='valorKitLanche' placeholder='KIT LANCHE' value='".number_format($rowDespesa['valorKitLanche'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorKitLanche' id='valorKitLanche' placeholder='KIT LANCHE' value='".number_format((float)$rowDespesa['valorKitLanche'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeKitLanche' id='quantidadeKitLanche' placeholder='QTD' value='". $rowDespesa ['quantidadeKitLanche']."'onblur='calculoTotalDespesas()'>";
@@ -291,7 +291,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorImpulsionamento'>IMPULSIONAMENTO</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorImpulsionamento' id='valorImpulsionamento' placeholder='INMPULSIONAMENTO' value='". number_format($rowDespesa['valorImpulsionamento'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='valorImpulsionamento' id='valorImpulsionamento' placeholder='INMPULSIONAMENTO' value='". number_format((float)$rowDespesa['valorImpulsionamento'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
                 echo"<input type='text' class='form-control' name='quantidadeImpulsionamento' id='quantidadeImpulsionamento' placeholder='QTD' value='". $rowDespesa ['quantidadeImpulsionamento']."'onblur='calculoTotalDespesas()' >";
@@ -304,7 +304,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='outros'>OUTROS</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='outros' id='outros' placeholder='OUTROS' value='". number_format($rowDespesa['outros'],2). "'onblur='calculoTotalDespesas()'>";
+                echo"<input type='text' class='form-control' name='outros' id='outros' placeholder='OUTROS' value='". number_format((float)$rowDespesa['outros'],2, '.', ''). "'onblur='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
 

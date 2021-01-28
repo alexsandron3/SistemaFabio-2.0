@@ -101,7 +101,7 @@
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h5 text-center alert-info  '>" .$nomePasseioTitulo. " 
+        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " 
         | <span class='h5'> LOTAÇÃO: $lotacao </span> 
         | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS: </span> 
         | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS: </span>
@@ -154,22 +154,6 @@
               }else{
                 $statusPagamento ="DESCONHECIDO";
               }
-
-              /* if($rowBuscaPasseio ['statusPagamento'] == 2 ){
-                $controleListaPasseio =$controleListaPasseio+1;
-
-                $statusPagamento = " PARCIAL";
-             }elseif ($rowBuscaPasseio ['statusPagamento'] == 0 ){
-                $interessados = $interessados +1;
-                $statusPagamento = "INTERESSADO";
-              }elseif($rowBuscaPasseio ['statusPagamento'] == 3){
-                $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
-                $statusPagamento = "PARCEIRO";
-              }else{
-                $controleListaPasseio =$controleListaPasseio+1;
-
-                $statusPagamento = "QUITADO";
-              } */
               $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
             
             ?>

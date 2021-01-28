@@ -35,6 +35,11 @@
     $rowQtdCliente           = mysqli_fetch_assoc($resultadoQtdCliente);
     $qtdCliente              = $rowQtdCliente ['qtdClientes'];
 
+
+    $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0)";
+    $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
+    $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
+
     /* -----------------------------------------------------------------------------------------------------  */
 
     if($seguroViagemCliente == 1){
@@ -54,26 +59,42 @@
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
                                 '$valorSeguroViagem', '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento')
                                 ";
+ 
 
     /* -----------------------------------------------------------------------------------------------------  */
-    $vagasRestantes = ($lotacaoPasseio - $qtdCliente) -1;
-    if($lotacaoPasseio > $qtdCliente){
+
+    $alerta = $lotacaoPasseio * 0.80;
+    $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados) -1;
+    if($lotacaoPasseio <= $qtdClientesConfirmados){
+        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
+        header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+    }elseif($lotacaoPasseio > $qtdClientesConfirmados){
         $insertDataPagamentoPasseio = mysqli_query($conexao, $getDataPagamentoPasseio);
 
         if(mysqli_insert_id($conexao)){
-            $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
-            header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+            if($qtdClientesConfirmados+1 >= $lotacaoPasseio){
+                echo '  <script type="text/JavaScript">  
+                            alert("LIMITE DE VAGAS ATINGIDO"); 
+                        </script>' 
+                ; 
+                $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso.</p>";
+                header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+            }else{
+                $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
+                header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+            }
+
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
             header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
         }
-        if($vagasRestantes > 0 and $vagasRestantes <=10){
+        if($vagasRestantes > 0 and $vagasRestantes <= floor($alerta)){
+            if($statusPagamento == 0){
+                $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
+            }
             $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>EXISTEM APENAS ". $vagasRestantes ." VAGAS DISPONÍVEIS</p>";
 
         }
-    }else{
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
-        header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
     }
 
 

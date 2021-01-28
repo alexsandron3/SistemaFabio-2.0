@@ -148,10 +148,12 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
           <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
-            onchange="ageCount()" value="<?php echo $rowResultadoBuscaPeloIdCliente ['dataNascimento']; ?>">
-          <label class="col-sm-2 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
-          <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"
-            onchange="ageCount()">
+          onblur="ageCount(dataNascimento.value)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['dataNascimento']; ?>">
+        </div>
+        <div class="form-group row">
+        <label class="col-sm-1 col-form-label " for="idadeCliente">IDADE</label>
+          <input type="text" class="form-control col-sm-3 ml-3" name="idadeCliente" id="idadeCliente" readonly="readonly"
+            onblur="ageCount()">
         </div>
         <fieldset class="form-group">
           <div class="row">

@@ -128,29 +128,22 @@ $("#hexTextBox").inputFilter(function(value) {
 
 
 //CALCULANDO DATA DE NASCIMENTO
-function ageCount() {
-    var now = new Date();                           
-    var currentY= now.getFullYear();                
-    var currentM= now.getMonth();                   
-    var currentD= now.getDate();                    
-      
-    var dobget =document.getElementById("dataNascimento").value; 
-    var dob= new Date(dobget);                          
-    var prevY= dob.getFullYear();                          
-    var prevM= dob.getMonth();                             
-    var prevD= dob.getDate();                               
-      
-    var ageY =currentY - prevY;
-    var ageM =Math.abs(currentM- prevM);          
-    var ageD = Math.abs(currentD-prevD -1);
+function ageCount(dataNasc) {
+  split = dataNasc.split('-'); // ou use '/'
+                var ano_aniversario = split[0] ;
+                var mes_aniversario = split[1] ;
+                var dia_aniversario = split[2] ;
+                var dataAtual = new Date ;
+                ano_atual = dataAtual.getFullYear() ;
+                mes_atual = dataAtual.getMonth() + 1 ;
+                dia_atual = dataAtual.getDate() ;
 
-    
-    if(ageY < 0 || ageY > 150){
-      document.getElementById('dataNascimento').value = "00/00/3333" ;
-      var idadeConfirm = confirm("IDADE INVÁLIDA");
-    }else{  
-      document.getElementById('idadeCliente').value = ageY;
-    }
+                quantos_anos = ano_atual - ano_aniversario;
+
+                if (mes_atual < mes_aniversario || mes_atual == mes_aniversario && dia_atual < dia_aniversario) {
+                    quantos_anos--;
+                }
+                document.getElementById('idadeCliente').value = quantos_anos;
 }
 
 //CALCULO DESPESAS PASSEIO
