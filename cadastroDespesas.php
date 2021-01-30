@@ -128,7 +128,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='0' onchange='calculoTotalDespesas()' >";
+                      echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
                       echo"<input type='hidden' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
@@ -142,7 +142,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorOnibus'>ONIBUS</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorOnibus' id='valorOnibus' placeholder='VALOR DO ONIBUS' value='0' onchange='calculoTotalDespesas()' >";
+                      echo"<input type='text' class='form-control' name='valorOnibus' id='valorOnibus' placeholder='VALOR DO ONIBUS' value='' onchange='calculoTotalDespesas()' >";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeOnibus' id='quantidadeOnibus' placeholder='QTD' value='1'onchange='calculoTotalDespesas()' >";
@@ -155,7 +155,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorMicro'>MICRO</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorMicro' id='valorMicro' placeholder='VALOR DO MICRO' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorMicro' id='valorMicro' placeholder='VALOR DO MICRO' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeMicro' id='quantidadeMicro' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -168,7 +168,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorVan'>VAN</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorVan' id='valorVan' placeholder='VALOR DO VAN' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorVan' id='valorVan' placeholder='VALOR DO VAN' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeVan' id='quantidadeVan' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -181,7 +181,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorEscuna'>ESCUNA</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorEscuna' id='valorEscuna' placeholder='VALOR DO ESCUNA' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorEscuna' id='valorEscuna' placeholder='VALOR DO ESCUNA' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeEscuna' id='quantidadeEscuna' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -194,7 +194,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorAlmocoCliente'>ALMOCO CLIENTE</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorAlmocoCliente' id='valorAlmocoCliente' placeholder='ALMOCO CLIENTE' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorAlmocoCliente' id='valorAlmocoCliente' placeholder='ALMOCO CLIENTE' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeAlmocoCliente' id='quantidadeAlmocoCliente' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -207,7 +207,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorAlmocoMotorista'>ALMOCO MOTORISTA</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorAlmocoMotorista' id='valorAlmocoMotorista' placeholder='ALMOCO MOTORISTA' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorAlmocoMotorista' id='valorAlmocoMotorista' placeholder='ALMOCO MOTORISTA' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeAlmocoMotorista' id='quantidadeAlmocoMotorista' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -220,7 +220,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorEstacionamento'>ESTACIONAMENTO</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorEstacionamento' id='valorEstacionamento' placeholder='ESTACIONAMENTO' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorEstacionamento' id='valorEstacionamento' placeholder='ESTACIONAMENTO' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeEstacionamento' id='quantidadeEstacionamento' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -233,7 +233,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorGuia'>GUIA</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorGuia' id='valorGuia' placeholder='VALOR GUIA' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorGuia' id='valorGuia' placeholder='VALOR GUIA' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeGuia' id='quantidadeGuia' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -246,7 +246,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorAutorizacaoTransporte'>TRANSPORTE</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorAutorizacaoTransporte' id='valorAutorizacaoTransporte' placeholder='AUTORIZACAO TRANSPORTE' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorAutorizacaoTransporte' id='valorAutorizacaoTransporte' placeholder='AUTORIZACAO TRANSPORTE' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeAutorizacaoTransporte' id='quantidadeAutorizacaoTransporte' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -259,7 +259,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorTaxi'>TAXI</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorTaxi' id='valorTaxi' placeholder='TAXI' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorTaxi' id='valorTaxi' placeholder='TAXI' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeTaxi' id='quantidadeTaxi' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -272,7 +272,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorMarketing'>MARKETING</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorMarketing' id='valorMarketing' placeholder='MARKETING' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorMarketing' id='valorMarketing' placeholder='MARKETING' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeMarketing' id='quantidadeMarketing' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -285,7 +285,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorKitLanche'>KIT LANCHE</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorKitLanche' id='valorKitLanche' placeholder='KIT LANCHE' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorKitLanche' id='valorKitLanche' placeholder='KIT LANCHE' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeKitLanche' id='quantidadeKitLanche' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -298,7 +298,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorImpulsionamento'>IMPULSIONAMENTO</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='valorImpulsionamento' id='valorImpulsionamento' placeholder='IMPULSIONAMENTO' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='valorImpulsionamento' id='valorImpulsionamento' placeholder='IMPULSIONAMENTO' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeImpulsionamento' id='quantidadeImpulsionamento' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
@@ -311,7 +311,7 @@
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='outros'>OUTROS</label>";
                     echo"<div class='col-sm-6'>";
-                      echo"<input type='text' class='form-control' name='outros' id='outros' placeholder='OUTROS' value='0'onchange='calculoTotalDespesas()'>";
+                      echo"<input type='text' class='form-control' name='outros' id='outros' placeholder='OUTROS' value=''onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
 

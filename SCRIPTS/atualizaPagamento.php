@@ -8,17 +8,13 @@
     $valorPago                   = filter_input(INPUT_POST, 'valorPago',              FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $previsaoPagamento           = filter_input(INPUT_POST, 'previsaoPagamento',      FILTER_SANITIZE_STRING);
     $anotacoes                   = filter_input(INPUT_POST, 'anotacoes',              FILTER_SANITIZE_STRING);
-    $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
-    $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
-    $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
+    $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_VALIDATE_BOOLEAN);
     $seguroViagemCliente         = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
     $idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
     $valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorPagoAtual              = filter_input(INPUT_POST, 'valorPagoAtual',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-
-    $valorPendente               = -$valorVendido + ($valorPago + $taxaPagamento);
+    $valorPendente = -$valorVendido + $valorPago;
 
     /* -----------------------------------------------------------------------------------------------------  */
 
@@ -27,10 +23,12 @@
         $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem1);
         $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
         $valorSeguroViagem = $rowSeguroViagem ['valorSeguroViagem'];
-        if($seguroViagemCliente == 1){
-            if($idadeCliente >= 0 and $idadeCliente <=85 ){
-                $valorSeguroViagem = 2.47;
-            }
+        if($idadeCliente >= 0 and $idadeCliente <=40 ){
+            $novoValorSeguroViagem = $valorSeguroViagem - 2.23;
+        }elseif($idadeCliente >=41 and $idadeCliente <=60){
+            $novoValorSeguroViagem = $valorSeguroViagem - 2.73;
+        }elseif($idadeCliente > 60){
+            $novoValorSeguroViagem = $valorSeguroViagem - 5.93;
         }else{
             $novoValorSeguroViagem = $valorSeguroViagem - 0;
         }
@@ -38,21 +36,12 @@
         $novoValorSeguroViagem = $valorSeguroViagem;
     }
 
-    $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
-    $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
-    $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
-    $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
-    $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao'];
-    if($idadeCliente <= $idadeIsencao ){
-        $statusPagamento = 4;
-    }
 
-    
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData =                  "UPDATE pagamento_passeio SET    
-                                valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento' ,statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$seguroViagemCliente',
-                                transporte='$transporteCliente', taxaPagamento='$taxaPagamento'
+                                valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', statusPagamento='$statusPagamento', valorPendente='$valorPendente', seguroViagem='$seguroViagemCliente',
+                                transporte='$transporteCliente'
                                 WHERE idPagamento='$idPagamento'
                                 ";
 

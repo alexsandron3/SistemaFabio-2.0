@@ -66,38 +66,22 @@
   </nav>
   <!-- TODO FORM -->
   <script>
-      function testeonload(){
-          var valor = document.getElementById("letras").value;
+      function testeOnblur(){
+          var valor = document.getElementById('letras').value;
           console.log(valor);
 
           var idValor = valor;
-          document.getElementById("id").value = idValor;
+          document.getElementById('id').value = idValor;
       } 
       
   </script>
     <form action="">
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="valorIngresso">INGRESSO</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" name="valorIngresso" id="valorIngresso" placeholder="VALOR DO INGRESSO" value=""onload="calculoTotalDespesas()" >
-        </div>
-        <div class="col-sm-1">
-                <input type="text" class="form-control" name="quantidadeIngresso" id="quantidadeIngresso" placeholder="QTD"  value=""onload="calculoTotalDespesas()">
-        </div>
-        <div class="col-sm-2">
-          <input type="text" readonly class="form-control col-sm-8" name="valorTotalIngresso" id="valorTotalIngresso" placeholder="TOTAL"  value="0" onload="calculoTotalDespesas()">
-        </div>
-        <label class="col-sm-2 col-form-label" for="valorOnibus">ONIBUS</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" name="valorOnibus" id="valorOnibus" placeholder="VALOR DO onibus" value=""onload="calculoTotalDespesas()" >
-        </div>
-        <div class="col-sm-1">
-                <input type="text" class="form-control" name="quantidadeOnibus" id="quantidadeOnibus" placeholder="QTD"  value=""onload="calculoTotalDespesas()">
-        </div>
-        <div class="col-sm-2">
-          <input type="text" readonly class="form-control col-sm-8" name="valorTotalOnibus" id="valorTotalOnibus" placeholder="TOTAL"  value="0" onload="calculoTotalDespesas()">
-        </div>
-      </div>
+        <select name="" id="letras" onchange="testeOnblur()">
+            <option value="A1" >AAAAA1</option>
+            <option value="B2" >BBBBB2</option>
+            <option value="C3" >CCCCC3</option>
+        </select>
+        <input type="text" id="id" onchange="testeOnblur()">
     </form>
   <script src="config/script.js"></script>
 </body>
