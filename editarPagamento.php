@@ -5,13 +5,14 @@
     $idPagamento = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
     $queryBuscaIdPagamento = "    SELECT DISTINCT c.nomeCliente, c.referencia, c.idadeCliente , p.idPasseio, p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.transporte , pp.idPasseio, pp.valorPago, pp.valorVendido, 
-                                  pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem 
+                                  pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem, pp.taxaPagamento, pp.localEmbarque, pp.clienteParceiro, pp.historicoPagamento 
                                   FROM cliente c, passeio p, pagamento_passeio pp WHERE idPagamento='$idPagamento' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
                                   $resultadoIdPagamento = mysqli_query($conexao, $queryBuscaIdPagamento);
                                   $rowIdPagamento = mysqli_fetch_assoc($resultadoIdPagamento);
 /* -----------------------------------------------------------------------------------------------------  */
                                   $idPasseio = $rowIdPagamento ['idPasseio'];
                                   $statusSeguroViagem = $rowIdPagamento ['seguroViagem'];
+                                  $clienteParceiro = $rowIdPagamento ['clienteParceiro'];
                                   $idadeCliente = $rowIdPagamento ['idadeCliente'];
                                   $transporte = $rowIdPagamento ['transporte'];
 
@@ -30,10 +31,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
-  <title>PAGAMENTO</title>
+  <title>EDITAR PAGAMENTO</title>
 </head>
 
-<body>
+<body onload="verificaDePrevisaoPagamento()">
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -93,7 +94,7 @@
     ?>
     
     <div class="container-fluid ">
-      <form action="SCRIPTS/atualizaPagamento.php" method="post" autocomplete="OFF"  >
+      <form action="SCRIPTS/atualizaPagamento.php" method="post" autocomplete="OFF" onclick="calculoPagamentoCliente()">
       <div class="form-group-row">
           <?php
             $dataPasseio = date_create($rowIdPagamento ['dataPasseio']);
@@ -103,29 +104,49 @@
             $anotacoes  = $rowIdPagamento ['anotacoes'];
             $valorPago     = $rowIdPagamento ['valorPago'];
             $valorPendente = $rowIdPagamento ['valorPendente'];
+            $taxaPagamento = $rowIdPagamento['taxaPagamento'];
+            $localEmbarque = $rowIdPagamento['localEmbarque'];
+            $historicoPagamento = $rowIdPagamento['historicoPagamento'];
+            $clienteParceiro = $rowIdPagamento['statusPagamento'];
             echo"<p class='h4 text-center alert-info'> ". $rowIdPagamento ['nomeCliente']. " | ". $rowIdPagamento ['nomePasseio']. " ". date_format($dataPasseio, "d/m/Y") ."</p>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
                 echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='$valorVendido' onblur='calculoPagamentoCliente()'>";
+                echo"<input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='$valorVendido' >";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>";
                 echo"<div class='col-sm-6'>";
-                  echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='$valorPago' onblur='calculoPagamentoCliente()'>";
+                  echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='$valorPago' >";
+                echo"</div>";
+                echo"<div class='col-sm-2'>";
+                  echo"<input type='text' class='form-control' name='novoValorPago' id='novoValorPago' placeholder='NOVO PAGAMENTO' value='0' onblur='(new calculoPagamentoCliente()).novoValorPago()'>";
+                  echo"<input type='hidden' class='form-control' name='valorAntigo' id='valorAntigo' placeholder='valorAntigo' value='$valorPago' >";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>";
                 echo"<div class='col-sm-6'>";
-                  echo"<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' value='$valorPendente' readonly='readonly' onblur='calculoPagamentoCliente()'>";
+                  echo"<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' value='$valorPendente' readonly='readonly' >";
                 echo"</div>";
+            echo"</div>";
+            echo"<div class='form-group row'>";
+                echo"<label class='col-sm-2 col-form-label' for='taxaPagamento'>TAXA DE PAGAMENTO</label>";
+                echo"<div class='col-sm-6'>";
+                  echo"<input type='text' class='form-control' name='taxaPagamento' id='taxaPagamento' value='$taxaPagamento'  placeholder='TAXA DE PAGAMENTO' >";
+                echo"</div>";
+              echo"</div>";
+            echo"<div class='form-group row'>";
+              echo"<label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>";
+              echo"<div class='col-sm-6'>";
+                echo"<input type='text' class='form-control' name='localEmbarque' id='localEmbarque'  placeholder='LOCAL DE EMBARQUE' value='$localEmbarque' required='required'>";
+              echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>";
                 echo"<div class='col-sm-3'>";
-                  echo"<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' value='".$rowIdPagamento ['previsaoPagamento'] . "' placeholder='PREVISÃO PAGAMENTO'>";
+                  echo"<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' value='".$rowIdPagamento ['previsaoPagamento'] . "' placeholder='PREVISÃO PAGAMENTO' onblur='verificaDataDePrevisaoPagamento()'>";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -159,7 +180,7 @@
                   echo"</div>";
                   echo"<div class='form-check'>";
                     echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                    value='0' onclick='seguroViagem()'>";
+                    value='0' >";
                     echo"<label class='form-check-label' for='seguroViagemClientenao'>
                       NÃO
                     </label>";
@@ -174,14 +195,14 @@
                 echo"<div class='col-sm-5'>";
                   echo"<div class='form-check'>";
                     echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                    value='1' onclick='seguroViagem()' >";
+                    value='1'  >";
                     echo"<label class='form-check-label' for='seguroViagemClienteSim'>
                       SIM
                     </label>";
                   echo"</div>";
                   echo"<div class='form-check'>";
                     echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                    value='0' onclick='seguroViagem()' checked>";
+                    value='0'  checked>";
                     echo"<label class='form-check-label' for='seguroViagemClientenao'>
                       NÃO
                     </label>";
@@ -191,11 +212,59 @@
               echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
               echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
             }
+            if($clienteParceiro == 3){
+              echo"<div class='row'>";
+                echo"<legend class='col-form-label col-sm-2 pt-0'>CLIENTE PARCEIRO</legend>";
+                echo"<div class='col-sm-5'>";
+                  echo"<div class='form-check'>";
+                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
+                    value='1'  disabled checked ' onclick='calculoPagamentoCliente()'>";
+                    echo"<label class='form-check-label' for='clienteParceiroSim' >
+                      SIM
+                    </label>";
+                  echo"</div>";
+                  echo"<div class='form-check'>";
+                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
+                    value='0' onclick='calculoPagamentoCliente()'>";
+                    echo"<label class='form-check-label' for='clienteParceironao'>
+                      NÃO
+                    </label>";
+                  echo"</div>";
+                echo"</div>";
+              echo"</div>";
+
+            }else{
+              echo"<div class='row'>";
+                echo"<legend class='col-form-label col-sm-2 pt-0'>CLIENTE PARCEIRO</legend>";
+                echo"<div class='col-sm-5'>";
+                  echo"<div class='form-check'>";
+                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
+                    value='1'  onclick='calculoPagamentoCliente()'>";
+                    echo"<label class='form-check-label' for='clienteParceiroSim'>
+                      SIM
+                    </label>";
+                  echo"</div>";
+                  echo"<div class='form-check'>";
+                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
+                    value='0'  checked onclick='calculoPagamentoCliente()'>";
+                    echo"<label class='form-check-label' for='clienteParceironao'>
+                      NÃO
+                    </label>";
+                  echo"</div>";
+                echo"</div>";
+              echo"</div>";
+              
+            }
             echo"</fieldset>"; 
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>";
               echo"<textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='6' rows='3'
-              placeholder='ANOTAÕES' onkeydown='upperCaseF(this)' maxlength='500'> $anotacoes</textarea>";
+              placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'> $anotacoes</textarea>";
+              echo"<label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>";
+              echo"<textarea class='form-control col-sm-3 ml-3' name='historicoPagamento' id='historicoPagamento' cols='6' rows='3'
+              placeholder='historicoPagamento' maxlength='500'> $historicoPagamento </textarea>";
+              echo"<textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3'
+              placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'> $historicoPagamento </textarea>";
             echo"</div>"; 
           ?>
           

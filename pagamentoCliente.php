@@ -87,7 +87,7 @@
     ?>
     
     <div class="container-fluid ">
-      <form action="" autocomplete="off" method="POST">
+      <form action="" autocomplete="off" method="POST" onkeydown="calculoPagamentoCliente()">
         <?php
         if($idCliente == 0){
           echo"<p class='h4 text-center alert-danger'>POR FAVOR, SELECIONE UM CLIENTE </p>";
@@ -151,19 +151,35 @@
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
                         echo"<div class='col-sm-6'>";
-                          echo"<input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO'  required onblur='calculoPagamentoCliente()'>";
+                          echo"<input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='0' required onblur='calculoPagamentoCliente()'>";
                         echo"</div>";
                       echo"</div>";
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>";
                         echo"<div class='col-sm-6'>";
-                          echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO'  value='0' onblur='calculoPagamentoCliente()'>";
+                          echo"<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO'  value='0' onchange='calculoPagamentoCliente()'readonly='readonly' >";
+                        echo"</div>";
+                        echo"<div class='col-sm-2'>";
+                          echo"<input type='text' class='form-control' name='novoValorPago' id='novoValorPago' placeholder='NOVO PAGAMENTO' value='0' onblur='(new calculoPagamentoCliente()).novoValorPago()'>";
+                          echo"<input type='hidden' class='form-control' name='valorAntigo' id='valorAntigo' placeholder='valorAntigo' value='0' >";
                         echo"</div>";
                       echo"</div>";
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>";
                         echo"<div class='col-sm-6'>";
                           echo"<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente'  placeholder='VALOR PENDENTE' readonly='readonly' onblur='calculoPagamentoCliente()'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='taxaPagamento'>TAXA DE PAGAMENTO</label>";
+                        echo"<div class='col-sm-6'>";
+                          echo"<input type='text' class='form-control' name='taxaPagamento' id='taxaPagamento' value='0'  placeholder='TAXA DE PAGAMENTO' onblur='calculoPagamentoCliente()'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>";
+                        echo"<div class='col-sm-6'>";
+                          echo"<input type='text' class='form-control' name='localEmbarque' id='localEmbarque'  placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' onchange='calculoPagamentoCliente()'>";
                         echo"</div>";
                       echo"</div>";
                       echo"<div class='form-group row'>";
@@ -211,10 +227,36 @@
                           echo"</div>";
                         echo"</div>";
                       echo"</fieldset>";
+                     echo"<fieldset class='form-group' >";
+                        echo"<div class='row'>";
+                          echo"<legend class='col-form-label col-sm-2 pt-0'>CLIENTE PARCEIRO</legend>";
+                          echo"<div class='col-sm-5'>";
+                            echo"<div class='form-check'>";
+                              echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
+                              value='1'  required onclick='calculoPagamentoCliente()'>";
+                              echo"<label class='form-check-label' for='clienteParceiroSim'>
+                                SIM
+                              </label>";
+                            echo"</div>";
+                            echo"<div class='form-check'>";
+                              echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
+                              value='0' onclick='calculoPagamentoCliente()' checked>";
+                              echo"<label class='form-check-label' for='clienteParceironao'>
+                                NÃO
+                              </label>";
+                            echo"</div>";
+                          echo"</div>";
+                        echo"</div>";
+                      echo"</fieldset>";
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>";
                           echo"<textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='5' rows='3'
-                          placeholder='ANOTAÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>";
+                          placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>";
+                          echo"<label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>";
+                          echo"<textarea class='form-control col-sm-3 ml-3' name='historicoPagamento' id='historicoPagamento' cols='6' rows='3'
+                          placeholder='historicoPagamento' maxlength='500'>  </textarea>";
+                          echo"<textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3'
+                          placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'>  </textarea>";
                       echo"</div>"; 
                     }else{
                     
@@ -222,7 +264,7 @@
                       echo" <script>
                                 setTimeout(function () {
                                   window.location.href = 'cadastroDespesas.php';
-                              }, 5000);
+                              }, 3000);
                             </script>
                       ";
 
