@@ -262,7 +262,7 @@
                                             + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
                                             + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros 
                                             AS totalDespesas FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'"; 
-                                            echo $totalDespesas;
+                                           
                                             $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
                                             while($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)){
                                               

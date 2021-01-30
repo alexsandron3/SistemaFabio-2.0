@@ -19,16 +19,20 @@
 
 
 
+
     $valorPendente               = -$valorVendido + ($valorPago + $taxaPagamento);
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $recebeLotacaoPasseio    = "SELECT lotacao FROM passeio WHERE idPasseio='$idPasseio'";
+    $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
     $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
     $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
     $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
+    $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao']; 
     
-    
+    if($idadeCliente <= $idadeIsencao ){
+        $statusPagamento = 4;
+    }
     
     $recebeQtdCliente        = "SELECT COUNT(idPagamento) AS qtdClientes FROM pagamento_passeio";
     $resultadoQtdCliente     = mysqli_query($conexao, $recebeQtdCliente);
@@ -36,7 +40,7 @@
     $qtdCliente              = $rowQtdCliente ['qtdClientes'];
 
 
-    $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0)";
+    $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
     $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
     $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
 
@@ -49,6 +53,8 @@
     }else{
         $valorSeguroViagem = 0;
     }
+    
+ 
     
     /* -----------------------------------------------------------------------------------------------------  */
 
@@ -89,7 +95,7 @@
             header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
         }
         if($vagasRestantes > 0 and $vagasRestantes <= floor($alerta)){
-            if($statusPagamento == 0){
+            if($statusPagamento == 0 OR $statusPagamento == 4){
                 $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
             }
             $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>EXISTEM APENAS ". $vagasRestantes ." VAGAS DISPONÍVEIS</p>";

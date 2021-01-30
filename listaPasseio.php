@@ -105,6 +105,7 @@
         | <span class='h5'> LOTAÇÃO: $lotacao </span> 
         | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS: </span> 
         | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS: </span>
+        | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS: </span>
         | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  </p>"; ?>
       <table class="table table-hover table-dark">
@@ -124,6 +125,7 @@
             $interessados = 0;
             $quantidadeClienteParceiro =0;
             $confirmados = 0;
+            $criancas = 0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
@@ -151,6 +153,9 @@
                 $controleListaPasseio = 1;
                 $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
                 $statusPagamento = "PARCEIRO";
+              }elseif($statusCliente ==4){
+                $criancas = $criancas +1;
+                $statusPagamento = "CRIANÇA";
               }else{
                 $statusPagamento ="DESCONHECIDO";
               }
@@ -175,6 +180,7 @@
           ?>
           <input type="hidden" name="" id="idPasseio" onclick="Export()" disabled="disabled" value="<?php echo $idPasseioGet;  ?>">
           <input type="hidden" name="" id="clientesConfirmados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $confirmados;  ?>">
+          <input type="hidden" name="" id="clientesCriancas" onclick="tituloListagem()" disabled="disabled" value="<?php echo $criancas;  ?>">
           <input type="hidden" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo$interessados;  ?>">
           <input type="hidden" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo$quantidadeClienteParceiro;  ?>">
           <input type="hidden" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro; echo $vagasDisponiveis;  ?>">

@@ -38,7 +38,16 @@
         $novoValorSeguroViagem = $valorSeguroViagem;
     }
 
+    $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
+    $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
+    $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
+    $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
+    $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao'];
+    if($idadeCliente <= $idadeIsencao ){
+        $statusPagamento = 4;
+    }
 
+    
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData =                  "UPDATE pagamento_passeio SET    
