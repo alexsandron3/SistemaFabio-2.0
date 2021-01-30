@@ -2,7 +2,7 @@
 $dbHost = "localhost";
 $dbUsuario = "root";
 $dbSenha = "";
-$dbNome = "develop";
+$dbNome = "fabiosistema2";
 
 //CRIANDO CONEXÃO
 $conexao = mysqli_connect($dbHost, $dbUsuario, $dbSenha, $dbNome);

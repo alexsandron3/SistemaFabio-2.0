@@ -125,23 +125,28 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="cpfCliente">CPF</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control " name="cpfCliente" id="cpfCliente" placeholder="CPF DO CLIenTE">
+            <input type="text" class="form-control " name="cpfCliente" id="cpfCliente" placeholder="CPF DO CLIENTE">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="telefoneCliente">TELEFONE</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="telefoneCliente" id="telefoneCliente"
-              placeholder="XX 9 XXXX-XXXX">
+              placeholder="55 9 1234 5678">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
           <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
-            onblur="ageCount()" >
-          <label class="col-sm-2 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
-          <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"
+            onblur="ageCount(dataNascimento.value)" >
+
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label" for="idadeCliente">IDADE DO CLIENTE</label>
+          <div class="col-sm-6">
+          <input type="text" class="form-control col-md-1" name="idadeCliente" id="idadeCliente" readonly="readonly"
             onblur="ageCount()">
+          </div>
         </div>
         <fieldset class="form-group">
           <div class="row">
