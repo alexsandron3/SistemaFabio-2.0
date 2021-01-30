@@ -40,10 +40,10 @@
     despesa (valorIngresso, valorOnibus, valorMicro, valorVan, valorEscuna, valorSeguroViagem, valorAlmocoCliente, valorAlmocoMotorista, valorEstacionamento, valorGuia, valorAutorizacaoTransporte,
              valorTaxi, valorKitLanche, valorMarketing, valorImpulsionamento, outros, idPasseio,  quantidadeIngresso ,quantidadeOnibus, quantidadeMicro, quantidadeEscuna, quantidadeAlmocoCliente, 
              quantidadeAlmocoMotorista, quantidadeEstacionamento, quantidadeGuia, quantidadeAutorizacaoTransporte, quantidadeTaxi, quantidadeMarketing, quantidadeKitLanche, quantidadeImpulsionamento, quantidadeVan)
-    VALUES   ('$valorIngresso', '$valorOnibus', '$valorMicro', '$valorVan', '$valorEscuna',  '$valorSeguroViagem', '$valorAlmocoCliente', '$valorAlmocoMotorista', 
-            '$valorEstacionamento', '$valorGuia', '$valorAutorizacaoTransporte', '$valorTaxi', '$valorKitLanche', '$valorMarketing', '$valorImpulsionamento', '$outros', '$idPasseio',
-            '$quantidadeIngresso' ,'$quantidadeOnibus', '$quantidadeMicro', '$quantidadeEscuna', '$quantidadeAlmocoCliente', '$quantidadeAlmocoMotorista', '$quantidadeEstacionamento', '$quantidadeGuia', 
-            '$quantidadeAutorizacaoTransporte', '$quantidadeTaxi', '$quantidadeMarketing', '$quantidadeKitLanche', '$quantidadeImpulsionamento','$quantidadeVan')
+    VALUES   ($valorIngresso, $valorOnibus, $valorMicro, $valorVan, $valorEscuna,  $valorSeguroViagem, $valorAlmocoCliente, $valorAlmocoMotorista, 
+            $valorEstacionamento, $valorGuia, $valorAutorizacaoTransporte, $valorTaxi, $valorKitLanche, $valorMarketing, $valorImpulsionamento, $outros, $idPasseio,
+            $quantidadeIngresso ,$quantidadeOnibus, $quantidadeMicro, $quantidadeEscuna, $quantidadeAlmocoCliente, $quantidadeAlmocoMotorista, $quantidadeEstacionamento, $quantidadeGuia, 
+            $quantidadeAutorizacaoTransporte, $quantidadeTaxi, $quantidadeMarketing, $quantidadeKitLanche, $quantidadeImpulsionamento, $quantidadeVan)
             ";
 
     /* -----------------------------------------------------------------------------------------------------  */
