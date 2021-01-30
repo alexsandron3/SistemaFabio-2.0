@@ -148,12 +148,10 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
           <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
-          onblur="ageCount(dataNascimento.value)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['dataNascimento']; ?>">
-        </div>
-        <div class="form-group row">
-        <label class="col-sm-1 col-form-label " for="idadeCliente">IDADE</label>
-          <input type="text" class="form-control col-sm-3 ml-3" name="idadeCliente" id="idadeCliente" readonly="readonly"
-            onblur="ageCount()">
+            onchange="ageCount()" value="<?php echo $rowResultadoBuscaPeloIdCliente ['dataNascimento']; ?>">
+          <label class="col-sm-2 col-form-label " for="idadeCliente">IDADE DO CLIENTE</label>
+          <input type="text" class="form-control" name="idadeCliente" id="idadeCliente" readonly="readonly"
+            onchange="ageCount()">
         </div>
         <fieldset class="form-group">
           <div class="row">
@@ -226,61 +224,6 @@
             placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente ['redeSocial'] ?></textarea>
         </div>
         <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">ATUALIZAR</button>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg ml-5" data-toggle="modal" data-target="#exampleModal">
-          HISTÓRICO
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">PAGAMENTOS DESTE CLIENTE</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <table class="table table-hover table-dark">
-                  <thead>
-                    <tr>
-                      <th>PASSEIO</th>
-                      <th>DATA</th>
-                      <th>STATUS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      
-                <?php
-                  $queryBuscaPagamentoCliente = "SELECT pp.idPasseio, pp.statusPagamento, p.nomePasseio, p.dataPasseio FROM pagamento_passeio pp, passeio p WHERE idCliente=$idClienteGet AND pp.idPasseio=p.idPasseio ORDER BY p.dataPasseio DESC ";
-                  $resultadoBuscaPagamentoCliente = mysqli_query($conexao, $queryBuscaPagamentoCliente);
-                  while($rowPagamentoCliente = mysqli_fetch_assoc($resultadoBuscaPagamentoCliente)){
-                    $dataPasseio =  date_create($rowPagamentoCliente['dataPasseio']);
-                    if ($rowPagamentoCliente['statusPagamento'] == 0){
-                      $statusPagamento = "QUITADO";
-                    }else{
-                      $statusPagamento = "NÃO QUITADO";
-                    }
-                  ?> 
-                  <tr>
-                    <th><?php echo $rowPagamentoCliente['nomePasseio']. "</br>";?></th>
-                    <td><?php echo date_format($dataPasseio, "d/m/Y"). "</br>";?></td>
-                    <td><?php echo $statusPagamento. "</br>";?></td>
-                  </tr>
-                <?php
-                  }
-                ?>
-                  </tbody>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-              </div>
-            </div>
-          </div>
-        </div>
       </form>
     </div>
   </div>

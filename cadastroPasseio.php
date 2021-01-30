@@ -96,8 +96,8 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="valorPasseio">VALOR DO PASSEIO</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="valorPasseio" id="valorPasseio" placeholder="VALOR DO PASSEIO" value="0"
-              onblur="converterParaFloat()">
+            <input type="text" class="form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO"
+              onkeydown="upperCaseF(this)">
           </div>
         </div>
         <div class="form-group row">
