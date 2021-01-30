@@ -546,6 +546,9 @@ function tituloListagem(){
 
   var clientesParceiros = document.getElementById("clientesParceiros").value;
   document.getElementById("parceiros").innerHTML = "PARCEIROS:  " +clientesParceiros;
+
+  var clientesCriancas = document.getElementById("clientesCriancas").value;
+  document.getElementById("criancas").innerHTML = "CRIANÇAS:  " +clientesCriancas;
   
 
 }

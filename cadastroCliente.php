@@ -138,7 +138,7 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataNascimento">NASCIMENTO</label>
           <input type="date" class="form-control col-sm-3 ml-3" name="dataNascimento" id="dataNascimento"
-            onblur="ageCount()" >
+            onblur="ageCount(dataNascimento.value)" >
 
         </div>
         <div class="form-group row">
