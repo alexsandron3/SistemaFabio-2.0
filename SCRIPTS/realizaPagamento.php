@@ -1,6 +1,7 @@
 <?php
     session_start();
     include_once("../PHP/conexao.php");
+    include_once("../PHP/functions.php");
 
     $idCliente                   = filter_input(INPUT_POST, 'idClienteSelecionado',   FILTER_SANITIZE_NUMBER_INT);
     $idPasseio                   = filter_input(INPUT_POST, 'idPasseioSelecionado',   FILTER_SANITIZE_NUMBER_INT); 
@@ -11,7 +12,7 @@
     $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
     $seguroViagemCliente         = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
-    $idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
+    #$idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
     $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $localEmbarque               = filter_input(INPUT_POST, 'localEmbarque',          FILTER_SANITIZE_STRING);
     $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',    FILTER_VALIDATE_BOOLEAN);
@@ -29,7 +30,9 @@
     $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
     $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
     $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao']; 
-    
+
+    $idadeCliente = calcularIdade($idCliente, $conn, "");
+
     if($idadeCliente <= $idadeIsencao ){
         $statusPagamento = 4;
     }

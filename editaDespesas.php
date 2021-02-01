@@ -2,7 +2,7 @@
     session_start();
     include_once("PHP/conexao.php");
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_FLOAT);
-    $queryBuscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorSeguroViagem, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
+    $queryBuscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
                           d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
                           d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento,                     
                           p.nomePasseio, p.dataPasseio   
@@ -12,7 +12,7 @@
                           $dataPasseio =  date_create($rowDespesa['dataPasseio']);
 /* -----------------------------------------------------------------------------------------------------  */
 
-    $queryValorSeguroViagem     = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio";
+    $queryValorSeguroViagem     = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
                                   $resultadoValorSeguroViagem = mysqli_query($conexao, $queryValorSeguroViagem);
                                   $rowValorSeguroViagem       = mysqli_fetch_assoc($resultadoValorSeguroViagem);
                                   $valorTotalSeguroViagem     = $rowValorSeguroViagem ['totalSeguroViagem'];
@@ -23,6 +23,7 @@
                                   + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
                                   + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros 
                                   AS totalDespesas FROM despesa WHERE idPasseio=$idPasseioGet";
+                                  
                                   $resultadoTotalDespesas = mysqli_query($conexao, $queryTotalDespesas);
                                   $rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas);
                                   $valorTotalDespesas = $rowTotalDespesa ['totalDespesas'] + $valorTotalSeguroViagem;
