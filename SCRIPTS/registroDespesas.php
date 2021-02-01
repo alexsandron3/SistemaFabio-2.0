@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once("../PHP/conexao.php");
+    include_once("../PHP/functions.php");
     
     $idPasseio                       = filter_input(INPUT_POST, 'idPasseioSelecionado',             FILTER_SANITIZE_NUMBER_INT);
     $valorIngresso                   = filter_input(INPUT_POST, 'valorIngresso',                    FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -40,25 +40,14 @@
     despesa (valorIngresso, valorOnibus, valorMicro, valorVan, valorEscuna, valorSeguroViagem, valorAlmocoCliente, valorAlmocoMotorista, valorEstacionamento, valorGuia, valorAutorizacaoTransporte,
              valorTaxi, valorKitLanche, valorMarketing, valorImpulsionamento, outros, idPasseio,  quantidadeIngresso ,quantidadeOnibus, quantidadeMicro, quantidadeEscuna, quantidadeAlmocoCliente, 
              quantidadeAlmocoMotorista, quantidadeEstacionamento, quantidadeGuia, quantidadeAutorizacaoTransporte, quantidadeTaxi, quantidadeMarketing, quantidadeKitLanche, quantidadeImpulsionamento, quantidadeVan)
-    VALUES   ($valorIngresso, $valorOnibus, $valorMicro, $valorVan, $valorEscuna,  $valorSeguroViagem, $valorAlmocoCliente, $valorAlmocoMotorista, 
-            $valorEstacionamento, $valorGuia, $valorAutorizacaoTransporte, $valorTaxi, $valorKitLanche, $valorMarketing, $valorImpulsionamento, $outros, $idPasseio,
-            $quantidadeIngresso ,$quantidadeOnibus, $quantidadeMicro, $quantidadeEscuna, $quantidadeAlmocoCliente, $quantidadeAlmocoMotorista, $quantidadeEstacionamento, $quantidadeGuia, 
-            $quantidadeAutorizacaoTransporte, $quantidadeTaxi, $quantidadeMarketing, $quantidadeKitLanche, $quantidadeImpulsionamento, $quantidadeVan)
+    VALUES   ('$valorIngresso', '$valorOnibus', '$valorMicro', '$valorVan', '$valorEscuna',  '$valorSeguroViagem', '$valorAlmocoCliente', '$valorAlmocoMotorista', 
+            '$valorEstacionamento', '$valorGuia', '$valorAutorizacaoTransporte', '$valorTaxi', '$valorKitLanche', '$valorMarketing', '$valorImpulsionamento', '$outros', '$idPasseio',
+            '$quantidadeIngresso' ,'$quantidadeOnibus', '$quantidadeMicro', '$quantidadeEscuna', '$quantidadeAlmocoCliente', '$quantidadeAlmocoMotorista', '$quantidadeEstacionamento', '$quantidadeGuia', 
+            '$quantidadeAutorizacaoTransporte', '$quantidadeTaxi', '$quantidadeMarketing', '$quantidadeKitLanche', '$quantidadeImpulsionamento','$quantidadeVan')
             ";
 
     /* -----------------------------------------------------------------------------------------------------  */
+    cadastro($getData, $conexao, "DESPESAS", "cadastroDespesas");
 
-    $insertData = mysqli_query($conexao, $getData);
-
-    /* -----------------------------------------------------------------------------------------------------  */
-
-    if(mysqli_insert_id($conexao)){
-        $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Despesas CADASTRADAS com SUCESSO</p>";
-        header("refresh:0.5; url=../cadastroDespesas.php");
-        
-    }else{
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Despesas NÃO foram CADASTRADAS, alguma informação não foi inserida dentro dos padrões.</p>";
-        header("refresh:0.5; url=../cadastroDespesas.php");
-}
 
 ?>

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once("../PHP/conexao.php");
+    include_once("../PHP/functions.php");
 
     $nome                   = filter_input(INPUT_POST, 'nomeCliente',           FILTER_SANITIZE_STRING);
     $email                  = filter_input(INPUT_POST, 'emailCliente',          FILTER_SANITIZE_EMAIL);
@@ -36,16 +36,10 @@
     
     if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){
     /* -----------------------------------------------------------------------------------------------------  */
-        $insertData = mysqli_query($conexao, $getData);
-
+    
+    cadastro($getData, $conexao, "USUÁRIO", "cadastroCliente");
     /* -----------------------------------------------------------------------------------------------------  */
-        if(mysqli_insert_id($conexao)){
-            $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Usuário CADASTRADO com sucesso</p>";
-            header("refresh:0.5; url=../cadastroCliente.php");
-        }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Usuário NÃO foi CADASTRADO, alguma informação não foi inserida dentro dos padrões. </p>";
-            header("refresh:0.5; url=../cadastroCliente.php");
-        }
+
 
     }else{
         $idCliente = $rowResultadoVerificaCliente ['idCliente'];

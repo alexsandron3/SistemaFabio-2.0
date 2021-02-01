@@ -11,7 +11,7 @@
     $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
     $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
     $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
-    $seguroViagemCliente         = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
+    $statusEditaSeguroViagemCliente= filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
     $idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
     $valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -22,20 +22,29 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    if($seguroViagemCliente == 0 ){
-        $valorSeguroViagem1 = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
-        $resultadoValorSeguroViagem = mysqli_query($conexao,$valorSeguroViagem1);
-        $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-        $valorSeguroViagem = $rowSeguroViagem ['valorSeguroViagem'];
-        if($seguroViagemCliente == 1){
-            if($idadeCliente >= 0 and $idadeCliente <=85 ){
-                $valorSeguroViagem = 2.47;
-            }
+
+    #--------------------------------------------------------------------------------------------------
+    $queryStatusSeguroViagem = "SELECT seguroViagem, valorSeguroViagemCliente FROM pagamento_passeio WHERE idPagamento=$idPagamento";
+    $resultadoStatusSeguroViagem = mysqli_query($conexao, $queryStatusSeguroViagem);
+    $rowStatusSeguroViagem = mysqli_fetch_assoc($resultadoStatusSeguroViagem);
+    $statusSeguroViagem = $rowStatusSeguroViagem ['seguroViagem'];
+    $valorSeguroViagem = $rowStatusSeguroViagem ['valorSeguroViagemCliente'];
+    
+    if($statusEditaSeguroViagemCliente == 1 AND $statusSeguroViagem == 1){
+            $valorSeguroViagem;
+    }elseif($statusEditaSeguroViagemCliente == 1 AND $statusSeguroViagem == 0){
+        if($idadeCliente >= 0 and $idadeCliente <=85){
+            $valorSeguroViagem = + 2.47;
         }else{
-            $novoValorSeguroViagem = $valorSeguroViagem - 0;
-        }
+            $valorSeguroViagem = + 0;
+
+        } 
+    }elseif($statusEditaSeguroViagemCliente == 0 AND $statusSeguroViagem == 1){
+        $valorSeguroViagem = 0;
+
     }else{
-        $novoValorSeguroViagem = $valorSeguroViagem;
+        $valorSeguroViagem = + 0;
+
     }
 
     $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
@@ -51,13 +60,9 @@
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData =                  "UPDATE pagamento_passeio SET    
-                                valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento' ,statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$seguroViagemCliente',
-                                transporte='$transporteCliente', taxaPagamento='$taxaPagamento'
+                                valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento' ,statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$statusEditaSeguroViagemCliente',
+                                transporte='$transporteCliente', taxaPagamento='$taxaPagamento', valorSeguroViagemCliente='$valorSeguroViagem'
                                 WHERE idPagamento='$idPagamento'
-                                ";
-
-    $getDataValorSeguroViagem = "UPDATE despesa SET
-                                valorSeguroViagem='$novoValorSeguroViagem' WHERE idPasseio='$idPasseio'
                                 ";
 
     /* -----------------------------------------------------------------------------------------------------  */
@@ -69,12 +74,11 @@
 
     if(mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
-        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
-        $insertDataSeguroViagemPasseio = mysqli_query($conexao, $getDataValorSeguroViagem);
+        header("refresh:5.5; url=../editarPagamento.php?id=$idPagamento");
 
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
-        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+        header("refresh:5.5; url=../editarPagamento.php?id=$idPagamento");
     }
 
 ?>

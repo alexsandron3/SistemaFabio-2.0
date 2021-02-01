@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once("../PHP/conexao.php");
+    include_once("../PHP/functions.php");
      $idPasseio                       = filter_input(INPUT_POST, 'idPasseioSelecionado',         FILTER_SANITIZE_NUMBER_INT);
      $idDespesa                       = filter_input(INPUT_POST, 'idDespesa',                    FILTER_SANITIZE_NUMBER_INT);
      $valorIngresso                   = filter_input(INPUT_POST, 'valorIngresso',                FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -46,15 +46,6 @@
                 ";
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $insertData = mysqli_query($conexao, $getData);
-
-    /* -----------------------------------------------------------------------------------------------------  */
-    if(mysqli_affected_rows($conexao)){
-        $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
-        header("refresh:0.5; url=../editaDespesas.php?id=$idPasseio");
-    }else{
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
-        header("refresh:0.5; url=../editaDespesas.php?id=$idPasseio");
-    }
+    atualizar($getData, $conexao, "DESPESA", "editaDespesas", $idPasseio);
 
 ?>
