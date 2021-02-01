@@ -5,7 +5,7 @@
     $idPagamento = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
     $queryBuscaIdPagamento = "    SELECT DISTINCT c.nomeCliente, c.referencia, c.idadeCliente , p.idPasseio, p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.transporte , pp.idPasseio, pp.valorPago, pp.valorVendido, 
-                                  pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem, pp.taxaPagamento, pp.localEmbarque, pp.clienteParceiro, pp.historicoPagamento 
+                                  pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem, pp.taxaPagamento, pp.localEmbarque, pp.clienteParceiro, pp.historicoPagamento, pp.idCliente 
                                   FROM cliente c, passeio p, pagamento_passeio pp WHERE idPagamento='$idPagamento' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
                                   $resultadoIdPagamento = mysqli_query($conexao, $queryBuscaIdPagamento);
                                   $rowIdPagamento = mysqli_fetch_assoc($resultadoIdPagamento);
@@ -108,6 +108,7 @@
             $localEmbarque = $rowIdPagamento['localEmbarque'];
             $historicoPagamento = $rowIdPagamento['historicoPagamento'];
             $clienteParceiro = $rowIdPagamento['statusPagamento'];
+            $idCliente = $rowIdPagamento['idCliente'];
             echo"<p class='h4 text-center alert-info'> ". $rowIdPagamento ['nomeCliente']. " | ". $rowIdPagamento ['nomePasseio']. " ". date_format($dataPasseio, "d/m/Y") ."</p>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
@@ -123,6 +124,7 @@
                 echo"<div class='col-sm-2'>";
                   echo"<input type='text' class='form-control' name='novoValorPago' id='novoValorPago' placeholder='NOVO PAGAMENTO' value='0' onblur='(new calculoPagamentoCliente()).novoValorPago()'>";
                   echo"<input type='hidden' class='form-control' name='valorAntigo' id='valorAntigo' placeholder='valorAntigo' value='$valorPago' >";
+                  echo"<input type='hidden' class='form-control' name='idCliente' id='idCliente' placeholder='idCliente' value='$idCliente' >";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
