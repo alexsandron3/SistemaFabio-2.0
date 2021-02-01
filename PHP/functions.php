@@ -1,5 +1,9 @@
 <?php
     include_once("conexao.php");
+    include_once("pdoCONEXAO.php");
+
+    
+
     function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento) {
         $getData = $getData;
         $insertData = mysqli_query($conexao, $getData);
@@ -26,43 +30,24 @@
         }
     }
 
-    function valorSeguroviagem ($statusEditaSeguroViagemCliente, $idPasseio, $idPagamento, $conexao, $idadeCliente){
-        $queryValorSeguroViagem = "SELECT valorSeguroViagem FROM despesa WHERE idPasseio='$idPasseio'";
-        $resultadoValorSeguroViagem = mysqli_query($conexao,$queryValorSeguroViagem);
-        $rowSeguroViagem = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-        $valorSeguroViagem = $rowSeguroViagem ['valorSeguroViagem'];
-        #--------------------------------------------------------------------------------------------------
-        $queryStatusSeguroViagem = "SELECT seguroViagem FROM pagamento_passeio WHERE idPagamento=$idPagamento";
-        $resultadoStatusSeguroViagem = mysqli_query($conexao, $queryStatusSeguroViagem);
-        $rowStatusSeguroViagem = mysqli_fetch_all($resultadoStatusSeguroViagem);
-        $statusSeguroViagem = $rowStatusSeguroViagem ['seguroViagem'];
-    
-        if($statusEditaSeguroViagemCliente == 1){
-            
-            if($statusSeguroViagem == 1){
-                $novoValorSeguroViagem = $valorSeguroViagem;
-            }else{
-                if($idadeCliente >= 0 and $idadeCliente <=85){
-                    $novoValorSeguroViagem = $valorSeguroViagem + 2.47;
-                }else{
-                    $novoValorSeguroViagem = $valorSeguroViagem + 0;
-
-                }     
-            }
+    function calcularIdade ($idCliente, $conn, $data){
+        $queryBuscaDataNascimento = "SELECT dataNascimento FROM cliente WHERE idCliente =$idCliente";
+        $resultadoBuscaDataNascimento = $conn->query($queryBuscaDataNascimento);
+        $rowBuscaDataNascimento = $resultadoBuscaDataNascimento ->fetch_assoc();
+        
+        if(empty($data)){
+            $dataNascimento = new DateTime ($rowBuscaDataNascimento['dataNascimento']);
         }else{
-            if($statusSeguroViagem == 1){
-                if($idadeCliente >= 0 and $idadeCliente <=85){
-                    $novoValorSeguroViagem = $valorSeguroViagem - 2.47;
-                }else{
-                    $novoValorSeguroViagem = $valorSeguroViagem - 0;
-
-                }
-                
-            }
+            $dataNascimento = new DateTime($data);
         }
-        return $novoValorSeguroViagem;   
+        $hoje           = new DateTime();
+        $diferenca      = $hoje->diff($dataNascimento);
+        $idade          = $diferenca->y;
+
+        return $idade;
 
     }
+
 
 
 

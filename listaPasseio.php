@@ -154,6 +154,7 @@
                 $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
                 $statusPagamento = "PARCEIRO";
               }elseif($statusCliente ==4){
+                $controleListaPasseio = 1;
                 $criancas = $criancas +1;
                 $statusPagamento = "CRIANÇA";
               }else{

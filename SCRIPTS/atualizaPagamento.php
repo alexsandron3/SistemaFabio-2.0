@@ -13,7 +13,7 @@
     $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
     $statusEditaSeguroViagemCliente= filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
-    $idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
+    #$idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
     $valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorPagoAtual              = filter_input(INPUT_POST, 'valorPagoAtual',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -30,6 +30,10 @@
     $statusSeguroViagem = $rowStatusSeguroViagem ['seguroViagem'];
     $valorSeguroViagem = $rowStatusSeguroViagem ['valorSeguroViagemCliente'];
     
+    $idadeCliente = calcularIdade($idCliente, $conn, "");
+
+
+
     if($statusEditaSeguroViagemCliente == 1 AND $statusSeguroViagem == 1){
             $valorSeguroViagem;
     }elseif($statusEditaSeguroViagemCliente == 1 AND $statusSeguroViagem == 0){
@@ -46,6 +50,7 @@
         $valorSeguroViagem = + 0;
 
     }
+    /* -----------------------------------------------------------------------------------------------------  */
 
     $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
     $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
