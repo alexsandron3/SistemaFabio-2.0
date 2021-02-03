@@ -5,7 +5,7 @@
 
     $idPagamento                 = filter_input(INPUT_POST, 'idPagamento',            FILTER_SANITIZE_NUMBER_INT);
     $idPasseio                   = filter_input(INPUT_POST, 'idPasseioSelecionado',   FILTER_SANITIZE_NUMBER_INT); 
-    $idCliente                   = filter_input(INPUT_POST, 'idCliente',   FILTER_SANITIZE_NUMBER_INT); 
+    $idCliente                   = filter_input(INPUT_POST, 'idCliente',              FILTER_SANITIZE_NUMBER_INT); 
     $valorVendido                = filter_input(INPUT_POST, 'valorVendido',           FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorPago                   = filter_input(INPUT_POST, 'valorPago',              FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $previsaoPagamento           = filter_input(INPUT_POST, 'previsaoPagamento',      FILTER_SANITIZE_STRING);
@@ -81,11 +81,11 @@
 
     if(mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
-        header("refresh:5.5; url=../editarPagamento.php?id=$idPagamento");
+        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
 
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
-        header("refresh:5.5; url=../editarPagamento.php?id=$idPagamento");
+        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
     }
 
 ?>

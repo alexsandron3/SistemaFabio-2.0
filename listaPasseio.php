@@ -166,7 +166,10 @@
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
-            <th><?php echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";?></th>
+            <th><?php if(empty($dataCpfConsultado)){
+                        echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";
+                      } 
+            ?></th>
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
             <th> <a href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
 

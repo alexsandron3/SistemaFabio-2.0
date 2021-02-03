@@ -142,7 +142,7 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='localEmbarque' id='localEmbarque'  placeholder='LOCAL DE EMBARQUE' value='$localEmbarque' required='required'>";
+                echo"<input type='text' class='form-control' name='localEmbarque' id='localEmbarque'  placeholder='LOCAL DE EMBARQUE' value='$localEmbarque' required='required' autocomplete='on'>";
               echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -169,94 +169,61 @@
                 placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)'>".$rowIdPagamento ['referencia'].  "</textarea> ";
             echo"</div>";
             echo"<fieldset class='form-group'>";
+            $statusSeguroViagemtrue = '';
+            $statusSeguroViagemfalse = '';
             if($statusSeguroViagem == 1){
-              echo"<div class='row'>";
-                echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
-                echo"<div class='col-sm-5'>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                    value='1'  disabled checked '>";
-                    echo"<label class='form-check-label' for='seguroViagemClienteSim' >
-                      SIM
-                    </label>";
-                  echo"</div>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                    value='0' >";
-                    echo"<label class='form-check-label' for='seguroViagemClientenao'>
-                      NÃO
-                    </label>";
-                  echo"</div>";
-                echo"</div>";
-              echo"</div>";
-              echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
-              echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
+              $statusSeguroViagemtrue = 'checked';
             }else{
-              echo"<div class='row'>";
-                echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
-                echo"<div class='col-sm-5'>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                    value='1'  >";
-                    echo"<label class='form-check-label' for='seguroViagemClienteSim'>
-                      SIM
-                    </label>";
-                  echo"</div>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                    value='0'  checked>";
-                    echo"<label class='form-check-label' for='seguroViagemClientenao'>
-                      NÃO
-                    </label>";
-                  echo"</div>";
-                echo"</div>";
-              echo"</div>";
-              echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
-              echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
+              $statusSeguroViagemfalse = 'checked';
             }
-            if($clienteParceiro == 3){
-              echo"<div class='row'>";
-                echo"<legend class='col-form-label col-sm-2 pt-0'>CLIENTE PARCEIRO</legend>";
-                echo"<div class='col-sm-5'>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
-                    value='1'  disabled checked ' onclick='calculoPagamentoCliente()'>";
-                    echo"<label class='form-check-label' for='clienteParceiroSim' >
-                      SIM
-                    </label>";
-                  echo"</div>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
-                    value='0' onclick='calculoPagamentoCliente()'>";
-                    echo"<label class='form-check-label' for='clienteParceironao'>
-                      NÃO
-                    </label>";
-                  echo"</div>";
-                echo"</div>";
+            echo"<div class='row'>";
+            echo"<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
+            echo"<div class='col-sm-5'>";
+              echo"<div class='form-check'>";
+                echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
+                value='1'  $statusSeguroViagemtrue '>";
+                echo"<label class='form-check-label' for='seguroViagemClienteSim' >
+                  SIM
+                </label>";
               echo"</div>";
+              echo"<div class='form-check'>";
+                echo"<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
+                value='0' $statusSeguroViagemfalse >";
+                echo"<label class='form-check-label' for='seguroViagemClientenao'>
+                  NÃO
+                </label>";
+              echo"</div>";
+            echo"</div>";
+          echo"</div>";
+          echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
+          echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
+          $clienteParceiroTrue = '';
+          $clienteParceiroFalse = '';
 
+            if($clienteParceiro == 3){
+              $clienteParceiroTrue = 'checked';
             }else{
-              echo"<div class='row'>";
-                echo"<legend class='col-form-label col-sm-2 pt-0'>CLIENTE PARCEIRO</legend>";
-                echo"<div class='col-sm-5'>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
-                    value='1'  onclick='calculoPagamentoCliente()'>";
-                    echo"<label class='form-check-label' for='clienteParceiroSim'>
-                      SIM
-                    </label>";
-                  echo"</div>";
-                  echo"<div class='form-check'>";
-                    echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
-                    value='0'  checked onclick='calculoPagamentoCliente()'>";
-                    echo"<label class='form-check-label' for='clienteParceironao'>
-                      NÃO
-                    </label>";
-                  echo"</div>";
-                echo"</div>";
-              echo"</div>";
-              
+              $clienteParceiroFalse = 'checked';   
             }
+            echo"<div class='row'>";
+            echo"<legend class='col-form-label col-sm-2 pt-0'>CLIENTE PARCEIRO</legend>";
+            echo"<div class='col-sm-5'>";
+              echo"<div class='form-check'>";
+                echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
+                value='1'  $clienteParceiroTrue onclick='calculoPagamentoCliente()'>";
+                echo"<label class='form-check-label' for='clienteParceiroSim'>
+                  SIM
+                </label>";
+              echo"</div>";
+              echo"<div class='form-check'>";
+                echo"<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
+                value='0'  $clienteParceiroFalse onclick='calculoPagamentoCliente()'>";
+                echo"<label class='form-check-label' for='clienteParceironao'>
+                  NÃO
+                </label>";
+              echo"</div>";
+            echo"</div>";
+          echo"</div>";
             echo"</fieldset>"; 
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>";
