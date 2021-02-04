@@ -116,6 +116,7 @@
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=cpfConsultado">CPF CONSULTADO </a></th>
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=statusPagamento">STATUS </a></th>
                 <th>CONTATO</th>
+                <th>AÇÃO</th>
             </tr>
           </thead>
         
@@ -129,7 +130,12 @@
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
-              $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
+              if(empty($rowBuscaPasseio['dataCpfConsultado'])){
+                $dataCpfConsultado = "0000-00-00";
+              }else{
+                $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
+              }
+              
               $idCliente = $rowBuscaPasseio['idCliente'];
               $idPasseio = $rowBuscaPasseio['idPasseio'];
               $idadeCliente = $rowBuscaPasseio['idadeCliente'];
@@ -166,12 +172,22 @@
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
-            <th><?php if(empty($dataCpfConsultado)){
+            <th><?php if($dataCpfConsultado == "0000-00-00"){
+                        echo"";
+                      }else{
                         echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";
                       } 
             ?></th>
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
             <th> <a href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
+            <?php
+             if( $rowBuscaPasseio['valorPago'] == 0 ){
+                $opcao = "DELETAR";
+               }else{
+                $opcao = "TRANSFERIR";
+                 }
+              ?>
+            <th> <a target="blank" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?> "> <?php echo $opcao?> </a> </th>
 
             <th></th>
           </tr>

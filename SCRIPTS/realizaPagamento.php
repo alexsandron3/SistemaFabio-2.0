@@ -9,7 +9,7 @@
     $valorPago                   = filter_input(INPUT_POST, 'valorPago',              FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $previsaoPagamento           = filter_input(INPUT_POST, 'previsaoPagamento',      FILTER_SANITIZE_STRING);
     $anotacoes                   = filter_input(INPUT_POST, 'anotacoes',              FILTER_SANITIZE_STRING);
-    $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
+    #$statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
     $seguroViagemCliente         = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
     #$idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
@@ -33,9 +33,7 @@
 
     $idadeCliente = calcularIdade($idCliente, $conn, "");
 
-    if($idadeCliente <= $idadeIsencao ){
-        $statusPagamento = 4;
-    }
+    $statusPagamento = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
     
     $recebeQtdCliente        = "SELECT COUNT(idPagamento) AS qtdClientes FROM pagamento_passeio";
     $resultadoQtdCliente     = mysqli_query($conexao, $recebeQtdCliente);
@@ -46,27 +44,15 @@
     $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
     $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
     $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
-
-    /* -----------------------------------------------------------------------------------------------------  */
-
-    if($seguroViagemCliente == 1){
-        if($idadeCliente >= 0 and $idadeCliente <=85 ){
-            $valorSeguroViagem = 2.47;
-        }
-    }else{
-        $valorSeguroViagem = 0;
-    }
-    
- 
     
     /* -----------------------------------------------------------------------------------------------------  */
 
     
 
     $getDataPagamentoPasseio = "INSERT INTO pagamento_passeio 
-                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, valorSeguroViagemCliente, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento)  
+                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento)  
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
-                                '$valorSeguroViagem', '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento')
+                                '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento')
                                 ";
  
 

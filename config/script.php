@@ -260,15 +260,21 @@ function calculoTotalDespesas(){
     valorTotalImpulsionamento                                = quantidadeImpulsionamento * valorImpulsionamento;
     document.getElementById('valorTotalImpulsionamento').value = valorTotalImpulsionamento.toFixed(2);
 
+    var valorSeguroViagem                                    = document.getElementById('valorSeguroViagem').value;
+    valorSeguroViagem                                        = parseFloat(valorSeguroViagem);
+    document.getElementById('valorSeguroViagem').value       = valorSeguroViagem.toFixed(2);
+    var quantidadeSeguroViagem                               = document.getElementById('quantidadeSeguroViagem').value;
+    valorTotalSeguroViagem                                   = quantidadeSeguroViagem * valorSeguroViagem;
+    document.getElementById('valorTotalSeguroViagem').value  = valorTotalSeguroViagem.toFixed(2);
+
 
     var outros                                               = document.getElementById('outros').value;
     outros                                     = parseFloat(outros);
     document.getElementById('outros').value    = outros.toFixed(2); 
 
-    var valorSeguroViagem                                    = document.getElementById('valorSeguroViagem').value;
 
     
-    var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) + Number(valorSeguroViagem)
+    var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) + Number(valorSeguroViagem) * Number(quantidadeSeguroViagem)
                                     + Number(valorAlmocoCliente) * Number(quantidadeAlmocoCliente) + Number(valorAlmocoMotorista) * Number(quantidadeAlmocoMotorista) + Number(valorEstacionamento) * Number(quantidadeEstacionamento) + Number(valorGuia) * Number(quantidadeGuia) 
                                     + Number(valorAutorizacaoTransporte) * Number(quantidadeAutorizacaoTransporte) + Number(valorTaxi) * Number(quantidadeTaxi) + Number(valorMarketing) * Number(quantidadeMarketing)  + Number(valorImpulsionamento) * Number(quantidadeImpulsionamento) 
                                     + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche);
@@ -302,7 +308,7 @@ function calculoPagamentoCliente(){
       var novoValor = document.getElementById('novoValorPago').value;
       novoValor = parseFloat(novoValor);
       document.getElementById('novoValorPago').value = novoValor.toFixed(2);
-      var novoValorPago = Number(valorPago) + Number(novoValor);
+      var novoValorPago = Number(valorPago.toFixed(2)) + Number(novoValor.toFixed(2));
 
       var historicoPagamentoAntigo = document.getElementById('historicoPagamentoAntigo').value;
      
@@ -325,9 +331,9 @@ function calculoPagamentoCliente(){
     taxaPagamento                                      = parseFloat(taxaPagamento);
     document.getElementById('taxaPagamento').value     = taxaPagamento.toFixed(2);
     
-    var valorPendenteCliente                           = Number(valorPago) + Number(taxaPagamento) - Number(valorVendido);
-    valorPendenteCliente                               = parseFloat(valorPendenteCliente); 
-    document.getElementById('valorPendenteCliente').value= valorPendenteCliente.toFixed(2);
+    var valorPendenteCliente                           = Number(valorPago.toFixed(2)) + Number(taxaPagamento.toFixed(2)) - Number(valorVendido.toFixed(2));
+    valorPendenteClienteArredondado                   = parseFloat(valorPendenteCliente.toFixed(2)); 
+    document.getElementById('valorPendenteCliente').value= valorPendenteClienteArredondado;
     
     var clienteParceiro = document.querySelector('input[name="clienteParceiro"]:checked').value;
 ;

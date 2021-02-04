@@ -11,16 +11,24 @@
     $previsaoPagamento           = filter_input(INPUT_POST, 'previsaoPagamento',      FILTER_SANITIZE_STRING);
     $anotacoes                   = filter_input(INPUT_POST, 'anotacoes',              FILTER_SANITIZE_STRING);
     $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
-    $statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
+    #$statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
     $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
     $statusEditaSeguroViagemCliente= filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
+    $localEmbarque               = filter_input(INPUT_POST, 'localEmbarque',         FILTER_SANITIZE_STRING);
     #$idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
-    $valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    #$valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorPagoAtual              = filter_input(INPUT_POST, 'valorPagoAtual',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
     $valorPendente               = -$valorVendido + ($valorPago + $taxaPagamento);
+    
+    $valorPendente = round($valorPendente,2);
+    if($valorPendente == -0){
+        $valorPendente = 0;
+    }else{
+        $valorPendente = $valorPendente;
+    }
 
     /* -----------------------------------------------------------------------------------------------------  */
 
@@ -30,9 +38,10 @@
     $resultadoStatusSeguroViagem = mysqli_query($conexao, $queryStatusSeguroViagem);
     $rowStatusSeguroViagem = mysqli_fetch_assoc($resultadoStatusSeguroViagem);
     $statusSeguroViagem = $rowStatusSeguroViagem ['seguroViagem'];
-    $valorSeguroViagem = $rowStatusSeguroViagem ['valorSeguroViagemCliente'];
-    
     $idadeCliente = calcularIdade($idCliente, $conn, "");
+    /* $valorSeguroViagem = $rowStatusSeguroViagem ['valorSeguroViagemCliente'];
+    
+    
 
 
 
@@ -51,7 +60,7 @@
     }else{
         $valorSeguroViagem = + 0;
 
-    }
+    } */
     /* -----------------------------------------------------------------------------------------------------  */
 
     $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
@@ -59,16 +68,20 @@
     $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
     $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
     $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao'];
-    if($idadeCliente <= $idadeIsencao ){
-        $statusPagamento = 4;
-    }
+    $statusPagamento = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
+
+    var_dump($valorPendente) . PHP_EOL;
+    var_dump($valorPago) . PHP_EOL;
+    var_dump($idadeCliente) . PHP_EOL;
+    var_dump($idadeIsencao) . PHP_EOL;
+    var_dump($clienteParceiro) . PHP_EOL;
 
     
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData =                  "UPDATE pagamento_passeio SET    
-                                valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento' ,statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$statusEditaSeguroViagemCliente',
-                                transporte='$transporteCliente', taxaPagamento='$taxaPagamento', valorSeguroViagemCliente='$valorSeguroViagem'
+                                valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento', statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$statusEditaSeguroViagemCliente',
+                                transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque'
                                 WHERE idPagamento='$idPagamento'
                                 ";
 
@@ -81,11 +94,11 @@
 
     if(mysqli_affected_rows($conexao)){
         $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
-        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+        header("refresh:10.5; url=../editarPagamento.php?id=$idPagamento");
 
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
-        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+        header("refresh:10.5; url=../editarPagamento.php?id=$idPagamento");
     }
 
 ?>
