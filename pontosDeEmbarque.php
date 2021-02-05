@@ -10,11 +10,13 @@
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
  
-  $pegarNomePasseio = "SELECT nomePasseio, lotacao FROM passeio WHERE idPasseio='$idPasseioGet'";
+  $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
                         $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
                         $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
                         $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
                         $lotacao = $rowpegarNomePasseio ['lotacao'];
+                        $dataPasseio = date_create($rowpegarNomePasseio ['dataPasseio']);
+
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
 
@@ -95,7 +97,7 @@
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h5 text-center alert-info  '>" .$nomePasseioTitulo;?>
+  <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " ".date_format($dataPasseio, "d/m/Y"). "</BR> PONTOS DE EMBARQUE</p>"; ?>
       <table class="table table-hover table-dark">
           <thead> 
             <tr>

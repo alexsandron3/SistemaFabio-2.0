@@ -11,15 +11,21 @@
 /* -----------------------------------------------------------------------------------------------------  */
 
   $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente 
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(1,3,4) ORDER BY $ordemPesquisa ";
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(1,3,4) ORDER BY $ordemPesquisa";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
+  $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
+                          $resultadoTotalPendente = mysqli_query($conexao, $queryValorPendenteTotal);
+                          $rowTotalPendente = mysqli_fetch_assoc($resultadoTotalPendente);
+                          $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'] *-1;
 /* -----------------------------------------------------------------------------------------------------  */
  
-  $pegarNomePasseio = "SELECT nomePasseio, lotacao FROM passeio WHERE idPasseio='$idPasseioGet'";
+  $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
                         $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
                         $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
                         $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
                         $lotacao = $rowpegarNomePasseio ['lotacao'];
+                        $dataPasseio = date_create($rowpegarNomePasseio ['dataPasseio']);
+
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
 
@@ -100,7 +106,7 @@
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " | PAGAMENTOS PENDENTES</p>"; ?>
+  <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " ".date_format($dataPasseio, "d/m/Y"). "</BR> PAGAMENTOS PENDENTES</p>"; ?>
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
@@ -115,12 +121,11 @@
             $controleListaPasseio = 0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
-            
             ?>
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>"; ?></th>
-            <th><?php echo $rowBuscaPasseio ['valorPendente']. "<BR/>";?> </th>
+            <th><?php echo "R$ ".$rowBuscaPasseio ['valorPendente'] * -1 . "<BR/>";?> </th>
             <th></th>
           </tr>
 
@@ -135,7 +140,7 @@
       <?php
         if($controleListaPasseio > 0){
           echo"<div class='text-center'>";  
-          echo"<p class='h5 text-center alert-warning'>TOTAL DE ".$controleListaPasseio ." PAGAMENTOS PENDENTES</p>";
+          echo"<p class='h5 text-center alert-warning'>TOTAL DE R$".$valorPendenteTotal ."  PENDENTE</p>";
 
           echo"</div>";
         }else{

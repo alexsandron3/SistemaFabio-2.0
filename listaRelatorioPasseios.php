@@ -55,7 +55,7 @@
         "<a target='_blank' href='listaPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> LISTA DE PASSAGEIROS </a> |
         <a target='_blank' href='editaDespesas.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> DESPESAS </a> | 
         <a target='_blank' href='relatoriosDoPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> RELATÓRIOS DO PASSEIO </a> | 
-        <a  target='_blank' href='relatoriosPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> CLIENTES </a>  </div>";
+        <a  target='_blank' href='relatoriosPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> LUCROS </a>  </div>";
 /* -----------------------------------------------------------------------------------------------------  */
 }
   ?>

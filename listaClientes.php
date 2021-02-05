@@ -10,16 +10,18 @@
   }
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.rgCliente, c.orgaoEmissor, c.idadeCliente, c.idCliente, c.dataNascimento  
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.rgCliente, c.orgaoEmissor, c.idadeCliente, c.idCliente, c.dataNascimento, pp.idPagamento, pp.valorPago  
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
  
-  $pegarNomePasseio = "SELECT nomePasseio, lotacao FROM passeio WHERE idPasseio='$idPasseioGet'";
+  $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
                         $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
                         $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
                         $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
                         $lotacao = $rowpegarNomePasseio ['lotacao'];
+                        $dataPasseio = date_create($rowpegarNomePasseio ['dataPasseio']);
+
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
 
@@ -29,8 +31,9 @@
 <html lang="PT-BR">
 
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PÁGINA DE CONTROLE DE CLIENTES DO FINANCEIRO">
   <link rel="stylesheet" href="config/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -40,7 +43,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
   
-  <title>LISTA DE CLIENTES </title>
+  <title>LISTA DE PASSAGEIROS </title>
 </head>
 
 <body>
@@ -100,7 +103,7 @@
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. "</p>"; ?>
+        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " ".date_format($dataPasseio, "d/m/Y"). "</BR> LISTA DE PASSAGEIROS</p>"; ?>
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
@@ -108,15 +111,19 @@
                 <th>  <a href="listaClientes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=idadeCliente">IDADE </a></th>
                 <th> <a href="listaClientes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=rgCliente">Nº IDENTIDADE </a></th>
                 <th> <a href="listaClientes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=orgaoEmissor">ORGÃO EMISSOR</a></th>
+                <th> AÇÃO</th>
             </tr>
           </thead>
         
         <tbody>
           <?php
+          
             $controleListaPasseio = 0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
-              $idCliente = $rowBuscaPasseio ['idCliente'];
-              $data      = $rowBuscaPasseio ['dataNascimento'];
+              $idCliente     = $rowBuscaPasseio ['idCliente'];
+              $data          = $rowBuscaPasseio ['dataNascimento'];
+              $idPagamento   = $rowBuscaPasseio ['idPagamento'];
+              $idPasseioAcao  = $rowBuscaPasseio ['idPasseio'];
               if(empty($rowBuscaPasseio['dataCpfConsultado'])){
                 $dataCpfConsultado = "0000-00-00";
               }else{
@@ -125,6 +132,7 @@
               
               $idadeCliente = $rowBuscaPasseio['idadeCliente'];
               $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
+              
             
             ?>
           <tr>
@@ -132,8 +140,14 @@
             <th><?php  $idade = calcularIdade($idCliente, $conn, $data); echo $idade; ?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?> </th>
             <th><?php echo $rowBuscaPasseio['orgaoEmissor']; ?></th>
-
-            <th></th>
+            <?php
+             if( $rowBuscaPasseio['valorPago'] == 0 ){
+                $opcao = "DELETAR";
+               }else{
+                $opcao = "TRANSFERIR";
+                 }
+              ?>
+            <th> <a target="blank" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseioAcao; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
           </tr>
 
           <?php
@@ -147,7 +161,7 @@
       <?php
         if($controleListaPasseio > 0){
           echo"<div class='text-center'>";  
-          echo"<p class='h5 text-center alert-warning'>TOTAL DE ".$controleListaPasseio ." CLIENTES INCLUÍDOS</p>";
+          echo"<p class='h5 text-center alert-warning'>TOTAL DE ".$controleListaPasseio ." CLIENTES </p>";
 
           echo"</div>";
         }else{

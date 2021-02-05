@@ -32,6 +32,7 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PÁGINA DE CONTROLE DE CLIENTES DO ATENDIMENTO">
   <link rel="stylesheet" href="config/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -41,7 +42,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
   
-  <title>LISTA PASSEIO </title>
+  <title>LISTA CLIENTES </title>
 </head>
 
 <body>
@@ -187,7 +188,7 @@
                 $opcao = "TRANSFERIR";
                  }
               ?>
-            <th> <a target="blank" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?> "> <?php echo $opcao?> </a> </th>
+            <th> <a target='_blank' rel='noopener noreferrer' href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
 
             <th></th>
           </tr>
@@ -232,8 +233,6 @@
     var abrirJanela;
     var conf = confirm("APAGAR PAGAMENTO??");
       if(conf == true){
-          abrirJanela = window.open("SCRIPTS/apagarPagamento.php?idCliente=<?php echo $idCliente ?>&idPasseio= <?php echo $idPasseio ?>", '_blank');
-          abrirJanela = window.close();
       }
   }
 

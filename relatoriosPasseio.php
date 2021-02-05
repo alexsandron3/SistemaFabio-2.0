@@ -9,6 +9,7 @@
       $nenhumPasseioSelecionado = false;
       $decoraçãoLink = '';
       //echo"SITUAÇÃO 1";
+      
 
 /* -----------------------------------------------------------------------------------------------------  */
         $pesquisaIdPasseio ="SELECT DISTINCT p.idPasseio, p.nomePasseio,SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente,
@@ -25,7 +26,7 @@
     
         $lucroBruto                    = $rowPesquisaIdPasseio['somarValorPago'];
         $valorPendente                 = $rowPesquisaIdPasseio['valorPendente'];
-        $valorPendente                   = number_format((float) $valorPendente, 2, '.', '');
+        $valorPendente                 = number_format((float) $valorPendente, 2, '.', '') * -1;
         $qtdCliente                    = $rowPesquisaIdPasseio['qtdCliente'];
         $valorPasseio                  = $rowPesquisaIdPasseio['valorPasseio'];
         $taxaPagamento                 = $rowPesquisaIdPasseio['totalTaxaPagamento'];
@@ -40,21 +41,24 @@
                                                           $valorTotalSeguroViagem = $rowvalorTotalSeguroViagem['totalSeguroViagem']; */
         /* -----------------------------------------------------------------------------------------------------  */
 
-                            $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.idPasseio=$idPasseio"; 
+                            $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas, p.dataPasseio FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.idPasseio=$idPasseio";
+ 
                                                     $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
                                                     while($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)){
                                                       
-                                                    
+                                                      $dataPasseio = date_create($rowTotalDespesa['dataPasseio']);
+
                                                       $valorTotalDespesas             = $rowTotalDespesa ['totalDespesas']/* + $valorTotalSeguroViagem */ ;
                                 
         /* -----------------------------------------------------------------------------------------------------  */
                                                       
                                                       $lucroLiquido                   = $lucroBruto + $valorPendente;
                                                       $lucroDespesas                  = $lucroBruto + $valorPendente - $valorTotalDespesas;
-                                                      $lucroEstimado                  = $valorPendente + $lucroBruto -$valorTotalDespesas;
+                                                      $lucroEstimado                  = $valorPendente + $lucroBruto - $valorTotalDespesas;
         /* -----------------------------------------------------------------------------------------------------  */
                                                     }
-                                      $dataPasseio = date_create($rowTotalDespesa['dataPasseio']);
+
+
                                       
         /* -----------------------------------------------------------------------------------------------------  */
                 
@@ -188,7 +192,7 @@
                                         
                                             $lucroBruto                    = $rowPesquisaIntervaloData['somarValorPago'];
                                             $valorPendente                 = $rowPesquisaIntervaloData['valorPendente'];
-                                            $valorPendente                   = number_format((float) $valorPendente, 2, '.', '');
+                                            $valorPendente                   = number_format((float) $valorPendente, 2, '.', '')* -1;
 
                                             $qtdCliente                    = $rowPesquisaIntervaloData['qtdCliente'];
                                             $valorPasseio                  = $rowPesquisaIntervaloData['valorPasseio'];
@@ -247,7 +251,7 @@
                                                                   
                                                                       $lucroBruto                    = $rowPesquisaIntervaloData['somarValorPago'];
                                                                       $valorPendente                 = $rowPesquisaIntervaloData['valorPendente'];
-                                                                      $valorPendente                   = number_format((float) $valorPendente, 2, '.', '');
+                                                                      $valorPendente                 = number_format((float) $valorPendente, 2, '.', '') *-1;
                                                                       $qtdCliente                    = $rowPesquisaIntervaloData['qtdCliente'];
                                                                       $valorPasseio                  = $rowPesquisaIntervaloData['valorPasseio'];
                                                                       $taxaPagamento                 = $rowPesquisaIntervaloData['totalTaxaPagamento'];
