@@ -91,10 +91,10 @@
   <div class="p-2"></div>
   <div class="p-2"></div>
   <div class="p-2 text-center">
-  <a target="_blank" href="listaPasseio.php?id=<?php echo $idPasseioGet?>" class="btn btn-info">LISTA PASSAGEIROS</a> 
+  <a target="_blank" href="listaClientes.php?id=<?php echo $idPasseioGet?>" class="btn btn-info">LISTA PASSAGEIROS</a> 
   <a target="_blank" href="pontosDeEmbarque.php?id=<?php echo $idPasseioGet?>" class="btn btn-info" >PONTOS DE EMBARQUE</a> 
   <a target="_blank" href="pagamentosPendentes.php?id=<?php echo $idPasseioGet?>" class="btn btn-info">PAGAMENTOS PENDENTES</a> 
-  <a button class="btn btn-info">SEGURO VIAGEM</a>
+  <a target="_blank" href="SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet?>" class="btn btn-info">SEGURO VIAGEM</a>
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

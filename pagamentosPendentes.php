@@ -1,15 +1,32 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
+  include_once("PHP/functions.php");
 /* -----------------------------------------------------------------------------------------------------  */
-  $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+  $idPasseioGet   = filter_input(INPUT_GET, 'id',            FILTER_SANITIZE_NUMBER_INT);
+  $ordemPesquisa  = filter_input(INPUT_GET, 'ordemPesquisa', FILTER_SANITIZE_STRING);
+  if(empty($ordemPesquisa)){
+    $ordemPesquisa = 'referencia';
+  }
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT DISTINCT c.nomeCliente, pp.statusPagamento, p.nomePasseio
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.statusPagamento = 0 AND pp.idCliente=c.idCliente AND pp.clienteParceiro = 0 AND pp.idPasseio=p.idPasseio  AND p.idPasseio=$idPasseioGet";
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente 
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(1,3,4) ORDER BY $ordemPesquisa";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
+  $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
+                          $resultadoTotalPendente = mysqli_query($conexao, $queryValorPendenteTotal);
+                          $rowTotalPendente = mysqli_fetch_assoc($resultadoTotalPendente);
+                          $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'] *-1;
 /* -----------------------------------------------------------------------------------------------------  */
  
+  $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
+                        $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
+                        $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
+                        $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
+                        $lotacao = $rowpegarNomePasseio ['lotacao'];
+                        $dataPasseio = date_create($rowpegarNomePasseio ['dataPasseio']);
+
+/* -----------------------------------------------------------------------------------------------------  */
 ?>
 
 
@@ -29,7 +46,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
   
-  <title>PONTO DE EMBARQUE </title>
+  <title>PAGAMENTOS PENDENTES </title>
 </head>
 
 <body>
@@ -89,43 +106,53 @@
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h5 text-center alert-info  '> PAGAMENTOS PENDENTES </p>";?>
+  <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " ".date_format($dataPasseio, "d/m/Y"). "</BR> PAGAMENTOS PENDENTES</p>"; ?>
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
-                <th>NOME</th>
-                <th>STATUS</th>
-                <th>PASSEIO</th>
+                <th> <a href="pagamentosPendentes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=nomeCliente"> NOME </a></th>
+                <th>  <a href="pagamentosPendentes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=referencia">REFERENCIA </a></th>
+                <th> <a href="pagamentosPendentes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=valorPendente">PAGTO PENDENTE </a></th>
             </tr>
           </thead>
         
         <tbody>
           <?php
-
+            $controleListaPasseio = 0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
-                
-                if($rowBuscaPasseio ['statusPagamento'] == 1 ){
-                    $statusPagamento = "QUITADO";
-                }else{
-                    $statusPagamento = "PENDENTE";
-                }
-            
+              $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
             ?>
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
-            <th><?php echo $statusPagamento ?></th>
-            <th><?php echo $rowBuscaPasseio ['nomePasseio'];?></th>
-            
+            <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>"; ?></th>
+            <th><?php echo "R$ ".$rowBuscaPasseio ['valorPendente'] * -1 . "<BR/>";?> </th>
+            <th></th>
           </tr>
 
           <?php
           
 
             }
-           
+           $controleListaPasseio = mysqli_num_rows($resultadoBuscaPasseio);
           ?>
         </tbody>
       </table>
+      <?php
+        if($controleListaPasseio > 0){
+          echo"<div class='text-center'>";  
+          echo"<p class='h5 text-center alert-warning'>TOTAL DE R$".$valorPendenteTotal ."  PENDENTE</p>";
+
+          echo"</div>";
+        }else{
+          
+          echo"<div class='text-center'>";
+          echo"<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO PENDENTE até o momento</p>";
+          echo"</div>";
+
+        }
+
+
+      ?>
        
   </div>
 <script src="config/script.php"></script>

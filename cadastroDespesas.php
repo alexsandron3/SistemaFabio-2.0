@@ -129,7 +129,7 @@
                     echo"<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='0' onchange='calculoTotalDespesas()' >";
-                      echo"<input type='hidden' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
+                      #echo"<input type='hidden' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeIngresso' id='quantidadeIngresso' placeholder='QTD'  value='1' onchange='calculoTotalDespesas()'>";
@@ -190,6 +190,19 @@
                       echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalEscuna' id='valorTotalEscuna' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
+
+                  echo"<div class='form-group row'>";
+                  echo"<label class='col-sm-2 col-form-label' for='valorSeguroViagem'>SEGURO VIAGEM</label>";
+                  echo"<div class='col-sm-6'>";
+                    echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value='0' onchange='calculoTotalDespesas()'>";
+                  echo"</div>";
+                  echo"<div class='col-sm-1'>";
+                    echo"<input type='text' class='form-control' name='quantidadeSeguroViagem' id='quantidadeSeguroViagem' placeholder='QTD' value='1' onchange='calculoTotalDespesas()'>";
+                  echo"</div>";
+                  echo"<div class='col-sm-2'>";
+                    echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalSeguroViagem' id='valorTotalSeguroViagem' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+                  echo"</div>";
+                echo"</div>";
 
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorAlmocoCliente'>ALMOCO CLIENTE</label>";

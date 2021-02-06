@@ -32,6 +32,7 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PÁGINA DE CONTROLE DE CLIENTES DO ATENDIMENTO">
   <link rel="stylesheet" href="config/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -41,7 +42,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
     integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
   
-  <title>LISTA PASSEIO </title>
+  <title>LISTA CLIENTES </title>
 </head>
 
 <body>
@@ -116,6 +117,7 @@
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=cpfConsultado">CPF CONSULTADO </a></th>
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=statusPagamento">STATUS </a></th>
                 <th>CONTATO</th>
+                <th>AÇÃO</th>
             </tr>
           </thead>
         
@@ -129,7 +131,12 @@
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
-              $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
+              if(empty($rowBuscaPasseio['dataCpfConsultado'])){
+                $dataCpfConsultado = "0000-00-00";
+              }else{
+                $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
+              }
+              
               $idCliente = $rowBuscaPasseio['idCliente'];
               $idPasseio = $rowBuscaPasseio['idPasseio'];
               $idadeCliente = $rowBuscaPasseio['idadeCliente'];
@@ -154,6 +161,7 @@
                 $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
                 $statusPagamento = "PARCEIRO";
               }elseif($statusCliente ==4){
+                $controleListaPasseio = 1;
                 $criancas = $criancas +1;
                 $statusPagamento = "CRIANÇA";
               }else{
@@ -165,9 +173,22 @@
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
-            <th><?php echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";?></th>
+            <th><?php if($dataCpfConsultado == "0000-00-00"){
+                        echo"";
+                      }else{
+                        echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";
+                      } 
+            ?></th>
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
             <th> <a href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
+            <?php
+             if( $rowBuscaPasseio['valorPago'] == 0 ){
+                $opcao = "DELETAR";
+               }else{
+                $opcao = "TRANSFERIR";
+                 }
+              ?>
+            <th> <a target='_blank' rel='noopener noreferrer' href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
 
             <th></th>
           </tr>
@@ -212,8 +233,6 @@
     var abrirJanela;
     var conf = confirm("APAGAR PAGAMENTO??");
       if(conf == true){
-          abrirJanela = window.open("SCRIPTS/apagarPagamento.php?idCliente=<?php echo $idCliente ?>&idPasseio= <?php echo $idPasseio ?>", '_blank');
-          abrirJanela = window.close();
       }
   }
 

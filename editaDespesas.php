@@ -2,9 +2,9 @@
     session_start();
     include_once("PHP/conexao.php");
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_FLOAT);
-    $queryBuscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorSeguroViagem, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
-                          d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
-                          d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento,                     
+    $queryBuscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
+                          d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.valorSeguroViagem , d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
+                          d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento, d.quantidadeSeguroViagem,                     
                           p.nomePasseio, p.dataPasseio   
                           FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
                           $resultadoBuscaDespesa = mysqli_query($conexao, $queryBuscaDespesa);
@@ -12,20 +12,21 @@
                           $dataPasseio =  date_create($rowDespesa['dataPasseio']);
 /* -----------------------------------------------------------------------------------------------------  */
 
-    $queryValorSeguroViagem     = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio";
+/*     $queryValorSeguroViagem     = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
                                   $resultadoValorSeguroViagem = mysqli_query($conexao, $queryValorSeguroViagem);
                                   $rowValorSeguroViagem       = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-                                  $valorTotalSeguroViagem     = $rowValorSeguroViagem ['totalSeguroViagem'];
+                                  $valorTotalSeguroViagem     = $rowValorSeguroViagem ['totalSeguroViagem']; */
 
 /* -----------------------------------------------------------------------------------------------------  */
     if(!empty($idPasseioGet)){
       $queryTotalDespesas = "SELECT (valorIngresso * quantidadeIngresso) + (valorOnibus * quantidadeOnibus) + (valorMicro * quantidadeMicro) + (valorVan * quantidadeVan) + (valorEscuna * quantidadeEscuna) + (valorAlmocoCliente * quantidadeAlmocoCliente)
                                   + (valorAlmocoMotorista * quantidadeAlmocoMotorista)+ (valorEstacionamento * quantidadeEstacionamento)+ (valorGuia * quantidadeGuia) + (valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte) + (valorTaxi * quantidadeTaxi)
-                                  + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + outros 
+                                  + (valorKitLanche * quantidadeKitLanche)+ (valorMarketing * quantidadeMarketing) + (valorImpulsionamento * quantidadeImpulsionamento) + (valorSeguroViagem * quantidadeSeguroViagem) + outros 
                                   AS totalDespesas FROM despesa WHERE idPasseio=$idPasseioGet";
+                                  
                                   $resultadoTotalDespesas = mysqli_query($conexao, $queryTotalDespesas);
                                   $rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas);
-                                  $valorTotalDespesas = $rowTotalDespesa ['totalDespesas'] + $valorTotalSeguroViagem;
+                                  $valorTotalDespesas = $rowTotalDespesa ['totalDespesas'] /* + $valorTotalSeguroViagem */;
     }
 /* -----------------------------------------------------------------------------------------------------  */
 
@@ -177,10 +178,13 @@
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorSeguroViagem'>SEGURO VIAGEM</label>";
               echo"<div class='col-sm-6'>";
-                echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value='".number_format((float)$valorTotalSeguroViagem,2, '.', '') ."'onblur='calculoTotalDespesas()' disabled='disabled' >";
+                echo"<input type='text' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO SEGURO VIAGEM' value='".number_format((float)$rowDespesa['valorSeguroViagem'],2, '.', '') ."'onblur='calculoTotalDespesas()'>";
               echo"</div>";
               echo"<div class='col-sm-1'>";
-                echo"<input type='text' class='form-control' name='' id='' placeholder='QTD' value='1'onblur='calculoTotalDespesas()' disabled='disabled'>";
+                echo"<input type='text' class='form-control' name='quantidadeSeguroViagem' id='quantidadeSeguroViagem' placeholder='QTD' value='".$rowDespesa ['quantidadeSeguroViagem']."'onblur='calculoTotalDespesas()'>";
+              echo"</div>";
+              echo"<div class='col-sm-2'>";
+                echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalSeguroViagem' id='valorTotalSeguroViagem' placeholder='TOTAL'  value='0' onblur='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
 
