@@ -2,7 +2,7 @@
 $dbHost = "mysql742.umbler.com";
 $dbUsuario = "adminfabio";
 $dbSenha = "mengo007";
-$dbNome = "fabiosistema";
+$dbNome = "fabiopasseios";
 
 //CRIANDO CONEXÃO
 $conexao = mysqli_connect($dbHost, $dbUsuario, $dbSenha, $dbNome);
