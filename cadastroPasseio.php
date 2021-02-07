@@ -107,6 +107,12 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-1 col-form-label" for="idadeIsencao"> ISENÇÃO</label>
+          <div class="col-sm-1">
+            <input type="number" class="form-control" name="idadeIsencao" id="idadeIsencao" placeholder="0-200" required="required">
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="dataPasseio">DATA DO PASSEIO</label>
           <div class="col-sm-6">
             <input type="date" class="form-control col-sm-4" name="dataPasseio" id="dataPasseio" required="required" onblur="verificaDataPasseio()">

@@ -142,7 +142,8 @@
                 }else{
                   if(mysqli_num_rows($resultadoqueryBuscaSeJaExistePagamento) == 0 ){
 /* -----------------------------------------------------------------------------------------------------  */
-                    $verificaSeExisteDespesa = "SELECT d.idPasseio, p.idPasseio FROM despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND d.idDespesa='$idPasseioSelecionado'";
+                    $verificaSeExisteDespesa = "SELECT d.idPasseio, p.idPasseio FROM despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND d.idPasseio='$idPasseioSelecionado'";
+                    #echo $verificaSeExisteDespesa;
                                                 $resultadoVerificaSeExisteDespesa = mysqli_query($conexao, $verificaSeExisteDespesa);
 /* -----------------------------------------------------------------------------------------------------  */
                     if(mysqli_num_rows($resultadoVerificaSeExisteDespesa) !=0){
