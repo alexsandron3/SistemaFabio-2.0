@@ -175,7 +175,7 @@
 
               
               
-              //echo $totalCliente;
+               $totalCliente;
               while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
                 $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);
                 $idCliente =  $valorPesquisaCliente['idCliente'];
