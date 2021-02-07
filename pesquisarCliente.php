@@ -127,7 +127,7 @@
 /* -----------------------------------------------------------------------------------------------------  */
               if(empty($valorPesquisaCliente)){
                 $vazio = true;
-                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, C.statusCliente 
+                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
                                               FROM cliente c ORDER BY c.nomeCliente ";
                                               $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                                               $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
