@@ -7,31 +7,19 @@
 
 
 
-   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+  $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-   $buscaPeloIdPasseio = "SELECT p.nomePasseio, p.idPasseio, c.nomeCliente, p.dataPasseio, c.cpfCliente, c.dataNascimento, pp.statusPagamento, pp.idPagamento, 
-                              pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, SUBSTRING_INDEX(c.nomeCliente, ' ', 1) AS primeiroNome 
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.seguroViagem= 1";
-     
+  $buscaPeloIdPasseio = "SELECT p.nomePasseio, p.idPasseio, c.nomeCliente, p.dataPasseio, c.cpfCliente, c.dataNascimento, pp.statusPagamento, pp.idPagamento, 
+                            pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, SUBSTRING_INDEX(c.nomeCliente, ' ', 1) AS primeiroNome 
+                            FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.seguroViagem= 1";
+    
 
-   
-
-   /* -----------------------------------------------------------------------------------------------------  */
-   $comecoContador0 = 1;
-   $setRec = mysqli_query($conexao, $buscaPeloIdPasseio);
-   $nomeArquivo = mysqli_fetch_assoc($setRec);
-
-   $nomePasseio = $nomeArquivo['nomePasseio'];
-   $nomePasseioSubstituto = str_replace(" ", $nomePasseio, "_");
-   $dataPasseio = date_create($nomeArquivo['dataPasseio']);
-   $filename = $nomePasseio. $nomePasseioSubstituto. "". date_format($dataPasseio, "d/m/Y");
-   #echo $filename;
-
-   /* -----------------------------------------------------------------------------------------------------  */
-   #$rowDados = mysqli_fetch_array($setRec);
   
 
-   /* -----------------------------------------------------------------------------------------------------  */
+  /* -----------------------------------------------------------------------------------------------------  */
+  $comecoContador0 = 1;
+  $setRec = mysqli_query($conexao, $buscaPeloIdPasseio);
+
   $valorSeguroViagem = 2.47;
   $quantidadeClientes = mysqli_num_rows($setRec);
   $totalSeguroViagem = $valorSeguroViagem * $quantidadeClientes;
@@ -39,9 +27,14 @@
   $dados = '';
   echo "\t" . "\t" . "\t" . "\t" ."R$".$totalSeguroViagem ."\n";
   echo "NOME" . "\t". "DATA NASCIMENTO" ."\t". "TIPO DOCTO". "\t". "NUMERO DOCTO" . "\t" ."VALOR" . "\t" ."NOME SEGURO VIAGEM". "\n";
-  
+
   while($rowDados = mysqli_fetch_array($setRec)){
     
+    $nomePasseio = $rowDados['nomePasseio'];
+    $nomePasseioSubstituto = str_replace(" ", $nomePasseio, "_");
+    $dataPasseio = date_create($rowDados['dataPasseio']);
+    $filename = $nomePasseio. $nomePasseioSubstituto. "". date_format($dataPasseio, "d/m/Y");
+
     $comecoContador = 1;
     $nomeCliente = $rowDados['nomeCliente'];
     $dataNascimento = $rowDados['dataNascimento'];
