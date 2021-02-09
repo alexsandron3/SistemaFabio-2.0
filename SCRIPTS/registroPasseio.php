@@ -6,14 +6,15 @@
     $localPasseio        = filter_input(INPUT_POST, 'localPasseio',         FILTER_SANITIZE_STRING);
     $valorPasseio        = filter_input(INPUT_POST, 'valorPasseio',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $lotacao             = filter_input(INPUT_POST, 'lotacao',              FILTER_SANITIZE_NUMBER_INT);
+    $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
     $dataPasseio         = filter_input(INPUT_POST, 'dataPasseio',          FILTER_SANITIZE_STRING);
     $anotacoes           = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
 
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData = "INSERT INTO
-    passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao)
-    VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao')
+    passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao)
+    VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao')
     ";
 
     /* -----------------------------------------------------------------------------------------------------  */
