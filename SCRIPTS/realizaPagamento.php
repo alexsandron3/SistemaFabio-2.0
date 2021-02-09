@@ -35,10 +35,10 @@
 
     $statusPagamento = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
     
-    $recebeQtdCliente        = "SELECT COUNT(idPagamento) AS qtdClientes FROM pagamento_passeio";
+/*     $recebeQtdCliente        = "SELECT COUNT(idPagamento) AS qtdClientes FROM pagamento_passeio";
     $resultadoQtdCliente     = mysqli_query($conexao, $recebeQtdCliente);
     $rowQtdCliente           = mysqli_fetch_assoc($resultadoQtdCliente);
-    $qtdCliente              = $rowQtdCliente ['qtdClientes'];
+    $qtdCliente              = $rowQtdCliente ['qtdClientes']; */
 
 
     $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
@@ -50,9 +50,9 @@
     
 
     $getDataPagamentoPasseio = "INSERT INTO pagamento_passeio 
-                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento)  
+                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento)  
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
-                                '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento')
+                                '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW())
                                 ";
  
 

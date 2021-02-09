@@ -81,7 +81,7 @@
 
     $getData =                  "UPDATE pagamento_passeio SET    
                                 valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento', statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$statusEditaSeguroViagemCliente',
-                                transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque'
+                                transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque', dataPagamento=NOW()
                                 WHERE idPagamento='$idPagamento'
                                 ";
 

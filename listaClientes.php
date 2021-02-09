@@ -111,8 +111,8 @@
                 <th>  <a href="listaClientes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=idadeCliente">IDADE </a></th>
                 <th> <a href="listaClientes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=rgCliente">Nº IDENTIDADE </a></th>
                 <th> <a href="listaClientes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=orgaoEmissor">ORGÃO EMISSOR</a></th>
-                <th> AÇÃO</th>
-            </tr>
+<!--                 <th> AÇÃO</th>
+ -->            </tr>
           </thead>
         
         <tbody>
@@ -147,8 +147,8 @@
                 $opcao = "TRANSFERIR";
                  }
               ?>
-            <th> <a target="blank" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseioAcao; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
-          </tr>
+<!--             <th> <a target="blank" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php #echo $idPagamento;?>&idPasseio= <?php #echo $idPasseioAcao; ?>&opcao=<?php #echo $opcao ?>&confirmar=0"> <?php #echo $opcao?> </a> </th>
+ -->          </tr>
 
           <?php
           

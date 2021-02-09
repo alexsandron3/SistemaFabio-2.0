@@ -17,18 +17,7 @@
    
 
    /* -----------------------------------------------------------------------------------------------------  */
-   $comecoContador0 = 1;
    $setRec = mysqli_query($conexao, $buscaPeloIdPasseio);
-   $nomeArquivo = mysqli_fetch_assoc($setRec);
-
-   $nomePasseio = $nomeArquivo['nomePasseio'];
-   $nomePasseioSubstituto = str_replace(" ", $nomePasseio, "_");
-   $dataPasseio = date_create($nomeArquivo['dataPasseio']);
-   $filename = $nomePasseio. $nomePasseioSubstituto. "". date_format($dataPasseio, "d/m/Y");
-   #echo $filename;
-
-   /* -----------------------------------------------------------------------------------------------------  */
-   $rowDados = mysqli_fetch_array($setRec);
   
 
    /* -----------------------------------------------------------------------------------------------------  */
@@ -41,6 +30,10 @@
   echo "NOME" . "\t". "DATA NASCIMENTO" ."\t". "TIPO DOCTO". "\t". "NUMERO DOCTO" . "\t" ."VALOR" . "\t" ."NOME SEGURO VIAGEM". "\n";
   
   while($rowDados = mysqli_fetch_array($setRec)){
+    $nomePasseio = $rowDados['nomePasseio'];
+    $nomePasseioSubstituto = str_replace(" ", $nomePasseio, "_");
+    $dataPasseio = date_create($rowDados['dataPasseio']);
+    $filename = "PONTOS DE EMBARQUE_".$nomePasseio. $nomePasseioSubstituto. "". date_format($dataPasseio, "d/m/Y");
     
     $comecoContador = 1;
     $nomeCliente = $rowDados['nomeCliente'];
