@@ -127,7 +127,7 @@
 /* -----------------------------------------------------------------------------------------------------  */
               if(empty($valorPesquisaCliente)){
                 $vazio = true;
-                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, C.statusCliente 
+                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
                                               FROM cliente c ORDER BY c.nomeCliente ";
                                               $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                                               $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
@@ -141,7 +141,7 @@
             
                 $inicio = ($quantidadePagina * $pagina) - $quantidadePagina;
                 $numeroPaginas = $numeroPaginasTotal;
-                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, C.statusCliente 
+                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
                                               FROM cliente c  ORDER BY c.nomeCliente LIMIT $inicio, $quantidadePagina";
                                               $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                 
@@ -149,7 +149,7 @@
                 //header("Location: pesquisarCliente.php");
                 $vazio = false;
                 $paginaPesquisa =1;
-                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, C.statusCliente 
+                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
                                               FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
                                               $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                                               $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
@@ -166,7 +166,7 @@
                 $numeroPaginasTotal = 1;
 
                 $quantidadePagina = 500;
-                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, C.statusCliente 
+                $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
                                               FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente LIMIT 0, $quantidadePagina";
                                               $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                                               $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
