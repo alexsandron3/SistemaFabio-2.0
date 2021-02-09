@@ -33,7 +33,7 @@
     $nomePasseio = $rowDados['nomePasseio'];
     $nomePasseioSubstituto = str_replace(" ", $nomePasseio, "_");
     $dataPasseio = date_create($rowDados['dataPasseio']);
-    $filename = "PONTOS DE EMBARQUE_".$nomePasseio. $nomePasseioSubstituto. "". date_format($dataPasseio, "d/m/Y");
+    $filename = "SEGURO VIAGEM_".$nomePasseio. $nomePasseioSubstituto. "". date_format($dataPasseio, "d/m/Y");
     
     $comecoContador = 1;
     $nomeCliente = $rowDados['nomeCliente'];
