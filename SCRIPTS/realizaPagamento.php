@@ -58,7 +58,7 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $alerta = $lotacaoPasseio * 0.80;
+    $alerta = $lotacaoPasseio * 0.20;
     $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados) -1;
     if($lotacaoPasseio <= $qtdClientesConfirmados){
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
