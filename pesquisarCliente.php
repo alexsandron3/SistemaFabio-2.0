@@ -2,7 +2,11 @@
     session_start();
     include_once("PHP/conexao.php");
     $pagina = (isset($_GET['pagina']))? $_GET['pagina']:1;
-      
+      // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 
 
 ?>
@@ -69,6 +73,9 @@
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
         </li>
       </ul>
     </div>
