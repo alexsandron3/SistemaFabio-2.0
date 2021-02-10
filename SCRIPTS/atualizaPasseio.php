@@ -8,10 +8,11 @@
     $lotacao             = filter_input(INPUT_POST, 'lotacao',              FILTER_SANITIZE_NUMBER_INT);
     $dataPasseio         = filter_input(INPUT_POST, 'dataPasseio',          FILTER_SANITIZE_STRING);
     $anotacoes           = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
+    $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData = "UPDATE passeio SET
-                nomePasseio='$nomePasseio', localPasseio='$localPasseio', valorPasseio='$valorPasseio', lotacao='$lotacao', dataPasseio='$dataPasseio', anotacoes='$anotacoes'
+                nomePasseio='$nomePasseio', localPasseio='$localPasseio', valorPasseio='$valorPasseio', lotacao='$lotacao', dataPasseio='$dataPasseio', anotacoes='$anotacoes', idadeIsencao='$idadeIsencao'
                 WHERE idPasseio='$idPasseio'";
     /* -----------------------------------------------------------------------------------------------------  */
     atualizar($getData, $conexao, "PASSEIO", "editarPasseio", $idPasseio);
