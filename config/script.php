@@ -436,6 +436,12 @@ function confirmationDelete(anchor)
    if(conf)
       window.location=anchor.attr("href");
 }
+function confirmationDeletePasseio(anchor)
+{
+   var conf = confirm('VOCÊ TEM CERTEZA QUE DESEJA APAGAR ESSE PASSEIO??');
+   if(conf)
+      window.location=anchor.attr("href");
+}
 
 //VERIFICANDO CLIQUE NA SELEÇÃO DE PÁGINA ------------------------------------------------------
 function cliquePrimeirPagina(){

@@ -135,10 +135,10 @@
     <form action='' method='GET' autocomplete='OFF'>
       <div class='form-group row mb-5 mt-5'>
         <label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>
-        <input type='date' class='form-control col-sm-2' name='inicioDataPasseio' id='inicioDataPasseio' value="<?php echo date("Y-m-d");?>">
+        <input type='date' class='form-control col-sm-2' name='inicioDataPasseio' id='inicioDataPasseio' value="">
 
         <label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>
-        <input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' value="<?php echo date("2030-m-d");?>" >
+        <input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' value="" >
         <input type='submit' class='btn btn-primary btn-sm ml-5' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio' >
       </div>
     </form>
@@ -169,7 +169,7 @@
           echo"<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  ".date_format($inicioDataPasseioFormatado, "d/m/Y") ." => ".date_format($fimDataPasseioFormatado, "d/m/Y") ." <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."'> *</a></p>";
         }
       /* -----------------------------------------------------------------------------------------------------  */
-    $listaPasseios = "SELECT idPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
+    $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' ORDER BY dataPasseio";
     #echo$listaPasseios;
     $resultadoListaPasseio = mysqli_query($conexao, $listaPasseios);
 
