@@ -133,7 +133,7 @@
           </td>
           <td>
             <?php echo "<a class='btn btn-primary btn-sm ml-1'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR  </a><br>"; ?>
-            <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDeletePasseio($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
           </td>
         </tr>
         <?php
@@ -158,7 +158,7 @@
           </td>
           <td>
             <?php echo "<a class='btn btn-primary btn-sm ml-1'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'>EDITAR  </a><br>"; ?>
-            <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
+            <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDeletePasseio($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "' >DELETAR</a><br><hr>";?>
           </td>
         </tr>
         <?php
