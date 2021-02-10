@@ -1,60 +1,12 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
-  #<pre>";
-  $idPasseio = 1;
-
-
-  $recebeLotacaoPasseio    = "SELECT lotacao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
-  $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
-  $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
-  $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
-  $nomePasseio          = $rowLotacaoPasseio['nomePasseio']; 
-  $dataPasseio          = $rowLotacaoPasseio['dataPasseio']; 
-
-  $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
-  $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
-  $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
-
-  $getStatusPagamentoCliente       = "SELECT statusPagamento FROM pagamento_passeio WHERE idPasseio=$idPasseio";
-  $resultadoStatusPagamentoCliente = mysqli_query($conexao, $getStatusPagamentoCliente);
-  $interessado = 0;
-  $quitado = 0;
-  $parcial = 0;
-  $parceiro = 0;
-  $crianca = 0;
-  while($rowGetStatusPagamentoCliente = mysqli_fetch_assoc($resultadoStatusPagamentoCliente)){
-    $statusCliente = $rowGetStatusPagamentoCliente['statusPagamento'];
-    if($statusCliente == 0){
-      $interessado +=1;
-    }elseif($statusCliente == 1){
-      $quitado +=1;
-    }elseif($statusCliente == 2){
-      $parcial +=1;
-    }elseif($statusCliente == 3){
-      $parceiro +=1;
-    }elseif($statusCliente == 4){
-      $crianca +=1;
-    }
-
-  }
-
-
-
-
-  $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
-
-
-/*   echo "PASSEIO: ".$nomePasseio. "\n";
-  echo "DATA: ".$dataPasseio. "\n";
-  echo "INTERESSADO: ".$interessado. "\n";
-  echo "QUITADO: ".$quitado. "\n";
-  echo "RESERVADOS: ".$parcial. "\n";
-  echo "PARCEIRO: ".$parceiro. "\n";
-  echo "CRIANÇAS: ".$crianca. "\n";
-  echo "META DE VENDA: ".$lotacaoPasseio. "\n";
-  echo "VAGAS DISPONÍVEIS: : ".$vagasRestantes. "\n"; */
-
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -119,6 +71,9 @@
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
         </li>
       </ul>
     </div>
