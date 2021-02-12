@@ -184,12 +184,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               
               //echo $totalCliente;
               while($valorPesquisaCliente = mysqli_fetch_assoc($resultadoPesquisaCliente)){
-                $dataNascimento =  date_create($valorPesquisaCliente['dataNascimento']);
+                $dataNascimento = (empty($valorPesquisaCliente ['dataNascimento']))? "" : date_create($valorPesquisaCliente['dataNascimento']);
+                
                 $idCliente =  $valorPesquisaCliente['idCliente'];
         ?>
         <tr style="color:<?php if($valorPesquisaCliente['statusCliente'] == 0 ) {echo"red";}?>;">
           <th><?php echo $valorPesquisaCliente ['nomeCliente']. "<BR/>";?></th> 
-          <td><?php echo date_format($dataNascimento, "d/m/Y") ."<BR/>";?></td>
+          <td><?php 
+                    $dataNascimentoFormatada = (empty($dataNascimento))? "" : date_format($dataNascimento, "d/m/Y") ."<BR/>";
+          
+          echo $dataNascimentoFormatada?></td>
           <td><?php echo $valorPesquisaCliente ['idadeCliente']. "<BR/>";?></td>
           <td><?php echo $valorPesquisaCliente ['referencia']. "<BR/>";?></td>
           <td><?php echo $valorPesquisaCliente ['telefoneCliente']. "<BR/>";?></td>
