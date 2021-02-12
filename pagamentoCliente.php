@@ -1,6 +1,7 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+    include_once("PHP/functions.php");
     // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   header("location: login.php");
@@ -13,7 +14,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                 $resultadoIdCliente = mysqli_query($conexao, $queryBuscaIdCliente);
                                 $rowIdCliente = mysqli_fetch_assoc($resultadoIdCliente);
 /* -----------------------------------------------------------------------------------------------------  */
-
+$idadeCliente = calcularIdade($idCliente, $conn, "");
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -206,6 +207,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
                         echo"<div class='col-sm-3'>";
                           echo"<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"";
+                      echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='idadeCliente'>IDADE</label>";
+                        echo"<div class='col-sm-1'>";
+                          echo"<input type='text' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='$idadeCliente'>";
                         echo"</div>";
                       echo"</div>";
                       echo"";
