@@ -118,7 +118,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             $historicoPagamento = $rowIdPagamento['historicoPagamento'];
             $clienteParceiro = $rowIdPagamento['statusPagamento'];
             $idCliente = $rowIdPagamento['idCliente'];
-            $idadeCliente = calcularIdade($idCliente, $conn, "");
+            $idadeCliente = calcularIdade($idCliente, $conn);
 
             echo"<p class='h4 text-center alert-info'> ". $rowIdPagamento ['nomeCliente']. " | ". $rowIdPagamento ['nomePasseio']. " ". date_format($dataPasseio, "d/m/Y") ."</p>";
             echo"<div class='form-group row'>";

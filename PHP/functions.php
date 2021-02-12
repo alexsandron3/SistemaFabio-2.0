@@ -4,7 +4,7 @@
 
     
 
-    function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento) {
+    function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento = "index") {
         $getData = $getData;
         $insertData = mysqli_query($conexao, $getData);
         if(mysqli_insert_id($conexao)){
@@ -16,7 +16,7 @@
         }
     }
 
-    function atualizar($getData, $conexao, $tipoAtualizacao, $paginaRedirecionamento, $id){
+    function atualizar($getData, $conexao, $tipoAtualizacao, $paginaRedirecionamento = "index", $id){
         $insertData = mysqli_query($conexao, $getData);
         
         if(mysqli_affected_rows($conexao)){
@@ -28,7 +28,7 @@
         }
     }
 
-    function apagar($getData, $conexao, $tipoDelete, $idPagamento, $idPasseio, $paginaRedirecionamento){
+    function apagar($getData, $conexao, $tipoDelete, $idPagamento, $idPasseio, $paginaRedirecionamento = "index"){
         if(!empty($idPagamento OR $idPasseio)){
             $deleteData = mysqli_query ($conexao, $getData );
             if( mysqli_affected_rows($conexao)){
@@ -46,7 +46,7 @@
         }
     }
 
-    function calcularIdade ($idCliente, $conn, $data){
+    function calcularIdade ($idCliente, $conn, $data = ""){
         $queryBuscaDataNascimento = "SELECT dataNascimento FROM cliente WHERE idCliente =$idCliente";
         $resultadoBuscaDataNascimento = $conn->query($queryBuscaDataNascimento);
         $rowBuscaDataNascimento = $resultadoBuscaDataNascimento ->fetch_assoc();
