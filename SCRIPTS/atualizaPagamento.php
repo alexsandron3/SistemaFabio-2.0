@@ -20,7 +20,9 @@
     #$valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorPagoAtual              = filter_input(INPUT_POST, 'valorPagoAtual',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-
+    if(empty($taxaPagamento)){
+        $taxaPagamento = 0;
+    }
     $valorPendente               = -$valorVendido + ($valorPago + $taxaPagamento);
     
     $valorPendente = round($valorPendente,2);
