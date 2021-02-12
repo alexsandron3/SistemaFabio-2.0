@@ -118,10 +118,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         $fimDataPasseio        = filter_input(INPUT_GET, 'fimDataPasseio', FILTER_SANITIZE_STRING);
         $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
         $fimDataPasseioFormatado = date_create($fimDataPasseio);
-        if(empty($inicioDataPasseio)OR empty($fimDataPasseio)){
-          echo"<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO INVÁLIDO</p>";  
+        if($buttonEviaDataPasseio){
+          if(empty($inicioDataPasseio)OR empty($fimDataPasseio)){
+            echo"<p class='h4 text-center alert-warning'>  RELATÓRIO DE VENDAS <br/>". "PERÍODO SELECIONADO INVÁLIDO</p>";  
+          }else{
+            echo"<p class='h4 text-center alert-info'>  RELATÓRIO DE VENDAS <br/>". "PERÍODO SELECIONADO:  ".date_format($inicioDataPasseioFormatado, "d/m/Y") ." => ".date_format($fimDataPasseioFormatado, "d/m/Y") ." <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."'> *</a></p>";
+          }
         }else{
-          echo"<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  ".date_format($inicioDataPasseioFormatado, "d/m/Y") ." => ".date_format($fimDataPasseioFormatado, "d/m/Y") ." <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."'> *</a></p>";
+          echo"<p class='h4 text-center alert-info'>  RELATÓRIO DE VENDAS <br/></p>";  
+
         }
       /* -----------------------------------------------------------------------------------------------------  */
     $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' ORDER BY dataPasseio";
