@@ -18,7 +18,9 @@
     $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',    FILTER_VALIDATE_BOOLEAN);
     $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
 
-
+    if(empty($taxaPagamento)){
+        $taxaPagamento = 0;
+    }
 
 
     $valorPendente               = -$valorVendido + ($valorPago + $taxaPagamento);
