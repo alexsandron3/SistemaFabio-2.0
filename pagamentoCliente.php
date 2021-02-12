@@ -116,8 +116,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               $resultadoBuscaNomePasseio = "SELECT * FROM passeio ORDER BY dataPasseio";
               $resultadoNomePasseio = mysqli_query($conexao, $resultadoBuscaNomePasseio);
               while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
+                $dataPasseio = (empty($rowNomePasseio['dataPasseio']) OR $rowNomePasseio == "0000-00-00")? "": date_create($rowNomePasseio['dataPasseio']);
+                $dataPasseioFormatada = (empty($dataPasseio) OR  $dataPasseio == "0000-00-00")? "": date_format($dataPasseio, "d/m/Y"); 
                 ?>
-                <option value="<?php echo $rowNomePasseio ['idPasseio'] ;?>"><?php echo $rowNomePasseio ['nomePasseio']; echo " "; echo $rowNomePasseio ['dataPasseio'];?>  </option>    
+                <option value="<?php echo $rowNomePasseio ['idPasseio'] ;?>"><?php echo $rowNomePasseio ['nomePasseio']; echo " "; echo $dataPasseioFormatada;?>  </option>    
             <?php }
             }
           ?>
@@ -155,8 +157,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                                 $resultadoVerificaSeExisteDespesa = mysqli_query($conexao, $verificaSeExisteDespesa);
 /* -----------------------------------------------------------------------------------------------------  */
                     if(mysqli_num_rows($resultadoVerificaSeExisteDespesa) !=0){
-                      //echo"<p class='text-center alert-success'>SUCESSO, ESTE CLIENTE AINDA NÃO FEZ UMA COMPRA NESSE PASSEIO </p>";  
-                      echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$rowPasseioSelecionado ['dataPasseio'] ."</p>";
+                      //echo"<p class='text-center alert-success'>SUCESSO, ESTE CLIENTE AINDA NÃO FEZ UMA COMPRA NESSE PASSEIO </p>";
+                      $dataPasseioSelecionado = (empty($rowPasseioSelecionado['dataPasseio']) OR $rowPasseioSelecionado == "0000-00-00")? "": date_create($rowPasseioSelecionado['dataPasseio']);
+                      $dataPasseioSelecionadoPadrao = (empty($dataPasseioSelecionado) OR  $dataPasseioSelecionado == "0000-00-00")? "": date_format($dataPasseioSelecionado, "d/m/Y");   
+                      echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$dataPasseioSelecionadoPadrao ."</p>";
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
                         echo"<div class='col-sm-6'>";
@@ -200,6 +204,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                       echo"";
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
+                        echo"<div class='col-sm-3'>";
+                          echo"<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE'>";
+                        echo"</div>";
+                      echo"</div>";
+                      echo"";
+/*                       echo"<div class='form-group row'>";
+                        echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
                         echo"<select class='form-control col-sm-3 ml-3' name='meioTransporte' id='meioTransporte'>";
                           echo"<option value='' selected> SELECIONAR</option>";
                           echo"<option value='CARRO'>CARRO</option>";
@@ -207,7 +218,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                           echo"<option value='MICRO'>MICRO</option>";
                           echo"<option value='VAN'>VAN</option>";
                         echo"</select>";
-                      echo"</div>";
+                      echo"</div>"; */
                       echo"<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
                       echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$rowIdCliente ['idadeCliente'] . "'>";
                       echo"<div class='form-group row'>";

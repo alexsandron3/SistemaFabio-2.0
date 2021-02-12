@@ -55,8 +55,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         unset($_SESSION['msg']);
       }
       while($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)){
+        $dataPasseio = (empty($rowPesquisaIntervaloData['dataPasseio']))? "" : date_create($rowPesquisaIntervaloData ['dataPasseio']);
+        $dataPasseioFromatada = (empty($dataPasseio))? "" : date_format($dataPasseio, "d/m/Y");
         echo"
-        <div class='text-center alert-info'>" .$rowPesquisaIntervaloData ['nomePasseio']. 
+        <div class='text-center alert-info'>" .$rowPesquisaIntervaloData ['nomePasseio']. " | ". $dataPasseioFromatada. 
         "<a target='_blank' href='listaPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> LISTA DE PASSAGEIROS </a> |
         <a target='_blank' href='editaDespesas.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> DESPESAS </a> | 
         <a target='_blank' href='relatoriosDoPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> RELATÓRIOS DO PASSEIO </a> | 

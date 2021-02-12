@@ -14,7 +14,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   }
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.dataCpfConsultado, 
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.referencia,
                               pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro 
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
@@ -123,6 +123,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=nomeCliente"> NOME </a></th>
                 <th>  <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=rgCliente">RG </a></th>
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=cpfConsultado">CPF CONSULTADO </a></th>
+                <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=referencia">REFERÊNCIA </a></th>
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=statusPagamento">STATUS </a></th>
                 <th>CONTATO</th>
                 <th>AÇÃO</th>
@@ -139,11 +140,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
-              if(empty($rowBuscaPasseio['dataCpfConsultado'])){
-                $dataCpfConsultado = "0000-00-00";
-              }else{
-                $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
-              }
+              $dataCpfConsultado = (empty($rowBuscaPasseio['dataCpfConsultado'])OR $rowBuscaPasseio['dataCpfConsultado'] == "0000-00-00")? "" : date_create($rowBuscaPasseio['dataCpfConsultado']);
+              $dataCpfConsultadoFormatado = (empty($dataCpfConsultado) OR $dataCpfConsultado == "0000-00-00")? "" : date_format($dataCpfConsultado, "d/m/Y" );
               
               $idCliente = $rowBuscaPasseio['idCliente'];
               $idPasseio = $rowBuscaPasseio['idPasseio'];
@@ -181,12 +179,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
-            <th><?php if($dataCpfConsultado == "0000-00-00"){
-                        echo"";
-                      }else{
-                        echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";
-                      } 
+            <th><?php echo $dataCpfConsultadoFormatado;
             ?></th>
+            <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>";?></th>
+
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
             <th> <a href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
             <?php
