@@ -50,17 +50,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -86,7 +75,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   ?>
 
 
-   <!-- <p class='h4 text-center alert-info'> SELECIONE O INTERVALO</p> -->
     <form action='' method='GET' autocomplete='OFF'>
       <div class='form-group row mb-5 mt-5'>
         <label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>
@@ -130,7 +118,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         }
       /* -----------------------------------------------------------------------------------------------------  */
     $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' ORDER BY dataPasseio";
-    #echo$listaPasseios;
     $resultadoListaPasseio = mysqli_query($conexao, $listaPasseios);
 
     while($rowResultadoListaPasseio = mysqli_fetch_assoc($resultadoListaPasseio)){
@@ -190,7 +177,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         }
       }
       $recebeLotacaoPasseio    = "SELECT lotacao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
-      #echo$recebeLotacaoPasseio;
       $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
       $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
       $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 

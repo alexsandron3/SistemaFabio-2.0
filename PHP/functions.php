@@ -4,7 +4,7 @@
 
     
 
-    function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento = "index") {
+    function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento) {
         $getData = $getData;
         $insertData = mysqli_query($conexao, $getData);
         if(mysqli_insert_id($conexao)){
@@ -16,7 +16,7 @@
         }
     }
 
-    function atualizar($getData, $conexao, $tipoAtualizacao, $paginaRedirecionamento = "index", $id){
+    function atualizar($getData, $conexao, $tipoAtualizacao, $paginaRedirecionamento, $id){
         $insertData = mysqli_query($conexao, $getData);
         
         if(mysqli_affected_rows($conexao)){
@@ -28,7 +28,7 @@
         }
     }
 
-    function apagar($getData, $conexao, $tipoDelete, $idPagamento, $idPasseio, $paginaRedirecionamento = "index"){
+    function apagar($getData, $conexao, $tipoDelete, $idPagamento, $idPasseio, $paginaRedirecionamento){
         if(!empty($idPagamento OR $idPasseio)){
             $deleteData = mysqli_query ($conexao, $getData );
             if( mysqli_affected_rows($conexao)){

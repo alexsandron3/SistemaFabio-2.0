@@ -17,11 +17,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                           $dataPasseio =  date_create($rowDespesa['dataPasseio']);
 /* -----------------------------------------------------------------------------------------------------  */
 
-/*     $queryValorSeguroViagem     = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
-                                  $resultadoValorSeguroViagem = mysqli_query($conexao, $queryValorSeguroViagem);
-                                  $rowValorSeguroViagem       = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-                                  $valorTotalSeguroViagem     = $rowValorSeguroViagem ['totalSeguroViagem']; */
-
 /* -----------------------------------------------------------------------------------------------------  */
     if(!empty($idPasseioGet)){
       $queryTotalDespesas = "SELECT (valorIngresso * quantidadeIngresso) + (valorOnibus * quantidadeOnibus) + (valorMicro * quantidadeMicro) + (valorVan * quantidadeVan) + (valorEscuna * quantidadeEscuna) + (valorAlmocoCliente * quantidadeAlmocoCliente)
@@ -77,17 +72,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
-          <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

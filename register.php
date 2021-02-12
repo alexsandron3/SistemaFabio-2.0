@@ -1,5 +1,4 @@
 <?php
-// Include config file
 require_once "PHP/pdoCONEXAO.php";
  
 // Define variables and initialize with empty values
