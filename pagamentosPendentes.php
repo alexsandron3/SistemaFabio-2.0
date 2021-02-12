@@ -21,7 +21,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
                           $resultadoTotalPendente = mysqli_query($conexao, $queryValorPendenteTotal);
                           $rowTotalPendente = mysqli_fetch_assoc($resultadoTotalPendente);
-                          $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'] *-1;
+                          $valorPendenteTotal = number_format($rowTotalPendente['valorPendenteTotal'] *-1, 2, '.', ' ');
 /* -----------------------------------------------------------------------------------------------------  */
  
   $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
@@ -76,19 +76,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
-        </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -133,7 +121,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>"; ?></th>
-            <th><?php echo "R$ ".$rowBuscaPasseio ['valorPendente'] * -1 . "<BR/>";?> </th>
+            <th><?php echo "R$ ". number_format($rowBuscaPasseio ['valorPendente'] * -1, 2, '.','') . "<BR/>";?> </th>
             <th></th>
           </tr>
 
