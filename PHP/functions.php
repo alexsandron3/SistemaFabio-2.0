@@ -46,7 +46,7 @@
         }
     }
 
-    function calcularIdade ($idCliente, $conn, $data){
+    function calcularIdade ($idCliente, $conn, $data = ""){
         $queryBuscaDataNascimento = "SELECT dataNascimento FROM cliente WHERE idCliente =$idCliente";
         $resultadoBuscaDataNascimento = $conn->query($queryBuscaDataNascimento);
         $rowBuscaDataNascimento = $resultadoBuscaDataNascimento ->fetch_assoc();
@@ -68,6 +68,9 @@
 
         if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
             $statusPagamento = 0; //NÃO PAGO
+            if($idadeCliente <= $idadeIsencao){
+                $statusPagamento = 4; // CRIANÇA
+            }
         }elseif( $valorPendenteCliente == 0 AND $clienteParceiro == 0){
             $statusPagamento = 1; //PAGO
             if($idadeCliente <= $idadeIsencao){
@@ -75,8 +78,12 @@
             }
         }elseif($valorPendenteCliente < 0 AND $valorPago > 0 AND $clienteParceiro == 0){
             $statusPagamento = 2; //INTERESSADO
+            if($idadeCliente <= $idadeIsencao){
+                $statusPagamento = 4; // CRIANÇA
+            }
         }elseif($clienteParceiro == 1){
             $statusPagamento = 3; // PARCEIRO
+            
         }elseif($idadeCliente <= $idadeIsencao){
             $statusPagamento = 4; // CRIANÇA
         }
