@@ -317,6 +317,19 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                   echo"</div>";
 
                   echo"<div class='form-group row'>";
+                    echo"<label class='col-sm-2 col-form-label' for='valorPulseira'>PULSEIRAS</label>";
+                    echo"<div class='col-sm-6'>";
+                      echo"<input type='text' class='form-control' name='valorPulseira' id='valorPulseira' placeholder='PULSEIRA' value='0'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadePulseira' id='quantidadePulseira' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-2'>";
+                      echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalPulseira' id='valorTotalPulseira' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                  echo"</div>";
+
+                  echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='outros'>OUTROS</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='outros' id='outros' placeholder='OUTROS' value='0'onchange='calculoTotalDespesas()'>";

@@ -102,6 +102,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <option value="DETRAN">DETRAN</option>
             <option value="IFP"> IFP</option>
             <option value="OAB">OAB</option>
+            <option value="CERTIDAO NASCIMENTO">CERTIDAO NASCIMENTO</option>
             <option value="SSP">SSP</option>
             <option value="DIC">DIC</option>
             <option value="MDMB">MDMB</option>

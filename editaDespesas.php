@@ -8,8 +8,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_FLOAT);
     $queryBuscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
-                          d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.valorSeguroViagem , d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
-                          d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento, d.quantidadeSeguroViagem,                     
+                          d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.valorPulseira, d.valorSeguroViagem , d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
+                          d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento, d.quantidadePulseira, d.quantidadeSeguroViagem,                     
                           p.nomePasseio, p.dataPasseio   
                           FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
                           $resultadoBuscaDespesa = mysqli_query($conexao, $queryBuscaDespesa);
@@ -283,7 +283,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalKitLanche' id='valorTotalKitLanche' placeholder='TOTAL'  value='0' onblur='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
-
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorImpulsionamento'>IMPULSIONAMENTO</label>";
               echo"<div class='col-sm-6'>";
@@ -295,6 +294,19 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               echo"<div class='col-sm-2'>";
                 echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalImpulsionamento' id='valorTotalImpulsionamento' placeholder='TOTAL'  value='0' onblur='calculoTotalDespesas()'>";
               echo"</div>";  
+            echo"</div>";
+
+            echo"<div class='form-group row'>";
+              echo"<label class='col-sm-2 col-form-label' for='valorPulseira'>PULSEIRAS</label>";
+              echo"<div class='col-sm-6'>";
+                echo"<input type='text' class='form-control' name='valorPulseira' id='valorPulseira' placeholder='PULSEIRA' value='". $rowDespesa ['valorPulseira']."'onchange='calculoTotalDespesas()'>";
+              echo"</div>";
+              echo"<div class='col-sm-1'>";
+                echo"<input type='text' class='form-control' name='quantidadePulseira' id='quantidadePulseira' placeholder='QTD' value='". $rowDespesa ['quantidadePulseira']."'onchange='calculoTotalDespesas()'>";
+              echo"</div>";
+              echo"<div class='col-sm-2'>";
+                echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalPulseira' id='valorTotalPulseira' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+              echo"</div>";
             echo"</div>";
 
             echo"<div class='form-group row'>";

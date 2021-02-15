@@ -20,10 +20,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
  
-  $pegarNomePasseio = "SELECT nomePasseio, lotacao FROM passeio WHERE idPasseio='$idPasseioGet'";
+  $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
                         $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
                         $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
                         $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
+                        $dataPasseio = date_create($rowpegarNomePasseio ['dataPasseio']);
                         $lotacao = $rowpegarNomePasseio ['lotacao'];
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
@@ -97,8 +98,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " 
-        | <span class='h5'> LOTAÇÃO: $lotacao </span> 
+        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo." ". date_format($dataPasseio, "d/m/Y") ." <br/>
+         <span class='h5'> LOTAÇÃO: $lotacao </span> 
         | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS: </span> 
         | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS: </span>
         | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS: </span>
@@ -114,6 +115,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=statusPagamento">STATUS </a></th>
                 <th>CONTATO</th>
                 <th>AÇÃO</th>
+                <th>V. PAGO</th>
+                <th>V. VENDIDO</th>
             </tr>
           </thead>
         
@@ -181,7 +184,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               ?>
             <th> <a target='_blank' rel='noopener noreferrer' href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
 
-            <th></th>
+            <th><?php $valorPago = (empty($rowBuscaPasseio ['valorPago']) ? $valorPago = 0.00 : $valorPago =  $rowBuscaPasseio ['valorPago'] ); echo number_format($valorPago, 2,'.','') . "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['valorVendido']. "<BR/>";?></th>
           </tr>
 
           <?php
