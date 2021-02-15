@@ -64,7 +64,7 @@
         }
     }
 
-    function calcularIdade ($idCliente, $conn, $data = ""){
+    function calcularIdade ($idCliente, $conn, $data){
         $queryBuscaDataNascimento = "SELECT dataNascimento FROM cliente WHERE idCliente =$idCliente";
         $resultadoBuscaDataNascimento = $conn->query($queryBuscaDataNascimento);
         $rowBuscaDataNascimento = $resultadoBuscaDataNascimento ->fetch_assoc();
