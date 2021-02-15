@@ -22,7 +22,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                                     FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio";
                                                     $resultadPesquisaIdPasseio = mysqli_query($conexao, $pesquisaIdPasseio);
         $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                      FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0,3,4)";
+                                      FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0,3)";
         $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
         $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
         $valorMediaVendido          = $rowMediaVendido['valorMediaVendido'];
@@ -39,13 +39,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         }
         /* -----------------------------------------------------------------------------------------------------  */
                                                     
-
-                            /* $valorTotalSeguroViagem =    "SELECT  SUM(pp.valorSeguroViagemCliente) AS totalSeguroViagem FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio";
-                                                          $resultadovalorTotalSeguroViagem = mysqli_query($conexao, $valorTotalSeguroViagem);
-                                                          $rowvalorTotalSeguroViagem = mysqli_fetch_assoc($resultadovalorTotalSeguroViagem);
-                                                          $valorTotalSeguroViagem = $rowvalorTotalSeguroViagem['totalSeguroViagem']; */
-        /* -----------------------------------------------------------------------------------------------------  */
-
                             $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas, p.dataPasseio FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.idPasseio=$idPasseio";
  
                                                     $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
@@ -115,17 +108,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -191,7 +173,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                             $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
                     $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0,3,4)";
+                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0,3)";
                     $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
                     $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
                     $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];                                            
@@ -208,13 +190,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 /* -----------------------------------------------------------------------------------------------------  */
                                             }
-/* -----------------------------------------------------------------------------------------------------  */
-                                            
-
-                   /*  $valorTotalSeguroViagem =    "SELECT  SUM(pp.valorSeguroViagemCliente) AS totalSeguroViagem FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
-                                                  $resultadovalorTotalSeguroViagem = mysqli_query($conexao, $valorTotalSeguroViagem);
-                                                  $rowvalorTotalSeguroViagem = mysqli_fetch_assoc($resultadovalorTotalSeguroViagem);
-                                                  $valorTotalSeguroViagem = $rowvalorTotalSeguroViagem['totalSeguroViagem']; */
 /* -----------------------------------------------------------------------------------------------------  */
 
                     $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'"; 
@@ -249,7 +224,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                             $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
                                             
                     $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(3,4)";
+                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(0,3)";
+                                                  echo $pesquisaValorMedioVendido;
                     $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
                     $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
                     $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];
@@ -268,13 +244,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                                                       }
                                         
 /* -----------------------------------------------------------------------------------------------------  */
-                                            
-
-                   /*  $valorTotalSeguroViagem =    "SELECT  SUM(pp.valorSeguroViagemCliente) AS totalSeguroViagem FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'";
-                                                  $resultadovalorTotalSeguroViagem = mysqli_query($conexao, $valorTotalSeguroViagem);
-                                                  $rowvalorTotalSeguroViagem = mysqli_fetch_assoc($resultadovalorTotalSeguroViagem);
-                                                  $valorTotalSeguroViagem = $rowvalorTotalSeguroViagem['totalSeguroViagem']; */
-/* -----------------------------------------------------------------------------------------------------  */
+                                          
 
                     $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas  FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'"; 
                                            
@@ -328,12 +298,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <input type="text" class="form-control " name="valorMediaVendido" id="valorMediaVendido" placeholder="0" value="<?php echo number_format((float) $valorMediaVendido, 2, '.', '') ?>" readonly>
         </div>
     </div>
-<!--     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="RECEBIMENTOS + VALORES PENDENTES" for="lucroBrutoSemDespesas">LUCRO SEM DESPESAS</label>
-        <div class="col-sm-2">
-        <input type="text" class="form-control " name="lucroBrutoSemDespesas" id="lucroBrutoSemDespesas" placeholder="0" value="<?php  #echo number_format((float) $lucroLiquido, 2, '.', '') ?>" readonly>
-        </div>
-    </div> -->
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="LUCRO LIQUIDO - TOTAL DAS DESPESAS" for="lucroDespesas">LUCRO COM DESPESAS</label>
         <div class="col-sm-2">

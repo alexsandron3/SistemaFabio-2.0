@@ -63,8 +63,5 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           ?>
         </tbody>
       </table>
-      <div class="text-center">
-            <!-- <a href="#" class="btn btn-primary">Imprimir</a> -->
-      </div> 
   </div>
 <script src="config/script.php"></script>

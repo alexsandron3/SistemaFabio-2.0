@@ -49,17 +49,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">Despesa</a>
-          </div>
-        </li> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -136,7 +125,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     echo"<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
                     echo"<div class='col-sm-6'>";
                       echo"<input type='text' class='form-control' name='valorIngresso' id='valorIngresso' placeholder='VALOR DO INGRESSO' value='0' onchange='calculoTotalDespesas()' >";
-                      #echo"<input type='hidden' class='form-control' name='valorSeguroViagem' id='valorSeguroViagem' placeholder='VALOR DO INGRESSO' value='' onchange='calculoTotalDespesas()' >";
                     echo"</div>";
                     echo"<div class='col-sm-1'>";
                       echo"<input type='text' class='form-control' name='quantidadeIngresso' id='quantidadeIngresso' placeholder='QTD'  value='1' onchange='calculoTotalDespesas()'>";
@@ -325,6 +313,19 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     echo"</div>";
                     echo"<div class='col-sm-2'>";
                       echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalImpulsionamento' id='valorTotalImpulsionamento' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                  echo"</div>";
+
+                  echo"<div class='form-group row'>";
+                    echo"<label class='col-sm-2 col-form-label' for='valorPulseira'>PULSEIRAS</label>";
+                    echo"<div class='col-sm-6'>";
+                      echo"<input type='text' class='form-control' name='valorPulseira' id='valorPulseira' placeholder='PULSEIRA' value='0'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadePulseira' id='quantidadePulseira' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-2'>";
+                      echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalPulseira' id='valorTotalPulseira' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
 

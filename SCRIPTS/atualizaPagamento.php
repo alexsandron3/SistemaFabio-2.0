@@ -11,13 +11,10 @@
     $previsaoPagamento           = filter_input(INPUT_POST, 'previsaoPagamento',      FILTER_SANITIZE_STRING);
     $anotacoes                   = filter_input(INPUT_POST, 'anotacoes',              FILTER_SANITIZE_STRING);
     $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
-    #$statusPagamento             = filter_input(INPUT_POST, 'statusPagamento',        FILTER_SANITIZE_NUMBER_INT);
     $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
-    $statusEditaSeguroViagemCliente= filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
+    $statusEditaSeguroViagemCliente= filter_input(INPUT_POST, 'seguroViagemCliente',  FILTER_VALIDATE_BOOLEAN);
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
-    $localEmbarque               = filter_input(INPUT_POST, 'localEmbarque',         FILTER_SANITIZE_STRING);
-    #$idadeCliente                = filter_input(INPUT_POST, 'idadeCliente',           FILTER_SANITIZE_NUMBER_INT);
-    #$valorSeguroViagem           = filter_input(INPUT_POST, 'novoValorSeguroViagem',  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $localEmbarque               = filter_input(INPUT_POST, 'localEmbarque',          FILTER_SANITIZE_STRING);
     $valorPagoAtual              = filter_input(INPUT_POST, 'valorPagoAtual',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     if(empty($taxaPagamento)){
@@ -41,28 +38,6 @@
     $rowStatusSeguroViagem = mysqli_fetch_assoc($resultadoStatusSeguroViagem);
     $statusSeguroViagem = $rowStatusSeguroViagem ['seguroViagem'];
     $idadeCliente = calcularIdade($idCliente, $conn, "");
-    /* $valorSeguroViagem = $rowStatusSeguroViagem ['valorSeguroViagemCliente'];
-    
-    
-
-
-
-    if($statusEditaSeguroViagemCliente == 1 AND $statusSeguroViagem == 1){
-            $valorSeguroViagem;
-    }elseif($statusEditaSeguroViagemCliente == 1 AND $statusSeguroViagem == 0){
-        if($idadeCliente >= 0 and $idadeCliente <=85){
-            $valorSeguroViagem = + 2.47;
-        }else{
-            $valorSeguroViagem = + 0;
-
-        } 
-    }elseif($statusEditaSeguroViagemCliente == 0 AND $statusSeguroViagem == 1){
-        $valorSeguroViagem = 0;
-
-    }else{
-        $valorSeguroViagem = + 0;
-
-    } */
     /* -----------------------------------------------------------------------------------------------------  */
 
     $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
@@ -71,13 +46,6 @@
     $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
     $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao'];
     $statusPagamento = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
-
-/*     var_dump($valorPendente) . PHP_EOL;
-    var_dump($valorPago) . PHP_EOL;
-    var_dump($idadeCliente) . PHP_EOL;
-    var_dump($idadeIsencao) . PHP_EOL;
-    var_dump($clienteParceiro) . PHP_EOL; */
-
     
     /* -----------------------------------------------------------------------------------------------------  */
 
@@ -90,17 +58,22 @@
     /* -----------------------------------------------------------------------------------------------------  */
 
 
+    if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
+        $insertData = mysqli_query($conexao, $getData);
+        /* -----------------------------------------------------------------------------------------------------  */
 
-    $insertData = mysqli_query($conexao, $getData);
-    /* -----------------------------------------------------------------------------------------------------  */
+        if(mysqli_affected_rows($conexao)){
+            $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
+            header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
 
-    if(mysqli_affected_rows($conexao)){
-        $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
-        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
-
+        }else{
+            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
+            header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+        }
     }else{
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
+        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
         header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+
     }
 
 ?>

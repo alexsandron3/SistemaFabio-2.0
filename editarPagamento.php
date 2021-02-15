@@ -65,17 +65,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -165,7 +154,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
                 echo"<div class='col-sm-3'>";
-                  echo"<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' value='".$transporte . "' placeholder='PREVISÃO PAGAMENTO' >";
+                  echo"<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' value='".$transporte . "' placeholder='PREVISÃO PAGAMENTO' autocomplete='on'>";
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
@@ -174,17 +163,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               echo"<input type='text' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='$idadeCliente'>";
             echo"</div>";
           echo"</div>";
-/*             echo"<div class='form-group row'>";
-              echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
-              echo"<select class='form-control col-sm-3 ml-3' name='meioTransporte' id='meioTransporte'>";
-                echo"<option value='$transporte' selected> $transporte</option>";
-                echo"<option value='' >---------------------------------------------</option>";
-                echo"<option value='CARRO'>CARRO</option>";
-                echo"<option value='ONIBUS'>ÔNIBUS</option>";
-                echo"<option value='MICRO'>MICRO</option>";
-                echo"<option value='VAN'>VAN</option>";
-              echo"</select>";
-              echo"</div>"; */
             echo"<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
             echo"<div class='form-group row'>";
                 echo "<label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>";

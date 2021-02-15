@@ -58,17 +58,6 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -154,11 +143,9 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                   if(mysqli_num_rows($resultadoqueryBuscaSeJaExistePagamento) == 0 ){
 /* -----------------------------------------------------------------------------------------------------  */
                     $verificaSeExisteDespesa = "SELECT d.idPasseio, p.idPasseio FROM despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND d.idPasseio='$idPasseioSelecionado'";
-                    #echo $verificaSeExisteDespesa;
                                                 $resultadoVerificaSeExisteDespesa = mysqli_query($conexao, $verificaSeExisteDespesa);
 /* -----------------------------------------------------------------------------------------------------  */
                     if(mysqli_num_rows($resultadoVerificaSeExisteDespesa) !=0){
-                      //echo"<p class='text-center alert-success'>SUCESSO, ESTE CLIENTE AINDA NÃO FEZ UMA COMPRA NESSE PASSEIO </p>";
                       $dataPasseioSelecionado = (empty($rowPasseioSelecionado['dataPasseio']) OR $rowPasseioSelecionado == "0000-00-00")? "": date_create($rowPasseioSelecionado['dataPasseio']);
                       $dataPasseioSelecionadoPadrao = (empty($dataPasseioSelecionado) OR  $dataPasseioSelecionado == "0000-00-00")? "": date_format($dataPasseioSelecionado, "d/m/Y");   
                       echo"<p class='h4 text-center alert-info'>PASSEIO: ". $rowPasseioSelecionado ['nomePasseio']. " ".$dataPasseioSelecionadoPadrao ."</p>";
@@ -206,7 +193,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                       echo"<div class='form-group row'>";
                         echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
                         echo"<div class='col-sm-3'>";
-                          echo"<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE'>";
+                          echo"<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE' autocomplete='on'>";
                         echo"</div>";
                       echo"</div>";
                       echo"";
@@ -217,16 +204,6 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                         echo"</div>";
                       echo"</div>";
                       echo"";
-/*                       echo"<div class='form-group row'>";
-                        echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
-                        echo"<select class='form-control col-sm-3 ml-3' name='meioTransporte' id='meioTransporte'>";
-                          echo"<option value='' selected> SELECIONAR</option>";
-                          echo"<option value='CARRO'>CARRO</option>";
-                          echo"<option value='ONIBUS'>ÔNIBUS</option>";
-                          echo"<option value='MICRO'>MICRO</option>";
-                          echo"<option value='VAN'>VAN</option>";
-                        echo"</select>";
-                      echo"</div>"; */
                       echo"<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
                       echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$rowIdCliente ['idadeCliente'] . "'>";
                       echo"<div class='form-group row'>";
