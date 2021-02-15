@@ -22,7 +22,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                                     FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio";
                                                     $resultadPesquisaIdPasseio = mysqli_query($conexao, $pesquisaIdPasseio);
         $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                      FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0,3,4)";
+                                      FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0,3)";
         $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
         $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
         $valorMediaVendido          = $rowMediaVendido['valorMediaVendido'];
@@ -173,7 +173,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                             $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
                     $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0,3,4)";
+                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0,3)";
                     $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
                     $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
                     $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];                                            
@@ -224,7 +224,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                             $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
                                             
                     $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(3,4)";
+                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(0,3)";
+                                                  echo $pesquisaValorMedioVendido;
                     $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
                     $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
                     $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];

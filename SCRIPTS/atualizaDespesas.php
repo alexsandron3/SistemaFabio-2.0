@@ -35,7 +35,7 @@
      $quantidadeMarketing             = filter_input(INPUT_POST, 'quantidadeMarketing',          FILTER_SANITIZE_NUMBER_INT);
      $quantidadeKitLanche             = filter_input(INPUT_POST, 'quantidadeKitLanche',          FILTER_SANITIZE_NUMBER_INT);
      $quantidadeImpulsionamento       = filter_input(INPUT_POST, 'quantidadeImpulsionamento',    FILTER_SANITIZE_NUMBER_INT);
-     $quantidadePulseira              = filter_input(INPUT_POST, 'quantidadePulseira',               FILTER_SANITIZE_NUMBER_INT);
+     $quantidadePulseira              = filter_input(INPUT_POST, 'quantidadePulseira',           FILTER_SANITIZE_NUMBER_INT);
      $quantidadeSeguroViagem          = filter_input(INPUT_POST, 'quantidadeSeguroViagem',       FILTER_SANITIZE_NUMBER_INT);
     /* -----------------------------------------------------------------------------------------------------  */
     $getData = "UPDATE despesa SET

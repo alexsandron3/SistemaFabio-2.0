@@ -26,6 +26,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <a href="index.php" class="btn btn-warning">PÁGINA INICIAL</a>
         <a href="logout.php" class="btn btn-danger">DESLOGAR</a>
         <a href="reset-password.php" class="btn btn-info">TROCAR DE SENHA</a>
+        <?php 
+            if($_SESSION["nivelAcesso"] == 1){
+                echo "<a href='register.php' class='btn btn-warning'>GERENCIAR USUÁRIOS</a>";
+            }
+
+        ?>
     </p>
 </body>
 </html>

@@ -105,6 +105,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS: </span>
         | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  </p>"; ?>
+        <div class="table-responsive">
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
@@ -174,13 +175,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>";?></th>
 
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
-            <th> <a href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
+            <th> <a target="blank" href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
             <?php
-             if( $rowBuscaPasseio['valorPago'] == 0 ){
-                $opcao = "DELETAR";
-               }else{
-                $opcao = "TRANSFERIR";
-                 }
+            if($_SESSION['nivelAcesso'] == 1){
+              if( $rowBuscaPasseio['valorPago'] == 0 ){
+                  $opcao = "DELETAR";
+                }else{
+                  $opcao = "TRANSFERIR";
+                  }
+                }else{
+                $opcao = "";
+              }
               ?>
             <th> <a target='_blank' rel='noopener noreferrer' href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
 
@@ -202,6 +207,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <input type="hidden" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro; echo $vagasDisponiveis;  ?>">
         </tbody>
       </table>
+      </div>
       <?php
         if($controleListaPasseio > 0){
           echo"<div class='text-center'>";
