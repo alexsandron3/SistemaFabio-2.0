@@ -177,7 +177,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
             <th> <a target="blank" href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
             <?php
-            if($_SESSION['nivelAcesso'] == 1){
+            if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
               if( $rowBuscaPasseio['valorPago'] == 0 ){
                   $opcao = "DELETAR";
                 }else{
