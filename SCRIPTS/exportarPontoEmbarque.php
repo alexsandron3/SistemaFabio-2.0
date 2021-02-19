@@ -10,7 +10,7 @@
 
    $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-   $buscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.dataPasseio ,c.nomeCliente, c.idadeCliente, c.referencia, c.idCliente, pp.localEmbarque
+   $buscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.dataPasseio ,c.nomeCliente, c.idadeCliente, c.referencia, c.idCliente, pp.anotacoes, pp.localEmbarque
                           FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY localEmbarque";
      #echo $buscaPeloIdPasseio;
 
@@ -22,7 +22,7 @@
 
   $quantidadeClientes = mysqli_num_rows($setRec);
   $dados = '';
-  echo "NOME" . "\t". "IDADE" ."\t". "REFERENCIA". "\t". "PONTO DE EMBARQUE" . "\n";
+  echo "NOME" . "\t". "IDADE" ."\t". "REFERENCIA". "\t". "PONTO DE EMBARQUE" . "\t". "ANOTAÇÕES". "\n";
   
   while($rowDados = mysqli_fetch_array($setRec)){
     $nomePasseio = $rowDados['nomePasseio'];
@@ -36,9 +36,10 @@
     $idCliente = $rowDados['idCliente'];
     $idade = calcularIdade($idCliente, $conn, "");
     $referencia = $rowDados['referencia'];
+    $anotacoes = $rowDados['anotacoes'];
 
 
-    $dados= $nomeCliente . "\t". $idade. "\t" .$referencia ."\t". $localEmbarque. "\n"; 
+    $dados= $nomeCliente . "\t". $idade. "\t" .$referencia ."\t". $localEmbarque. "\t". $anotacoes . "\n"; 
     print $dados;
 
   }
