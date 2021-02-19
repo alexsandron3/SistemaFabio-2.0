@@ -22,7 +22,7 @@
 
   $quantidadeClientes = mysqli_num_rows($setRec);
   $dados = '';
-  echo "NOME" . "\t". "IDADE" ."\t". "REFERENCIA". "\t". "PONTO DE EMBARQUE" . "\t". "ANOTAÇÕES". "\n";
+  echo mb_convert_encoding( "NOME" . "\t". "IDADE" ."\t". "REFERENCIA". "\t". "PONTO DE EMBARQUE" . "\t". "ANOTAÇÕES". "\n","UTF-16LE","UTF-8");
   
   while($rowDados = mysqli_fetch_array($setRec)){
     $nomePasseio = $rowDados['nomePasseio'];
@@ -40,6 +40,8 @@
 
 
     $dados= $nomeCliente . "\t". $idade. "\t" .$referencia ."\t". $localEmbarque. "\t". $anotacoes . "\n"; 
+    $dados = mb_convert_encoding($dados, "UTF-16LE","UTF-8");
+
     print $dados;
 
   }
