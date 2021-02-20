@@ -15,13 +15,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   }
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente 
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(1,3) ORDER BY $ordemPesquisa";
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0,1,3) ORDER BY $ordemPesquisa";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
   $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
                           $resultadoTotalPendente = mysqli_query($conexao, $queryValorPendenteTotal);
                           $rowTotalPendente = mysqli_fetch_assoc($resultadoTotalPendente);
-                          $valorPendenteTotal = number_format($rowTotalPendente['valorPendenteTotal'] *-1, 2, '.', ' ');
 /* -----------------------------------------------------------------------------------------------------  */
  
   $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
@@ -109,6 +108,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <th> <a href="pagamentosPendentes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=nomeCliente"> NOME </a></th>
                 <th>  <a href="pagamentosPendentes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=referencia">REFERENCIA </a></th>
                 <th> <a href="pagamentosPendentes.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=valorPendente">PAGTO PENDENTE </a></th>
+                <th> ANOTAÇÕES </th>
             </tr>
           </thead>
         
@@ -121,8 +121,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>"; ?></th>
-            <th><?php echo "R$ ". number_format($rowBuscaPasseio ['valorPendente'] * -1, 2, '.','') . "<BR/>";?> </th>
-            <th></th>
+            <th><?php $operador =($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;echo "R$ ". number_format($rowBuscaPasseio ['valorPendente'] * $operador, 2, '.','') . "<BR/>";?> </th>
+            <th><?php echo $rowBuscaPasseio ['anotacoes']. "<BR/>"; ?></th>
           </tr>
 
           <?php
@@ -134,9 +134,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         </tbody>
       </table>
       <?php
-        if($controleListaPasseio > 0){
+        if($controleListaPasseio > 0){         
+          $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'] ;
+          $operadorTotal = ($valorPendenteTotal < 0) ? -1 : 1;
+
           echo"<div class='text-center'>";  
-          echo"<p class='h5 text-center alert-warning'>TOTAL DE R$".$valorPendenteTotal ."  PENDENTE</p>";
+          echo"<p class='h5 text-center alert-warning'>TOTAL DE R$".$valorPendenteTotal * $operadorTotal ."  PENDENTE</p>";
 
           echo"</div>";
         }else{

@@ -85,7 +85,7 @@
     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){
 
         if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
-            $statusPagamento = 0; //NÃO PAGO
+            $statusPagamento = 0; //NÃO PAGO/INTERESSADOS
             if($idadeCliente <= $idadeIsencao){
                 $statusPagamento = 4; // CRIANÇA
             }
@@ -95,7 +95,7 @@
                 $statusPagamento = 4; // CRIANÇA
             }
         }elseif($valorPendenteCliente < 0 AND $valorPago > 0 AND $clienteParceiro == 0){
-            $statusPagamento = 2; //INTERESSADO
+            $statusPagamento = 2; //CONFIRMADO
             if($idadeCliente <= $idadeIsencao){
                 $statusPagamento = 4; // CRIANÇA
             }
