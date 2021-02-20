@@ -127,6 +127,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <option value="SSP/PB"> SSP/PB</option>
             <option value="CNH">CNH</option>
             <option value="MTPS">MTPS</option>
+            <option value="PMERJ">PMERJ</option>
           </select>
         </div>
         <div class="form-group row">
