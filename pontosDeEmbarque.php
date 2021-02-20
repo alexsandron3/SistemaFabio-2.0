@@ -116,7 +116,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['localEmbarque']. "<BR/>";?></th>
-            <th><?php $idade = calcularIdade($rowBuscaPasseio ['idCliente'],$conn);echo $idade. "<BR/>";?></th>
+            <th><?php $idade = calcularIdade($rowBuscaPasseio ['idCliente'],$conn, "");echo $idade. "<BR/>";?></th>
             
           </tr>
 
