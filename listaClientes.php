@@ -16,7 +16,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 /* -----------------------------------------------------------------------------------------------------  */
 
   $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.rgCliente, c.orgaoEmissor, c.idadeCliente, c.idCliente, c.dataNascimento, pp.idPagamento, pp.valorPago  
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) ORDER BY $ordemPesquisa ";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
  
