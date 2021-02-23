@@ -51,7 +51,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         /* -----------------------------------------------------------------------------------------------------  */
                                                       
                                                       $lucroLiquido                   = $lucroBruto + $valorPendente;
-                                                      $lucroDespesas                  = $lucroBruto + $valorPendente - $valorTotalDespesas;
+                                                      $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
                                                       $lucroEstimado                  = $valorPendente + $lucroBruto - $valorTotalDespesas;
         /* -----------------------------------------------------------------------------------------------------  */
                                                     }
@@ -202,7 +202,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 /* -----------------------------------------------------------------------------------------------------  */
           
                                               $lucroLiquido                   = $lucroBruto + $valorPendente;
-                                              $lucroDespesas                  = $lucroBruto + $valorPendente - $valorTotalDespesas;
+                                              $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
                                               $lucroEstimado                  = $valorPendente + $lucroBruto -$valorTotalDespesas;
 /* -----------------------------------------------------------------------------------------------------  */
                                             }
@@ -256,7 +256,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 /* -----------------------------------------------------------------------------------------------------  */
                                               $lucroLiquido                   = $lucroBruto + $valorPendente;
                                               
-                                              $lucroDespesas                  = $lucroLiquido - $valorTotalDespesas;
+                                              $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
                                               $lucroEstimado                  = $valorPendente + $lucroBruto -$valorTotalDespesas;
 /* -----------------------------------------------------------------------------------------------------  */
                                             }
@@ -298,7 +298,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="LUCRO LIQUIDO - TOTAL DAS DESPESAS" for="lucroDespesas">LUCRO COM DESPESAS</label>
+        <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="RECEBIMENTOS - TOTAL DAS DESPESAS" for="lucroDespesas">LUCRO REAL</label>
         <div class="col-sm-2">
         <input type="text" class="form-control " name="lucroDespesas" id="lucroDespesas" placeholder="0" value="<?php echo number_format((float) $lucroDespesas, 2, '.', '')?>" readonly>
         </div>
