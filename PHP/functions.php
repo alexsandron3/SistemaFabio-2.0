@@ -108,7 +108,8 @@
         return $statusPagamento;
     }
 
-    function seguroViagem(){
+    function exportarExcel(){
+        
         
     }
 
