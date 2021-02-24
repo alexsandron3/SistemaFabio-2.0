@@ -22,13 +22,14 @@
 
   $quantidadeClientes = mysqli_num_rows($setRec);
   $dados = '';
-  echo mb_convert_encoding( "NOME" . "\t". "IDADE" ."\t". "EMISSOR". "\n","UTF-16LE","UTF-8");
+  echo mb_convert_encoding( "NOME" . "\t". "IDADE" ."\t". "EMISSOR". "\t" ."N. DOCTO."  ."\n","UTF-16LE","UTF-8");
   
   while($rowDados = mysqli_fetch_array($setRec)){
     $nomePasseio = $rowDados['nomePasseio'];
     $nomePasseioSubstituto = str_replace(" ", $nomePasseio, "_");
     $dataPasseio = date_create($rowDados['dataPasseio']);
     $idCliente = $rowDados['idCliente'];
+    $rgCliente = $rowDados['rgCliente'];
     $filename = "LISTA DE PASSAGEIROS_".$nomePasseio. $nomePasseioSubstituto. "". date_format($dataPasseio, "d/m/Y");
 
     $comecoContador = 1;
@@ -38,7 +39,7 @@
 
 
 
-    $dados= $nomeCliente . "\t". $idade. "\t" . $emissor ."\n"; 
+    $dados= $nomeCliente . "\t". $idade. "\t" . $emissor ."\t" .$rgCliente ."\n"; 
     $dados = mb_convert_encoding($dados, "UTF-16LE","UTF-8");
 
     print $dados;
