@@ -15,7 +15,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   }
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes, pp.statusPagamento
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0,1,3) ORDER BY $ordemPesquisa";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
   $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
@@ -117,11 +117,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             $controleListaPasseio = 0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
+              if($rowBuscaPasseio['statusPagamento'] == 4 AND $rowBuscaPasseio['valorPendente'] == 0){
+
+              }else{
             ?>
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>"; ?></th>
-            <th><?php $operador =($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;echo "R$ ". number_format($rowBuscaPasseio ['valorPendente'] * $operador, 2, '.','') . "<BR/>";?> </th>
+            <th><?php 
+
+            
+            
+            $operador =($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;echo "R$ ". number_format($rowBuscaPasseio ['valorPendente'] * $operador, 2, '.','') . "<BR/>";?> </th>
             <th><?php echo $rowBuscaPasseio ['anotacoes']. "<BR/>"; ?></th>
           </tr>
 
@@ -129,6 +136,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           
 
             }
+          }
            $controleListaPasseio = mysqli_num_rows($resultadoBuscaPasseio);
           ?>
         </tbody>
@@ -152,7 +160,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 
       ?>
-       
+             <a target="_blank" href="SCRIPTS/exportarPendentes.php?id=<?php echo $idPasseioGet?>" class="btn btn-info ml-5">EXPORTAR</a>
+
   </div>
 <script src="config/script.php"></script>
 </body>

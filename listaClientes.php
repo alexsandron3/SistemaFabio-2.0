@@ -168,7 +168,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 
       ?>
-       
+      <a target="_blank" href="SCRIPTS/exportarPassageiros.php?id=<?php echo $idPasseioGet?>" class="btn btn-info ml-5">EXPORTAR</a>
+
   </div>
 <script src="config/script.php"></script>
 </body>

@@ -11,7 +11,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, pp.localEmbarque
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, pp.localEmbarque, pp.anotacoes
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) ORDER BY localEmbarque";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -101,7 +101,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <tr>
                 <th>NOME</th>
                 <th>PONTO EMBARQUE</th>
-                <th>IDADE1</th>
+                <th>IDADE</th>
+                <th>ANOTAÇÕES</th>
             </tr>
           </thead>
         
@@ -117,7 +118,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['localEmbarque']. "<BR/>";?></th>
             <th><?php $idade = calcularIdade($rowBuscaPasseio ['idCliente'],$conn, "");echo $idade. "<BR/>";?></th>
-            
+            <th><?php echo $rowBuscaPasseio ['anotacoes']. "<BR/>";?></th>
           </tr>
 
           <?php
