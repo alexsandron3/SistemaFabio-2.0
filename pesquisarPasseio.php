@@ -76,7 +76,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   <div class="container-fluid mt-4">
     <div class="container-fluid ">
       <p class="h2 text-center">PESQUISAR PASSEIO</p>
-      <form action="" autocomplete="off" method="POST">
+      <form action="" autocomplete="off" method="GET">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="nomePasseio">PESQUISAR</label>
             <input type="text" class="form-control col-sm-4" name="valorPesquisaPasseio" id="" placeholder="NOME OU LOCAL"
@@ -84,8 +84,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               <label class="col-sm-2 col-form-label" for="inicioDataPasseio">DATA:</label>
             <input type="date" class="form-control col-sm-3" name="dataPasseio" id="dataPasseio">
         </div>
+
         <input type="submit" value="PESQUISAR" name="enviaPesqNome" class="btn btn-primary btn-lg">
         <input type="submit" value="PESQUISAR" name="enviaPesqData" class="btn btn-primary btn-lg float-right">
+        <div class="row ml-5">
+        <input class="form-check-input " type="checkbox" name="mostrarPasseiosExcluidos"value="1" id="mostrarPasseiosExcluidos">
+          <label class="form-check-label " for="mostrarPasseiosExcluidos" >
+          EXIBE PASSEIOS ENCERRADOS
+          </label>
+        </div>
+        
       </form>
     </div>
   </div>
@@ -103,16 +111,21 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <tbody>
         <?php
 /* -----------------------------------------------------------------------------------------------------  */
-          $enviaPesqNome = filter_input(INPUT_POST, 'enviaPesqNome', FILTER_SANITIZE_STRING);
-          $enviaPesqData = filter_input(INPUT_POST, 'enviaPesqData', FILTER_SANITIZE_STRING);
+          $enviaPesqNome = filter_input(INPUT_GET, 'enviaPesqNome', FILTER_SANITIZE_STRING);
+          $enviaPesqData = filter_input(INPUT_GET, 'enviaPesqData', FILTER_SANITIZE_STRING);
+          $mostrarPasseiosExcluidos = filter_input(INPUT_GET, 'mostrarPasseiosExcluidos', FILTER_VALIDATE_BOOLEAN);
+          $exibePasseio = (empty($mostrarPasseiosExcluidos) OR is_null($mostrarPasseiosExcluidos)) ? false: true;
+          $queryExibePasseio = ($exibePasseio == false)? 'AND statusPasseio NOT IN (0) ' : ' ';
+
 /* -----------------------------------------------------------------------------------------------------  */
           if($enviaPesqNome) {
 /* -----------------------------------------------------------------------------------------------------  */
-              $valorPesquisaPasseio     = filter_input(INPUT_POST, 'valorPesquisaPasseio', FILTER_SANITIZE_STRING);
+              $valorPesquisaPasseio     = filter_input(INPUT_GET, 'valorPesquisaPasseio', FILTER_SANITIZE_STRING);
+              $valorPesquisaData     = filter_input(INPUT_GET, 'dataPasseio', FILTER_SANITIZE_STRING);
               
 /* -----------------------------------------------------------------------------------------------------  */
               $queryPesquisaPasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio, p.localPasseio, p.idPasseio, p.lotacao 
-                                      FROM passeio p WHERE p.nomePasseio LIKE '%$valorPesquisaPasseio%' OR p.localPasseio LIKE '%$valorPesquisaPasseio%'  OR p.dataPasseio='$valorPesquisaPasseio' ORDER BY dataPasseio";
+                                      FROM passeio p WHERE  p.nomePasseio LIKE '%$valorPesquisaPasseio%' $queryExibePasseio OR p.localPasseio LIKE '%$valorPesquisaPasseio%' $queryExibePasseio ORDER BY dataPasseio";
                                       $resultadoPesquisaPasseio = mysqli_query($conexao, $queryPesquisaPasseio);
                                       while($valorPesquisaPasseio = mysqli_fetch_assoc($resultadoPesquisaPasseio)){
                                         $dataPasseio =  date_create($valorPesquisaPasseio['dataPasseio']);
@@ -136,9 +149,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <?php
               }
           }elseif ($enviaPesqData){
-            $valorPesquisaPasseioData = filter_input(INPUT_POST, 'dataPasseio',          FILTER_SANITIZE_STRING);
+            $valorPesquisaPasseioData = filter_input(INPUT_GET, 'dataPasseio',          FILTER_SANITIZE_STRING);
             $queryPesquisaPasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio, p.localPasseio, p.idPasseio 
-                                      FROM passeio p WHERE p.dataPasseio='$valorPesquisaPasseioData' ORDER BY dataPasseio";
+                                      FROM passeio p WHERE p.dataPasseio='$valorPesquisaPasseioData' $queryExibePasseio ORDER BY dataPasseio";
                                     $resultadoPesquisaPasseio = mysqli_query($conexao, $queryPesquisaPasseio);
                                     while($valorPesquisaPasseio = mysqli_fetch_assoc($resultadoPesquisaPasseio)){
                                       $dataPasseio =  date_create($valorPesquisaPasseio['dataPasseio']);
