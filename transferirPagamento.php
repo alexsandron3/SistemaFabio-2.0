@@ -93,7 +93,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                     $idCliente = $rowBuscaIdCliente ['idCliente'];
 
                             $nomePasseioPost = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
-                            $queryBuscaPeloNomePasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio FROM passeio p  ORDER BY dataPasseio";
+                            $queryBuscaPeloNomePasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio FROM passeio p WHERE statusPasseio NOT IN(0)  ORDER BY dataPasseio";
                             /* -----------------------------------------------------------------------------------------------------  */
                             $resultadoNomePasseio = mysqli_query($conexao, $queryBuscaPeloNomePasseio);
                             /* -----------------------------------------------------------------------------------------------------  */
