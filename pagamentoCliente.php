@@ -103,7 +103,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
           <?php
             
             if($idCliente > 0){  
-              $resultadoBuscaNomePasseio = "SELECT * FROM passeio ORDER BY dataPasseio";
+              $resultadoBuscaNomePasseio = "SELECT nomePasseio, dataPasseio, idPasseio FROM passeio WHERE statusPasseio NOT IN(0) ORDER BY  dataPasseio";
               $resultadoNomePasseio = mysqli_query($conexao, $resultadoBuscaNomePasseio);
               while($rowNomePasseio = mysqli_fetch_assoc($resultadoNomePasseio)){
                 $dataPasseio = (empty($rowNomePasseio['dataPasseio']) OR $rowNomePasseio == "0000-00-00")? "": date_create($rowNomePasseio['dataPasseio']);

@@ -13,6 +13,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     $queryBuscaPeloIdPasseio = "SELECT * FROM passeio p WHERE idPasseio='$idPasseioGet'";
                             $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
                             $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio);
+
+                            $passeioAtivo = ($rowBuscaPasseio['statusPasseio'] == 1) ? "checked": " ";
+                            $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked": " ";
+
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
 <!DOCTYPE html>
@@ -128,6 +132,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <label class="col-sm-1 col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
           <textarea class="form-control col-sm-3 ml-3" name="anotacoesPasseio" id="anotacoesPasseio" cols="3" rows="1" value="<?php echo $rowBuscaPasseio ['anotacoes'] ?>"
             placeholder="ANOTAÇÕES" onkeydown="upperCaseF(this)"></textarea>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-1">STATUS DO PASSEIO</legend>
+          <div class="col-sm">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="statusPasseio" id="statusPasseioAtivo" value="1" <?php echo $passeioAtivo ?>>
+                <label class="form-check-label" for="statusPasseioAtivo">
+                  ATIVO
+                </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="statusPasseio" id="statusPasseioInativo" value="0" <?php echo $passeioInativo ?>>
+              <label class="form-check-label" for="statusPasseioInativo">
+                INATIVO
+              </label>
+            </div>
+          </div>  
         </div>
         <input type="hidden" name="idPasseio" id="idPasseio" value="<?php echo $rowBuscaPasseio ['idPasseio'] ?>">
         <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">ATUALIZAR</button>

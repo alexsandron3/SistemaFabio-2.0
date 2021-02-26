@@ -8,20 +8,25 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
     $inicioDataPasseio           = filter_input(INPUT_GET, 'inicioDataPasseio',       FILTER_SANITIZE_STRING);
     $fimDataPasseio              = filter_input(INPUT_GET, 'fimDataPasseio',          FILTER_SANITIZE_STRING);
+    $mostrarPasseiosExcluidos    = filter_input(INPUT_GET, 'mostrarPasseiosExcluidos',FILTER_VALIDATE_BOOLEAN);
     $inicioDataPasseioPadrao = '2000-01-01';
     $fimDataPasseioPadrao    = '2099-01-01';
+
+    $exibePasseio = (empty($mostrarPasseiosExcluidos) OR is_null($mostrarPasseiosExcluidos)) ? false: true;
+        $queryExibePasseio = ($exibePasseio == false)? 'AND statusPasseio NOT IN (0)' : ' ';
 
 
     if(!empty($inicioDataPasseio) and !empty($fimDataPasseio)){
         $pesquisaIntervaloData ="SELECT  p.idPasseio, p.nomePasseio, p.dataPasseio
-                                    FROM  passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' ORDER BY  dataPasseio";
+                                    FROM  passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'  $queryExibePasseio ORDER BY  dataPasseio";
+
                                     $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
 
 
     }else{
         $pesquisaIntervaloData ="SELECT  p.idPasseio, p.nomePasseio, p.dataPasseio
-                                    FROM passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' ORDER BY  dataPasseio";
+                                    FROM passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'  $queryExibePasseio ORDER BY  dataPasseio";
                                     $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
     }
  /* -----------------------------------------------------------------------------------------------------  */

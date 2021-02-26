@@ -82,7 +82,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
         <label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>
         <input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' value="" >
-        <input type='submit' class='btn btn-primary btn-sm ml-5' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio' >
+        <input type='submit' class='btn btn-primary btn-sm ml-5 ' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio' >
+        <div class="form-check mt-2">
+          <input class="form-check-input col-sm-3" type="checkbox" name="mostrarPasseiosExcluidos"value="1" id="mostrarPasseiosExcluidos">
+          <label class="form-check-label col-sm-12 ml-5 " for="mostrarPasseiosExcluidos" >
+          EXIBE PASSEIOS ENCERRADOS
+          </label>
+        </div>
       </div>
     </form>
   <div class="table-responsive">
@@ -101,23 +107,31 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </thead>
       <?php
         /* -----------------------------------------------------------------------------------------------------  */
-        $buttonEviaDataPasseio = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
-        $inicioDataPasseio     = filter_input(INPUT_GET, 'inicioDataPasseio', FILTER_SANITIZE_STRING);
-        $fimDataPasseio        = filter_input(INPUT_GET, 'fimDataPasseio', FILTER_SANITIZE_STRING);
+        $buttonEviaDataPasseio    = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
+        $inicioDataPasseio        = filter_input(INPUT_GET, 'inicioDataPasseio', FILTER_SANITIZE_STRING);
+        $fimDataPasseio           = filter_input(INPUT_GET, 'fimDataPasseio', FILTER_SANITIZE_STRING);
+        $mostrarPasseiosExcluidos = filter_input(INPUT_GET, 'mostrarPasseiosExcluidos', FILTER_VALIDATE_BOOLEAN);
         $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
         $fimDataPasseioFormatado = date_create($fimDataPasseio);
+        $exibePasseio = (empty($mostrarPasseiosExcluidos) OR is_null($mostrarPasseiosExcluidos)) ? false: true;
+        $queryExibePasseio = ($exibePasseio == false)? 'AND statusPasseio NOT IN (0)' : ' ';
+        $mensagemExibeExcluidos = ($exibePasseio == true)? 'EXBINDO PASSEIOS ENCERRADOS': ' EXIBINDO SOMENTE PASSEIOS ATIVOS';
         if($buttonEviaDataPasseio){
           if(empty($inicioDataPasseio)OR empty($fimDataPasseio)){
             echo"<p class='h4 text-center alert-warning'>  RELATÓRIO DE VENDAS <br/>". "PERÍODO SELECIONADO INVÁLIDO</p>";  
           }else{
-            echo"<p class='h4 text-center alert-info'>  RELATÓRIO DE VENDAS <br/>". "PERÍODO SELECIONADO:  ".date_format($inicioDataPasseioFormatado, "d/m/Y") ." => ".date_format($fimDataPasseioFormatado, "d/m/Y") ." <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."'> *</a></p>";
+            echo"<p class='h4 text-center alert-info'>  RELATÓRIO DE VENDAS <br/>". "PERÍODO SELECIONADO:  ".date_format($inicioDataPasseioFormatado, "d/m/Y") ." => ".date_format($fimDataPasseioFormatado, "d/m/Y") ." 
+            <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."&mostrarPasseiosExcluidos=".$mostrarPasseiosExcluidos."'> *</a></br>
+            " .$mensagemExibeExcluidos.  "
+            
+            </p>";
           }
         }else{
           echo"<p class='h4 text-center alert-info'>  RELATÓRIO DE VENDAS <br/></p>";  
 
         }
       /* -----------------------------------------------------------------------------------------------------  */
-    $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' ORDER BY dataPasseio";
+    $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' $queryExibePasseio ORDER BY dataPasseio";
     $resultadoListaPasseio = mysqli_query($conexao, $listaPasseios);
 
     while($rowResultadoListaPasseio = mysqli_fetch_assoc($resultadoListaPasseio)){
