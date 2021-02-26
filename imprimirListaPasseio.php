@@ -1,6 +1,11 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
+  // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
   $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   $nomePasseioGet = filter_input(INPUT_GET, 'nomePasseio', FILTER_SANITIZE_STRING);
   $queryBuscaPeloIdPasseio = "SELECT DISTINCT c.nomeCliente, c.rgCliente, c.dataNascimento, c.idadeCliente,  pp.statusPagamento FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
@@ -58,8 +63,5 @@
           ?>
         </tbody>
       </table>
-      <div class="text-center">
-            <!-- <a href="#" class="btn btn-primary">Imprimir</a> -->
-      </div> 
   </div>
 <script src="config/script.php"></script>

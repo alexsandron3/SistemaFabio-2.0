@@ -18,8 +18,9 @@
      $valorKitLanche                  = filter_input(INPUT_POST, 'valorKitLanche',               FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
      $valorMarketing                  = filter_input(INPUT_POST, 'valorMarketing',               FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
      $valorImpulsionamento            = filter_input(INPUT_POST, 'valorImpulsionamento',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+     $valorPulseira                   = filter_input(INPUT_POST, 'valorPulseira',                FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
      $outros                          = filter_input(INPUT_POST, 'outros',                       FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-     $totalDespesas                   = filter_input(INPUT_POST, 'totalDespesas',                    FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+     $totalDespesas                   = filter_input(INPUT_POST, 'totalDespesas',                FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
      $quantidadeIngresso              = filter_input(INPUT_POST, 'quantidadeIngresso',           FILTER_SANITIZE_NUMBER_INT);
      $quantidadeOnibus                = filter_input(INPUT_POST, 'quantidadeOnibus',             FILTER_SANITIZE_NUMBER_INT);
      $quantidadeMicro                 = filter_input(INPUT_POST, 'quantidadeMicro',              FILTER_SANITIZE_NUMBER_INT);
@@ -34,7 +35,7 @@
      $quantidadeMarketing             = filter_input(INPUT_POST, 'quantidadeMarketing',          FILTER_SANITIZE_NUMBER_INT);
      $quantidadeKitLanche             = filter_input(INPUT_POST, 'quantidadeKitLanche',          FILTER_SANITIZE_NUMBER_INT);
      $quantidadeImpulsionamento       = filter_input(INPUT_POST, 'quantidadeImpulsionamento',    FILTER_SANITIZE_NUMBER_INT);
-     $valorImpulsionamento            = filter_input(INPUT_POST, 'valorImpulsionamento',         FILTER_SANITIZE_NUMBER_INT);
+     $quantidadePulseira              = filter_input(INPUT_POST, 'quantidadePulseira',           FILTER_SANITIZE_NUMBER_INT);
      $quantidadeSeguroViagem          = filter_input(INPUT_POST, 'quantidadeSeguroViagem',       FILTER_SANITIZE_NUMBER_INT);
     /* -----------------------------------------------------------------------------------------------------  */
     $getData = "UPDATE despesa SET
@@ -43,7 +44,7 @@
                 valorMarketing='$valorMarketing', valorImpulsionamento='$valorImpulsionamento', outros='$outros', quantidadeIngresso='$quantidadeIngresso', quantidadeOnibus='$quantidadeOnibus', quantidadeMicro='$quantidadeMicro', quantidadeVan='$quantidadeVan', 
                 quantidadeEscuna='$quantidadeEscuna', quantidadeAlmocoCliente='$quantidadeAlmocoCliente', quantidadeAlmocoMotorista='$quantidadeAlmocoMotorista', quantidadeEstacionamento='$quantidadeEstacionamento', quantidadeGuia='$quantidadeGuia', 
                 quantidadeAutorizacaoTransporte='$quantidadeAutorizacaoTransporte', quantidadeTaxi='$quantidadeTaxi', quantidadeMarketing='$quantidadeMarketing', quantidadeKitLanche='$quantidadeKitLanche', quantidadeImpulsionamento='$quantidadeImpulsionamento', 
-                valorImpulsionamento='$valorImpulsionamento', quantidadeSeguroViagem='$quantidadeSeguroViagem', totalDespesas='$totalDespesas'
+                quantidadeSeguroViagem='$quantidadeSeguroViagem', totalDespesas='$totalDespesas', valorPulseira='$valorPulseira', quantidadePulseira='$quantidadePulseira'
                 WHERE idDespesa='$idDespesa'
                 ";
     /* -----------------------------------------------------------------------------------------------------  */

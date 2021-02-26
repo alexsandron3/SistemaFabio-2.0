@@ -1,6 +1,11 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
+  // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 /* -----------------------------------------------------------------------------------------------------  */
   $idPasseioGet   = filter_input(INPUT_GET, 'id',            FILTER_SANITIZE_NUMBER_INT);
   $ordemPesquisa  = filter_input(INPUT_GET, 'ordemPesquisa', FILTER_SANITIZE_STRING);
@@ -9,17 +14,17 @@
   }
 /* -----------------------------------------------------------------------------------------------------  */
 
-  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.dataCpfConsultado, 
+  $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.referencia,
                               pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro 
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
-                          //echo $queryBuscaPeloIdPasseio;
 /* -----------------------------------------------------------------------------------------------------  */
  
-  $pegarNomePasseio = "SELECT nomePasseio, lotacao FROM passeio WHERE idPasseio='$idPasseioGet'";
+  $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";
                         $resultadopegarNomePasseio = mysqli_query($conexao, $pegarNomePasseio);
                         $rowpegarNomePasseio = mysqli_fetch_assoc($resultadopegarNomePasseio);
                         $nomePasseioTitulo = $rowpegarNomePasseio ['nomePasseio'];
+                        $dataPasseio = date_create($rowpegarNomePasseio ['dataPasseio']);
                         $lotacao = $rowpegarNomePasseio ['lotacao'];
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
@@ -67,19 +72,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
-        </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -92,6 +85,9 @@
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -102,22 +98,26 @@
     }
     ?>
   <div class="table mt-3">
-        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo. " 
-        | <span class='h5'> LOTAÇÃO: $lotacao </span> 
+        <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo." ". date_format($dataPasseio, "d/m/Y") ." <br/>
+         <span class='h5'> LOTAÇÃO: $lotacao </span> 
         | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS: </span> 
         | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS: </span>
         | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS: </span>
         | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  </p>"; ?>
+        <div class="table-responsive">
       <table class="table table-hover table-dark">
           <thead> 
             <tr>
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=nomeCliente"> NOME </a></th>
                 <th>  <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=rgCliente">RG </a></th>
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=cpfConsultado">CPF CONSULTADO </a></th>
+                <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=referencia">REFERÊNCIA </a></th>
                 <th> <a href="listaPasseio.php?id=<?php echo$idPasseioGet;?>&ordemPesquisa=statusPagamento">STATUS </a></th>
                 <th>CONTATO</th>
                 <th>AÇÃO</th>
+                <th>V. PAGO</th>
+                <th>V. VENDIDO</th>
             </tr>
           </thead>
         
@@ -131,11 +131,8 @@
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
-              if(empty($rowBuscaPasseio['dataCpfConsultado'])){
-                $dataCpfConsultado = "0000-00-00";
-              }else{
-                $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
-              }
+              $dataCpfConsultado = (empty($rowBuscaPasseio['dataCpfConsultado'])OR $rowBuscaPasseio['dataCpfConsultado'] == "0000-00-00")? "" : date_create($rowBuscaPasseio['dataCpfConsultado']);
+              $dataCpfConsultadoFormatado = (empty($dataCpfConsultado) OR $dataCpfConsultado == "0000-00-00")? "" : date_format($dataCpfConsultado, "d/m/Y" );
               
               $idCliente = $rowBuscaPasseio['idCliente'];
               $idPasseio = $rowBuscaPasseio['idPasseio'];
@@ -173,24 +170,27 @@
           <tr>
             <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
-            <th><?php if($dataCpfConsultado == "0000-00-00"){
-                        echo"";
-                      }else{
-                        echo date_format($dataCpfConsultado, "d/m/Y"). "<BR/>";
-                      } 
+            <th><?php echo $dataCpfConsultadoFormatado;
             ?></th>
+            <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>";?></th>
+
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
-            <th> <a href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
+            <th> <a target="blank" href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
             <?php
-             if( $rowBuscaPasseio['valorPago'] == 0 ){
-                $opcao = "DELETAR";
-               }else{
-                $opcao = "TRANSFERIR";
-                 }
+            if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
+              if( $rowBuscaPasseio['valorPago'] == 0 ){
+                  $opcao = "DELETAR";
+                }else{
+                  $opcao = "TRANSFERIR";
+                  }
+                }else{
+                $opcao = "";
+              }
               ?>
             <th> <a target='_blank' rel='noopener noreferrer' href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
 
-            <th></th>
+            <th><?php $valorPago = (empty($rowBuscaPasseio ['valorPago']) ? $valorPago = 0.00 : $valorPago =  $rowBuscaPasseio ['valorPago'] ); echo number_format($valorPago, 2,'.','') . "<BR/>";?></th>
+            <th><?php echo $rowBuscaPasseio ['valorVendido']. "<BR/>";?></th>
           </tr>
 
           <?php
@@ -207,12 +207,10 @@
           <input type="hidden" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro; echo $vagasDisponiveis;  ?>">
         </tbody>
       </table>
+      </div>
       <?php
-      //echo $idPasseioGet;
         if($controleListaPasseio > 0){
           echo"<div class='text-center'>";
-            #echo"<a target='_blank' rel='noopener noreferrer' href='imprimirListaPasseio.php?id=".$idPasseioGet."& nomePasseio=".$nomePasseio."'class='btn btn-primary'>Imprimir Lista de Passeio</a>";
-            #echo"<button onclick='Export()' class='btn btn-primary ml-2'>SEGURO VIAGEM</button>";
           echo"</div>";
         }else{
           

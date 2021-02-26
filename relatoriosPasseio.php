@@ -1,6 +1,11 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+    // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 /* -----------------------------------------------------------------------------------------------------  */
     $idPasseio = filter_input(INPUT_GET, 'id',FILTER_SANITIZE_NUMBER_INT);
     
@@ -17,7 +22,7 @@
                                                     FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio";
                                                     $resultadPesquisaIdPasseio = mysqli_query($conexao, $pesquisaIdPasseio);
         $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                      FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0,3,4)";
+                                      FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0,3)";
         $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
         $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
         $valorMediaVendido          = $rowMediaVendido['valorMediaVendido'];
@@ -34,13 +39,6 @@
         }
         /* -----------------------------------------------------------------------------------------------------  */
                                                     
-
-                            /* $valorTotalSeguroViagem =    "SELECT  SUM(pp.valorSeguroViagemCliente) AS totalSeguroViagem FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio";
-                                                          $resultadovalorTotalSeguroViagem = mysqli_query($conexao, $valorTotalSeguroViagem);
-                                                          $rowvalorTotalSeguroViagem = mysqli_fetch_assoc($resultadovalorTotalSeguroViagem);
-                                                          $valorTotalSeguroViagem = $rowvalorTotalSeguroViagem['totalSeguroViagem']; */
-        /* -----------------------------------------------------------------------------------------------------  */
-
                             $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas, p.dataPasseio FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.idPasseio=$idPasseio";
  
                                                     $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
@@ -53,7 +51,7 @@
         /* -----------------------------------------------------------------------------------------------------  */
                                                       
                                                       $lucroLiquido                   = $lucroBruto + $valorPendente;
-                                                      $lucroDespesas                  = $lucroBruto + $valorPendente - $valorTotalDespesas;
+                                                      $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
                                                       $lucroEstimado                  = $valorPendente + $lucroBruto - $valorTotalDespesas;
         /* -----------------------------------------------------------------------------------------------------  */
                                                     }
@@ -110,17 +108,6 @@
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -131,6 +118,9 @@
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
         </li>
       </ul>
     </div>
@@ -183,7 +173,7 @@
                                             $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
                     $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0,3,4)";
+                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0,3)";
                     $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
                     $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
                     $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];                                            
@@ -201,13 +191,6 @@
 /* -----------------------------------------------------------------------------------------------------  */
                                             }
 /* -----------------------------------------------------------------------------------------------------  */
-                                            
-
-                   /*  $valorTotalSeguroViagem =    "SELECT  SUM(pp.valorSeguroViagemCliente) AS totalSeguroViagem FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
-                                                  $resultadovalorTotalSeguroViagem = mysqli_query($conexao, $valorTotalSeguroViagem);
-                                                  $rowvalorTotalSeguroViagem = mysqli_fetch_assoc($resultadovalorTotalSeguroViagem);
-                                                  $valorTotalSeguroViagem = $rowvalorTotalSeguroViagem['totalSeguroViagem']; */
-/* -----------------------------------------------------------------------------------------------------  */
 
                     $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'"; 
                                             $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
@@ -219,7 +202,7 @@
 /* -----------------------------------------------------------------------------------------------------  */
           
                                               $lucroLiquido                   = $lucroBruto + $valorPendente;
-                                              $lucroDespesas                  = $lucroBruto + $valorPendente - $valorTotalDespesas;
+                                              $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
                                               $lucroEstimado                  = $valorPendente + $lucroBruto -$valorTotalDespesas;
 /* -----------------------------------------------------------------------------------------------------  */
                                             }
@@ -241,7 +224,7 @@
                                             $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
                                             
                     $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
-                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(3,4)";
+                                                  FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(0,3)";
                     $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
                     $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
                     $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];
@@ -260,13 +243,7 @@
                                                                       }
                                         
 /* -----------------------------------------------------------------------------------------------------  */
-                                            
-
-                   /*  $valorTotalSeguroViagem =    "SELECT  SUM(pp.valorSeguroViagemCliente) AS totalSeguroViagem FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'";
-                                                  $resultadovalorTotalSeguroViagem = mysqli_query($conexao, $valorTotalSeguroViagem);
-                                                  $rowvalorTotalSeguroViagem = mysqli_fetch_assoc($resultadovalorTotalSeguroViagem);
-                                                  $valorTotalSeguroViagem = $rowvalorTotalSeguroViagem['totalSeguroViagem']; */
-/* -----------------------------------------------------------------------------------------------------  */
+                                          
 
                     $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas  FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'"; 
                                            
@@ -279,7 +256,7 @@
 /* -----------------------------------------------------------------------------------------------------  */
                                               $lucroLiquido                   = $lucroBruto + $valorPendente;
                                               
-                                              $lucroDespesas                  = $lucroLiquido - $valorTotalDespesas;
+                                              $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
                                               $lucroEstimado                  = $valorPendente + $lucroBruto -$valorTotalDespesas;
 /* -----------------------------------------------------------------------------------------------------  */
                                             }
@@ -320,14 +297,8 @@
         <input type="text" class="form-control " name="valorMediaVendido" id="valorMediaVendido" placeholder="0" value="<?php echo number_format((float) $valorMediaVendido, 2, '.', '') ?>" readonly>
         </div>
     </div>
-<!--     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="RECEBIMENTOS + VALORES PENDENTES" for="lucroBrutoSemDespesas">LUCRO SEM DESPESAS</label>
-        <div class="col-sm-2">
-        <input type="text" class="form-control " name="lucroBrutoSemDespesas" id="lucroBrutoSemDespesas" placeholder="0" value="<?php  #echo number_format((float) $lucroLiquido, 2, '.', '') ?>" readonly>
-        </div>
-    </div> -->
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="LUCRO LIQUIDO - TOTAL DAS DESPESAS" for="lucroDespesas">LUCRO COM DESPESAS</label>
+        <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="RECEBIMENTOS - TOTAL DAS DESPESAS" for="lucroDespesas">LUCRO REAL</label>
         <div class="col-sm-2">
         <input type="text" class="form-control " name="lucroDespesas" id="lucroDespesas" placeholder="0" value="<?php echo number_format((float) $lucroDespesas, 2, '.', '')?>" readonly>
         </div>

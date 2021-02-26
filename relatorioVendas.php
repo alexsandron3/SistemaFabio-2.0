@@ -1,6 +1,11 @@
 <?php
   session_start();
   include_once("PHP/conexao.php");
+  // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
   #<pre>";
   $idPasseio = 1;
 
@@ -45,15 +50,6 @@
   $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
 
 
-/*   echo "PASSEIO: ".$nomePasseio. "\n";
-  echo "DATA: ".$dataPasseio. "\n";
-  echo "INTERESSADO: ".$interessado. "\n";
-  echo "QUITADO: ".$quitado. "\n";
-  echo "RESERVADOS: ".$parcial. "\n";
-  echo "PARCEIRO: ".$parceiro. "\n";
-  echo "CRIANÇAS: ".$crianca. "\n";
-  echo "META DE VENDA: ".$lotacaoPasseio. "\n";
-  echo "VAGAS DISPONÍVEIS: : ".$vagasRestantes. "\n"; */
 
 ?>
 
@@ -90,19 +86,8 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -115,6 +100,9 @@
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -124,9 +112,6 @@
         unset($_SESSION['msg']);
       }
   ?>
-
-
-   <!-- <p class='h4 text-center alert-info'> SELECIONE O INTERVALO</p> -->
     <form action='' method='GET' autocomplete='OFF'>
       <div class='form-group row mb-5 mt-5'>
         <label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>
@@ -164,7 +149,6 @@
       }
     /* -----------------------------------------------------------------------------------------------------  */
   $listaPasseios = "SELECT idPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
-  #echo$listaPasseios;
   $resultadoListaPasseio = mysqli_query($conexao, $listaPasseios);
 
   while($rowResultadoListaPasseio = mysqli_fetch_assoc($resultadoListaPasseio)){
@@ -224,7 +208,6 @@
       }
     }
     $recebeLotacaoPasseio    = "SELECT lotacao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
-    #echo$recebeLotacaoPasseio;
     $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
     $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
     $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 

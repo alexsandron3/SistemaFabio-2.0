@@ -1,5 +1,10 @@
 <?php
     session_start();
+    // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -43,17 +48,6 @@
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -64,6 +58,9 @@
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
         </li>
       </ul>
     </div>
@@ -105,6 +102,7 @@
             <option value="DETRAN">DETRAN</option>
             <option value="IFP"> IFP</option>
             <option value="OAB">OAB</option>
+            <option value="CERTIDAO NASCIMENTO">CERTIDAO NASCIMENTO</option>
             <option value="SSP">SSP</option>
             <option value="DIC">DIC</option>
             <option value="MDMB">MDMB</option>
@@ -120,6 +118,7 @@
             <option value="SSP/PB"> SSP/PB</option>
             <option value="CNH">CNH</option>
             <option value="MTPS">MTPS</option>
+            <option value="PMERJ">PMERJ</option>
           </select>
         </div>
         <div class="form-group row">

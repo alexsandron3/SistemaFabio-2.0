@@ -1,21 +1,21 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+    // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_FLOAT);
     $queryBuscaDespesa = "SELECT DISTINCT d.valorIngresso, d.valorOnibus, d.valorMicro, d.valorVan, d.valorEscuna, d.valorAlmocoCliente, d.valorAlmocoMotorista, d.valorEstacionamento, d.valorGuia, d.valorAutorizacaoTransporte,
-                          d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.valorSeguroViagem , d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
-                          d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento, d.quantidadeSeguroViagem,                     
+                          d.valorTaxi, d.valorKitLanche, d.valorMarketing, d.valorImpulsionamento, d.valorPulseira, d.valorSeguroViagem , d.outros, d.idPasseio,  d.idDespesa, d.quantidadeIngresso, d.quantidadeOnibus, d.quantidadeMicro, d.quantidadeVan, d.quantidadeEscuna,
+                          d.quantidadeAlmocoCliente, d.quantidadeAlmocoMotorista, d.quantidadeEstacionamento, d.quantidadeGuia, d.quantidadeAutorizacaoTransporte, d.quantidadeTaxi, d.quantidadeKitLanche, d.quantidadeMarketing, d.quantidadeImpulsionamento, d.quantidadePulseira, d.quantidadeSeguroViagem,                     
                           p.nomePasseio, p.dataPasseio   
                           FROM despesa d, passeio p WHERE d.idpasseio='$idPasseioGet' AND d.idPasseio=p.idPasseio";
                           $resultadoBuscaDespesa = mysqli_query($conexao, $queryBuscaDespesa);
                           $rowDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
                           $dataPasseio =  date_create($rowDespesa['dataPasseio']);
 /* -----------------------------------------------------------------------------------------------------  */
-
-/*     $queryValorSeguroViagem     = "SELECT FORMAT(SUM(valorSeguroViagemCliente), 2) AS totalSeguroViagem FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
-                                  $resultadoValorSeguroViagem = mysqli_query($conexao, $queryValorSeguroViagem);
-                                  $rowValorSeguroViagem       = mysqli_fetch_assoc($resultadoValorSeguroViagem);
-                                  $valorTotalSeguroViagem     = $rowValorSeguroViagem ['totalSeguroViagem']; */
 
 /* -----------------------------------------------------------------------------------------------------  */
     if(!empty($idPasseioGet)){
@@ -72,17 +72,6 @@
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
-          <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -94,6 +83,9 @@
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item active" href="cadastroDespesas.php">DESPESAS</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
         </li>
       </ul>
     </div>
@@ -291,7 +283,6 @@
                 echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalKitLanche' id='valorTotalKitLanche' placeholder='TOTAL'  value='0' onblur='calculoTotalDespesas()'>";
               echo"</div>";
             echo"</div>";
-
             echo"<div class='form-group row'>";
               echo"<label class='col-sm-2 col-form-label' for='valorImpulsionamento'>IMPULSIONAMENTO</label>";
               echo"<div class='col-sm-6'>";
@@ -303,6 +294,19 @@
               echo"<div class='col-sm-2'>";
                 echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalImpulsionamento' id='valorTotalImpulsionamento' placeholder='TOTAL'  value='0' onblur='calculoTotalDespesas()'>";
               echo"</div>";  
+            echo"</div>";
+
+            echo"<div class='form-group row'>";
+              echo"<label class='col-sm-2 col-form-label' for='valorPulseira'>PULSEIRAS</label>";
+              echo"<div class='col-sm-6'>";
+                echo"<input type='text' class='form-control' name='valorPulseira' id='valorPulseira' placeholder='PULSEIRA' value='". $rowDespesa ['valorPulseira']."'onchange='calculoTotalDespesas()'>";
+              echo"</div>";
+              echo"<div class='col-sm-1'>";
+                echo"<input type='text' class='form-control' name='quantidadePulseira' id='quantidadePulseira' placeholder='QTD' value='". $rowDespesa ['quantidadePulseira']."'onchange='calculoTotalDespesas()'>";
+              echo"</div>";
+              echo"<div class='col-sm-2'>";
+                echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalPulseira' id='valorTotalPulseira' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+              echo"</div>";
             echo"</div>";
 
             echo"<div class='form-group row'>";

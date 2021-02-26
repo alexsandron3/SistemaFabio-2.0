@@ -13,35 +13,40 @@
     }
     /* -----------------------------------------------------------------------------------------------------  */
     $getData = "DELETE FROM pagamento_passeio WHERE idPagamento ='$idPagamento' AND idPasseio='$idPasseio'";
-    if($opcao == "DELETAR" AND $confirmar==0){
-        echo"
-        <!DOCTYPE html>
-        <html lang='en'>
-        <head>
-            <meta charset='UTF-8'>
-            <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-            <title>Document</title>
-            <script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.slim.min.js'></script>
-<script type='text/javascript'>
-function doSomething() {
-    window.location.href='apagarPagamento.php?idPagamento=$idPagamento&idPasseio=$idPasseio&opcao=$opcao&confirmar=1';
-    return false;
-}
-</script>
+    if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
+        if($opcao == "DELETAR" AND $confirmar==0){
+            echo"
+            <!DOCTYPE html>
+            <html lang='en'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <title>Document</title>
+                <script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.slim.min.js'></script>
+                <script type='text/javascript'>
+                function doSomething() {
+                    window.location.href='apagarPagamento.php?idPagamento=$idPagamento&idPasseio=$idPasseio&opcao=$opcao&confirmar=1';
+                    return false;
+                }
+                </script>
+                
+            </head>
+            <body>";
+                
+                echo"<a href='javascript:doSomething()' onclick=''> CONFIRMAR </a>";
+            echo"</body>
+            </html>";
             
-        </head>
-        <body>";
-            
-            echo"<a href='javascript:doSomething()' onclick=''> CONFIRMAR </a>";
-        echo"</body>
-        </html>";
-        
-    }elseif($opcao == "DELETAR" AND $confirmar==1){
-        apagar($getData, $conexao, "PAGAMENTO", $idPagamento, $idPasseio, "index");
+        }elseif($opcao == "DELETAR" AND $confirmar==1){
+            apagar($getData, $conexao, "PAGAMENTO", $idPagamento, $idPasseio, "index");
 
+        }else{
+            header("refresh:0.5; url=../transferirPagamento.php?idPasseioAntigo=$idPasseio&idPagamentoAntigo=$idPagamento");
+        }
     }else{
-        header("refresh:0.5; url=../transferirPagamento.php?idPasseioAntigo=$idPasseio&idPagamentoAntigo=$idPagamento");
+        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+        header("refresh:0.5; url=../listaPasseio.php?id=$idPasseio");
     }
 
 ?>

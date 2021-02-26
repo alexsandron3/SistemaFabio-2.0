@@ -1,6 +1,11 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+    // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 /* -----------------------------------------------------------------------------------------------------  */
     $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -8,6 +13,10 @@
     $queryBuscaPeloIdPasseio = "SELECT * FROM passeio p WHERE idPasseio='$idPasseioGet'";
                             $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
                             $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio);
+
+                            $passeioAtivo = ($rowBuscaPasseio['statusPasseio'] == 1) ? "checked": " ";
+                            $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked": " ";
+
 /* -----------------------------------------------------------------------------------------------------  */
 ?>
 <!DOCTYPE html>
@@ -50,19 +59,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
           </div>
-        </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -74,6 +71,9 @@
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
         </li>
       </ul>
     </div>
@@ -132,6 +132,23 @@
           <label class="col-sm-1 col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
           <textarea class="form-control col-sm-3 ml-3" name="anotacoesPasseio" id="anotacoesPasseio" cols="3" rows="1" value="<?php echo $rowBuscaPasseio ['anotacoes'] ?>"
             placeholder="ANOTAÇÕES" onkeydown="upperCaseF(this)"></textarea>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-1">STATUS DO PASSEIO</legend>
+          <div class="col-sm">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="statusPasseio" id="statusPasseioAtivo" value="1" <?php echo $passeioAtivo ?>>
+                <label class="form-check-label" for="statusPasseioAtivo">
+                  ATIVO
+                </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="statusPasseio" id="statusPasseioInativo" value="0" <?php echo $passeioInativo ?>>
+              <label class="form-check-label" for="statusPasseioInativo">
+                INATIVO
+              </label>
+            </div>
+          </div>  
         </div>
         <input type="hidden" name="idPasseio" id="idPasseio" value="<?php echo $rowBuscaPasseio ['idPasseio'] ?>">
         <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">ATUALIZAR</button>

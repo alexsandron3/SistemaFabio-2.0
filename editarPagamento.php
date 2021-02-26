@@ -1,6 +1,12 @@
 <?php
     session_start();
     include_once("PHP/conexao.php");
+    include_once("PHP/functions.php");
+    // Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 /* -----------------------------------------------------------------------------------------------------  */
     $idPagamento = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -13,7 +19,7 @@
                                   $idPasseio = $rowIdPagamento ['idPasseio'];
                                   $statusSeguroViagem = $rowIdPagamento ['seguroViagem'];
                                   $clienteParceiro = $rowIdPagamento ['clienteParceiro'];
-                                  $idadeCliente = $rowIdPagamento ['idadeCliente'];
+                                  #$idadeCliente = $rowIdPagamento ['idadeCliente'];
                                   $transporte = $rowIdPagamento ['transporte'];
 
 ?>
@@ -59,17 +65,6 @@
             <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
           </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            LISTAGEM
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="">CLIENTE</a>
-            <a class="dropdown-item" href="">PASSEIO</a>
-            <a class="dropdown-item" href="">PAGAMENTO</a>
-          </div> -->
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -80,6 +75,9 @@
             <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
             <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="logout.php" >SAIR </a>
         </li>
       </ul>
     </div>
@@ -109,6 +107,8 @@
             $historicoPagamento = $rowIdPagamento['historicoPagamento'];
             $clienteParceiro = $rowIdPagamento['statusPagamento'];
             $idCliente = $rowIdPagamento['idCliente'];
+            $idadeCliente = calcularIdade($idCliente, $conn, "");
+
             echo"<p class='h4 text-center alert-info'> ". $rowIdPagamento ['nomeCliente']. " | ". $rowIdPagamento ['nomePasseio']. " ". date_format($dataPasseio, "d/m/Y") ."</p>";
             echo"<div class='form-group row'>";
                 echo"<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
@@ -152,16 +152,17 @@
                 echo"</div>";
             echo"</div>";
             echo"<div class='form-group row'>";
-              echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
-              echo"<select class='form-control col-sm-3 ml-3' name='meioTransporte' id='meioTransporte'>";
-                echo"<option value='$transporte' selected> $transporte</option>";
-                echo"<option value='' >---------------------------------------------</option>";
-                echo"<option value='CARRO'>CARRO</option>";
-                echo"<option value='ONIBUS'>ÔNIBUS</option>";
-                echo"<option value='MICRO'>MICRO</option>";
-                echo"<option value='VAN'>VAN</option>";
-              echo"</select>";
-              echo"</div>";
+                echo"<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
+                echo"<div class='col-sm-3'>";
+                  echo"<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' value='".$transporte . "' placeholder='TRANSPORTE' autocomplete='on'>";
+                echo"</div>";
+            echo"</div>";
+            echo"<div class='form-group row'>";
+            echo"<label class='col-sm-2 col-form-label' for='idadeCliente'>IDADE</label>";
+            echo"<div class='col-sm-1'>";
+              echo"<input type='text' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='$idadeCliente'>";
+            echo"</div>";
+          echo"</div>";
             echo"<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
             echo"<div class='form-group row'>";
                 echo "<label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>";
