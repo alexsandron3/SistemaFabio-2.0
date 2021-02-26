@@ -117,7 +117,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
         }
       /* -----------------------------------------------------------------------------------------------------  */
-    $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' ORDER BY dataPasseio";
+    $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPasseio NOT IN (0) ORDER BY dataPasseio";
     $resultadoListaPasseio = mysqli_query($conexao, $listaPasseios);
 
     while($rowResultadoListaPasseio = mysqli_fetch_assoc($resultadoListaPasseio)){

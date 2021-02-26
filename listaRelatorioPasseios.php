@@ -14,14 +14,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     if(!empty($inicioDataPasseio) and !empty($fimDataPasseio)){
         $pesquisaIntervaloData ="SELECT  p.idPasseio, p.nomePasseio, p.dataPasseio
-                                    FROM  passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' ORDER BY  dataPasseio";
+                                    FROM  passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPasseio NOT IN(0) ORDER BY  dataPasseio";
                                     $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
 
 
     }else{
         $pesquisaIntervaloData ="SELECT  p.idPasseio, p.nomePasseio, p.dataPasseio
-                                    FROM passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' ORDER BY  dataPasseio";
+                                    FROM passeio p  WHERE dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPasseio NOT IN(0) ORDER BY  dataPasseio";
                                     $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
     }
  /* -----------------------------------------------------------------------------------------------------  */
