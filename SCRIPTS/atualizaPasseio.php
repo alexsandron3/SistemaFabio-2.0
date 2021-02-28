@@ -10,6 +10,8 @@
     $anotacoes           = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
     $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
     $statusPasseio       = filter_input(INPUT_POST, 'statusPasseio',        FILTER_VALIDATE_BOOLEAN);
+    $idUser              = $_SESSION['id'];
+
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData = "UPDATE passeio SET
@@ -18,6 +20,8 @@
                 WHERE idPasseio='$idPasseio'";
     /* -----------------------------------------------------------------------------------------------------  */
     atualizar($getData, $conexao, "PASSEIO", "editarPasseio", $idPasseio);
+    gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "ATUALIZAR" , 0);
+
 
 
 ?>
