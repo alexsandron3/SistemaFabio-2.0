@@ -83,9 +83,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>
         <input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' value="" >
         <input type='submit' class='btn btn-primary btn-sm ml-5 ' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio' >
-        <div class="form-check mt-2">
-          <input class="form-check-input col-sm-3" type="checkbox" name="mostrarPasseiosExcluidos"value="1" id="mostrarPasseiosExcluidos">
-          <label class="form-check-label col-sm-12 ml-5 " for="mostrarPasseiosExcluidos" >
+        <div class="form-check mt-2 col-12">
+          <input class="form-check-input col-1 ml-1" type="checkbox" name="mostrarPasseiosExcluidos"value="1" id="mostrarPasseiosExcluidos">
+          <label class="form-check-label  col-3 ml-5 pl-5" for="mostrarPasseiosExcluidos" >
           EXIBE PASSEIOS ENCERRADOS
           </label>
         </div>

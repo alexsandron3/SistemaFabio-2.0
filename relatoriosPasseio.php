@@ -209,7 +209,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                               $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
                                               $fimDataPasseioFormatado = date_create($fimDataPasseio);
 
-                                              echo"<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  ".date_format($inicioDataPasseioFormatado, "d/m/Y") ." => ".date_format($fimDataPasseioFormatado, "d/m/Y") ." <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."'> *</a></p>";
+                                              echo"<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  ".date_format($inicioDataPasseioFormatado, "d/m/Y") ." => ".date_format($fimDataPasseioFormatado, "d/m/Y") ." <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."&mostrarPasseiosExcluidos=1'> *</a></p>";
                                             
 
                   }else{
@@ -261,7 +261,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 /* -----------------------------------------------------------------------------------------------------  */
                                             }
                                             if($inicioDataPasseioPadrao == '2000-01-01' && $fimDataPasseioPadrao == '2099-01-01' ){
-                                              echo"<p class='h4 text-center alert-warning'> EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <a target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio='> *</a></p>";
+                                              echo"<p class='h4 text-center alert-warning'> EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <a target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio=&mostrarPasseiosExcluidos=1'> *</a></p>";
                                             }else{
                                               //
                                             }
