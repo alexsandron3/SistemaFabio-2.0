@@ -30,6 +30,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             if($_SESSION["nivelAcesso"] == 1){
                 echo "<a href='register.php' class='btn btn-warning'>GERENCIAR USUÁRIOS</a>";
             }
+            if($_SESSION["nivelAcesso"] == 0){
+                echo "<a href='log.php' class='btn btn-info'>LOGS</a>";
+            }
+            
 
         ?>
     </p>
