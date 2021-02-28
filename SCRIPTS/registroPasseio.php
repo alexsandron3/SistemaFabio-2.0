@@ -9,6 +9,8 @@
     $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
     $dataPasseio         = filter_input(INPUT_POST, 'dataPasseio',          FILTER_SANITIZE_STRING);
     $anotacoes           = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
+    $idUser              = $_SESSION['id'];
+
 
     /* -----------------------------------------------------------------------------------------------------  */
 
@@ -29,10 +31,15 @@
         
     /* -----------------------------------------------------------------------------------------------------  */
         cadastro($getData, $conexao, "PASSEIO", "pesquisarPasseio");
+        gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "CADASTRAR" , 0);
+
     }else{
         $idPasseio = $rowPasseioVerificado ['idPasseio']; 
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME </p>";
         header("refresh:0.5; url=../editarPasseio.php?id=$idPasseio");
+        gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "CADASTRAR" , 0);
+        
+
         
     }
 

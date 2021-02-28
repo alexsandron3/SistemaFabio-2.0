@@ -15,7 +15,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 /* -----------------------------------------------------------------------------------------------------  */
 
   $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.referencia,
-                              pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro 
+                              pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, pp.dataPagamento 
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -168,7 +168,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             
             ?>
           <tr>
-            <th><?php echo $rowBuscaPasseio ['nomeCliente']. "<BR/>";?></th>
+            <th><?php $nomeCliente = $rowBuscaPasseio ['nomeCliente']; echo $nomeCliente  . "<BR/>";?></th>
             <th><?php echo $rowBuscaPasseio ['rgCliente']. "<BR/>";?></th>
             <th><?php echo $dataCpfConsultadoFormatado;
             ?></th>
@@ -177,6 +177,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
             <th> <a target="blank" href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
             <?php
+            $valorPago = (empty($rowBuscaPasseio ['valorPago']) ? $valorPago = 0.00 : $valorPago =  $rowBuscaPasseio ['valorPago'] ); 
             if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
               if( $rowBuscaPasseio['valorPago'] == 0 ){
                   $opcao = "DELETAR";
@@ -187,9 +188,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 $opcao = "";
               }
               ?>
-            <th> <a target='_blank' rel='noopener noreferrer' href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio= <?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0"> <?php echo $opcao?> </a> </th>
+            <th> <a target='_blank' rel='noopener noreferrer' 
+            href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento;?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio']?>&nomePasseio=<?php echo $nomePasseioTitulo;?>&valorPago=<?php echo number_format($valorPago, 2,'.',''); ?>"> 
+            <?php echo $opcao?> </a> </th>
 
-            <th><?php $valorPago = (empty($rowBuscaPasseio ['valorPago']) ? $valorPago = 0.00 : $valorPago =  $rowBuscaPasseio ['valorPago'] ); echo number_format($valorPago, 2,'.','') . "<BR/>";?></th>
+            <th><?php echo number_format($valorPago, 2,'.','') . "<BR/>"?></th>
             <th><?php echo $rowBuscaPasseio ['valorVendido']. "<BR/>";?></th>
           </tr>
 

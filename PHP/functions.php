@@ -6,6 +6,45 @@
 
     }
 
+    function gerarLog($tipo, $conexao, $idUser,  $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, $tipoModificacao, $sinalDeFalhaNaOperacao ){
+        $status = (mysqli_affected_rows($conexao) AND $sinalDeFalhaNaOperacao == 0)? "SUCESSO" : "FALHA";
+        switch ($tipo){
+            case "CLIENTE":
+                $getDataLog = "INSERT INTO log (idUser, nomeCliente , tipoModificacao) VALUES ($idUser, '$nomeCliente', ' $status AO $tipoModificacao O USUARIO')";
+                $insertData = mysqli_query($conexao, $getDataLog);
+                return $getDataLog;
+                break;
+            case "PAGAMENTO";
+                $getDataLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago,  '$status AO $tipoModificacao O PAGAMENTO')";
+                $insertData = mysqli_query($conexao, $getDataLog);
+                return $getDataLog;
+                break;                
+            case "DESPESAS";
+                $getDataLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao A DESPESA')";
+                $insertData = mysqli_query($conexao, $getDataLog);
+                return $getDataLog;
+                break;
+            case "PASSEIO";
+                $getDataLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao O PASSEIO')";
+                $insertData = mysqli_query($conexao, $getDataLog);
+                return $getDataLog;
+                break;
+            case "DELETAR PAGAMENTO";
+                $getDataLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago, '$status AO DELETAR O PAGAMENTO')";
+                $insertData = mysqli_query($conexao, $getDataLog);
+                return $getDataLog;
+                break;                
+            case "DELETAR PASSEIO";
+                $getDataLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao) VALUES ($idUser, '$nomePasseio', '$dataPasseio' ,'$status AO DELETAR O PASSEIO')";
+                $insertData = mysqli_query($conexao, $getDataLog);
+                return $getDataLog;
+                break;
+            
+                
+            
+        }
+    }
+
     function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento) {
         $getData = $getData;
         $insertData = mysqli_query($conexao, $getData);
@@ -64,6 +103,10 @@
         }
     }
 
+    function apagarRegistros ($conexao, $tabela, $condicao ){
+        $getData = "DELETE FROM $tabela WHERE $condicao";
+        $deletar = mysqli_query($conexao, $getData);
+    }
     function calcularIdade ($idCliente, $conn, $data = ""){
         $queryBuscaDataNascimento = "SELECT dataNascimento FROM cliente WHERE idCliente =$idCliente";
         $resultadoBuscaDataNascimento = $conn->query($queryBuscaDataNascimento);
@@ -80,6 +123,27 @@
 
         return $idade;
 
+    }
+
+    function calculaIntervaloTempo ($conn, $coluna, $tabela, $condicao, $data = ""){
+        
+        
+        if(empty($data)){
+            $queryBuscaData = "SELECT $tabela FROM $coluna WHERE $condicao";
+            $resultadoBuscaData = $conn->query($queryBuscaData);
+            $rowBuscaData = $resultadoBuscaData ->fetch_assoc();
+            $data = new DateTime($rowBuscaData['dataLog']);
+            $dataHoje = new DateTime();
+
+        }else{
+            $data = new DateTime($data);
+
+            $dataHoje = new DateTime();
+        }
+
+        $diferenca = $dataHoje->diff($data);
+        $dias = $diferenca->d;
+        return $diferenca;
     }
 
     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){

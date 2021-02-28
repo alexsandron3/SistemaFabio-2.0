@@ -18,6 +18,7 @@
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
     $statusCliente          = 1;
+    $idUser                 = $_SESSION['id'];
 
     /* -----------------------------------------------------------------------------------------------------  */
     
@@ -35,16 +36,16 @@
     /* -----------------------------------------------------------------------------------------------------  */
     
     if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){
-    /* -----------------------------------------------------------------------------------------------------  */
-    
-    cadastro($getData, $conexao, "USUÁRIO", "cadastroCliente");
-    /* -----------------------------------------------------------------------------------------------------  */
+        /* -----------------------------------------------------------------------------------------------------  */
+        cadastro($getData, $conexao, "CLIENTE", "cadastroCliente");
+        gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "CADASTRAR" , 0);
 
-
+        /* -----------------------------------------------------------------------------------------------------  */
     }else{
         $idCliente = $rowResultadoVerificaCliente ['idCliente'];
         $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
         header("refresh:0.5; url=../editarCliente.php?id=$idCliente");
+        gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "CADASTRAR" , 0);
     }
 
     
