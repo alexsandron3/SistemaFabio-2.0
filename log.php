@@ -98,7 +98,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     $diferenca = calculaIntervaloTempo($conn, null, null, null, $dataLog);
                     $dias = $diferenca->d;
                     $meses = $diferenca->m;
-                    echo $meses;
                     $countdowDeletarLog = ($dias - 30) *-1;
                     if($meses >= 1){
                         $getData = "DELETE FROM log WHERE idLog=$idLog";
