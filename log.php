@@ -111,7 +111,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             ?>
             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" role="tab">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1 <?php  $alert = (strpos($tipoModificacao, 'FALHA') ===true )? "alert-danger":"alert-success"; echo $alert;?>"><?php echo strtoupper( $nomeUser);?>  <?php echo $tipoModificacao;?> EM: <?php echo date_format($dataLog, "d/m/Y h:i:s") ?></h5>
+                    <h5 class="mb-1 <?php  $pos = strpos($tipoModificacao, 'FALHA'); $alert = ($pos === true)? "alert-danger":"alert-success"; echo $alert;?>"><?php echo strtoupper( $nomeUser);?>  <?php echo $tipoModificacao;?> EM: <?php echo date_format($dataLog, "d/m/Y h:i:s") ?></h5>
                     <small class="text-muted"><?php echo $idLog;?></small>
                 </div>
                 <p class="mb-1">PASSEIO: <?php echo $nomePasseio; ?> | DATA: <?php echo date_format($dataPasseio, "d/m/Y"); ?> | CLIENTE: <?php echo $nomeCliente ?> | VALOR PAGO: <?php echo $valorPago ?></p>
