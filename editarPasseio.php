@@ -145,7 +145,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <div class="form-check">
               <input class="form-check-input" type="radio" name="statusPasseio" id="statusPasseioInativo" value="0" <?php echo $passeioInativo ?>>
               <label class="form-check-label" for="statusPasseioInativo">
-                INATIVO
+                ENCERRADO
               </label>
             </div>
           </div>  
