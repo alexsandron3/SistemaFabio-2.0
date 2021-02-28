@@ -194,9 +194,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <td>
           <?php
             if($valorPesquisaCliente['statusCliente'] == 0){
-              echo "<a class='btn btn-primary btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=0' >ATIVAR</a><br><hr>";
+              echo "<a class='btn btn-primary btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=0&nomeCliente=".$valorPesquisaCliente['nomeCliente'] ."' >ATIVAR</a><br><hr>";
             }else{
-              echo "<a class='btn btn-primary btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=1' >DESATIVAR</a><br><hr>";
+              echo "<a class='btn btn-primary btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=1&nomeCliente=".$valorPesquisaCliente['nomeCliente'] ."' >DESATIVAR</a><br><hr>";
             } 
           ?>
           </td>

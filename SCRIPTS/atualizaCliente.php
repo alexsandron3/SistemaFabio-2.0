@@ -17,7 +17,8 @@
     $telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
-     
+    $idUser                 = $_SESSION['id'];
+
     $idade = calcularIdade($idCliente, $conn, $dataNascimento);
 
     /* -----------------------------------------------------------------------------------------------------  */
@@ -29,6 +30,10 @@
     /* -----------------------------------------------------------------------------------------------------  */
     
     atualizar($getData, $conexao, "CLIENTE", "editarCliente", $idCliente);
+    gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "ATUALIZAR" , 0);
+
+    
+    
 
 
 ?>

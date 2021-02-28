@@ -1,18 +1,25 @@
 <?php
     session_start();
     include_once("../PHP/conexao.php");
+    include_once("../PHP/functions.php");
     $id            = filter_input(INPUT_GET, 'id',     FILTER_SANITIZE_NUMBER_INT);
     $statusCliente = filter_input(INPUT_GET, 'status', FILTER_VALIDATE_BOOLEAN );
+    $nomeCliente   = filteR_input(INPUT_GET, 'nomeCliente', FILTER_SANITIZE_STRING);
+    $idUser        = $_SESSION['id'];
+
     if(!empty($id)){
-
-
     /* -----------------------------------------------------------------------------------------------------  */
         if($statusCliente == 1){
             $pesquisaCliente = "UPDATE cliente SET statusCliente=0 WHERE idCliente ='$id'";
             $resultadoPesquisaCliente = mysqli_query ($conexao, $pesquisaCliente );
+            $tipoModificacao = "DESATIVAR";
+
         }else{
             $pesquisaCliente = "UPDATE cliente SET statusCliente=1 WHERE idCliente ='$id'";
             $resultadoPesquisaCliente = mysqli_query ($conexao, $pesquisaCliente );
+            $tipoModificacao = "ATIVAR";
+
+
         }
     /* -----------------------------------------------------------------------------------------------------  */
     
@@ -33,5 +40,6 @@
         header("refresh:0.5; url=../pesquisaCliente.php");
 
     }
+    gerarLog("CLIENTE", $conexao, $idUser, $nomeCliente, " ", " ", " ", $tipoModificacao, 0);
 
 ?>

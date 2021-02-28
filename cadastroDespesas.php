@@ -120,6 +120,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                   $resultadoBuscaInformacoesPasseio = mysqli_query($conexao, $queryBuscaInformacoesPasseio);
                   $rowBuscaInformacoesPasseio = mysqli_fetch_assoc($resultadoBuscaInformacoesPasseio);
                   $data =  date_create($rowBuscaInformacoesPasseio['dataPasseio']);
+
+
                   echo"<p class='h4 text-center alert-info'>". $rowBuscaInformacoesPasseio  ['nomePasseio']. " ".date_format($data, "d/m/Y") ."</p>";
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
@@ -362,6 +364,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             }    
           ?>
         <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" value="<?php echo $idPasseioLista?>">
+        <input type="hidden" class="form-control col-sm-1 ml-3" name="nomePassseio" id="nomePasseio" value="<?php echo  $rowBuscaInformacoesPasseio['nomePasseio']?>">
+        <input type="hidden" class="form-control col-sm-1 ml-3" name="dataPasseio" id="dataPasseio" value="<?php echo $rowBuscaInformacoesPasseio['dataPasseio']?>">
          
       </form>
   </div>
