@@ -103,9 +103,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         $getData = "DELETE FROM log WHERE idLog=$idLog";
                         apagarRegistros($conexao, "log", "idLog=$idLog");
                     }
-                    if(strpos($tipoModificacao, 'FALHA') !== false){
+                    if(strpos($tipoModificacao, 'FALHA')){
                         $alert= "alert-danger";
-                    }elseif(strpos($tipoModificacao, 'SUCESSO') !== false){
+                    }elseif(strpos($tipoModificacao, 'SUCESSO')){
                         $alert = "alert-success";
                     }
                     $dataLog = date_create($rowInformacoesLog['dataLog']);
