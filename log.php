@@ -86,7 +86,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <?php $buscarInformacoesLog = "SELECT * FROM log ORDER BY `log`.`dataLog` DESC";
                 $resultadoInformacoesLog = mysqli_query($conexao, $buscarInformacoesLog);
                 while($rowInformacoesLog = mysqli_fetch_assoc($resultadoInformacoesLog)){
-                    $alert = "";
                     $id = $rowInformacoesLog['idUser'];
                     $nomePasseio = $rowInformacoesLog['nomePasseio'];
                     $nomeCliente = $rowInformacoesLog['nomecliente'];
@@ -103,11 +102,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         $getData = "DELETE FROM log WHERE idLog=$idLog";
                         apagarRegistros($conexao, "log", "idLog=$idLog");
                     }
-                    if(strpos($tipoModificacao, 'FALHA')){
-                        $alert= "alert-danger";
-                    }elseif(strpos($tipoModificacao, 'SUCESSO')){
-                        $alert = "alert-success";
-                    }
+                
                     $dataLog = date_create($rowInformacoesLog['dataLog']);
                     $buscarInformacoesUser = "SELECT username FROM users WHERE id=$id ";
                     $resultadoInformacoesUser = mysqli_query($conexao, $buscarInformacoesUser);
@@ -116,16 +111,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             ?>
             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" role="tab">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1 <?php echo $alert ;?>"><?php echo strtoupper( $nomeUser);?>  <?php echo $tipoModificacao;?> EM: <?php echo date_format($dataLog, "d/m/Y h:i:s") ?></h5>
+                    <h5 class="mb-1 <?php  $alert = (strpos($tipoModificacao, 'FALHA'))? "alert-danger":"alert-success"; echo $alert;?>"><?php echo strtoupper( $nomeUser);?>  <?php echo $tipoModificacao;?> EM: <?php echo date_format($dataLog, "d/m/Y h:i:s") ?></h5>
                     <small class="text-muted"><?php echo $idLog;?></small>
                 </div>
                 <p class="mb-1">PASSEIO: <?php echo $nomePasseio; ?> | DATA: <?php echo date_format($dataPasseio, "d/m/Y"); ?> | CLIENTE: <?php echo $nomeCliente ?> | VALOR PAGO: <?php echo $valorPago ?></p>
                 <small>ESTE REGISTRO SERÁ APAGADO EM <?php echo $countdowDeletarLog;?> Dias</small>
             </a>
-
-            <!-- <p class="m-2">ID: </p>
-            <p class="ml-5">  </p> -->
-            
     </div>
     <?php
           }    
