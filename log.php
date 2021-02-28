@@ -86,7 +86,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <?php $buscarInformacoesLog = "SELECT * FROM log ORDER BY `log`.`dataLog` DESC";
                 $resultadoInformacoesLog = mysqli_query($conexao, $buscarInformacoesLog);
                 while($rowInformacoesLog = mysqli_fetch_assoc($resultadoInformacoesLog)){
-                    
+                    $alert = "";
                     $id = $rowInformacoesLog['idUser'];
                     $nomePasseio = $rowInformacoesLog['nomePasseio'];
                     $nomeCliente = $rowInformacoesLog['nomecliente'];
