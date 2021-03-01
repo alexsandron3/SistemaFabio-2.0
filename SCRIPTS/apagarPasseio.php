@@ -1,17 +1,22 @@
 <?php
-    session_start();
-    include_once("../PHP/conexao.php");
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
+    
+    //RECEBENDO E VALIDANDO VALORES
     $nomePasseio = filter_input(INPUT_GET , 'nomePasseio', FILTER_SANITIZE_STRING);
     $dataPasseio = filter_input(INPUT_GET , 'dataPasseio', FILTER_SANITIZE_STRING);
     $id= filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+    //VERFICANDO SE O ID FOI ENVIADO
     if(!empty($id)){
 
+        //VERIFICANDO SE EXISTEM PAGAMENTOS NO PASSEIO
         $verificaSeExistemPagamentos ="SELECT idPagamento FROM pagamento_passeio WHERE idPasseio =$id";
         $resultadoVerificaSeExistemPagamentos = mysqli_query($conexao, $verificaSeExistemPagamentos);
         $resultado = mysqli_num_rows($resultadoVerificaSeExistemPagamentos);
         $idUser = $_SESSION['id'];
 
+        //DELETANDO UM PASSEIO E DESPESAS
         if($resultado == 0){
             $getDataDespesa = "DELETE FROM despesa WHERE idPasseio ='$id'";
             $deleteDataDespesa = mysqli_query ($conexao, $getDataDespesa );
