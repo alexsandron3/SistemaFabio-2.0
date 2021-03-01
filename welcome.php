@@ -1,14 +1,6 @@
 <?php
-// Initialize the session
-if(!isset($_SESSION)) 
-{ 
-    session_start(); 
-} 
- 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
 ?>
  
 <!DOCTYPE html>

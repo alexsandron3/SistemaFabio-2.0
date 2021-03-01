@@ -2,7 +2,7 @@
 
  
 // Include config file
-require_once "PHP/pdoCONEXAO.php";
+require_once "includes/pdoCONEXAO.php";
  
 // Define variables and initialize with empty values
 $username = $password = "";

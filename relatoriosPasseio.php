@@ -1,13 +1,6 @@
 <?php
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    }     include_once("PHP/conexao.php");
-    // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-  header("location: login.php");
-  exit;
-}
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
 /* -----------------------------------------------------------------------------------------------------  */
     $idPasseio = filter_input(INPUT_GET, 'id',FILTER_SANITIZE_NUMBER_INT);
     

@@ -1,6 +1,6 @@
 <?php
     //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
-    include_once("./includes/header.php");
+    include_once("../includes/header.php");
     
     //RECEBENDO E VALIDANDO VALORES
     $idPasseio                       = filter_input(INPUT_POST, 'idPasseioSelecionado',             FILTER_SANITIZE_NUMBER_INT);
