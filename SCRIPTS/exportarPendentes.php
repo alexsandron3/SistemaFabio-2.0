@@ -1,28 +1,21 @@
 <?php
-   session_start();
-   header("Content-type: text/html; charset=utf-8");
-   include_once("../PHP/conexao.php");
-   include_once("../PHP/functions.php");
-    //echo "<pre>";
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
    /* -----------------------------------------------------------------------------------------------------  */
-
-
-
    $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
    $buscaPeloIdPasseio = "SELECT  p.nomePasseio, p.dataPasseio , p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes, pp.statusPagamento
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0,1,3) ORDER BY nomeCliente";
-     #echo $buscaPeloIdPasseio;
+  
 
-   
-
-   /* -----------------------------------------------------------------------------------------------------  */
-   $setRec = mysqli_query($conexao, $buscaPeloIdPasseio);
-   /* -----------------------------------------------------------------------------------------------------  */
+  /* -----------------------------------------------------------------------------------------------------  */
+  $setRec = mysqli_query($conexao, $buscaPeloIdPasseio);
+  /* -----------------------------------------------------------------------------------------------------  */
 
   $quantidadeClientes = mysqli_num_rows($setRec);
   $dados = '';
   echo mb_convert_encoding( "NOME" . "\t". "REFERÊNCIA" ."\t". "PAGTO. PENDEDNTE". "\t". "ANOTAÇOES". "\n","UTF-16LE","UTF-8");
+	/* -----------------------------------------------------------------------------------------------------  */
   
   while($rowDados = mysqli_fetch_array($setRec)){
     if($rowDados['statusPagamento'] == 4 AND $rowDados['valorPendente'] == 0){
@@ -49,9 +42,10 @@
     }
 
   }
+	/* -----------------------------------------------------------------------------------------------------  */
 
-header('Content-Encoding: UTF-8');
-header('Content-type: text/csv; charset=UTF-8');
+  header('Content-Encoding: UTF-8');
+  header('Content-type: text/csv; charset=UTF-8');
 
-header('Content-Disposition: attachment; filename='.$filename.'.xls');
+  header('Content-Disposition: attachment; filename='.$filename.'.xls');
 ?> 

@@ -1,11 +1,7 @@
 <?php
-    include_once("PHP/conexao.php");
-    session_start();
-    // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-  header("location: login.php");
-  exit;
-}
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
+	
     $inicioDataPasseio           = filter_input(INPUT_GET, 'inicioDataPasseio',       FILTER_SANITIZE_STRING);
     $fimDataPasseio              = filter_input(INPUT_GET, 'fimDataPasseio',          FILTER_SANITIZE_STRING);
     $mostrarPasseiosExcluidos    = filter_input(INPUT_GET, 'mostrarPasseiosExcluidos',FILTER_VALIDATE_BOOLEAN);
@@ -36,10 +32,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <html lang="PT-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<?php include_once("./includes/head.php");?>
+
   <title>PASSEIOS SELECIONADOS</title>
 </head>
 

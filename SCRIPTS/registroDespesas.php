@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
     
+    //RECEBENDO E VALIDANDO VALORES
     $idPasseio                       = filter_input(INPUT_POST, 'idPasseioSelecionado',             FILTER_SANITIZE_NUMBER_INT);
     $valorIngresso                   = filter_input(INPUT_POST, 'valorIngresso',                    FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $valorOnibus                     = filter_input(INPUT_POST, 'valorOnibus',                      FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -55,6 +56,7 @@
             ";
 
     /* -----------------------------------------------------------------------------------------------------  */
+    //CADASTRANDO E GERANDO LOG
     cadastro($getData, $conexao, "DESPESAS", "cadastroDespesas");
     gerarLog("DESPESAS", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "CADASTRAR" , 0);
 

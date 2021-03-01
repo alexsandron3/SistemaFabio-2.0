@@ -1,9 +1,10 @@
 
 
 <?php
-    session_start();
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
 
+    //RECEBENDO E VALIDANDO VALORES
     $idPasseio   = filter_input(INPUT_GET, 'idPasseio',   FILTER_SANITIZE_NUMBER_INT);
     $idPagamento = filter_input(INPUT_GET, 'idPagamento', FILTER_SANITIZE_NUMBER_INT);
     $opcao       = filter_input(INPUT_GET, 'opcao',       FILTER_SANITIZE_STRING);
@@ -13,13 +14,14 @@
     $valorPago   = filter_input(INPUT_GET, 'valorPago', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $confirmar   = filter_input(INPUT_GET, 'confirmar',   FILTER_SANITIZE_NUMBER_INT);
     $idUser      = $_SESSION['id'];
-
     if(empty($confirmar)){
         $confirmar = 0;
     }
     /* -----------------------------------------------------------------------------------------------------  */
     $getData = "DELETE FROM pagamento_passeio WHERE idPagamento='$idPagamento' AND idPasseio='$idPasseio'";
     echo "APAGAR PAGAMENTO FEITO POR: $nomeCliente | NO PASSEIO:  $nomePasseio | NA DATA: $dataPasseio | COM VALOR PAGO DE: $valorPago ?"; 
+
+    //VERIFICANDO NIVEL DE ACESSO E SE A CONFIRMACAO DE DELECAO FOI FEITA
     if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
         if($opcao == "DELETAR" AND $confirmar==0){
             echo"

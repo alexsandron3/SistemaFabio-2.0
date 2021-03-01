@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
 
+    //RECEBENDO E VALIDANDO VALORES
     $nomePasseio         = filter_input(INPUT_POST, 'nomePasseio',          FILTER_SANITIZE_STRING);
     $localPasseio        = filter_input(INPUT_POST, 'localPasseio',         FILTER_SANITIZE_STRING);
     $valorPasseio        = filter_input(INPUT_POST, 'valorPasseio',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -21,12 +22,13 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-
+    //VERIFICANDO SE JÁ EXISTE O PASSEIO
     $verificaSeExistePasseio = "SELECT  upper(p.nomePasseio), p.dataPasseio, p.idPasseio FROM passeio p WHERE p.nomePasseio='$nomePasseio' AND p.dataPasseio='$dataPasseio' ";
     $resultadoVerificaSeExistePasseio = mysqli_query($conexao, $verificaSeExistePasseio);
     $rowPasseioVerificado = mysqli_fetch_assoc($resultadoVerificaSeExistePasseio );
     /* -----------------------------------------------------------------------------------------------------  */
     
+
     if(mysqli_num_rows($resultadoVerificaSeExistePasseio) == 0 ){
         
     /* -----------------------------------------------------------------------------------------------------  */
