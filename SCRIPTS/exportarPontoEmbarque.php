@@ -1,9 +1,7 @@
 <?php
-   session_start();
-   header("Content-type: text/html; charset=utf-8");
-   include_once("../PHP/conexao.php");
-   include_once("../PHP/functions.php");
-    //echo "<pre>";
+  //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+  include_once("./includes/header.php");
+
    /* -----------------------------------------------------------------------------------------------------  */
 
 
@@ -23,6 +21,7 @@
   $quantidadeClientes = mysqli_num_rows($setRec);
   $dados = '';
   echo mb_convert_encoding( "NOME" . "\t". "IDADE" ."\t". "REFERENCIA". "\t". "PONTO DE EMBARQUE" . "\t". "ANOTAÇÕES". "\n","UTF-16LE","UTF-8");
+	/* -----------------------------------------------------------------------------------------------------  */
   
   while($rowDados = mysqli_fetch_array($setRec)){
     $nomePasseio = $rowDados['nomePasseio'];
@@ -45,9 +44,10 @@
     print $dados;
 
   }
+	/* -----------------------------------------------------------------------------------------------------  */
 
-header('Content-Encoding: UTF-8');
-header('Content-type: text/csv; charset=UTF-8');
+  header('Content-Encoding: UTF-8');
+  header('Content-type: text/csv; charset=UTF-8');
 
-header('Content-Disposition: attachment; filename='.$filename.'.xls');
+  header('Content-Disposition: attachment; filename='.$filename.'.xls');
 ?> 

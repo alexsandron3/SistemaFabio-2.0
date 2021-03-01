@@ -1,6 +1,8 @@
 <?php
-    session_start();
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
+
+    //RECEBENDO E VALIDANDO VALORES
     $idPasseio           = filter_input(INPUT_POST, 'idPasseio',            FILTER_SANITIZE_NUMBER_INT);
     $nomePasseio         = filter_input(INPUT_POST, 'nomePasseio',          FILTER_SANITIZE_STRING);
     $localPasseio        = filter_input(INPUT_POST, 'localPasseio',         FILTER_SANITIZE_STRING);
@@ -10,6 +12,8 @@
     $anotacoes           = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
     $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
     $statusPasseio       = filter_input(INPUT_POST, 'statusPasseio',        FILTER_VALIDATE_BOOLEAN);
+    $idUser              = $_SESSION['id'];
+
     /* -----------------------------------------------------------------------------------------------------  */
 
     $getData = "UPDATE passeio SET
@@ -17,7 +21,10 @@
                 idadeIsencao='$idadeIsencao', statusPasseio='$statusPasseio'
                 WHERE idPasseio='$idPasseio'";
     /* -----------------------------------------------------------------------------------------------------  */
+    //ATUALIZANDO E GERANDO LOG
     atualizar($getData, $conexao, "PASSEIO", "editarPasseio", $idPasseio);
+    gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "ATUALIZAR" , 0);
+
 
 
 ?>

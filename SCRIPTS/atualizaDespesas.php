@@ -1,7 +1,9 @@
 <?php
-    session_start();
-    include_once("../PHP/functions.php");
-     $idPasseio                       = filter_input(INPUT_POST, 'idPasseioSelecionado',         FILTER_SANITIZE_NUMBER_INT);
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
+    
+    //RECEBENDO E VALIDANDO VALORES
+    $idPasseio                       = filter_input(INPUT_POST, 'idPasseioSelecionado',         FILTER_SANITIZE_NUMBER_INT);
      $idDespesa                       = filter_input(INPUT_POST, 'idDespesa',                    FILTER_SANITIZE_NUMBER_INT);
      $valorIngresso                   = filter_input(INPUT_POST, 'valorIngresso',                FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
      $valorOnibus                     = filter_input(INPUT_POST, 'valorOnibus',                  FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -37,6 +39,9 @@
      $quantidadeImpulsionamento       = filter_input(INPUT_POST, 'quantidadeImpulsionamento',    FILTER_SANITIZE_NUMBER_INT);
      $quantidadePulseira              = filter_input(INPUT_POST, 'quantidadePulseira',           FILTER_SANITIZE_NUMBER_INT);
      $quantidadeSeguroViagem          = filter_input(INPUT_POST, 'quantidadeSeguroViagem',       FILTER_SANITIZE_NUMBER_INT);
+     $nomePasseio                     = filter_input(INPUT_POST, 'nomePasseio',                  FILTER_SANITIZE_STRING);
+     $dataPasseio                     = filter_input(INPUT_POST, 'dataPasseio',                  FILTER_SANITIZE_STRING);
+     $idUser                          = $_SESSION['id'];
     /* -----------------------------------------------------------------------------------------------------  */
     $getData = "UPDATE despesa SET
                 valorIngresso='$valorIngresso', valorOnibus='$valorOnibus', valorMicro='$valorMicro', valorVan='$valorVan', valorEscuna='$valorEscuna', valorSeguroViagem='$valorSeguroViagem', valorAlmocoCliente='$valorAlmocoCliente', 
@@ -48,7 +53,10 @@
                 WHERE idDespesa='$idDespesa'
                 ";
     /* -----------------------------------------------------------------------------------------------------  */
+    //ATUALIZANDO E GERANDO LOG
+    atualizar($getData, $conexao, "DESPESAS", "editaDespesas", $idPasseio);
+    gerarLog("DESPESAS", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "ATUALIZAR" , 0);
 
-    atualizar($getData, $conexao, "DESPESA", "editaDespesas", $idPasseio);
+    
 
 ?>

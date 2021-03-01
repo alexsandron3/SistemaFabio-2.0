@@ -1,6 +1,9 @@
 <?php
 // Initialize the session
-session_start();
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
  
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -12,7 +15,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <meta http-equiv="refresh" content="420;url=logout.php" />
+    <title>BEM VINDO</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
@@ -30,6 +34,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             if($_SESSION["nivelAcesso"] == 1){
                 echo "<a href='register.php' class='btn btn-warning'>GERENCIAR USUÁRIOS</a>";
             }
+            if($_SESSION["nivelAcesso"] == 0){
+                echo "<a href='log.php' class='btn btn-info'>LOGS</a>";
+            }
+            
 
         ?>
     </p>

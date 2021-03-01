@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    include_once("../PHP/conexao.php");
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
+
+    //RECEBENDO E VALIDANDO VALORES
 
     $idCliente                   = filter_input(INPUT_POST, 'idClienteSelecionado',   FILTER_SANITIZE_NUMBER_INT);
     $idPasseio                   = filter_input(INPUT_POST, 'idPasseioSelecionado',   FILTER_SANITIZE_NUMBER_INT); 
@@ -13,8 +14,9 @@
     $transporteCliente           = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
     $taxaPagamento               = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $localEmbarque               = filter_input(INPUT_POST, 'localEmbarque',          FILTER_SANITIZE_STRING);
-    $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',    FILTER_VALIDATE_BOOLEAN);
+    $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
     $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
+    $idUser                      = $_SESSION['id'];
 
 
     if(empty($taxaPagamento)){
@@ -25,11 +27,14 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao FROM passeio WHERE idPasseio='$idPasseio'";
+    //BUSCANDO INFORMACOES PARA VALIDAR O PAGAMENTO
+    $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
     $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
     $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
     $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
     $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao']; 
+    $nomePasseio            = $rowLotacaoPasseio['nomePasseio']; 
+    $dataPasseio            = $rowLotacaoPasseio['dataPasseio']; 
 
     $idadeCliente = calcularIdade($idCliente, $conn, "");
 
@@ -39,7 +44,11 @@
     $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
     $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
     $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
-    
+
+    $recebeNomeCliente = "SELECT nomeCliente FROM cliente WHERE idCliente=$idCliente";
+    $resultadoNomeCliente = mysqli_query($conexao, $recebeNomeCliente);
+    $rowNomeCliente = mysqli_fetch_assoc($resultadoNomeCliente);
+    $nomeCliente = $rowNomeCliente['nomeCliente'];
     /* -----------------------------------------------------------------------------------------------------  */
 
     
@@ -52,6 +61,7 @@
  
 
     /* -----------------------------------------------------------------------------------------------------  */
+    //VERIFICANDO NIVEL DE ACESSO, ALERTAS, CADASTRANDO PAGAMENTOS E GERANDO LOG
 
     $alerta = $lotacaoPasseio * 0.20;
     $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados) -1;
@@ -87,9 +97,13 @@
 
             }
         }
+        gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "CADASTRAR" , 0);
+
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi REALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
         header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+        gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "CADASTRAR" , 0);
+
     }
 
 
