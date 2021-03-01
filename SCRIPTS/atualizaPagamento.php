@@ -1,8 +1,8 @@
 <?php
-       session_start();
-       include_once("../PHP/conexao.php");
-       include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
 
+    //RECEBENDO E VALIDANDO VALORES
     $idPagamento                 = filter_input(INPUT_POST, 'idPagamento',            FILTER_SANITIZE_NUMBER_INT);
     $idPasseio                   = filter_input(INPUT_POST, 'idPasseioSelecionado',   FILTER_SANITIZE_NUMBER_INT); 
     $idCliente                   = filter_input(INPUT_POST, 'idCliente',              FILTER_SANITIZE_NUMBER_INT); 
@@ -34,13 +34,8 @@
     /* -----------------------------------------------------------------------------------------------------  */
 
 
-    #--------------------------------------------------------------------------------------------------
-    $queryStatusSeguroViagem = "SELECT seguroViagem, valorSeguroViagemCliente FROM pagamento_passeio WHERE idPagamento=$idPagamento";
-    $resultadoStatusSeguroViagem = mysqli_query($conexao, $queryStatusSeguroViagem);
-    $rowStatusSeguroViagem = mysqli_fetch_assoc($resultadoStatusSeguroViagem);
-    $statusSeguroViagem = $rowStatusSeguroViagem ['seguroViagem'];
-    $idadeCliente = calcularIdade($idCliente, $conn, "");
     /* -----------------------------------------------------------------------------------------------------  */
+    //BUSCANDO INFORMACOES PARA VALIDAR O PAGAMENTO
 
     $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
     $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
@@ -50,6 +45,7 @@
     $nomePasseio             = $rowLotacaoPasseio['nomePasseio']; 
     $dataPasseio             = $rowLotacaoPasseio['dataPasseio']; 
 
+    $idadeCliente = calcularIdade($idCliente, $conn, "");
     $statusPagamento = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
 
     $recebeNomeCliente = "SELECT nomeCliente FROM cliente WHERE idCliente=$idCliente";
@@ -67,7 +63,7 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-
+    //VERIFICANDO NIVEL DE ACESSO, VERIFICANDO SE ALTERACOES FORAM FEITAS E GERANDO LOG
     if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
         $insertData = mysqli_query($conexao, $getData);
         /* -----------------------------------------------------------------------------------------------------  */

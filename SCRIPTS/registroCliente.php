@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
 
+    //RECEBENDO E VALIDANDO VALORES
     $nome                   = filter_input(INPUT_POST, 'nomeCliente',           FILTER_SANITIZE_STRING);
     $email                  = filter_input(INPUT_POST, 'emailCliente',          FILTER_SANITIZE_EMAIL);
     $rg                     = filter_input(INPUT_POST, 'rgCliente',             FILTER_SANITIZE_STRING);
@@ -34,7 +35,7 @@
     $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
 
     /* -----------------------------------------------------------------------------------------------------  */
-    
+    //CADASTRANDO E GERANDO LOG
     if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){
         /* -----------------------------------------------------------------------------------------------------  */
         cadastro($getData, $conexao, "CLIENTE", "cadastroCliente");

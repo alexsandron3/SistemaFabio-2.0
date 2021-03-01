@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    include_once("../PHP/functions.php");
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
     
+    //RECEBENDO E VALIDANDO VALORES
     $idCliente              = filter_input(INPUT_POST, 'idCliente',             FILTER_SANITIZE_NUMBER_INT);
     $nome                   = filter_input(INPUT_POST, 'nomeCliente',           FILTER_SANITIZE_STRING);
     $email                  = filter_input(INPUT_POST, 'emailCliente',          FILTER_SANITIZE_EMAIL);
@@ -19,6 +20,7 @@
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
     $idUser                 = $_SESSION['id'];
 
+    //FUNCAO DE CÁLCULO DE IDADE
     $idade = calcularIdade($idCliente, $conn, $dataNascimento);
 
     /* -----------------------------------------------------------------------------------------------------  */
@@ -29,6 +31,7 @@
                 WHERE idCliente='$idCliente'";
     /* -----------------------------------------------------------------------------------------------------  */
     
+    //ATUALIZANDO E GERANDO LOG
     atualizar($getData, $conexao, "CLIENTE", "editarCliente", $idCliente);
     gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "ATUALIZAR" , 0);
 
