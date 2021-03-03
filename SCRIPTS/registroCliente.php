@@ -23,27 +23,27 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
     
-    $getData = "INSERT INTO 
-                cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial, statusCliente )
-                VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial', '$statusCliente')
-                ";
+    $queryCadastraCliente = "INSERT INTO 
+                            cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, telefoneContato, pessoaContato,  redeSocial, statusCliente )
+                            VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$telefoneContato', '$nomeContato','$redeSocial', '$statusCliente')
+                            ";
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $verificaSeClienteExiste = "SELECT c.cpfCliente, c.nomeCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'";
-    $resultadoVerificaCliente = mysqli_query($conexao, $verificaSeClienteExiste);
-    $rowResultadoVerificaCliente = mysqli_fetch_assoc($resultadoVerificaCliente);
+    $queryVerificaSeClienteExiste               = "SELECT c.cpfCliente, c.nomeCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'";
+    $executaQueryVerificaSeClienteExiste        = mysqli_query($conexao, $queryVerificaSeClienteExiste);
+    $rowResultadoVerificaSeClienteExiste        = mysqli_fetch_assoc($executaQueryVerificaSeClienteExiste);
 
     /* -----------------------------------------------------------------------------------------------------  */
     //CADASTRANDO E GERANDO LOG
-    if(mysqli_num_rows($resultadoVerificaCliente) == 0 || $cpf == NULL){
+    if(mysqli_num_rows($executaQueryVerificaSeClienteExiste) == 0 OR $cpf == NULL){
         /* -----------------------------------------------------------------------------------------------------  */
-        cadastro($getData, $conexao, "CLIENTE", "cadastroCliente");
+        cadastro($queryCadastraCliente, $conexao, "CLIENTE", "cadastroCliente");
         gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "CADASTRAR" , 0);
 
         /* -----------------------------------------------------------------------------------------------------  */
     }else{
-        $idCliente = $rowResultadoVerificaCliente ['idCliente'];
+        $idCliente = $rowResultadoVerificaSeClienteExiste ['idCliente'];
         $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
         header("refresh:0.5; url=../editarCliente.php?id=$idCliente");
         gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "CADASTRAR" , 0);

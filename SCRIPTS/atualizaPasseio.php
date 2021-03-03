@@ -16,13 +16,13 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $getData = "UPDATE passeio SET
-                nomePasseio='$nomePasseio', localPasseio='$localPasseio', valorPasseio='$valorPasseio', lotacao='$lotacao', dataPasseio='$dataPasseio', anotacoes='$anotacoes', 
-                idadeIsencao='$idadeIsencao', statusPasseio='$statusPasseio'
-                WHERE idPasseio='$idPasseio'";
+    $queryAtualizaPasseio = "UPDATE passeio SET
+                            nomePasseio='$nomePasseio', localPasseio='$localPasseio', valorPasseio='$valorPasseio', lotacao='$lotacao', dataPasseio='$dataPasseio', anotacoes='$anotacoes', 
+                            idadeIsencao='$idadeIsencao', statusPasseio='$statusPasseio'
+                            WHERE idPasseio='$idPasseio'";
     /* -----------------------------------------------------------------------------------------------------  */
     //ATUALIZANDO E GERANDO LOG
-    atualizar($getData, $conexao, "PASSEIO", "editarPasseio", $idPasseio);
+    atualizar($queryAtualizaPasseio, $conexao, "PASSEIO", "editarPasseio", $idPasseio);
     gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "ATUALIZAR" , 0);
 
 
