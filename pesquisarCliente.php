@@ -121,7 +121,7 @@
             
                 $numeroPaginasTotal = ceil($totalCliente / $quantidadePagina);
             
-                $inicio = ($quantidadePagina * $pagina) - $quantidadePagina;
+                #$inicio = ($quantidadePagina * $pagina) - $quantidadePagina;
                 $numeroPaginas = $numeroPaginasTotal;
                 $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
                                               FROM cliente c  ORDER BY c.nomeCliente LIMIT 1, $quantidadePagina";
