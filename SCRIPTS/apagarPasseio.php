@@ -5,23 +5,25 @@
     //RECEBENDO E VALIDANDO VALORES
     $nomePasseio = filter_input(INPUT_GET , 'nomePasseio', FILTER_SANITIZE_STRING);
     $dataPasseio = filter_input(INPUT_GET , 'dataPasseio', FILTER_SANITIZE_STRING);
-    $id= filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
+    $idPasseio   = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $idUser      = $_SESSION['id'];
+    
     //VERFICANDO SE O ID FOI ENVIADO
-    if(!empty($id)){
+    if(!empty($idPasseio)){
 
         //VERIFICANDO SE EXISTEM PAGAMENTOS NO PASSEIO
-        $verificaSeExistemPagamentos ="SELECT idPagamento FROM pagamento_passeio WHERE idPasseio =$id";
-        $resultadoVerificaSeExistemPagamentos = mysqli_query($conexao, $verificaSeExistemPagamentos);
-        $resultado = mysqli_num_rows($resultadoVerificaSeExistemPagamentos);
-        $idUser = $_SESSION['id'];
+        $queryVerificaSeExistePagamamento           = "SELECT idPagamento FROM pagamento_passeio WHERE idPasseio =$idPasseio";
+        $executaQueryVerificaSeExistePagamamento    = mysqli_query($conexao, $queryVerificaSeExistePagamamento);
+        $quantidadePagamentoExistentes              = mysqli_num_rows($executaQueryVerificaSeExistePagamamento);
+        
 
         //DELETANDO UM PASSEIO E DESPESAS
-        if($resultado == 0){
-            $getDataDespesa = "DELETE FROM despesa WHERE idPasseio ='$id'";
-            $deleteDataDespesa = mysqli_query ($conexao, $getDataDespesa );
-            $getDataPasseio = "DELETE FROM passeio WHERE idPasseio ='$id'";
-            $inserDataPasseio = mysqli_query ($conexao, $getDataPasseio );
+        if($quantidadePagamentoExistentes == 0){
+            $queryDeletaDespesa = "DELETE FROM despesa WHERE idPasseio ='$idPasseio'";
+            $executaQueryDeletaDespesa = mysqli_query ($conexao, $queryDeletaDespesa);
+
+            $queryDeletaPasseio = "DELETE FROM passeio WHERE idPasseio ='$idPasseio'";
+            $executaQueryDeletaPasseio = mysqli_query ($conexao, $queryDeletaPasseio);
             if(mysqli_affected_rows($conexao)){
                 $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Passeio APAGADO com sucesso</p>";
                 header("refresh:0.5; url=../pesquisarPasseio.php");

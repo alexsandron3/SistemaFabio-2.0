@@ -43,18 +43,18 @@
      $dataPasseio                     = filter_input(INPUT_POST, 'dataPasseio',                  FILTER_SANITIZE_STRING);
      $idUser                          = $_SESSION['id'];
     /* -----------------------------------------------------------------------------------------------------  */
-    $getData = "UPDATE despesa SET
-                valorIngresso='$valorIngresso', valorOnibus='$valorOnibus', valorMicro='$valorMicro', valorVan='$valorVan', valorEscuna='$valorEscuna', valorSeguroViagem='$valorSeguroViagem', valorAlmocoCliente='$valorAlmocoCliente', 
-                valorAlmocoMotorista='$valorAlmocoMotorista', valorEstacionamento='$valorEstacionamento', valorGuia='$valorGuia', valorAutorizacaoTransporte='$valorAutorizacaoTransporte', valorTaxi='$valorTaxi', valorKitLanche='$valorKitLanche', 
-                valorMarketing='$valorMarketing', valorImpulsionamento='$valorImpulsionamento', outros='$outros', quantidadeIngresso='$quantidadeIngresso', quantidadeOnibus='$quantidadeOnibus', quantidadeMicro='$quantidadeMicro', quantidadeVan='$quantidadeVan', 
-                quantidadeEscuna='$quantidadeEscuna', quantidadeAlmocoCliente='$quantidadeAlmocoCliente', quantidadeAlmocoMotorista='$quantidadeAlmocoMotorista', quantidadeEstacionamento='$quantidadeEstacionamento', quantidadeGuia='$quantidadeGuia', 
-                quantidadeAutorizacaoTransporte='$quantidadeAutorizacaoTransporte', quantidadeTaxi='$quantidadeTaxi', quantidadeMarketing='$quantidadeMarketing', quantidadeKitLanche='$quantidadeKitLanche', quantidadeImpulsionamento='$quantidadeImpulsionamento', 
-                quantidadeSeguroViagem='$quantidadeSeguroViagem', totalDespesas='$totalDespesas', valorPulseira='$valorPulseira', quantidadePulseira='$quantidadePulseira'
-                WHERE idDespesa='$idDespesa'
-                ";
+    $queryUpdateDespesa = "UPDATE despesa SET
+                            valorIngresso='$valorIngresso', valorOnibus='$valorOnibus', valorMicro='$valorMicro', valorVan='$valorVan', valorEscuna='$valorEscuna', valorSeguroViagem='$valorSeguroViagem', valorAlmocoCliente='$valorAlmocoCliente', 
+                            valorAlmocoMotorista='$valorAlmocoMotorista', valorEstacionamento='$valorEstacionamento', valorGuia='$valorGuia', valorAutorizacaoTransporte='$valorAutorizacaoTransporte', valorTaxi='$valorTaxi', valorKitLanche='$valorKitLanche', 
+                            valorMarketing='$valorMarketing', valorImpulsionamento='$valorImpulsionamento', outros='$outros', quantidadeIngresso='$quantidadeIngresso', quantidadeOnibus='$quantidadeOnibus', quantidadeMicro='$quantidadeMicro', quantidadeVan='$quantidadeVan', 
+                            quantidadeEscuna='$quantidadeEscuna', quantidadeAlmocoCliente='$quantidadeAlmocoCliente', quantidadeAlmocoMotorista='$quantidadeAlmocoMotorista', quantidadeEstacionamento='$quantidadeEstacionamento', quantidadeGuia='$quantidadeGuia', 
+                            quantidadeAutorizacaoTransporte='$quantidadeAutorizacaoTransporte', quantidadeTaxi='$quantidadeTaxi', quantidadeMarketing='$quantidadeMarketing', quantidadeKitLanche='$quantidadeKitLanche', quantidadeImpulsionamento='$quantidadeImpulsionamento', 
+                            quantidadeSeguroViagem='$quantidadeSeguroViagem', totalDespesas='$totalDespesas', valorPulseira='$valorPulseira', quantidadePulseira='$quantidadePulseira'
+                            WHERE idDespesa='$idDespesa'
+                            ";
     /* -----------------------------------------------------------------------------------------------------  */
     //ATUALIZANDO E GERANDO LOG
-    atualizar($getData, $conexao, "DESPESAS", "editaDespesas", $idPasseio);
+    atualizar($queryUpdateDespesa, $conexao, "DESPESAS", "editaDespesas", $idPasseio);
     gerarLog("DESPESAS", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "ATUALIZAR" , 0);
 
     
