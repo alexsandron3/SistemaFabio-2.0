@@ -268,12 +268,12 @@ function calculoTotalDespesas(){
     valorTotalImpulsionamento                                = quantidadeImpulsionamento * valorImpulsionamento;
     document.getElementById('valorTotalImpulsionamento').value = valorTotalImpulsionamento.toFixed(2);
 
-    var valorPulseira                                = document.getElementById('valorPulseira').value;
-    valorPulseira                                     = parseFloat(valorPulseira);
-    document.getElementById('valorPulseira').value    = valorPulseira.toFixed(2);
-    var quantidadePulseira                            = document.getElementById('quantidadePulseira').value;    
-    valorTotalPulseira                                = quantidadePulseira *valorPulseira;
-    document.getElementById('valorTotalPulseira').value = valorTotalPulseira.toFixed(2);
+    var valorPulseira                                         = document.getElementById('valorPulseira').value;
+    valorPulseira                                             = parseFloat(valorPulseira);
+    document.getElementById('valorPulseira').value            = valorPulseira.toFixed(2);
+    var quantidadePulseira                                    = document.getElementById('quantidadePulseira').value;    
+    valorTotalPulseira                                        = quantidadePulseira *valorPulseira;
+    document.getElementById('valorTotalPulseira').value       = valorTotalPulseira.toFixed(2);
 
     var valorSeguroViagem                                    = document.getElementById('valorSeguroViagem').value;
     valorSeguroViagem                                        = parseFloat(valorSeguroViagem);

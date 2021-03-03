@@ -4,25 +4,27 @@
 
     
     //RECEBENDO E VALIDANDO VALORES
-    $id            = filter_input(INPUT_GET, 'id',     FILTER_SANITIZE_NUMBER_INT);
-    $statusCliente = filter_input(INPUT_GET, 'status', FILTER_VALIDATE_BOOLEAN );
+    $idCliente     = filter_input(INPUT_GET, 'id',     FILTER_SANITIZE_NUMBER_INT);
+    $clienteAtivo  = filter_input(INPUT_GET, 'status', FILTER_VALIDATE_BOOLEAN );
     $nomeCliente   = filteR_input(INPUT_GET, 'nomeCliente', FILTER_SANITIZE_STRING);
     $idUser        = $_SESSION['id'];
 
     //VERFICANDO SE O ID FOI ENVIADO
-    if(!empty($id)){
+    if(!empty($idCliente)){
 
         
     /* -----------------------------------------------------------------------------------------------------  */
-        //ALTERANDO STATUS DO CLIENTE
-        if($statusCliente == 1){
-            $pesquisaCliente = "UPDATE cliente SET statusCliente=0 WHERE idCliente ='$id'";
-            $resultadoPesquisaCliente = mysqli_query ($conexao, $pesquisaCliente );
+        //ALTERANDO STATUS DO CLIENTE 
+        //0 INATIVO 
+        //1 ATIVO
+        if($clienteAtivo == 1){
+            $queryUpdateStatus = "UPDATE cliente SET statusCliente=0 WHERE idCliente ='$idCliente'";
+            $executaQueryUpdateStatus = mysqli_query ($conexao, $queryUpdateStatus);
             $tipoModificacao = "DESATIVAR";
 
         }else{
-            $pesquisaCliente = "UPDATE cliente SET statusCliente=1 WHERE idCliente ='$id'";
-            $resultadoPesquisaCliente = mysqli_query ($conexao, $pesquisaCliente );
+            $queryUpdateStatus = "UPDATE cliente SET statusCliente=1 WHERE idCliente ='$idCliente'";
+            $executaQueryUpdateStatus = mysqli_query ($conexao, $queryUpdateStatus);
             $tipoModificacao = "ATIVAR";
 
 

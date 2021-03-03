@@ -15,24 +15,24 @@
 
     /* -----------------------------------------------------------------------------------------------------  */
 
-    $getData = "INSERT INTO
-    passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao)
-    VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao')
-    ";
+    $queryCadastraPasseio = "INSERT INTO
+                            passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao)
+                            VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao')
+                            ";
 
     /* -----------------------------------------------------------------------------------------------------  */
 
     //VERIFICANDO SE JÁ EXISTE O PASSEIO
-    $verificaSeExistePasseio = "SELECT  upper(p.nomePasseio), p.dataPasseio, p.idPasseio FROM passeio p WHERE p.nomePasseio='$nomePasseio' AND p.dataPasseio='$dataPasseio' ";
-    $resultadoVerificaSeExistePasseio = mysqli_query($conexao, $verificaSeExistePasseio);
-    $rowPasseioVerificado = mysqli_fetch_assoc($resultadoVerificaSeExistePasseio );
+    $queryVerificaSeExistePasseio = "SELECT  upper(p.nomePasseio), p.dataPasseio, p.idPasseio FROM passeio p WHERE p.nomePasseio='$nomePasseio' AND p.dataPasseio='$dataPasseio' ";
+    $executaQueryVerificaSeExistePasseio = mysqli_query($conexao, $queryVerificaSeExistePasseio);
+    $rowPasseioVerificado = mysqli_fetch_assoc($executaQueryVerificaSeExistePasseio );
     /* -----------------------------------------------------------------------------------------------------  */
     
 
-    if(mysqli_num_rows($resultadoVerificaSeExistePasseio) == 0 ){
+    if(mysqli_num_rows($executaQueryVerificaSeExistePasseio) == 0 ){
         
     /* -----------------------------------------------------------------------------------------------------  */
-        cadastro($getData, $conexao, "PASSEIO", "pesquisarPasseio");
+        cadastro($queryCadastraPasseio, $conexao, "PASSEIO", "pesquisarPasseio");
         gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "CADASTRAR" , 0);
 
     }else{

@@ -28,32 +28,31 @@
     /* -----------------------------------------------------------------------------------------------------  */
 
     //BUSCANDO INFORMACOES PARA VALIDAR O PAGAMENTO
-    $recebeLotacaoPasseio    = "SELECT lotacao, idadeIsencao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
-    $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
-    $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
-    $lotacaoPasseio          = $rowLotacaoPasseio['lotacao']; 
-    $idadeIsencao            = $rowLotacaoPasseio['idadeIsencao']; 
-    $nomePasseio            = $rowLotacaoPasseio['nomePasseio']; 
-    $dataPasseio            = $rowLotacaoPasseio['dataPasseio']; 
+    $queryInformacoesPasseio        = "SELECT lotacao, idadeIsencao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
+    $executaQueryInformacoesPasseio = mysqli_query($conexao, $queryInformacoesPasseio);
+    $rowInformacoesPasseio          = mysqli_fetch_assoc($executaQueryInformacoesPasseio);
+    $lotacaoPasseio                 = $rowInformacoesPasseio['lotacao']; 
+    $idadeIsencao                   = $rowInformacoesPasseio['idadeIsencao'];
+    $nomePasseio                    = $rowInformacoesPasseio['nomePasseio']; 
+    $dataPasseio                    = $rowInformacoesPasseio['dataPasseio']; 
 
-    $idadeCliente = calcularIdade($idCliente, $conn, "");
-
-    $statusPagamento = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
+    $idadeCliente                   = calcularIdade($idCliente, $conn, "");
+    $statusPagamento                = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
     
 
     $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
     $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
     $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
 
-    $recebeNomeCliente = "SELECT nomeCliente FROM cliente WHERE idCliente=$idCliente";
-    $resultadoNomeCliente = mysqli_query($conexao, $recebeNomeCliente);
-    $rowNomeCliente = mysqli_fetch_assoc($resultadoNomeCliente);
-    $nomeCliente = $rowNomeCliente['nomeCliente'];
+    $queryInformacoesCliente        = "SELECT nomeCliente FROM cliente WHERE idCliente=$idCliente";
+    $executaQueryInformacoesCliente = mysqli_query($conexao, $queryInformacoesCliente);
+    $rowInformacoesCliente          = mysqli_fetch_assoc($executaQueryInformacoesCliente);
+    $nomeCliente                    = $rowInformacoesCliente['nomeCliente'];
     /* -----------------------------------------------------------------------------------------------------  */
 
     
 
-    $getDataPagamentoPasseio = "INSERT INTO pagamento_passeio 
+    $queryEnviaPagamentoCliente = "INSERT INTO pagamento_passeio 
                                 (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento)  
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
                                 '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW())
@@ -63,17 +62,22 @@
     /* -----------------------------------------------------------------------------------------------------  */
     //VERIFICANDO NIVEL DE ACESSO, ALERTAS, CADASTRANDO PAGAMENTOS E GERANDO LOG
 
-    $alerta = $lotacaoPasseio * 0.20;
-    $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados) -1;
+    define('PORCENTAGEM_VAGAS_OCUPADAS', '0.20');
+    define('VAGA_ATUAL', '1');
+
+    $alertaParaVagasRestantes = $lotacaoPasseio * PORCENTAGEM_VAGAS_OCUPADAS;
+
+    $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados) -VAGA_ATUAL;
+    
     if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
         if($lotacaoPasseio <= $qtdClientesConfirmados){
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
             header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
         }elseif($lotacaoPasseio > $qtdClientesConfirmados){
-            $insertDataPagamentoPasseio = mysqli_query($conexao, $getDataPagamentoPasseio);
+            $insertDataPagamentoPasseio = mysqli_query($conexao, $queryEnviaPagamentoCliente);
 
             if(mysqli_insert_id($conexao)){
-                if($qtdClientesConfirmados+1 >= $lotacaoPasseio){
+                if(($qtdClientesConfirmados + VAGA_ATUAL) >= $lotacaoPasseio){
                     echo '  <script type="text/JavaScript">  
                                 alert("LIMITE DE VAGAS ATINGIDO"); 
                             </script>' 
@@ -89,7 +93,7 @@
                 $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
                 header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
             }
-            if($vagasRestantes > 0 and $vagasRestantes <= floor($alerta)){
+            if($vagasRestantes > 0 AND $vagasRestantes <= floor($alertaParaVagasRestantes)){
                 if($statusPagamento == 0 OR $statusPagamento == 4){
                     $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
                 }
