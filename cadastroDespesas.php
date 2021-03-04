@@ -74,7 +74,7 @@
         <?php
           
             $nomePasseioPost = filter_input(INPUT_POST, 'nomePasseio', FILTER_SANITIZE_STRING);
-            $queryBuscaPeloNomePasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio FROM passeio p WHERE nomePasseio LIKE '%$nomePasseioPost%' ORDER BY dataPasseio";
+            $queryBuscaPeloNomePasseio = "SELECT p.idPasseio, p.nomePasseio, p.dataPasseio FROM passeio p WHERE nomePasseio LIKE '%$nomePasseioPost%' AND statusPasseio NOT IN (0) ORDER BY dataPasseio";
             /* -----------------------------------------------------------------------------------------------------  */
             $resultadoNomePasseio = mysqli_query($conexao, $queryBuscaPeloNomePasseio);
             /* -----------------------------------------------------------------------------------------------------  */
