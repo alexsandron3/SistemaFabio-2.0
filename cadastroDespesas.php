@@ -317,6 +317,45 @@
                       echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalPulseira' id='valorTotalPulseira' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
                     echo"</div>";
                   echo"</div>";
+                  
+                  echo"<div class='form-group row'>";
+                    echo"<label class='col-sm-2 col-form-label' for='valorHospedagem'>HOSPEDAGEM</label>";
+                    echo"<div class='col-sm-6'>";
+                      echo"<input type='text' class='form-control' name='valorHospedagem' id='valorHospedagem' placeholder='HOSPEDAGEM' value='0'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeHospedagem' id='quantidadeHospedagem' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-2'>";
+                      echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalHospedagem' id='valorTotalHospedagem' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                  echo"</div>";
+
+                  echo"<div class='form-group row'>";
+                    echo"<label class='col-sm-2 col-form-label' for='valorAereo'>AÉREO</label>";
+                    echo"<div class='col-sm-6'>";
+                      echo"<input type='text' class='form-control' name='valorAereo' id='valorAereo' placeholder='AEREO' value='0'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeAereo' id='quantidadeAereo' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-2'>";
+                      echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalAereo' id='valorTotalAereo' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                  echo"</div>";
+
+                  echo"<div class='form-group row'>";
+                    echo"<label class='col-sm-2 col-form-label' for='valorServicos'>SERVIÇOS</label>";
+                    echo"<div class='col-sm-6'>";
+                      echo"<input type='text' class='form-control' name='valorServicos' id='valorServicos' placeholder='SERVIÇOS' value='0'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-1'>";
+                      echo"<input type='text' class='form-control' name='quantidadeServicos' id='quantidadeServicos' placeholder='QTD' value='1'onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                    echo"<div class='col-sm-2'>";
+                      echo"<input type='text' readonly class='form-control col-sm-8' name='valorTotalServicos' id='valorTotalServicos' placeholder='TOTAL'  value='0' onchange='calculoTotalDespesas()'>";
+                    echo"</div>";
+                  echo"</div>";
 
                   echo"<div class='form-group row'>";
                     echo"<label class='col-sm-2 col-form-label' for='outros'>OUTROS</label>";
