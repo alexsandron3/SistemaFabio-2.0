@@ -1,6 +1,8 @@
 <?php
     include_once("conexao.php");
     include_once("pdoCONEXAO.php");
+    include_once("header.php");
+    include_once("servicos/servicoValidacao.php");
 
     function verificaNivelAcesso() {
 
@@ -48,7 +50,8 @@
     function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento) {
         $getData = $getData;
         $insertData = mysqli_query($conexao, $getData);
-        if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0){
+        $permissao  = retornaPermissao('cadastrar');
+        if($permissao){
             if(mysqli_insert_id($conexao)){
                 $_SESSION['msg'] = "<p class='h5 text-center alert-success'> $tipoCadastro CADASTRADO(A) com sucesso</p>";
                 header("refresh:0.5; url=../$paginaRedirecionamento.php");
@@ -169,7 +172,7 @@
         }elseif($idadeCliente <= $idadeIsencao){
             $statusPagamento = 4; // CRIANÇA
         }
-        return $statusPagamento;
+         $statusPagamento;
     }
 
     function exportarExcel(){
