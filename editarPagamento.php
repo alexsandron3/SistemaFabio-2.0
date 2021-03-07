@@ -6,7 +6,7 @@
     $idPagamento = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
     $queryBuscaIdPagamento = "    SELECT DISTINCT c.nomeCliente, c.referencia, c.idadeCliente , p.idPasseio, p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.transporte , pp.idPasseio, pp.valorPago, pp.valorVendido, 
-                                  pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem, pp.taxaPagamento, pp.localEmbarque, pp.clienteParceiro, pp.historicoPagamento, pp.idCliente 
+                                  pp.previsaoPagamento, pp.anotacoes, pp.valorPendente, pp.statusPagamento, pp.seguroViagem, pp.taxaPagamento, pp.localEmbarque, pp.clienteParceiro, pp.historicoPagamento, pp.idCliente, pp.clienteDesistente 
                                   FROM cliente c, passeio p, pagamento_passeio pp WHERE idPagamento='$idPagamento' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
                                   $resultadoIdPagamento = mysqli_query($conexao, $queryBuscaIdPagamento);
                                   $rowIdPagamento = mysqli_fetch_assoc($resultadoIdPagamento);
@@ -14,8 +14,8 @@
                                   $idPasseio = $rowIdPagamento ['idPasseio'];
                                   $statusSeguroViagem = $rowIdPagamento ['seguroViagem'];
                                   $clienteParceiro = $rowIdPagamento ['clienteParceiro'];
-                                  #$idadeCliente = $rowIdPagamento ['idadeCliente'];
                                   $transporte = $rowIdPagamento ['transporte'];
+                                  
 
 ?>
 <!DOCTYPE html>
@@ -185,6 +185,34 @@
           echo"</div>";
           echo"<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='".$idadeCliente. "'>";
           echo"<input type='hidden' class='form-control' name='idPasseioSelecionado' id='idPasseioSelecionado' placeholder='idPasseioSelecionado'  value='".$idPasseio. "'>";
+          $clienteDesistenteTrue = '';
+          $clienteDesistenteFalse = '';
+          if($rowIdPagamento['clienteDesistente'] == 1){
+            $clienteDesistenteTrue = 'checked';
+          }else{
+            $clienteDesistenteFalse = 'checked';
+          }
+            echo"<div class='row'>";
+            echo"<legend class='col-form-label col-sm-2 pt-0'>DESISTENTE</legend>";
+            echo"<div class='col-sm-5'>";
+              echo"<div class='form-check'>";
+                echo"<input class='form-check-input' type='radio' name='clienteDesistente' id='clienteDesistenteSim'
+                value='1'  $clienteDesistenteTrue >";
+                echo"<label class='form-check-label' for='clienteDesistenteSim'>
+                  SIM
+                </label>";
+              echo"</div>";
+              echo"<div class='form-check'>";
+                echo"<input class='form-check-input' type='radio' name='clienteDesistente' id='clienteDesistenteoNao'
+                value='0'  $clienteDesistenteFalse >";
+                echo"<label class='form-check-label' for='clienteDesistenteNao'>
+                  NÃO
+                </label>";
+              echo"</div>";
+            echo"</div>";
+          echo"</div>";
+
+
           $clienteParceiroTrue = '';
           $clienteParceiroFalse = '';
 

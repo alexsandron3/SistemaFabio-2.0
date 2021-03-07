@@ -9,7 +9,7 @@
    $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
    $buscaPeloIdPasseio = "SELECT  p.nomePasseio, p.dataPasseio, p.idPasseio, c.nomeCliente, c.rgCliente, c.orgaoEmissor, c.idCliente, c.idCliente, c.dataNascimento, pp.idPagamento, pp.valorPago  
-                          FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) ORDER BY nomeCliente";
+                          FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) AND pp.clienteDesistente NOT IN(1) ORDER BY nomeCliente";
 
    
 
