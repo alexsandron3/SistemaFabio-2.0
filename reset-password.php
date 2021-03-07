@@ -1,17 +1,9 @@
 <?php
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
- 
-// Check if the user is logged in, otherwise redirect to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
+    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+    include_once("./includes/header.php");
  
 // Include config file
-require_once "PHP/pdoCONEXAO.php";
+require_once "includes/pdoCONEXAO.php";
  
 // Define variables and initialize with empty values
 $new_password = $confirm_password = "";

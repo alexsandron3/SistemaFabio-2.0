@@ -275,6 +275,27 @@ function calculoTotalDespesas(){
     valorTotalPulseira                                        = quantidadePulseira *valorPulseira;
     document.getElementById('valorTotalPulseira').value       = valorTotalPulseira.toFixed(2);
 
+    var valorHospedagem                                         = document.getElementById('valorHospedagem').value;
+    valorHospedagem                                             = parseFloat(valorHospedagem);
+    document.getElementById('valorHospedagem').value            = valorHospedagem.toFixed(2);
+    var quantidadeHospedagem                                    = document.getElementById('quantidadeHospedagem').value;    
+    valorTotalHospedagem                                        = quantidadeHospedagem *valorHospedagem;
+    document.getElementById('valorTotalHospedagem').value       = valorTotalHospedagem.toFixed(2);
+    
+    var valorAereo                                         = document.getElementById('valorAereo').value;
+    valorAereo                                             = parseFloat(valorAereo);
+    document.getElementById('valorAereo').value            = valorAereo.toFixed(2);
+    var quantidadeAereo                                    = document.getElementById('quantidadeAereo').value;    
+    valorTotalAereo                                        = quantidadeAereo *valorAereo;
+    document.getElementById('valorTotalAereo').value       = valorTotalAereo.toFixed(2);
+
+    var valorServicos                                         = document.getElementById('valorServicos').value;
+    valorServicos                                             = parseFloat(valorServicos);
+    document.getElementById('valorServicos').value            = valorServicos.toFixed(2);
+    var quantidadeServicos                                    = document.getElementById('quantidadeServicos').value;    
+    valorTotalServicos                                        = quantidadeServicos *valorServicos;
+    document.getElementById('valorTotalServicos').value       = valorTotalServicos.toFixed(2);
+
     var valorSeguroViagem                                    = document.getElementById('valorSeguroViagem').value;
     valorSeguroViagem                                        = parseFloat(valorSeguroViagem);
     document.getElementById('valorSeguroViagem').value       = valorSeguroViagem.toFixed(2);
@@ -292,7 +313,7 @@ function calculoTotalDespesas(){
     var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) + Number(valorSeguroViagem) * Number(quantidadeSeguroViagem)
                                     + Number(valorAlmocoCliente) * Number(quantidadeAlmocoCliente) + Number(valorAlmocoMotorista) * Number(quantidadeAlmocoMotorista) + Number(valorEstacionamento) * Number(quantidadeEstacionamento) + Number(valorGuia) * Number(quantidadeGuia) 
                                     + Number(valorAutorizacaoTransporte) * Number(quantidadeAutorizacaoTransporte) + Number(valorTaxi) * Number(quantidadeTaxi) + Number(valorMarketing) * Number(quantidadeMarketing)  + Number(valorImpulsionamento) * Number(quantidadeImpulsionamento) 
-                                    + Number(valorPulseira) * Number(quantidadePulseira) + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche);
+                                    + Number(valorPulseira) * Number(quantidadePulseira) + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche) + Number(valorHospedagem) * Number(quantidadeHospedagem) + Number(valorAereo) * Number(quantidadeAereo) + Number(valorServicos) * Number(quantidadeServicos);
    console.log(valorTotal);
    if(valorTotal) {
        document.getElementById('totalDespesas').value = valorTotal.toFixed(2);
