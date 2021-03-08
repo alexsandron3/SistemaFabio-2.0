@@ -2,6 +2,9 @@
     //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
     include_once("./includes/header.php");
 
+    $idPasseioAntigo   = filter_input(INPUT_GET, 'idPasseioAntigo', FILTER_SANITIZE_NUMBER_INT);
+    $idPagamentoAntigo = filter_input(INPUT_GET, 'idPagamentoAntigo', FILTER_SANITIZE_NUMBER_INT);
+
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
