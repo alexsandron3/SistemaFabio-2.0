@@ -11,7 +11,7 @@
 	/* -----------------------------------------------------------------------------------------------------  */
     //BUSCANDO INFORMACOES NECESSÁRIAS DO PASSEIO ANTIGO    
     $getDataPagamentoAntigo = "SELECT DISTINCT pp.idPagamento, pp.idCliente, pp.idPasseio, pp.valorPago, pp.valorVendido, pp.previsaoPagamento, pp.valorPendente, pp.statusPagamento, pp.seguroViagem, pp.clienteParceiro, 
-                                pp.transporte, pp.anotacoes, pp.historicoPagamento, pp.SeguroViagem, pp.taxaPagamento, pp.localEmbarque, pp.statusPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio, c.idCliente, c.dataNascimento, c.nome
+                                pp.transporte, pp.anotacoes, pp.historicoPagamento, pp.SeguroViagem, pp.taxaPagamento, pp.localEmbarque, pp.statusPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio, c.idCliente, c.dataNascimento, c.nomeCliente
                                 FROM pagamento_passeio pp, passeio p, cliente c 
                                 WHERE pp.idPasseio=$idPasseioAntigo AND pp.idPagamento=$idPagamentoAntigo AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente";
                                 $resultadoPagamentoAntigo = mysqli_query($conexao, $getDataPagamentoAntigo);
