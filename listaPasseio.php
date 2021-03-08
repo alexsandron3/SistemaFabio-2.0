@@ -11,7 +11,7 @@
 /* -----------------------------------------------------------------------------------------------------  */
 
   $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.referencia,
-                              pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, pp.dataPagamento 
+                              pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, pp.dataPagamento, pp.clienteDesistente 
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -87,10 +87,11 @@
   <div class="table mt-3">
         <?php  echo"<p class='h5 text-center alert-info '>" .$nomePasseioTitulo." ". date_format($dataPasseio, "d/m/Y") ." <br/>
          <span class='h5'> LOTAÇÃO: $lotacao </span> 
-        | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS: </span> 
-        | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS: </span>
-        | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS: </span>
+        | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS </span> 
+        | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS </span>
+        | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS </span>
         | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
+        | <span class='h5' onclick='tituloListagem()' id='desistentes'>  DESISTENTES </span>
         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  </p>"; ?>
         <div class="table-responsive">
       <table class="table table-hover table-dark">
@@ -115,6 +116,7 @@
             $quantidadeClienteParceiro =0;
             $confirmados = 0;
             $criancas = 0;
+            $desistentes =0;
             while( $rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)){
               
               $idPagamento = $rowBuscaPasseio ['idPagamento'];
@@ -126,33 +128,39 @@
               $idadeCliente = $rowBuscaPasseio['idadeCliente'];
               $clienteParceiro = $rowBuscaPasseio['clienteParceiro'];
               $statusCliente = $rowBuscaPasseio ['statusPagamento'];
+              $clienteDesistente = $rowBuscaPasseio ['clienteDesistente'];
               
               
-              if($statusCliente == 0){
-                $controleListaPasseio = 1;
-                $interessados = $interessados +1;
-                $statusPagamento = "INTERESSADO";
-              }elseif($statusCliente == 1){
-                $controleListaPasseio = 1;
-                $confirmados = $confirmados +1;
-                $statusPagamento = "QUITADO";
-              }elseif($statusCliente == 2){
-                $controleListaPasseio = 1;
-                $confirmados = $confirmados +1;
-                $statusPagamento = "PARCIAL";
-              }elseif($statusCliente == 3){
-                $controleListaPasseio = 1;
-                $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
-                $statusPagamento = "PARCEIRO";
-              }elseif($statusCliente ==4){
-                $controleListaPasseio = 1;
-                $criancas = $criancas +1;
-                $statusPagamento = "CRIANÇA";
+              if( $clienteDesistente){
+                $controleListaPasseio =1;
+                $desistentes +=1;
+                $statusPagamento = "DESISTENTE";
               }else{
-                $statusPagamento ="DESCONHECIDO";
+                if($statusCliente == 0){
+                  $controleListaPasseio = 1;
+                  $interessados = $interessados +1;
+                  $statusPagamento = "INTERESSADO";
+                }elseif($statusCliente == 1){
+                  $controleListaPasseio = 1;
+                  $confirmados = $confirmados +1;
+                  $statusPagamento = "QUITADO";
+                }elseif($statusCliente == 2){
+                  $controleListaPasseio = 1;
+                  $confirmados = $confirmados +1;
+                  $statusPagamento = "PARCIAL";
+                }elseif($statusCliente == 3){
+                  $controleListaPasseio = 1;
+                  $quantidadeClienteParceiro = $quantidadeClienteParceiro +1;
+                  $statusPagamento = "PARCEIRO";
+                }elseif($statusCliente ==4){
+                  $controleListaPasseio = 1;
+                  $criancas = $criancas +1;
+                  $statusPagamento = "CRIANÇA";
+                }else{
+                  $statusPagamento ="DESCONHECIDO";
+                }
+                $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
               }
-              $nomePasseio = $rowBuscaPasseio ['nomePasseio'];
-            
             ?>
           <tr>
             <th><?php $nomeCliente = $rowBuscaPasseio ['nomeCliente']; echo $nomeCliente  . "<BR/>";?></th>
@@ -194,6 +202,7 @@
           <input type="hidden" name="" id="clientesCriancas" onclick="tituloListagem()" disabled="disabled" value="<?php echo $criancas;  ?>">
           <input type="hidden" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo$interessados;  ?>">
           <input type="hidden" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo$quantidadeClienteParceiro;  ?>">
+          <input type="hidden" name="" id="clientesDesistentes" onclick="tituloListagem()" disabled="disabled" value="<?php echo$desistentes;  ?>">
           <input type="hidden" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro; echo $vagasDisponiveis;  ?>">
         </tbody>
       </table>

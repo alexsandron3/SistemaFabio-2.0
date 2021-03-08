@@ -12,6 +12,7 @@
     $anotacoes                      = filter_input(INPUT_POST, 'anotacoes',              FILTER_SANITIZE_STRING);
     $historicoPagamento             = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
     $clienteParceiro                = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
+    $clienteDesistente              = filter_input(INPUT_POST, 'clienteDesistente',      FILTER_VALIDATE_BOOLEAN);
     $statusEditaSeguroViagemCliente = filter_input(INPUT_POST, 'seguroViagemCliente',    FILTER_VALIDATE_BOOLEAN);
     $transporteCliente              = filter_input(INPUT_POST, 'meioTransporte',         FILTER_SANITIZE_STRING);
     $localEmbarque                  = filter_input(INPUT_POST, 'localEmbarque',          FILTER_SANITIZE_STRING);
@@ -20,18 +21,9 @@
     $idUser                         = $_SESSION['id'];
 
         $taxaPagamento = (empty($taxaPagamento))? 0: $taxaPagamento;
-/*     if(empty($taxaPagamento)){
-        $taxaPagamento = 0;
-    } */
 
     $valorPendente                  = -$valorVendido + ($valorPago + $taxaPagamento);
     
-/*     $valorPendente = round($valorPendente,2);
-    if($valorPendente == -0){
-        $valorPendente = 0;
-    }else{
-        $valorPendente = $valorPendente;
-    } */
 
 
     /* -----------------------------------------------------------------------------------------------------  */
@@ -57,7 +49,7 @@
 
     $queryUpdatePagamentoCliente    =  "UPDATE pagamento_passeio SET    
                                     valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento', statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$statusEditaSeguroViagemCliente',
-                                    transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque', dataPagamento=NOW()
+                                    transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque', dataPagamento=NOW(), clienteDesistente='$clienteDesistente'
                                     WHERE idPagamento='$idPagamento'
                                     ";
 

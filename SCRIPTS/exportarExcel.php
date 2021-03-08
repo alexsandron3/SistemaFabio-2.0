@@ -9,7 +9,7 @@
 
    $buscaPeloIdPasseio = "SELECT p.nomePasseio, p.idPasseio, c.nomeCliente, p.dataPasseio, c.cpfCliente, c.dataNascimento, pp.statusPagamento, pp.idPagamento, 
                               pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, SUBSTRING_INDEX(c.nomeCliente, ' ', 1) AS primeiroNome 
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.seguroViagem= 1 AND pp.statusPagamento NOT IN(0) ";
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.seguroViagem= 1 AND pp.statusPagamento NOT IN(0) AND pp.clienteDesistente NOT IN(1) ";
      
 
    

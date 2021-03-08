@@ -597,6 +597,9 @@ function tituloListagem(){
 
   var clientesCriancas = document.getElementById("clientesCriancas").value;
   document.getElementById("criancas").innerHTML = "CRIANÇAS:  " +clientesCriancas;
+
+  var clientesDesistentes = document.getElementById("clientesDesistentes").value;
+  document.getElementById("desistentes").innerHTML = "DESISTENTES:  " +clientesDesistentes;
   
 
 }
