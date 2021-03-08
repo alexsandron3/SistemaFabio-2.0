@@ -2,44 +2,43 @@
     include_once("conexao.php");
     include_once("pdoCONEXAO.php");
     include_once("header.php");
-    include_once("servicos/servicoValidacao.php");
+    include_once("servicos/servicoValidacaoPermissao.php");
+    include_once("servicos/servicoRedirecionamento.php");
 
-    function verificaNivelAcesso() {
 
-    }
-
+    //Função parar GERAR LOG das atividades realizadas no sistema
     function gerarLog($tipo, $conexao, $idUser,  $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, $tipoModificacao, $sinalDeFalhaNaOperacao ){
         $status = (mysqli_affected_rows($conexao) AND $sinalDeFalhaNaOperacao == 0)? "SUCESSO" : "FALHA";
         switch ($tipo){
             case "CLIENTE":
-                $getDataLog = "INSERT INTO log (idUser, nomeCliente , tipoModificacao) VALUES ($idUser, '$nomeCliente', ' $status AO $tipoModificacao O USUARIO')";
-                $insertData = mysqli_query($conexao, $getDataLog);
-                return $getDataLog;
+                $queryLog = "INSERT INTO log (idUser, nomeCliente , tipoModificacao) VALUES ($idUser, '$nomeCliente', ' $status AO $tipoModificacao O USUARIO')";
+                $insertData = mysqli_query($conexao, $queryLog);
+                return $queryLog;
                 break;
             case "PAGAMENTO";
-                $getDataLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago,  '$status AO $tipoModificacao O PAGAMENTO')";
-                $insertData = mysqli_query($conexao, $getDataLog);
-                return $getDataLog;
+                $queryLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago,  '$status AO $tipoModificacao O PAGAMENTO')";
+                $insertData = mysqli_query($conexao, $queryLog);
+                return $queryLog;
                 break;                
             case "DESPESAS";
-                $getDataLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao A DESPESA')";
-                $insertData = mysqli_query($conexao, $getDataLog);
-                return $getDataLog;
+                $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao A DESPESA')";
+                $insertData = mysqli_query($conexao, $queryLog);
+                return $queryLog;
                 break;
             case "PASSEIO";
-                $getDataLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao O PASSEIO')";
-                $insertData = mysqli_query($conexao, $getDataLog);
-                return $getDataLog;
+                $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao O PASSEIO')";
+                $insertData = mysqli_query($conexao, $queryLog);
+                return $queryLog;
                 break;
             case "DELETAR PAGAMENTO";
-                $getDataLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago, '$status AO DELETAR O PAGAMENTO')";
-                $insertData = mysqli_query($conexao, $getDataLog);
-                return $getDataLog;
+                $queryLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago, '$status AO DELETAR O PAGAMENTO')";
+                $insertData = mysqli_query($conexao, $queryLog);
+                return $queryLog;
                 break;                
             case "DELETAR PASSEIO";
-                $getDataLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao) VALUES ($idUser, '$nomePasseio', '$dataPasseio' ,'$status AO DELETAR O PASSEIO')";
-                $insertData = mysqli_query($conexao, $getDataLog);
-                return $getDataLog;
+                $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao) VALUES ($idUser, '$nomePasseio', '$dataPasseio' ,'$status AO DELETAR O PASSEIO')";
+                $insertData = mysqli_query($conexao, $queryLog);
+                return $queryLog;
                 break;
             
                 
@@ -47,69 +46,82 @@
         }
     }
 
-    function cadastro($getData, $conexao, $tipoCadastro, $paginaRedirecionamento) {
-        $getData = $getData;
-        $insertData = mysqli_query($conexao, $getData);
-        $permissao  = retornaPermissao('cadastrar');
-        if($permissao){
+    //Função de CADASTRO com REDIRECT
+    function cadastro($query, $conexao, $tipoCadastro, $paginaRedirecionamento) {
+        $executaQuery = mysqli_query($conexao, $query);
+        $permissaoParaCadatrar    = retornaPermissao('cadastrar');
+        if($permissaoParaCadatrar){
             if(mysqli_insert_id($conexao)){
                 $_SESSION['msg'] = "<p class='h5 text-center alert-success'> $tipoCadastro CADASTRADO(A) com sucesso</p>";
-                header("refresh:0.5; url=../$paginaRedirecionamento.php");
+                redirecionamento($paginaRedirecionamento, null);
             }else{
                 $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), alguma informação não foi inserida dentro dos padrões. </p>";
-                header("refresh:0.5; url=../$paginaRedirecionamento.php");
+                redirecionamento($paginaRedirecionamento, null);
             }
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
-            header("refresh:0.5; url=../$paginaRedirecionamento.php");
+            redirecionamento($paginaRedirecionamento, null);
         }
 
     }
 
-    function atualizar($getData, $conexao, $tipoAtualizacao, $paginaRedirecionamento, $id){
-        $insertData = mysqli_query($conexao, $getData);
-        if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
+    //Função de ATUALIZAÇÃO com REDIRECT
+    function atualizar($query, $conexao, $tipoAtualizacao, $paginaRedirecionamento, $id){
+        $executaQuery = mysqli_query($conexao, $query);
+        $permissaoParaAtualizar    = retornaPermissao('atualizar');
+        if($permissaoParaAtualizar){
             if(mysqli_affected_rows($conexao)){
                 $_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoAtualizacao ATUALIZADO(A) com sucesso</p>";
-                header("refresh:0.5; url=../$paginaRedirecionamento.php?id=$id");
+                redirecionamento($paginaRedirecionamento, $id);
+                
             }else{
                 $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoAtualizacao não foi ATUALIZADO(A) </p>";
-                header("refresh:0.5; url=../$paginaRedirecionamento.php?id=$id");
+                redirecionamento($paginaRedirecionamento, $id);
+
             }
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoAtualizacao NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
-            header("refresh:0.5; url=../$paginaRedirecionamento.php?id=$id");
+            redirecionamento($paginaRedirecionamento, $id);
         }
     }
 
-    function apagar($getData, $conexao, $tipoDelete, $idPagamento, $idPasseio, $paginaRedirecionamento){
-        if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0){
+    //Função para DELETAR registros COM REDIRECT
+    function apagar($query, $conexao, $tipoDelete, $idPagamento, $idPasseio, $paginaRedirecionamento){
+        $permissaoParaApagar    = retornaPermissao('cadastrar');
+        if($permissaoParaApagar){
             if(!empty($idPagamento OR $idPasseio)){
-                $deleteData = mysqli_query ($conexao, $getData );
+                $executaQuery = mysqli_query ($conexao, $query );
                 if( mysqli_affected_rows($conexao)){
                     $_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoDelete APAGADO(A) com sucesso</p>";
-                    header("refresh:0.5; url=../$paginaRedirecionamento.php?id=$idPasseio");
+                    redirecionamento($paginaRedirecionamento, $idPasseio);
+
                 }else {
                     $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoDelete NÃO foi APAGADO(A) </p>";
-                    header("refresh:0.5; url=../$paginaRedirecionamento.php?id=$idPasseio");
+                    redirecionamento($paginaRedirecionamento, $idPasseio);
+
 
                 }
             }else {
                 $_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um $tipoDelete</p>";
-                header("refresh:0.5; url=../$paginaRedirecionamento.php?id=$idPasseio");
+                redirecionamento($paginaRedirecionamento, $idPasseio);
+
 
             }
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoDelete NÃO foi APAGADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
-            header("refresh:0.5; url=../$paginaRedirecionamento.php?id=$idPasseio");
+            redirecionamento($paginaRedirecionamento, $idPasseio);
+
 
         }
     }
 
+    //Função para APAGAR registros SEM REDIRECT
     function apagarRegistros ($conexao, $tabela, $condicao ){
-        $getData = "DELETE FROM $tabela WHERE $condicao";
-        $deletar = mysqli_query($conexao, $getData);
+        $query = "DELETE FROM $tabela WHERE $condicao";
+        $deletar = mysqli_query($conexao, $query);
     }
+
+    //Função de cálculo de idade do cliente
     function calcularIdade ($idCliente, $conn, $data = ""){
         $queryBuscaDataNascimento = "SELECT dataNascimento FROM cliente WHERE idCliente =$idCliente";
         $resultadoBuscaDataNascimento = $conn->query($queryBuscaDataNascimento);
@@ -128,6 +140,7 @@
 
     }
 
+    //Função para calcular intervalo de tempo
     function calculaIntervaloTempo ($conn, $coluna, $tabela, $condicao, $data = ""){
         
         
@@ -150,37 +163,30 @@
     }
 
     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){
+        $statusPagamento = null;
+        if($idadeCliente <= $idadeIsencao){
+            $statusPagamento == CLIENTE_CRIANCA;
+        }else{
+            if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
+                $statusPagamento = CLIENTE_INTERESSADO; 
 
-        if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
-            $statusPagamento = 0; //NÃO PAGO/INTERESSADOS
-            if($idadeCliente <= $idadeIsencao){
-                $statusPagamento = 4; // CRIANÇA
+            }elseif( $valorPendenteCliente == 0){
+                $statusPagamento = PAGAMENTO_QUITADO; 
+
+            }elseif($valorPendenteCliente < 0 AND $valorPago > 0 AND $clienteParceiro == 0){
+                $statusPagamento = CLIENTE_CONFIRMADO; 
+    
+            }elseif($clienteParceiro == 1){
+                $statusPagamento = CLIENTE_PARCEIRO; 
+                
             }
-        }elseif( $valorPendenteCliente == 0 AND $clienteParceiro == 0){
-            $statusPagamento = 1; //PAGO
-            if($idadeCliente <= $idadeIsencao){
-                $statusPagamento = 4; // CRIANÇA
-            }
-        }elseif($valorPendenteCliente < 0 AND $valorPago > 0 AND $clienteParceiro == 0){
-            $statusPagamento = 2; //CONFIRMADO
-            if($idadeCliente <= $idadeIsencao){
-                $statusPagamento = 4; // CRIANÇA
-            }
-        }elseif($clienteParceiro == 1){
-            $statusPagamento = 3; // PARCEIRO
-            
-        }elseif($idadeCliente <= $idadeIsencao){
-            $statusPagamento = 4; // CRIANÇA
         }
-         $statusPagamento;
+        return $statusPagamento;
     }
 
     function exportarExcel(){
         
         
     }
-
-
-
 
 ?>

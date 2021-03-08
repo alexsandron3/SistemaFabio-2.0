@@ -95,8 +95,6 @@
           
     }
 
-    var_dump(retornaPermissao("cadastrar"));
-
 
 
 
