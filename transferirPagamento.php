@@ -122,9 +122,9 @@
         }
 
       ?>
-                    <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" value="<?php echo $idPasseioSelecionado;?>" onchange="idPasseioSelecionadoFun()" readonly="readonly">
-                    <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioAntigo" id="idPasseioAntigo" value="<?php echo $idPasseioAntigo;?>" readonly="readonly">
-                    <input type="hidden" class="form-control col-sm-1 ml-3" name="idPagamentoAntigo" id="idPagamentoAntigo" value="<?php echo $idPagamentoAntigo;?>" readonly="readonly">
+        <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" value="<?php echo $idPasseioSelecionado;?>" onchange="idPasseioSelecionadoFun()" readonly="readonly">
+        <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioAntigo" id="idPasseioAntigo" value="<?php echo $idPasseioAntigo;?>" readonly="readonly">
+        <input type="hidden" class="form-control col-sm-1 ml-3" name="idPagamentoAntigo" id="idPagamentoAntigo" value="<?php echo $idPagamentoAntigo;?>" readonly="readonly">
       </form>
     </div>  
 

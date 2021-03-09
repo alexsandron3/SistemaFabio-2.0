@@ -1,9 +1,7 @@
 <?php
-    include_once("conexao.php");
-    include_once("pdoCONEXAO.php");
+
     include_once("header.php");
-    include_once("servicos/servicoValidacaoPermissao.php");
-    include_once("servicos/servicoRedirecionamento.php");
+
 
 
     //Função parar GERAR LOG das atividades realizadas no sistema
@@ -14,32 +12,32 @@
                 $queryLog = "INSERT INTO log (idUser, nomeCliente , tipoModificacao) VALUES ($idUser, '$nomeCliente', ' $status AO $tipoModificacao O USUARIO')";
                 $insertData = mysqli_query($conexao, $queryLog);
                 return $queryLog;
-                break;
+            break;
             case "PAGAMENTO";
                 $queryLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago,  '$status AO $tipoModificacao O PAGAMENTO')";
                 $insertData = mysqli_query($conexao, $queryLog);
                 return $queryLog;
-                break;                
+            break;                
             case "DESPESAS";
                 $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao A DESPESA')";
                 $insertData = mysqli_query($conexao, $queryLog);
                 return $queryLog;
-                break;
+            break;
             case "PASSEIO";
                 $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao O PASSEIO')";
                 $insertData = mysqli_query($conexao, $queryLog);
                 return $queryLog;
-                break;
+            break;
             case "DELETAR PAGAMENTO";
                 $queryLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago, '$status AO DELETAR O PAGAMENTO')";
                 $insertData = mysqli_query($conexao, $queryLog);
                 return $queryLog;
-                break;                
+            break;                
             case "DELETAR PASSEIO";
                 $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao) VALUES ($idUser, '$nomePasseio', '$dataPasseio' ,'$status AO DELETAR O PASSEIO')";
                 $insertData = mysqli_query($conexao, $queryLog);
                 return $queryLog;
-                break;
+            break;
             
                 
             

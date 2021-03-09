@@ -26,15 +26,17 @@
             $executaQueryDeletaPasseio = mysqli_query ($conexao, $queryDeletaPasseio);
             if(mysqli_affected_rows($conexao)){
                 $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Passeio APAGADO com sucesso</p>";
-                header("refresh:0.5; url=../pesquisarPasseio.php");
+                redirecionamento("pesquisarPasseio", null);
+            
             }else{
                 $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Passeio NÃO foi APAGADO </p>";
-                header("refresh:0.5; url= ../pesquisarPasseio.php");
+                redirecionamento("pesquisarPasseio", null);
+                
             }
             gerarLog("DELETAR PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, null , 0);
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>RESOLVA OS PAGAMENTOS FEITOS NESSE PASSEIO ANTES DE DELETAR</p>";
-            header("refresh:0.5; url=../pesquisarPasseio.php");
+            redirecionamento("pesquisarPasseio", null);
             gerarLog("DELETAR PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, null , 1);
         }
 
