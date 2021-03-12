@@ -13,7 +13,7 @@
   $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes, pp.statusPagamento
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0,1,3) AND pp.clienteDesistente NOT IN(1) ORDER BY $ordemPesquisa";
                           $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
-  $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet";
+  $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet AND statusPagamento NOT IN (0,1,3) AND clienteDesistente NOT IN(1)";
                           $resultadoTotalPendente = mysqli_query($conexao, $queryValorPendenteTotal);
                           $rowTotalPendente = mysqli_fetch_assoc($resultadoTotalPendente);
 /* -----------------------------------------------------------------------------------------------------  */
