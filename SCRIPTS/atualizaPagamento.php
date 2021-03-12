@@ -61,16 +61,18 @@
 
         if(mysqli_affected_rows($conexao)){
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>pagamento ATUALIZADO com sucesso</p>";
-            header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+            redirecionamento("editarPagamento", $idPagamento);
+            
 
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>pagamento não foi ATUALIZADO </p>";
-            header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+            redirecionamento("editarPagamento", $idPagamento);
+            
         }
         gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "ATUALIZAR" , 0);
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
-        header("refresh:0.5; url=../editarPagamento.php?id=$idPagamento");
+        redirecionamento("editarPagamento", $idPagamento);
         gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "ATUALIZAR" , 1);
 
     }

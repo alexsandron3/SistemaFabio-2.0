@@ -33,19 +33,20 @@
         //VERIFICANDO SE AS ALTERACOES FORAM ENVIADAS
         if( mysqli_affected_rows($conexao)){
             $_SESSION['msg'] = "<p class='h5 text-center alert-success'>STATUS do CLIENTE alterado com SUCESSO</p>";
-            header("refresh:0.5; url= ../pesquisarCliente.php");
-
-        
+            redirecionamento("pesquisarCliente", null);
+                    
         }else {
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>STATUS do CLIENTE NÃO foi alterado </p>";
-            header("refresh:0.5; url= index.php");
+            redirecionamento("index", null);
+            
         
         }
 
 
     }else {
         $_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um usuário</p>";
-        header("refresh:0.5; url=../pesquisaCliente.php");
+        redirecionamento("pesquisarCliente", null);
+        
 
     }
     gerarLog("CLIENTE", $conexao, $idUser, $nomeCliente, " ", " ", " ", $tipoModificacao, 0);

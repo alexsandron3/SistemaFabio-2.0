@@ -72,9 +72,10 @@
     if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
         if($lotacaoPasseio <= $qtdClientesConfirmados){
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
-            header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+            redirecionamento("pagamentoCliente", $idCliente);
+            
         }elseif($lotacaoPasseio > $qtdClientesConfirmados){
-            $insertDataPagamentoPasseio = mysqli_query($conexao, $queryEnviaPagamentoCliente);
+            $executaQueryEnviaPagamentoCliente = mysqli_query($conexao, $queryEnviaPagamentoCliente);
 
             if(mysqli_insert_id($conexao)){
                 if(($qtdClientesConfirmados + VAGA_ATUAL) >= $lotacaoPasseio){
@@ -83,15 +84,18 @@
                             </script>' 
                     ; 
                     $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso.</p>";
-                    header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+                    redirecionamento("pagamentoCliente", $idCliente);
+                    
                 }else{
                     $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
-                    header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+                    redirecionamento("pagamentoCliente", $idCliente);
+                    
                 }
 
             }else{
                 $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
-                header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+                redirecionamento("pagamentoCliente", $idCliente);
+                
             }
             if($vagasRestantes > 0 AND $vagasRestantes <= floor($alertaParaVagasRestantes)){
                 if($statusPagamento == 0 OR $statusPagamento == 4){
@@ -105,7 +109,7 @@
 
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi REALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
-        header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+        redirecionamento("pagamentoCliente", $idCliente);
         gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "CADASTRAR" , 0);
 
     }

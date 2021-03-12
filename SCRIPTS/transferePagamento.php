@@ -79,7 +79,8 @@
     $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados) -1;
     if($lotacaoPasseio <= $qtdClientesConfirmados){
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
-        header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+        
+        redirecionamento("pagamentoCliente", $idCliente);
         gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
     }elseif($lotacaoPasseio > $qtdClientesConfirmados){
         $insertDataPagamentoPasseio = mysqli_query($conexao, $getDataPagamentoPasseio);
@@ -94,7 +95,7 @@
                         </script>' 
                 ; 
                 $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso.</p>";
-                header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+                redirecionamento("pagamentoCliente", $idCliente);
                 gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
 
             }else{
@@ -102,14 +103,14 @@
 
                 apagar($getDataApaga, $conexao, "PAGAMENTO", $idPagamentoAntigo, $idPagamentoAntigo, "index");
                 $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
-                header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+                redirecionamento("pagamentoCliente", $idCliente);
                 gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
 
             }
 
         }else{
             $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
-            header("refresh:0.5; url=../pagamentoCliente.php?id=$idCliente");
+            redirecionamento("pagamentoCliente", $idCliente);
             gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
 
         }

@@ -56,10 +56,11 @@
 
         }else{
             header("refresh:0.5; url=../transferirPagamento.php?idPasseioAntigo=$idPasseio&idPagamentoAntigo=$idPagamento");
+        
         }
     }else{
         $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
-        header("refresh:0.5; url=../listaPasseio.php?id=$idPasseio");
+        redirecionamento("listaPasseio", $idPasseio);
         gerarLog("DELETAR PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, null , 0);
 
     }
