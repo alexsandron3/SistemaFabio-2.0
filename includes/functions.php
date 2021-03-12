@@ -163,7 +163,7 @@
     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){
         $statusPagamento = null;
         if($idadeCliente <= $idadeIsencao){
-            $statusPagamento == CLIENTE_CRIANCA;
+            $statusPagamento = CLIENTE_CRIANCA;
         }else{
             if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
                 $statusPagamento = CLIENTE_INTERESSADO; 
