@@ -94,8 +94,15 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="orgaoEmissor">EMISSOR</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR" required="required" autocomplete="ON"
+              onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?>">
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <label class="col-sm-1 col-form-label" for="orgaoEmissor">EMISSOR</label>
           <select class="form-control col-sm-3 ml-3" name="orgaoEmissor" id="orgaoEmissor">
-            <option value="<?php echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?>"><?php echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?></option>
+            <option value="<?php #echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?>"><?php #echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?></option>
             <option value="DETRAN">DETRAN</option>
             <option value="IFP"> IFP</option>
             <option value="OAB">OAB</option>
@@ -117,7 +124,7 @@
             <option value="MTPS">MTPS</option>
             <option value="PMERJ">PMERJ</option>
           </select>
-        </div>
+        </div> -->
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="cpfCliente">CPF</label>
           <div class="col-sm-6">
