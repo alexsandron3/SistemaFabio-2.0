@@ -84,7 +84,7 @@
                 <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=idPagamento">PAGAMENTO </a></th>
                 <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=nomePasseio">PASSEIO </a></th>
                 <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=valorPendente">PENDENTE : R$ <?php echo number_format($rowValorTotalPendente['valorTotalPendente'] * -1.00, 2, '.', ''); ?>  </a></th>
-                <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=previsaoPagamento DESC"> PREVISÃO PAGAMENTO </a></th>
+                <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=previsaoPagamento ASC"> PREVISÃO PAGAMENTO </a></th>
             </tr>
         </thead>
 
