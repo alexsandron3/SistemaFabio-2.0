@@ -95,7 +95,7 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="orgaoEmissor">EMISSOR</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR" required="required" autocomplete="ON"
+            <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR" autocomplete="ON"
               onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?>">
           </div>
         </div>

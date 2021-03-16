@@ -49,7 +49,7 @@
         $dataPasseioFromatada = (empty($dataPasseio))? "" : date_format($dataPasseio, "d/m/Y");
         echo"
         <div class='text-center alert-info'>" .$rowPesquisaIntervaloData ['nomePasseio']. " | ". $dataPasseioFromatada. 
-        "<a target='_blank' href='listaPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> LISTA DE PASSAGEIROS </a> |
+        "<a target='_blank' href='listaPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> LISTA DE CLIENTES </a> |
         <a target='_blank' href='editaDespesas.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> DESPESAS </a> | 
         <a target='_blank' href='relatoriosDoPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> RELATÓRIOS DO PASSEIO </a> | 
         <a  target='_blank' href='relatoriosPasseio.php?id=".$rowPesquisaIntervaloData ['idPasseio'] ."'> LUCROS </a>  </div>";

@@ -1,7 +1,11 @@
 <?php
 
+    // STATUS PAGAMENTO
     define('CLIENTE_INTERESSADO', 0);
     define('PAGAMENTO_QUITADO', 1);
     define('CLIENTE_CONFIRMADO', 2);
     define('CLIENTE_PARCEIRO', 3);
     define('CLIENTE_CRIANCA', 4);
+
+    //FUNÇÕES DE EXPORTAÇÃO
+    define('EXPORTAR_TODOS_PAGAMENTOS_PENDENTES', 1); 
