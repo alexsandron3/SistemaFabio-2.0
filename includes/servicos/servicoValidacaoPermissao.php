@@ -49,49 +49,43 @@
             case 'gerarLog':
                 $permissao = $operacoesPermitidas ['gerarLog'];
                 $permissao = ($permissao == true) ?  $permissao = true:  $permissao = false;
-                return $permissao;
-                break;
+                
             
             case 'cadastrar':
                 $permissao = $operacoesPermitidas ['cadastrar'];
                 $permissao = ($permissao == true) ?  $permissao = true:  $permissao = false;
-                return $permissao;
                 break;
 
             case 'atualizar':
                 $permissao = $operacoesPermitidas ['atualizar'];
                 $permissao = ($permissao == true) ?  $permissao = true:  $permissao = false;
-                return $permissao;
                 break;                
             
             case 'visualizar':
                 $permissao = $operacoesPermitidas ['visualizar'];
                 $permissao = ($permissao == true) ?  $permissao = true:  $permissao = false;
-                return $permissao;
                 break;                
             
             case 'apagar':
                 $permissao = $operacoesPermitidas ['apagar'];
                 $permissao = ($permissao == true) ?  $permissao = true:  $permissao = false;
-                return $permissao;
                 break;                
             
             case 'transferir':
                 $permissao = $operacoesPermitidas ['transferir'];
                 $permissao = ($permissao == true) ?  $permissao = true:  $permissao = false;
-                return $permissao;
                 break;                
             
             case 'visualizarLog':
                 $permissao = $operacoesPermitidas ['visualizarLog'];
                 $permissao = ($permissao == true) ?  $permissao = true:  $permissao = false;
-                return $permissao;
-                break;                 
+                break;
             default:
-                return false;
+                $permissao = false;
             break;
         
         }
+    return $permissao;
           
     }
 

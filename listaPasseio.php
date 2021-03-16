@@ -170,7 +170,7 @@
             <th><?php echo $rowBuscaPasseio ['referencia']. "<BR/>";?></th>
 
             <th><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=". $idPagamento . "' >" .$statusPagamento."</a><BR/>"; ?></th>
-            <th> <a target="blank" href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
+            <th> <a target="_blank" href="https://wa.me/55<?php echo $rowBuscaPasseio ['telefoneCliente'] ?>"> <?php echo $rowBuscaPasseio ['telefoneCliente']. "<BR/>";?> </a> </th>
             <?php
             $valorPago = (empty($rowBuscaPasseio ['valorPago']) ? $valorPago = 0.00 : $valorPago =  $rowBuscaPasseio ['valorPago'] ); 
             if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){

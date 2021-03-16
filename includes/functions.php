@@ -11,37 +11,30 @@
             case "CLIENTE":
                 $queryLog = "INSERT INTO log (idUser, nomeCliente , tipoModificacao) VALUES ($idUser, '$nomeCliente', ' $status AO $tipoModificacao O USUARIO')";
                 $insertData = mysqli_query($conexao, $queryLog);
-                return $queryLog;
             break;
             case "PAGAMENTO";
                 $queryLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago,  '$status AO $tipoModificacao O PAGAMENTO')";
                 $insertData = mysqli_query($conexao, $queryLog);
-                return $queryLog;
             break;                
             case "DESPESAS";
                 $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao A DESPESA')";
                 $insertData = mysqli_query($conexao, $queryLog);
-                return $queryLog;
             break;
             case "PASSEIO";
                 $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao ) VALUES ($idUser, '$nomePasseio', '$dataPasseio',  '$status AO $tipoModificacao O PASSEIO')";
                 $insertData = mysqli_query($conexao, $queryLog);
-                return $queryLog;
             break;
             case "DELETAR PAGAMENTO";
                 $queryLog = "INSERT INTO log (idUser, nomeCliente, nomePasseio, dataPasseio, valorPago, tipoModificacao ) VALUES ($idUser, '$nomeCliente', '$nomePasseio','$dataPasseio',  $valorPago, '$status AO DELETAR O PAGAMENTO')";
                 $insertData = mysqli_query($conexao, $queryLog);
-                return $queryLog;
             break;                
             case "DELETAR PASSEIO";
                 $queryLog = "INSERT INTO log (idUser, nomePasseio, dataPasseio, tipoModificacao) VALUES ($idUser, '$nomePasseio', '$dataPasseio' ,'$status AO DELETAR O PASSEIO')";
                 $insertData = mysqli_query($conexao, $queryLog);
-                return $queryLog;
-            break;
-            
-                
+            break;    
             
         }
+        return $queryLog;
     }
 
     //Função de CADASTRO com REDIRECT
