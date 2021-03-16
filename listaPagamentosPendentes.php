@@ -65,9 +65,16 @@
   ?>
 
       <?php
-$query = "SELECT c.nomeCliente, c.idCliente, pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio FROM  pagamento_passeio pp, cliente c, passeio p WHERE statusPagamento NOT IN (0,3) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ORDER BY $ordemPesquisa ";
+        $query = " SELECT c.nomeCliente, c.idCliente, pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
+           FROM  pagamento_passeio pp, cliente c, passeio p 
+           WHERE statusPagamento NOT IN (0,3) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ORDER BY $ordemPesquisa";
         $executaQuery = mysqli_query($conexao, $query);
         $quantidadePagamentoPendente = mysqli_num_rows($executaQuery);
+        $queryValorTotalPendente = "SELECT SUM(valorPendente) AS valorTotalPendente 
+                                    FROM pagamento_passeio pp, cliente c, passeio p 
+                                    WHERE statusPagamento NOT IN (0,3) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ";
+        $executaQueryValorTotalPendente = mysqli_query($conexao, $queryValorTotalPendente);
+        $rowValorTotalPendente = mysqli_fetch_assoc($executaQueryValorTotalPendente);
         echo"<p class='h4 text-center alert-info mt-2'> QUANTIDADE DE PAGAMENTOS PENDENTES:  ".$quantidadePagamentoPendente ."</p>";
       ?>
     <table class="table table-sm table-dark mt-3">
@@ -76,8 +83,8 @@ $query = "SELECT c.nomeCliente, c.idCliente, pp.idPagamento, pp.valorPendente, p
                 <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=nomeCliente"> NOME </a></th>
                 <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=idPagamento">PAGAMENTO </a></th>
                 <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=nomePasseio">PASSEIO </a></th>
-                <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=valorPendente">PENDENTE </a></th>
-                <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=dataPagamento"> PREVISÃO PAGAMENTO </a></th>
+                <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=valorPendente">PENDENTE : R$ <?php echo number_format($rowValorTotalPendente['valorTotalPendente'] * -1.00, 2, '.', ''); ?>  </a></th>
+                <th> <a href="listaPagamentosPendentes.php?ordemPesquisa=previsaoPagamento DESC"> PREVISÃO PAGAMENTO </a></th>
             </tr>
         </thead>
 
