@@ -99,32 +99,6 @@
               onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?>">
           </div>
         </div>
-        <!-- <div class="form-group row">
-          <label class="col-sm-1 col-form-label" for="orgaoEmissor">EMISSOR</label>
-          <select class="form-control col-sm-3 ml-3" name="orgaoEmissor" id="orgaoEmissor">
-            <option value="<?php #echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?>"><?php #echo $rowResultadoBuscaPeloIdCliente ['orgaoEmissor']; ?></option>
-            <option value="DETRAN">DETRAN</option>
-            <option value="IFP"> IFP</option>
-            <option value="OAB">OAB</option>
-            <option value="CERTIDAO NASCIMENTO">CERTIDAO NASCIMENTO</option>
-            <option value="SSP">SSP</option>
-            <option value="DIC">DIC</option>
-            <option value="MDMB">MDMB</option>
-            <option value="IIRG">IIRG</option>
-            <option value="SSPIIPM">SSPIIPM</option>
-            <option value="RGD">RGD</option>
-            <option value="SSPCE">SSPCE</option>
-            <option value="MB">MB</option>
-            <option value="SE/DPMAF/DPF">SE/DPMAF/DPF</option>
-            <option value="IFRJ">IFRJ</option>
-            <option value="CRC">CRC</option>
-            <option value="CGPI">CGPI</option>
-            <option value="SSP/PB"> SSP/PB</option>
-            <option value="CNH">CNH</option>
-            <option value="MTPS">MTPS</option>
-            <option value="PMERJ">PMERJ</option>
-          </select>
-        </div> -->
         <div class="form-group row">
           <label class="col-sm-1 col-form-label" for="cpfCliente">CPF</label>
           <div class="col-sm-6">
