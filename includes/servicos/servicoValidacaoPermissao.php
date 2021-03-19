@@ -1,10 +1,12 @@
 <?php
+    
         if(!isset($_SESSION)) 
         { 
             session_start(); 
         } 
+
     function validarNivelAceso(){
-        if($_SESSION['nivelAcesso'] == 0 ){
+        if($_SESSION['nivelAcesso'] == ADMINISTRADOR ){
             $operacoesPermitidas = array(
                 "gerarLog"      => true,
                 "cadastrar"     => true,
@@ -17,7 +19,7 @@
             );
 
             
-        }else if ($_SESSION['nivelAcesso'] == 1){
+        }else if ($_SESSION['nivelAcesso'] == USUARIO_CHEFE){
             $operacoesPermitidas = array(
                 "gerarLog"      => true,
                 "cadastrar"     => true,
@@ -28,7 +30,7 @@
                 "visualizarLog" => false
 
             );
-        }else if ($_SESSION['nivelAcesso'] == 2){
+        }else if ($_SESSION['nivelAcesso'] == USUARIO_SIMPLES){
             $operacoesPermitidas = array(
                 "gerarLog"      => true,
                 "cadastrar"     => false,

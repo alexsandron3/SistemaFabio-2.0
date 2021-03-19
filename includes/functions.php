@@ -1,7 +1,7 @@
 <?php
 
     include_once("header.php");
-
+    include_once("constantes.php");
 
 
     //Função parar GERAR LOG das atividades realizadas no sistema
@@ -148,7 +148,7 @@
             $dataHoje = new DateTime();
         }
 
-        $diferenca = $dataHoje->diff($data);
+        $diferenca = $dataHoje("d-m")->diff($data("d-m"));
         $dias = $diferenca->d;
         return $diferenca;
     }
