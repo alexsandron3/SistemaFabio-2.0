@@ -15,7 +15,9 @@ $query = (!empty($idPasseioGet)) ?
 
 <head>
     <?php include_once("./includes/head.php"); ?>
-
+  <link rel="stylesheet"
+    href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
@@ -84,7 +86,6 @@ $query = (!empty($idPasseioGet)) ?
                             }
                             $A = 0;
                             $count = count($nomeClienteAniversario);
-                            echo $count;
                             ?>
 
                             <tbody>
@@ -117,10 +118,8 @@ $query = (!empty($idPasseioGet)) ?
 
     <script src="./includes/dataTables/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#userTable').DataTable();
-        });
+    <script src="./includes/dataTables/dataTablesWithSeach.js">
+
     </script>
 </body>
 

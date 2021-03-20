@@ -34,7 +34,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/head.php"); ?>
+  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
 
   <title>PAGAMENTOS PENDENTES </title>
@@ -47,67 +47,69 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
   <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
-  <div class="table mt-3">
-    <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; ?>
-    <table class="table table-hover table-dark">
-      <thead>
-        <tr>
-          <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=nomeCliente"> NOME </a></th>
-          <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=referencia">REFERENCIA </a></th>
-          <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=valorPendente">PAGTO PENDENTE </a></th>
-          <th> ANOTAÇÕES </th>
-        </tr>
-      </thead>
+  <div class="row py-2">
+    <div class="col-lg-10 mx-auto">
+      <div class="card rounded shadow border-0">
+        <div class="card-body p-5 bg-white rounded ">
+          <div class="table ml-1"> <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; ?>
+            <table class="table table-striped table-bordered" id="userTable">
+              <thead>
+                <tr>
+                  <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=nomeCliente"> NOME </a></th>
+                  <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=referencia">REFERENCIA </a></th>
+                  <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=valorPendente">PAGTO PENDENTE </a></th>
+                  <th> ANOTAÇÕES </th>
+                </tr>
+              </thead>
 
-      <tbody>
-        <?php
-        $controleListaPasseio = 0;
-        while ($rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)) {
-          $nomePasseio = $rowBuscaPasseio['nomePasseio'];
-          if ($rowBuscaPasseio['statusPagamento'] == 4 and $rowBuscaPasseio['valorPendente'] == 0) {
-          } else {
-        ?>
-            <tr>
-              <th><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></th>
-              <th><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></th>
-              <th><?php
+              <tbody>
+                <?php
+                $controleListaPasseio = 0;
+                while ($rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)) {
+                  $nomePasseio = $rowBuscaPasseio['nomePasseio'];
+                  if ($rowBuscaPasseio['statusPagamento'] == 4 and $rowBuscaPasseio['valorPendente'] == 0) {
+                  } else {
+                ?>
+                    <tr>
+                      <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
+                      <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
+                      <td><?php
+                          $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
+                          echo "R$ " . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', '') . "<BR/>"; ?> </td>
+                      <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
+                    </tr>
 
-
-
-                  $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
-                  echo "R$ " . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', '') . "<BR/>"; ?> </th>
-              <th><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></th>
-            </tr>
-
-        <?php
-
-
-          }
-        }
-        $controleListaPasseio = mysqli_num_rows($resultadoBuscaPasseio);
-        ?>
-      </tbody>
-    </table>
-    <?php
-    if ($controleListaPasseio > 0) {
-      $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'];
-      $operadorTotal = ($valorPendenteTotal < 0) ? -1 : 1;
-
-      echo "<div class='text-center'>";
-      echo "<p class='h5 text-center alert-warning'>TOTAL DE R$" . $valorPendenteTotal * $operadorTotal . "  PENDENTE</p>";
-
-      echo "</div>";
-    } else {
-
-      echo "<div class='text-center'>";
-      echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO PENDENTE até o momento</p>";
-      echo "</div>";
-    }
+                <?php
 
 
-    ?>
-    <a target="_blank" href="SCRIPTS/exportarPendentes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info ml-5">EXPORTAR</a>
+                  }
+                }
+                $controleListaPasseio = mysqli_num_rows($resultadoBuscaPasseio);
+                ?>
+              </tbody>
+            </table>
+            <?php
+            if ($controleListaPasseio > 0) {
+              $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'];
+              $operadorTotal = ($valorPendenteTotal < 0) ? -1 : 1;
 
+              echo "<div class='text-center'>";
+              echo "<p class='h5 text-center alert-warning'>TOTAL DE R$" . $valorPendenteTotal * $operadorTotal . "  PENDENTE</p>";
+
+              echo "</div>";
+            } else {
+
+              echo "<div class='text-center'>";
+              echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO PENDENTE até o momento</p>";
+              echo "</div>";
+            }
+
+
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="config/script.php"></script>
 </body>

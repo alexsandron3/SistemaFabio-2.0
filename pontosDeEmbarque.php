@@ -27,7 +27,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/head.php"); ?>
+<?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
 
   <title>PONTO DE EMBARQUE </title>
@@ -40,9 +40,12 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
   <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
-  <div class="table mt-3">
-    <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PONTOS DE EMBARQUE</p>"; ?>
-    <table class="table table-hover table-dark">
+  <div class="row py-2">
+    <div class="col-lg-10 mx-auto">
+      <div class="card rounded shadow border-0">
+        <div class="card-body p-5 bg-white rounded ml-1">
+          <div class="table ml-1">    <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PONTOS DE EMBARQUE</p>"; ?>
+    <table class="table table-striped table-hover table-bordered" id="userTable">
       <thead>
         <tr>
           <th>NOME</th>
@@ -61,11 +64,11 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 
         ?>
           <tr>
-            <th><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></th>
-            <th><?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?></th>
-            <th><?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
-                echo $idade . "<BR/>"; ?></th>
-            <th><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></th>
+            <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
+            <td><?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?></td>
+            <td><?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
+                echo $idade . "<BR/>"; ?></td>
+            <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
           </tr>
 
         <?php

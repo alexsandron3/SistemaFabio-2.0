@@ -148,7 +148,7 @@
             $dataHoje = new DateTime();
         }
 
-        $diferenca = $dataHoje("d-m")->diff($data("d-m"));
+        $diferenca = $dataHoje->diff($data);
         $dias = $diferenca->d;
         return $diferenca;
     }
