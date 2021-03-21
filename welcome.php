@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <div class="page-header mt-5">
+    <div class="mt-5">
         <h1>OLÁ, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. BEM VINDO!</h1>
         <hr>
     </div>
