@@ -15,7 +15,7 @@ include_once("./includes/header.php");
   <title>LOGS</title>
 </head>
 
-<body>
+<body class="bg-white">
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
@@ -58,13 +58,13 @@ include_once("./includes/header.php");
         $pos = strpos($tipoModificacao, 'FALHA');
         #var_dump($pos); 
       ?>
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" role="tab">
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start bg-white" role="tab">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1 <?php $alert = ($pos == true) ? "alert-danger" : "alert-success";
-                            echo $alert; ?>"><?php echo strtoupper($nomeUser); ?> <?php echo $tipoModificacao; ?> EM: <?php echo date_format($dataLog, "d/m/Y H:i:s") ?></h5>
+            <h4 class="mb-1 title <?php $alert = ($pos == true) ? "alert-danger" : "alert-success";
+                            echo $alert; ?>"><?php echo strtoupper($nomeUser); ?> <?php echo $tipoModificacao; ?> EM: <?php echo date_format($dataLog, "d/m/Y H:i:s") ?></h4>
             <small class="text-muted"><?php echo $idLog; ?></small>
           </div>
-          <p class="mb-1">PASSEIO: <?php echo $nomePasseio; ?> | DATA: <?php echo date_format($dataPasseio, "d/m/Y"); ?> | CLIENTE: <?php echo $nomeCliente ?> | VALOR PAGO: <?php echo $valorPago ?></p>
+          <p class="mb-1 title">PASSEIO: <?php echo $nomePasseio; ?> | DATA: <?php echo date_format($dataPasseio, "d/m/Y"); ?> | CLIENTE: <?php echo $nomeCliente ?> | VALOR PAGO: <?php echo $valorPago ?></p>
           <small>ESTE REGISTRO SERÁ APAGADO EM <?php echo $countdowDeletarLog; ?> Dias</small>
         </a>
     </div>

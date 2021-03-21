@@ -15,11 +15,12 @@
 <body>
     <div class="page-header mt-5">
         <h1>OLÁ, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. BEM VINDO!</h1>
+        <hr>
     </div>
     <p>
-        <a href="index.php" class="btn btn-warning text-white">PÁGINA INICIAL</a>
-        <a href="logout.php" class="btn btn-danger">DESLOGAR</a>
-        <a href="reset-password.php" class="btn btn-info">TROCAR DE SENHA</a>
+        <a href="index.php" class="btn bg-info text-white">PÁGINA INICIAL</a>
+        <a href="logout.php" class="btn bg-warning text-white">DESLOGAR</a>
+        <a href="reset-password.php" class="btn bg-danger text-white">TROCAR DE SENHA</a>
     </p>
 </body>
 </html>

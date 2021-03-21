@@ -9,3 +9,12 @@
 
     //FUNÇÕES DE EXPORTAÇÃO
     define('EXPORTAR_TODOS_PAGAMENTOS_PENDENTES', 1); 
+
+    //USUARIOS
+    define('ADMINISTRADOR', 0);
+    define('USUARIO_CHEFE', 1);
+    define('USUARIO_SIMPLES', 2);
+
+    //MESES DO ANO
+
+    define('MESES_DO_ANO', [ 'JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO' ]);

@@ -37,7 +37,8 @@
 
     }else{
         $idPasseio = $rowPasseioVerificado ['idPasseio']; 
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME </p>";
+        mensagensWarning("JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME");
+        #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME </p>";
         redirecionamento("editarPasseio", $idPasseio);
         gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "CADASTRAR" , 0);
                 

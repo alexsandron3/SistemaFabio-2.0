@@ -25,17 +25,20 @@
             $queryDeletaPasseio = "DELETE FROM passeio WHERE idPasseio ='$idPasseio'";
             $executaQueryDeletaPasseio = mysqli_query ($conexao, $queryDeletaPasseio);
             if(mysqli_affected_rows($conexao)){
-                $_SESSION['msg'] = "<p class='h5 text-center alert-success'>Passeio APAGADO com sucesso</p>";
+                mensagensSucess("Passeio APAGADO com sucesso");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>Passeio APAGADO com sucesso</p>";
                 redirecionamento("pesquisarPasseio", null);
             
             }else{
-                $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Passeio NÃO foi APAGADO </p>";
+                mensagensWarning("Passeio NÃO foi APAGADO ");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>Passeio NÃO foi APAGADO </p>";
                 redirecionamento("pesquisarPasseio", null);
                 
             }
             gerarLog("DELETAR PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, null , 0);
         }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>RESOLVA OS PAGAMENTOS FEITOS NESSE PASSEIO ANTES DE DELETAR</p>";
+            mensagensInfo("RESOLVA OS PAGAMENTOS FEITOS NESSE PASSEIO ANTES DE DELETAR");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>RESOLVA OS PAGAMENTOS FEITOS NESSE PASSEIO ANTES DE DELETAR</p>";
             redirecionamento("pesquisarPasseio", null);
             gerarLog("DELETAR PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, null , 1);
         }

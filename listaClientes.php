@@ -4,14 +4,11 @@ include_once("./includes/header.php");
 
 /* -----------------------------------------------------------------------------------------------------  */
 $idPasseioGet   = filter_input(INPUT_GET, 'id',            FILTER_SANITIZE_NUMBER_INT);
-$ordemPesquisa  = filter_input(INPUT_GET, 'ordemPesquisa', FILTER_SANITIZE_STRING);
-if (empty($ordemPesquisa)) {
-  $ordemPesquisa = 'nomeCliente';
-}
+
 /* -----------------------------------------------------------------------------------------------------  */
 
 $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.rgCliente, c.orgaoEmissor, c.idadeCliente, c.idCliente, c.dataNascimento, pp.idPagamento, pp.valorPago  
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) ORDER BY $ordemPesquisa ";
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) ";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
 
@@ -31,92 +28,109 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/head.php"); ?>
-
+  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
   <title>LISTA DE PASSAGEIROS </title>
+
 </head>
 
 <body>
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
+  <div class="row py-2">
+    <div class="col-lg-10 mx-auto">
+      <div class="card rounded shadow border-0">
+        <div class="card-body p-5 bg-white rounded ">
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div class="table ml-1">
+            
+            <?php 
+            mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS");
+            #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS</p>"; ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
+            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+              <thead>
+                <tr>
+                  <th class="text-center">#</th>
+                  <th> <a href="#"> NOME </a></th>
+                  <th> <a href="#">IDADE </a></th>
+                  <th> <a href="#">Nº IDENTIDADE </a></th>
+                  <th> <a href="#">ORGÃO EMISSOR</a></th>
+                </tr>
+              </thead>
 
-  <div class="table mt-3">
-    <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS</p>"; ?>
-    <table class="table table-hover table-dark">
-      <thead>
-        <tr>
-          <th> <a href="listaClientes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=nomeCliente"> NOME </a></th>
-          <th> <a href="listaClientes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=idadeCliente">IDADE </a></th>
-          <th> <a href="listaClientes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=rgCliente">Nº IDENTIDADE </a></th>
-          <th> <a href="listaClientes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=orgaoEmissor">ORGÃO EMISSOR</a></th>
-        </tr>
-      </thead>
+              <tbody>
 
-      <tbody>
-        <?php
+                <?php
+                $contador = 0;
+                $controleListaPasseio = 0;
+                while ($rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)) {
+                  $idCliente     = $rowBuscaPasseio['idCliente'];
+                  $data          = $rowBuscaPasseio['dataNascimento'];
+                  $idPagamento   = $rowBuscaPasseio['idPagamento'];
+                  $idPasseioAcao  = $rowBuscaPasseio['idPasseio'];
+                  if (empty($rowBuscaPasseio['dataCpfConsultado'])) {
+                    $dataCpfConsultado = "0000-00-00";
+                  } else {
+                    $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
+                  }
 
-        $controleListaPasseio = 0;
-        while ($rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)) {
-          $idCliente     = $rowBuscaPasseio['idCliente'];
-          $data          = $rowBuscaPasseio['dataNascimento'];
-          $idPagamento   = $rowBuscaPasseio['idPagamento'];
-          $idPasseioAcao  = $rowBuscaPasseio['idPasseio'];
-          if (empty($rowBuscaPasseio['dataCpfConsultado'])) {
-            $dataCpfConsultado = "0000-00-00";
-          } else {
-            $dataCpfConsultado =  date_create($rowBuscaPasseio['dataCpfConsultado']);
-          }
-
-          $idadeCliente = $rowBuscaPasseio['idadeCliente'];
-          $nomePasseio = $rowBuscaPasseio['nomePasseio'];
+                  $idadeCliente = $rowBuscaPasseio['idadeCliente'];
+                  $nomePasseio = $rowBuscaPasseio['nomePasseio'];
 
 
-        ?>
-          <tr>
-            <th><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></th>
-            <th><?php $idade = calcularIdade($idCliente, $conn, $data);
-                echo $idade; ?></th>
-            <th><?php echo $rowBuscaPasseio['rgCliente'] . "<BR/>"; ?> </th>
-            <th><?php echo $rowBuscaPasseio['orgaoEmissor']; ?></th>
+                ?>
+                  <tr>
+                    <td class="text-center"><?php echo ++$contador; ?></td>
+                    <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
+                    <td><?php $idade = calcularIdade($idCliente, $conn, $data);
+                        echo $idade; ?></td>
+                    <td><?php echo $rowBuscaPasseio['rgCliente'] . "<BR/>"; ?> </td>
+                    <td><?php echo $rowBuscaPasseio['orgaoEmissor']; ?></td>
+                    <?php
+                    if ($rowBuscaPasseio['valorPago'] == 0) {
+                      $opcao = "DELETAR";
+                    } else {
+                      $opcao = "TRANSFERIR";
+                    }
+                    ?>
+                  </tr>
+
+                <?php
+
+
+                }
+                $controleListaPasseio = mysqli_num_rows($resultadoBuscaPasseio);
+                ?>
+
+              </tbody>
+
+            </table>
             <?php
-            if ($rowBuscaPasseio['valorPago'] == 0) {
-              $opcao = "DELETAR";
+            if ($controleListaPasseio > 0) {
+              echo "<div class='text-center'>";
+              echo "<p class='h5 text-center alert-warning'>TOTAL DE " . $controleListaPasseio . " CLIENTES </p>";
+
+              echo "</div>";
             } else {
-              $opcao = "TRANSFERIR";
+
+              echo "<div class='text-center'>";
+              echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
+              echo "</div>";
             }
+
+
             ?>
-          </tr>
+          </div>
+        </div>
 
-        <?php
-
-
-        }
-        $controleListaPasseio = mysqli_num_rows($resultadoBuscaPasseio);
-        ?>
-      </tbody>
-    </table>
-    <?php
-    if ($controleListaPasseio > 0) {
-      echo "<div class='text-center'>";
-      echo "<p class='h5 text-center alert-warning'>TOTAL DE " . $controleListaPasseio . " CLIENTES </p>";
-
-      echo "</div>";
-    } else {
-
-      echo "<div class='text-center'>";
-      echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
-      echo "</div>";
-    }
-
-
-    ?>
-    <a target="_blank" href="SCRIPTS/exportarPassageiros.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info ml-5">EXPORTAR</a>
-
+      </div>
+    </div>
   </div>
+  </div>
+
+
   <script src="config/script.php"></script>
 </body>
 

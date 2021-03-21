@@ -77,198 +77,207 @@ if (!empty($idPasseio)) {
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
-  <div class="container-fluid mt-3">
-    <p class="h4 text-center alert-info">
-      <?php
-      if ($nenhumPasseioSelecionado) {
-        $valorPendente            = 0;
-        $lucroBruto               = 0;
-        $valorMediaVendido        = 0;
-        $lucroLiquido             = 0;
-        $lucroDespesas            = 0;
-        $totalDespesas            = 0;
-        $qtdCliente               = 0;
-        $lucroEstimado            = 0;
-        $valorTotalDespesas       = 0;
-        $valorPasseio             = 0;
-        $taxaPagamento            = 0;
-        echo "<p class='h4 text-center alert-info'> SELECIONE O INTERVALO</p>";
-        echo "<form action='' method='GET' autocomplete='OFF'>";
-        echo "<div class='form-group row mb-5'>";
-        echo "<label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>";
-        echo "<input type='date' class='form-control col-sm-2' name='inicioDataPasseio' id='inicioDataPasseio'>";
+  <div class="row py-2">
+    <div class="col-lg-10 mx-auto">
+      <div class="card rounded shadow border-0">
+                <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+        <p class="h4 text-center alert-info">
+        <div class="card-body p-5 bg-white rounded">
+          <?php
+          if ($nenhumPasseioSelecionado) {
+            $valorPendente            = 0;
+            $lucroBruto               = 0;
+            $valorMediaVendido        = 0;
+            $lucroLiquido             = 0;
+            $lucroDespesas            = 0;
+            $totalDespesas            = 0;
+            $qtdCliente               = 0;
+            $lucroEstimado            = 0;
+            $valorTotalDespesas       = 0;
+            $valorPasseio             = 0;
+            $taxaPagamento            = 0;
+            
+            echo "<form action='' method='GET' autocomplete='OFF'>";
+            echo "<div class='form-group row mb-5'>";
+            echo "<label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>";
+            echo "<input type='date' class='form-control col-sm-2' name='inicioDataPasseio' id='inicioDataPasseio'>";
 
-        echo "<label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>";
-        echo "<input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' >";
-        echo "<input type='submit' class='btn btn-primary btn-sm ml-5' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>";
-        echo "</div>";
-        echo "</form>";
-        /* -----------------------------------------------------------------------------------------------------  */
-        $buttonEviaDataPasseio = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
-        $inicioDataPasseio     = filter_input(INPUT_GET, 'inicioDataPasseio', FILTER_SANITIZE_STRING);
-        $fimDataPasseio        = filter_input(INPUT_GET, 'fimDataPasseio', FILTER_SANITIZE_STRING);
-        /* -----------------------------------------------------------------------------------------------------  */
-        if ($buttonEviaDataPasseio) {
-          if (!empty($inicioDataPasseio) && !empty($fimDataPasseio)) {
-            //echo"SITUAÇÃO 3";
-            $decoraçãoLink = 'text-reset text-decoration-none';
+            echo "<label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>";
+            echo "<input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' >";
+            echo "<input type='submit' class='btn btn-info btn-sm ml-5' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>";
+            echo "</div>";
+            echo "</form>";
+            
             /* -----------------------------------------------------------------------------------------------------  */
-            $pesquisaIntervaloData = "SELECT DISTINCT p.idPasseio, p.nomePasseio, SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente,
+            $buttonEviaDataPasseio = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
+            $inicioDataPasseio     = filter_input(INPUT_GET, 'inicioDataPasseio', FILTER_SANITIZE_STRING);
+            $fimDataPasseio        = filter_input(INPUT_GET, 'fimDataPasseio', FILTER_SANITIZE_STRING);
+            /* -----------------------------------------------------------------------------------------------------  */
+            if ($buttonEviaDataPasseio) {
+              if (!empty($inicioDataPasseio) && !empty($fimDataPasseio)) {
+                //echo"SITUAÇÃO 3";
+                $decoraçãoLink = 'text-reset text-decoration-none';
+                /* -----------------------------------------------------------------------------------------------------  */
+                $pesquisaIntervaloData = "SELECT DISTINCT p.idPasseio, p.nomePasseio, SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente,
                                             FORMAT(SUM(taxaPagamento), 2) AS totalTaxaPagamento, p.nomePasseio, p.dataPasseio, p.valorPasseio 
                                             FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
-            $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
+                $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
-            $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
+                $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
                                                   FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0,3)";
-            $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
-            $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
-            $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];
-            while ($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)) {
+                $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
+                $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
+                $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];
+                while ($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)) {
 
 
-              $lucroBruto                    = $rowPesquisaIntervaloData['somarValorPago'];
-              $valorPendente                 = $rowPesquisaIntervaloData['valorPendente'];
-              $valorPendente                   = number_format((float) $valorPendente, 2, '.', '') * -1;
+                  $lucroBruto                    = $rowPesquisaIntervaloData['somarValorPago'];
+                  $valorPendente                 = $rowPesquisaIntervaloData['valorPendente'];
+                  $valorPendente                   = number_format((float) $valorPendente, 2, '.', '') * -1;
 
-              $qtdCliente                    = $rowPesquisaIntervaloData['qtdCliente'];
-              $valorPasseio                  = $rowPesquisaIntervaloData['valorPasseio'];
-              $taxaPagamento                 = $rowPesquisaIntervaloData['totalTaxaPagamento'];
+                  $qtdCliente                    = $rowPesquisaIntervaloData['qtdCliente'];
+                  $valorPasseio                  = $rowPesquisaIntervaloData['valorPasseio'];
+                  $taxaPagamento                 = $rowPesquisaIntervaloData['totalTaxaPagamento'];
 
-              /* -----------------------------------------------------------------------------------------------------  */
-            }
-            /* -----------------------------------------------------------------------------------------------------  */
+                  /* -----------------------------------------------------------------------------------------------------  */
+                }
+                /* -----------------------------------------------------------------------------------------------------  */
 
-            $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
-            $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
-            while ($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)) {
+                $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
+                $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
+                while ($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)) {
 
 
-              $valorTotalDespesas             = $rowTotalDespesa['totalDespesas']/* + $valorTotalSeguroViagem */;
+                  $valorTotalDespesas             = $rowTotalDespesa['totalDespesas']/* + $valorTotalSeguroViagem */;
 
-              /* -----------------------------------------------------------------------------------------------------  */
+                  /* -----------------------------------------------------------------------------------------------------  */
 
-              $lucroLiquido                   = $lucroBruto + $valorPendente;
-              $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
-              $lucroEstimado                  = $valorPendente + $lucroBruto - $valorTotalDespesas;
-              /* -----------------------------------------------------------------------------------------------------  */
-            }
-            $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
-            $fimDataPasseioFormatado = date_create($fimDataPasseio);
-
-            echo "<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=1'> *</a></p>";
-          } else {
-            //echo"SITUAÇÃO 4";
-            $inicioDataPasseioPadrao = '2000-01-01';
-            $fimDataPasseioPadrao    = '2099-01-01';
-            $decoraçãoLink = 'text-reset text-decoration-none';
-            /* -----------------------------------------------------------------------------------------------------  */
-            $pesquisaIntervaloData = "SELECT DISTINCT p.idPasseio, p.nomePasseio, SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente, AVG(pp.valorVendido) AS valorMediaVendido,
+                  $lucroLiquido                   = $lucroBruto + $valorPendente;
+                  $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
+                  $lucroEstimado                  = $valorPendente + $lucroBruto - $valorTotalDespesas;
+                  /* -----------------------------------------------------------------------------------------------------  */
+                }
+                $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
+                $fimDataPasseioFormatado = date_create($fimDataPasseio);
+                mensagensInfoNoSession("PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <i class='material-icons'> <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=".$inicioDataPasseio."&fimDataPasseio=".$fimDataPasseio."&mostrarPasseiosExcluidos=1'> info_ountline</a></i>");
+                #echo "<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=1'> *</a></p>";
+              } else {
+                //echo"SITUAÇÃO 4";
+                $inicioDataPasseioPadrao = '2000-01-01';
+                $fimDataPasseioPadrao    = '2099-01-01';
+                $decoraçãoLink = 'text-reset text-decoration-none';
+                /* -----------------------------------------------------------------------------------------------------  */
+                $pesquisaIntervaloData = "SELECT DISTINCT p.idPasseio, p.nomePasseio, SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente, AVG(pp.valorVendido) AS valorMediaVendido,
                                             FORMAT(SUM(taxaPagamento), 2) AS totalTaxaPagamento, p.nomePasseio, p.dataPasseio, p.valorPasseio 
                                             FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'";
-            $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
+                $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
-            $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
+                $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
                                                   FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(0,3)";
-            $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
-            $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
-            $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];
+                $resultadoValorMedioVendido = mysqli_query($conexao, $pesquisaValorMedioVendido);
+                $rowMediaVendido            = mysqli_fetch_assoc($resultadoValorMedioVendido);
+                $valorMediaVendido             = $rowMediaVendido['valorMediaVendido'];
 
-            while ($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)) {
-
-
-              $lucroBruto                    = $rowPesquisaIntervaloData['somarValorPago'];
-              $valorPendente                 = $rowPesquisaIntervaloData['valorPendente'];
-              $valorPendente                 = number_format((float) $valorPendente, 2, '.', '') * -1;
-              $qtdCliente                    = $rowPesquisaIntervaloData['qtdCliente'];
-              $valorPasseio                  = $rowPesquisaIntervaloData['valorPasseio'];
-              $taxaPagamento                 = $rowPesquisaIntervaloData['totalTaxaPagamento'];
-
-              /* -----------------------------------------------------------------------------------------------------  */
-            }
-
-            /* -----------------------------------------------------------------------------------------------------  */
+                while ($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)) {
 
 
-            $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas  FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'";
+                  $lucroBruto                    = $rowPesquisaIntervaloData['somarValorPago'];
+                  $valorPendente                 = $rowPesquisaIntervaloData['valorPendente'];
+                  $valorPendente                 = number_format((float) $valorPendente, 2, '.', '') * -1;
+                  $qtdCliente                    = $rowPesquisaIntervaloData['qtdCliente'];
+                  $valorPasseio                  = $rowPesquisaIntervaloData['valorPasseio'];
+                  $taxaPagamento                 = $rowPesquisaIntervaloData['totalTaxaPagamento'];
 
-            $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
-            while ($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)) {
+                  /* -----------------------------------------------------------------------------------------------------  */
+                }
+
+                /* -----------------------------------------------------------------------------------------------------  */
 
 
-              $valorTotalDespesas             = $rowTotalDespesa['totalDespesas'] /* + $valorTotalSeguroViagem */;
+                $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas  FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'";
 
-              /* -----------------------------------------------------------------------------------------------------  */
-              $lucroLiquido                   = $lucroBruto + $valorPendente;
+                $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
+                while ($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)) {
 
-              $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
-              $lucroEstimado                  = $valorPendente + $lucroBruto - $valorTotalDespesas;
-              /* -----------------------------------------------------------------------------------------------------  */
-            }
-            if ($inicioDataPasseioPadrao == '2000-01-01' && $fimDataPasseioPadrao == '2099-01-01') {
-              echo "<p class='h4 text-center alert-warning'> EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <a target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio=&mostrarPasseiosExcluidos=1'> *</a></p>";
+
+                  $valorTotalDespesas             = $rowTotalDespesa['totalDespesas'] /* + $valorTotalSeguroViagem */;
+
+                  /* -----------------------------------------------------------------------------------------------------  */
+                  $lucroLiquido                   = $lucroBruto + $valorPendente;
+
+                  $lucroDespesas                  = $lucroBruto - $valorTotalDespesas;
+                  $lucroEstimado                  = $valorPendente + $lucroBruto - $valorTotalDespesas;
+                  /* -----------------------------------------------------------------------------------------------------  */
+                }
+                if ($inicioDataPasseioPadrao == '2000-01-01' && $fimDataPasseioPadrao == '2099-01-01') {
+                  mensagensInfoNoSession("EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <i class='material-icons mb-2'> <a  target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio=&mostrarPasseiosExcluidos=1'> info_outline </a></i>");
+
+                  #echo "<p class='h4 text-center alert-warning'> EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <a target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio=&mostrarPasseiosExcluidos=1'> *</a></p>";
+                } else {
+                  //
+                }
+              }
             } else {
               //
             }
-          }
-        } else {
-          //
-        }
-      } else {
+          } else {
 
-        echo $nomePasseio . " ", date_format($dataPasseio, "d/m/Y");
-      }
-      ?>
-    </p>
-    <div class="form-group row mt-3">
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="SOMA DE TODO VALOR NÃO PAGO PELOS CLIENTES" for="valorPendente">VALOR PENDENTE</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="valorPendente" id="valorPendente" placeholder="0" value="<?php echo number_format((float) $valorPendente, 2, '.', '') ?>" readonly>
-      </div>
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="TAXAS DE PAGAMENTO COMO PARCELAMENTO E OUTROS" for="taxaPagamento">TAXAS DE PAGAMENTO</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="taxaPagamento" id="taxaPagamento" placeholder="0" value="<?php echo number_format((float) $taxaPagamento, 2, '.', '') ?>" readonly>
+            echo $nomePasseio . " ", date_format($dataPasseio, "d/m/Y");
+          }
+          ?>
+          </p>
+          <div class="form-group row mt-3">
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="SOMA DE TODO VALOR NÃO PAGO PELOS CLIENTES" for="valorPendente">VALOR PENDENTE</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="valorPendente" id="valorPendente" placeholder="0" value="<?php echo number_format((float) $valorPendente, 2, '.', '') ?>" readonly>
+            </div>
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="TAXAS DE PAGAMENTO COMO PARCELAMENTO E OUTROS" for="taxaPagamento">TAXAS DE PAGAMENTO</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="taxaPagamento" id="taxaPagamento" placeholder="0" value="<?php echo number_format((float) $taxaPagamento, 2, '.', '') ?>" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="SOMA DE TODO VALOR PAGO PELOS CLIENTES SEM DESCONTOS" for="lucroBruto">RECEBIMENTOS</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="lucroBruto" id="lucroBruto" placeholder="0" value="<?php echo number_format((float) $lucroBruto, 2, '.', '') ?>" readonly>
+            </div>
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="EXCLUÍDOS PAGAMENTOS DE CRIANÇAS E PARCEIROS" for="valorMediaVendido">VALOR MÉDIO VENDIDO</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="valorMediaVendido" id="valorMediaVendido" placeholder="0" value="<?php echo number_format((float) $valorMediaVendido, 2, '.', '') ?>" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="RECEBIMENTOS - TOTAL DAS DESPESAS" for="lucroDespesas">LUCRO REAL</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="lucroDespesas" id="lucroDespesas" placeholder="0" value="<?php echo number_format((float) $lucroDespesas, 2, '.', '') ?>" readonly>
+            </div>
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="DESPESAS PASSEIO + SEGURO VIAGEM" for="totalDespesas"> <a target="_blank" class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="editaDespesas.php?id=<?php echo $idPasseio ?>">TOTAL DESPESAS</a> </label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="totalDespesas" id="totalDespesas" placeholder="0" value="<?php echo number_format((float) $valorTotalDespesas, 2, '.', '') ?>" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="QTD DE CLIENTES QUE FIZERAM UM PAGAMENTO" for="qtdCliente"> <a target="_blank" class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="listaPasseio.php?id=<?php echo $idPasseio ?>"> QTD DE CLIENTES</a></label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="qtdCliente" id="qtdCliente" placeholder="0" value="<?php echo number_format((float) $qtdCliente, 2, '.', '') ?>" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="VALOR PENDENTE + RECEBIMENTOS - TOTAL DESPESAS" for="lucroEstimado">LUCROS ESTIMADOS</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="lucroEstimado" id="lucroEstimado" placeholder="0" value="<?php echo number_format((float) $lucroEstimado, 2, '.', '') ?>" readonly>
+            </div>
+            <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="VALOR DO PASSEIO INSERIDO NO ATO DO CADASTRO DO PASSEIO" for="valorPasseio">VALOR DO PASSEIO</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control " name="valorPasseio" id="valorPasseio" placeholder="0" value="<?php echo number_format((float) $valorPasseio, 2, '.', '')  ?>" readonly>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="SOMA DE TODO VALOR PAGO PELOS CLIENTES SEM DESCONTOS" for="lucroBruto">RECEBIMENTOS</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="lucroBruto" id="lucroBruto" placeholder="0" value="<?php echo number_format((float) $lucroBruto, 2, '.', '') ?>" readonly>
-      </div>
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="EXCLUÍDOS PAGAMENTOS DE CRIANÇAS E PARCEIROS" for="valorMediaVendido">VALOR MÉDIO VENDIDO</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="valorMediaVendido" id="valorMediaVendido" placeholder="0" value="<?php echo number_format((float) $valorMediaVendido, 2, '.', '') ?>" readonly>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="RECEBIMENTOS - TOTAL DAS DESPESAS" for="lucroDespesas">LUCRO REAL</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="lucroDespesas" id="lucroDespesas" placeholder="0" value="<?php echo number_format((float) $lucroDespesas, 2, '.', '') ?>" readonly>
-      </div>
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="DESPESAS PASSEIO + SEGURO VIAGEM" for="totalDespesas"> <a target="_blank" class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="editaDespesas.php?id=<?php echo $idPasseio ?>">TOTAL DESPESAS</a> </label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="totalDespesas" id="totalDespesas" placeholder="0" value="<?php echo number_format((float) $valorTotalDespesas, 2, '.', '') ?>" readonly>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="QTD DE CLIENTES QUE FIZERAM UM PAGAMENTO" for="qtdCliente"> <a target="_blank" class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="listaPasseio.php?id=<?php echo $idPasseio ?>"> QTD DE CLIENTES</a></label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="qtdCliente" id="qtdCliente" placeholder="0" value="<?php echo number_format((float) $qtdCliente, 2, '.', '') ?>" readonly>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="VALOR PENDENTE + RECEBIMENTOS - TOTAL DESPESAS" for="lucroEstimado">LUCROS ESTIMADOS</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="lucroEstimado" id="lucroEstimado" placeholder="0" value="<?php echo number_format((float) $lucroEstimado, 2, '.', '') ?>" readonly>
-      </div>
-      <label class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="VALOR DO PASSEIO INSERIDO NO ATO DO CADASTRO DO PASSEIO" for="valorPasseio">VALOR DO PASSEIO</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control " name="valorPasseio" id="valorPasseio" placeholder="0" value="<?php echo number_format((float) $valorPasseio, 2, '.', '')  ?>" readonly>
-      </div>
-    </div>
-  </div>
+
 </body>
 
 </html>

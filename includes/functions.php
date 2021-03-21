@@ -1,7 +1,7 @@
 <?php
 
     include_once("header.php");
-
+    include_once("constantes.php");
 
 
     //Função parar GERAR LOG das atividades realizadas no sistema
@@ -43,14 +43,17 @@
         $permissaoParaCadatrar    = retornaPermissao('cadastrar');
         if($permissaoParaCadatrar){
             if(mysqli_insert_id($conexao)){
-                $_SESSION['msg'] = "<p class='h5 text-center alert-success'> $tipoCadastro CADASTRADO(A) com sucesso</p>";
+                mensagensSucess("$tipoCadastro CADASTRADO(A) com sucesso");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-success'> $tipoCadastro CADASTRADO(A) com sucesso</p>";
                 redirecionamento($paginaRedirecionamento, null);
             }else{
-                $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), alguma informação não foi inserida dentro dos padrões. </p>";
+                mensagensWarning("$tipoCadastro NÃO foi CADASTRADO(A), alguma informação não foi inserida dentro dos padrões.");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), alguma informação não foi inserida dentro dos padrões. </p>";
                 redirecionamento($paginaRedirecionamento, null);
             }
         }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+            mensagensDanger("$tipoCadastro NÃO foi CADASTRADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO.");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
             redirecionamento($paginaRedirecionamento, null);
         }
 
@@ -62,16 +65,19 @@
         $permissaoParaAtualizar    = retornaPermissao('atualizar');
         if($permissaoParaAtualizar){
             if(mysqli_affected_rows($conexao)){
-                $_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoAtualizacao ATUALIZADO(A) com sucesso</p>";
+                mensagensSucess("$tipoAtualizacao ATUALIZADO(A) com sucesso");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoAtualizacao ATUALIZADO(A) com sucesso</p>";
                 redirecionamento($paginaRedirecionamento, $id);
                 
             }else{
-                $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoAtualizacao não foi ATUALIZADO(A) </p>";
+                mensagensWarning("$tipoAtualizacao não foi ATUALIZADO(A)");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoAtualizacao não foi ATUALIZADO(A) </p>";
                 redirecionamento($paginaRedirecionamento, $id);
 
             }
         }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoAtualizacao NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+            mensagensDanger("$tipoAtualizacao NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO.");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoAtualizacao NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
             redirecionamento($paginaRedirecionamento, $id);
         }
     }
@@ -83,23 +89,27 @@
             if(!empty($idPagamento OR $idPasseio)){
                 $executaQuery = mysqli_query ($conexao, $query );
                 if( mysqli_affected_rows($conexao)){
-                    $_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoDelete APAGADO(A) com sucesso</p>";
+                    mensagensSucess("$tipoDelete APAGADO(A) com sucesso");
+                    #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoDelete APAGADO(A) com sucesso</p>";
                     redirecionamento($paginaRedirecionamento, $idPasseio);
 
                 }else {
-                    $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoDelete NÃO foi APAGADO(A) </p>";
+                    mensagensWarning("$tipoDelete NÃO foi APAGADO(A)");
+                    #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoDelete NÃO foi APAGADO(A) </p>";
                     redirecionamento($paginaRedirecionamento, $idPasseio);
 
 
                 }
             }else {
-                $_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um $tipoDelete</p>";
+                mensagensInfo("Necessário selecionar um $tipoDelete");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um $tipoDelete</p>";
                 redirecionamento($paginaRedirecionamento, $idPasseio);
 
 
             }
         }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoDelete NÃO foi APAGADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+            mensagensDanger("$tipoDelete NÃO foi APAGADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO.");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoDelete NÃO foi APAGADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
             redirecionamento($paginaRedirecionamento, $idPasseio);
 
 

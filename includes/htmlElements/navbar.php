@@ -36,14 +36,9 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="log.php">LOGS</a>
                     <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
-                    <?php
-
-                    if ($_SESSION["nivelAcesso"] == 0) {
-                    ?>
-                        <a class="dropdown-item" href="cadastroDespesas.php">SAIR</a>
-                    <?php
-                    }
-                    ?>
+                    <a class="dropdown-item" href="listaAniversariantesMes.php">ANIVERSARIANTES DO MÊS</a>
+                    <a class="dropdown-item" href="logout.php">SAIR</a>
+        
 
                 </div>
             </li>

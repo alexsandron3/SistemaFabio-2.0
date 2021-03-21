@@ -71,7 +71,8 @@
     
     if($_SESSION['nivelAcesso'] == 1 OR $_SESSION['nivelAcesso'] == 0 ){
         if($lotacaoPasseio <= $qtdClientesConfirmados){
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
+            mensagensWarning("LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
             redirecionamento("pagamentoCliente", $idCliente);
             
         }elseif($lotacaoPasseio > $qtdClientesConfirmados){
@@ -83,17 +84,20 @@
                                 alert("LIMITE DE VAGAS ATINGIDO"); 
                             </script>' 
                     ; 
-                    $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso.</p>";
+                    mensagensSucess("PAGAMENTO realizado com sucesso.");
+                    #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso.</p>";
                     redirecionamento("pagamentoCliente", $idCliente);
                     
                 }else{
-                    $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
+                    mensagensSucess("PAGAMENTO realizado com sucesso.");
+                    #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
                     redirecionamento("pagamentoCliente", $idCliente);
                     
                 }
 
             }else{
-                $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
+                mensagensWarning("PAGAMENTO NÃO REALIZADO");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
                 redirecionamento("pagamentoCliente", $idCliente);
                 
             }
@@ -101,14 +105,16 @@
                 if($statusPagamento == 0 OR $statusPagamento == 4){
                     $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
                 }
-                $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>EXISTEM APENAS ". $vagasRestantes ." VAGAS DISPONÍVEIS</p>";
+                mensagensInfo("EXISTEM APENAS $vagasRestantes VAGAS DISPONÍVEIS");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-warning'>EXISTEM APENAS ". $vagasRestantes ." VAGAS DISPONÍVEIS</p>";
 
             }
         }
         gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "CADASTRAR" , 0);
 
     }else{
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi REALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+        mensagensDanger("PAGAMENTO NÃO foi REALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO.");
+        #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> PAGAMENTO NÃO foi REALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
         redirecionamento("pagamentoCliente", $idCliente);
         gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "CADASTRAR" , 0);
 
