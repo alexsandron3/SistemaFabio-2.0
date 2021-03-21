@@ -81,7 +81,6 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
         ?>
       </tbody>
     </table>
-    <a target="_blank" href="SCRIPTS/exportarPontoEmbarque.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info ml-5">EXPORTAR</a>
 
   </div>
   <script src="config/script.php"></script>
