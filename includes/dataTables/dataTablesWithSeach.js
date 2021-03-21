@@ -37,10 +37,30 @@ $(document).ready(function () {
         dom: 'Blfrtip',
         buttons:
             [
-                'pdfHtml5',
-                'excel',
-                'print'
-            ],
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0, 1, ':visible']
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [0, 1, ':visible']
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [0, 1, ':visible']
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    columns: ':not(.noVis)'
+                }
+            ]
+
     });
 });
 $(document).ready(function () {
