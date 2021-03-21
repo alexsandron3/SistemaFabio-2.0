@@ -37,16 +37,17 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <body>
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
-
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
-
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div class="table ml-1">
-            <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS</p>"; ?>
+            
+            <?php 
+            mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS");
+            #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS</p>"; ?>
 
             <table style="width:100%" class="table table-striped table-bordered" id="userTable">
               <thead>

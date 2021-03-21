@@ -37,10 +37,6 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 <body>
   <?php
 
-
-  #INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO 
-  include_once("./includes/servicos/servicoMensagens.php");
-
   $contador = 0;
   ?>
   <div class="row py-2">
@@ -48,12 +44,14 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
           <div class="table-responsive">
+                    <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                    <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
             <div class="text-center mb-4">
               <h4><small>LISTA DE PASSEIOS</small></h4>
             </div>
 
             <div class="table-reponsive">
-              <table class="table table-striped table-bordered" id="userTable">
+              <table class="table table-striped table-bordered" id="simpleTable" >
                 <thead>
                   <tr>
                     <th class="text-center">Nº DE ORDEM</th>

@@ -28,13 +28,13 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
   <div class="row py-5">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <form action="SCRIPTS/atualizaPasseio.php" autocomplete="off" method="POST">
             <div class="form-group row">
               <label class="col-sm-1 col-form-label latinTextBox" for="nomePasseio">NOME DO PASSEIO</label>
@@ -94,7 +94,7 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
               </div>
             </div>
             <input type="hidden" name="idPasseio" id="idPasseio" value="<?php echo $rowBuscaPasseio['idPasseio'] ?>">
-            <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary btn-lg">ATUALIZAR</button>
+            <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-lg">ATUALIZAR</button>
           </form>
         </div>
       </div>

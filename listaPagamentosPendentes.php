@@ -19,8 +19,6 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
 
   <?php
@@ -40,7 +38,11 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
-          <div class="table ml-1"> <?php echo "<p class='h4 text-center alert-info mt-2'> QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente . "</p>"; ?>
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div class="table ml-1"> <?php
+          mensagensInfoNoSession("QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente);
+          #echo "<p class='h4 text-center alert-info mt-2'> QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente . "</p>"; ?>
 
 
             <div class="table-responsive">

@@ -16,13 +16,13 @@ include_once("./includes/header.php");
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
   <div class="row py-5">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <form action="" method="POST" autocomplete="OFF">
             <div class="form-group row">
               <label class="col-sm-2 col-form-label" for="nomePasseio">PASSEIO</label>
@@ -47,7 +47,7 @@ include_once("./includes/header.php");
                 <?php
                 }
                 ?>
-                <input type="submit" class="btn btn-primary btn-sm ml-2" value="CARREGAR PASSEIOS" name="buttonEnviaNomePasseio">
+                <input type="submit" class="btn btn-info btn-sm ml-2" value="CARREGAR PASSEIOS" name="buttonEnviaNomePasseio">
                 <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" onchange="idPasseioSelecionadoFun()" readonly="readonly">
               </select>
 
@@ -62,7 +62,10 @@ include_once("./includes/header.php");
           $resultadoBuscaDespesa = mysqli_query($conexao, $queryBuscaDespesa);
           $rowBuscaDespesa = mysqli_fetch_assoc($resultadoBuscaDespesa);
           $buttonEnviaNomePasseio = filter_input(INPUT_POST, 'buttonEnviaNomePasseio', FILTER_SANITIZE_STRING);
-          if ($buttonEnviaNomePasseio) {
+          if ($buttonEnviaNomePasseio and empty($idPasseioLista)) {
+            mensagensWarningNoSession("Selecione um passeio");
+          }
+          if ($buttonEnviaNomePasseio and !empty($idPasseioLista)) {
             if ($idPasseioLista != 0) {
               if ($rowBuscaDespesa == 0) {
                 $queryBuscaInformacoesPasseio = "SELECT p.nomePasseio, p.dataPasseio FROM passeio p WHERE idPasseio='$idPasseioLista'";
@@ -70,8 +73,9 @@ include_once("./includes/header.php");
                 $rowBuscaInformacoesPasseio = mysqli_fetch_assoc($resultadoBuscaInformacoesPasseio);
                 $data =  date_create($rowBuscaInformacoesPasseio['dataPasseio']);
 
+                mensagensInfoNoSession("" . $rowBuscaInformacoesPasseio['nomePasseio'] . " " . date_format($data, "d/m/Y"));
 
-                echo "<p class='h4 text-center alert-info'>" . $rowBuscaInformacoesPasseio['nomePasseio'] . " " . date_format($data, "d/m/Y") . "</p>";
+                #echo "<p class='h4 text-center alert-info'>" . $rowBuscaInformacoesPasseio['nomePasseio'] . " " . date_format($data, "d/m/Y") . "</p>";
                 echo "<div class='form-group row'>";
                 echo "<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
                 echo "<div class='col-sm-6'>";
@@ -333,9 +337,10 @@ include_once("./includes/header.php");
                 echo "</div>";
                 echo "</div>";
 
-                echo "<button type='submit' name='cadastrarClienteBtn' id='submit' class='btn btn-primary btn-lg'>CADASTRAR</button>";
+                echo "<button type='submit' name='cadastrarClienteBtn' id='submit' class='btn btn-info btn-lg'>CADASTRAR</button>";
               } else {
-                echo "<p class='h4 text-center alert-warning'>JÁ EXISTEM DESPESAS CADASTRADAS PARA ESSE PASSEIO, REDIRECIONANDO PARA A ÁREA DE DESPESAS </p>";
+                mensagensWarningNoSession("JÁ EXISTEM DESPESAS CADASTRADAS PARA ESSE PASSEIO, REDIRECIONANDO PARA A ÁREA DE DESPESAS");
+                #echo "<p class='h4 text-center alert-warning'>JÁ EXISTEM DESPESAS CADASTRADAS PARA ESSE PASSEIO, REDIRECIONANDO PARA A ÁREA DE DESPESAS </p>";
                 echo " <script>
                               setTimeout(function () {
                                 window.location.href = 'editaDespesas.php?id=" . $idPasseioLista . "';

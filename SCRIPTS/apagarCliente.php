@@ -32,11 +32,13 @@
     /* -----------------------------------------------------------------------------------------------------  */
         //VERIFICANDO SE AS ALTERACOES FORAM ENVIADAS
         if( mysqli_affected_rows($conexao)){
-            $_SESSION['msg'] = "<p class='h5 text-center alert-success'>STATUS do CLIENTE alterado com SUCESSO</p>";
+            mensagensSucess("STATUS do CLIENTE alterado com SUCESSO");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>STATUS do CLIENTE alterado com SUCESSO</p>";
             redirecionamento("pesquisarCliente", null);
                     
         }else {
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>STATUS do CLIENTE NÃO foi alterado </p>";
+            mensagensWarning("STATUS do CLIENTE NÃO foi alterado");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>STATUS do CLIENTE NÃO foi alterado </p>";
             redirecionamento("index", null);
             
         
@@ -44,7 +46,8 @@
 
 
     }else {
-        $_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um usuário</p>";
+        mensagensInfo("Necessário selecionar um usuário");
+        #$_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um usuário</p>";
         redirecionamento("pesquisarCliente", null);
         
 

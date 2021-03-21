@@ -44,7 +44,8 @@
         /* -----------------------------------------------------------------------------------------------------  */
     }else{
         $idCliente = $rowResultadoVerificaSeClienteExiste ['idCliente'];
-        $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
+        mensagensWarning("JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF");
+        #$_SESSION['msg'] = "<p class='h5 text-center alert-warning'>JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE CPF </p>";
         redirecionamento("editarCliente", $idCliente);
         gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "CADASTRAR" , 0);
     }

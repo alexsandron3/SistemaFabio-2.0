@@ -41,14 +41,22 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
-
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
-          <div> <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div> <?php 
+          mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
+          <span class='h5'> LOTAÇÃO: $lotacao </span> 
+         | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS </span> 
+         | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS </span>
+         | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS </span>
+         | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
+         | <span class='h5' onclick='tituloListagem()' id='desistentes'>  DESISTENTES </span>
+         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  ");
+/*           echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
          <span class='h5'> LOTAÇÃO: $lotacao </span> 
         | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS </span> 
         | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS </span>
@@ -56,7 +64,7 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
         | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
         | <span class='h5' onclick='tituloListagem()' id='desistentes'>  DESISTENTES </span>
         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  
-        </p>"; ?>
+        </p>"; */ ?>
             <div class="table-responsive">
               <table class="table table-striped table-bordered" id="userTable">
                 <thead>
@@ -173,14 +181,13 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                   }
 
                   ?>
-                  <input type="hidden" name="" id="idPasseio" onclick="Export()" disabled="disabled" value="<?php echo $idPasseioGet;  ?>">
-                  <input type="hidden" name="" id="clientesConfirmados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $confirmados;  ?>">
-                  <input type="hidden" name="" id="clientesCriancas" onclick="tituloListagem()" disabled="disabled" value="<?php echo $criancas;  ?>">
-                  <input type="hidden" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $interessados;  ?>">
-                  <input type="hidden" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo $quantidadeClienteParceiro;  ?>">
-                  <input type="hidden" name="" id="clientesDesistentes" onclick="tituloListagem()" disabled="disabled" value="<?php echo $desistentes;  ?>">
-                  <input type="hidden" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro;
-                                                                                                                                echo $vagasDisponiveis;  ?>">
+                  <input class="text-invisble"  type="text" name=""  id="idPasseio" onclick="Export()" disabled="disabled" value="<?php echo $idPasseioGet;  ?>">
+                  <input class="text-invisble"  type="text" name="" id="clientesConfirmados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $confirmados;  ?>">
+                  <input class="text-invisble"  type="text" name="" id="clientesCriancas" onclick="tituloListagem()" disabled="disabled" value="<?php echo $criancas;  ?>">
+                  <input  class="text-invisble" type="text" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $interessados;  ?>">
+                  <input class="text-invisble"  type="text" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo $quantidadeClienteParceiro;  ?>">
+                  <input class="text-invisble"  type="text" name="" id="clientesDesistentes" onclick="tituloListagem()" disabled="disabled" value="<?php echo $desistentes;  ?>">
+                  <input class="text-invisble"  type="text" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro; echo $vagasDisponiveis;  ?>">
                 </tbody>
               </table>
             </div>
@@ -191,7 +198,8 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
             } else {
 
               echo "<div class='text-center'>";
-              echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
+              mensagensWarningNoSession("Nenhum PAGAMENTO foi cadastrado até o momento");
+              #echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
               echo "</div>";
             }
 

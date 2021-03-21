@@ -44,14 +44,15 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
-
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
-          <div class="table ml-1"> <?php echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; ?>
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div class="table ml-1"> <?php 
+          mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES");
+          #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; ?>
             <table class="table table-striped table-bordered" id="userTable">
               <thead>
                 <tr>
@@ -94,12 +95,14 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
               $operadorTotal = ($valorPendenteTotal < 0) ? -1 : 1;
 
               echo "<div class='text-center'>";
-              echo "<p class='h5 text-center alert-warning'>TOTAL DE R$" . $valorPendenteTotal * $operadorTotal . "  PENDENTE</p>";
+              mensagensWarningNoSession("TOTAL DE R$" . $valorPendenteTotal * $operadorTotal . "  PENDENTE");
+              #echo "<p class='h5 text-center alert-warning'>TOTAL DE R$" . $valorPendenteTotal * $operadorTotal . "  PENDENTE</p>";
 
               echo "</div>";
             } else {
 
               echo "<div class='text-center'>";
+              mensagensWarningNoSession("Nenhum PAGAMENTO PENDENTE até o momento");
               echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO PENDENTE até o momento</p>";
               echo "</div>";
             }

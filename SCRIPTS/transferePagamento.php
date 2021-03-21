@@ -78,7 +78,8 @@
     $alerta = $lotacaoPasseio * 0.20;
     $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados) -1;
     if($lotacaoPasseio <= $qtdClientesConfirmados){
-        $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
+        mensagensWarning("LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO");
+        #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>LIMITE DE VAGAS PARA ESTE PASSEIO ATINGIDO</p>";
         
         redirecionamento("pagamentoCliente", $idCliente);
         gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
@@ -94,7 +95,8 @@
                             alert("LIMITE DE VAGAS ATINGIDO"); 
                         </script>' 
                 ; 
-                $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso.</p>";
+                mensagensSucess("PAGAMENTO realizado com sucesso.");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso.</p>";
                 redirecionamento("pagamentoCliente", $idCliente);
                 gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
 
@@ -102,14 +104,16 @@
                 $getDataApaga = "DELETE FROM pagamento_passeio WHERE idPagamento ='$idPagamentoAntigo' AND idPasseio='$idPasseioAntigo'";
 
                 apagar($getDataApaga, $conexao, "PAGAMENTO", $idPagamentoAntigo, $idPagamentoAntigo, "index");
-                $_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
+                mensagensSucess("PAGAMENTO realizado com sucesso.");
+                #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>PAGAMENTO realizado com sucesso</p>";
                 redirecionamento("pagamentoCliente", $idCliente);
                 gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
 
             }
 
         }else{
-            $_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
+            mensagensWarning("PAGAMENTO NÃO REALIZADO");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>PAGAMENTO NÃO REALIZADO </p>";
             redirecionamento("pagamentoCliente", $idCliente);
             gerarLog("PAGAMENTO", $conexao, $idUser, $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, "TRANSFERIR" , 0);
 
@@ -118,7 +122,8 @@
             if($statusPagamento == 0 OR $statusPagamento == 4){
                 $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
             }
-            $_SESSION['msg'] = "<p class='h5 text-center alert-warning'>EXISTEM APENAS ". $vagasRestantes ." VAGAS DISPONÍVEIS</p>";
+            mensagensInfo("EXISTEM APENAS $vagasRestantes VAGAS DISPONÍVEIS");
+            #$_SESSION['msg'] = "<p class='h5 text-center alert-warning'>EXISTEM APENAS ". $vagasRestantes ." VAGAS DISPONÍVEIS</p>";
 
         }
     }

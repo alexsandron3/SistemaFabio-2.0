@@ -31,13 +31,13 @@ $transporte = $rowIdPagamento['transporte'];
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
   <div class="row py-5">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <form action="SCRIPTS/atualizaPagamento.php" method="post" autocomplete="OFF" onclick="calculoPagamentoCliente()">
             <div class="form-group-row">
               <?php
@@ -54,8 +54,8 @@ $transporte = $rowIdPagamento['transporte'];
               $clienteParceiro = $rowIdPagamento['statusPagamento'];
               $idCliente = $rowIdPagamento['idCliente'];
               $idadeCliente = calcularIdade($idCliente, $conn, "");
-
-              echo "<p class='h4 text-center alert-info'> " . $rowIdPagamento['nomeCliente'] . " | " . $rowIdPagamento['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y") . "</p>";
+              mensagensInfoNoSession("". $rowIdPagamento['nomeCliente'] . " | " . $rowIdPagamento['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y"));
+              #echo "<p class='h4 text-center alert-info'> " . $rowIdPagamento['nomeCliente'] . " | " . $rowIdPagamento['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y") . "</p>";
               echo "<div class='form-group row'>";
               echo "<label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
               echo "<div class='col-sm-6'>";
@@ -214,7 +214,7 @@ $transporte = $rowIdPagamento['transporte'];
 
               </select>
             </div>
-            <input type="submit" class="btn btn-primary btn-sm" value="FINALIZAR PAGAMENTO" name="buttonFinalizarPagamento">
+            <input type="submit" class="btn btn-info btn-sm" value="FINALIZAR PAGAMENTO" name="buttonFinalizarPagamento">
 
             <input type="hidden" class="form-control col-sm-1 ml-3" name="idPagamento" id="idPagamento" readonly="readonly" value="<?php echo $idPagamento ?>">
           </form>

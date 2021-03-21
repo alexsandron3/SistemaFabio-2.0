@@ -17,14 +17,13 @@ include_once("./includes/header.php");
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
-
   <!-- TODO FORM -->
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <p class="h2 text-center">PESQUISAR CLIENTE</p>
           <form action="" autocomplete="off" method="POST" name="formularioPesquisarCliente">
             <div class="form-group row">
@@ -36,7 +35,7 @@ include_once("./includes/header.php");
 
 
             </div>
-            <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-primary btn-lg">
+            <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-info">
           </form>
 
           <div class="table-responsive">

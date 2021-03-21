@@ -17,10 +17,9 @@ $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
-
   <div class="d-flex flex-column">
+            <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+            <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
     <div class="p-2"></div>
     <div class="p-2"></div>
     <div class="p-2"></div>

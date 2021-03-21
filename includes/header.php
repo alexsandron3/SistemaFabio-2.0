@@ -20,6 +20,8 @@
     include_once("functions.php");
     include_once("servicos/servicoValidacaoPermissao.php");
     include_once("servicos/servicoRedirecionamento.php");
+    include_once("servicos/servicoMsgText.php");
+    include_once("servicos/servicoMensagens.php");
     include_once("constantes.php");
 
     

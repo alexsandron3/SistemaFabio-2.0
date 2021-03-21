@@ -4,6 +4,8 @@ include_once("./includes/header.php");
 #<pre>";
 $idPasseio = 1;
 
+if(!empty($idPasseio)){
+
 
 $recebeLotacaoPasseio    = "SELECT lotacao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
 $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
@@ -44,7 +46,7 @@ while ($rowGetStatusPagamentoCliente = mysqli_fetch_assoc($resultadoStatusPagame
 $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
 
 
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,10 +61,8 @@ $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
 <body>
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
-
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
-
+            <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+            <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
   <form action='' method='GET' autocomplete='OFF'>
     <div class='form-group row mb-5 mt-5'>
       <label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>
@@ -94,8 +94,10 @@ $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
     $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
     $fimDataPasseioFormatado = date_create($fimDataPasseio);
     if (empty($inicioDataPasseio) or empty($fimDataPasseio)) {
+      mensagensWarningNoSession("PERÍODO SELECIONADO INVÁLIDO");
       echo "<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO INVÁLIDO</p>";
     } else {
+      mensagensWarningNoSession("PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "'> <i class='material-icons mb-2'> info_outline</i></a>");
       echo "<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "'> *</a></p>";
     }
     /* -----------------------------------------------------------------------------------------------------  */

@@ -16,12 +16,13 @@ include_once("./includes/header.php");
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
+
   <div class="row py-5">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <form action="SCRIPTS/registroCliente.php" autocomplete="off" method="POST">
             <div class="form-group row">
               <label class="col-sm-2 col-form-label" for="nomeCliente">NOME</label>
@@ -72,15 +73,15 @@ include_once("./includes/header.php");
             </div>
             <fieldset class="form-group">
               <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">CPF CONSULTADO</legend>
+                <legend class="col-form-label col-sm-2 pt-0 text-muted">CPF CONSULTADO</legend>
                 <div class="col-sm-5">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cpfConsultado" id="cpfConsultadoSim" value="1" onclick="changeInputDate()">
+                  <div class="ml-3">
+                    <input class="form-check-input bg-info" type="radio" name="cpfConsultado" id="cpfConsultadoSim" value="1" onclick="changeInputDate()">
                     <label class="form-check-label" for="cpfConsultadoSim">
                       SIM
                     </label>
                   </div>
-                  <div class="form-check">
+                  <div class="ml-3">
                     <input class="form-check-input" type="radio" name="cpfConsultado" id="cpfConsultadoNao" value="0" onclick="changeInputDate()">
                     <label class="form-check-label" for="cpfConsultadoNao">
                       NÃO
@@ -110,12 +111,14 @@ include_once("./includes/header.php");
               <label class="col-sm-2 col-form-label" for="redeSocial">REDES SOCIAIS</label>
               <textarea class="form-control col-sm-3 ml-3" name="redeSocial" id="redeSocial" cols="3" rows="1" placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"></textarea>
             </div>
-            <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-primary bg-white btn-lg">CADASTRAR</button>
+            <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-lg">CADASTRAR</button>
           </form>
+        </div>
       </div>
     </div>
   </div>
-  
+
+
   <script src="config/script.php"></script>
 </body>
 

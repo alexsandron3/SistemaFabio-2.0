@@ -40,16 +40,17 @@ if (!empty($idPasseioGet)) {
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
   <div class="row py-5">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <form action="SCRIPTS/atualizaDespesas.php" autocomplete="off" method="POST" onclick="calculoTotalDespesas()">
             <?php
-            echo "<p class='h4 text-center alert-info'>" . $rowDespesa['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y") . "</p>";
+            mensagensInfoNoSession("". $rowDespesa['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y"));
+            #echo "<p class='h4 text-center alert-info'>" . $rowDespesa['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y") . "</p>";
             echo "<div class='form-group row'>";
             echo "<label class='col-sm-2 col-form-label' for='valorIngresso'>INGRESSO</label>";
             echo "<div class='col-sm-6'>";
@@ -310,7 +311,7 @@ if (!empty($idPasseioGet)) {
             echo "</div>";
             echo "</div>";
 
-            echo "<button type='submit' name='cadastrarClienteBtn' id='submit' class='btn btn-primary btn-lg'>ATUALIZAR</button>";
+            echo "<button type='submit' name='cadastrarClienteBtn' id='submit' class='btn btn-info btn-lg'>ATUALIZAR</button>";
             ?>
             <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" value="<?php echo $rowDespesa['idPasseio'] ?>">
             <input type="hidden" class="form-control col-sm-1 ml-3" name="idDespesa" id="idDespesa" value="<?php echo $rowDespesa['idDespesa'] ?>">

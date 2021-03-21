@@ -14,10 +14,8 @@ $query = (!empty($idPasseioGet)) ?
 <html lang="pt-br">
 
 <head>
-    <?php include_once("./includes/head.php"); ?>
-  <link rel="stylesheet"
-    href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+
     <title>Document</title>
 </head>
 
@@ -25,14 +23,21 @@ $query = (!empty($idPasseioGet)) ?
     <!-- INCLUSÃO DA NAVBAR -->
     <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-    <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-    <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
 
-    <?php
+
+    <div class="row py-2">
+        <div class="col-lg-10 mx-auto">
+            <div class="card rounded shadow border-0">
+                      <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+                <div class="card-body p-5 bg-white rounded">
+                <?php
     $dataDeHoje = new DateTime('today');
     $mesAtual = $dataDeHoje->format('n');
     if (empty($idPasseioGet)) {
-        echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual] . "</p>";
+        mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual]);
+
+        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual] . "</p>";
     } else {
         $queryInformacoesPasseio = "SELECT nomePasseio, dataPasseio FROM passeio WHERE idPasseio=$idPasseioGet";
         $executaQueryInformacoesPasseio = mysqli_query($conexao, $queryInformacoesPasseio);
@@ -41,14 +46,10 @@ $query = (!empty($idPasseioGet)) ?
         $dataPasseio = $rowInformacoesPasseio['dataPasseio'];
         $dataPasseio = new DateTime($dataPasseio);
         $dataPasseio = $dataPasseio->format('d/m/Y');
-        echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio</p>";
+        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio");
+        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio</p>";
     }
     ?>
-
-    <div class="row py-2">
-        <div class="col-lg-10 mx-auto">
-            <div class="card rounded shadow border-0">
-                <div class="card-body p-5 bg-white rounded">
                     <div class="table-responsive">
                         <table style="width:100%" class="table table-striped table-bordered" id="userTable">
                             <thead>
@@ -115,12 +116,6 @@ $query = (!empty($idPasseioGet)) ?
 
 
     </div>
-
-    <script src="./includes/dataTables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
-    <script src="./includes/dataTables/dataTablesWithSeach.js">
-
-    </script>
 </body>
 
 </html>

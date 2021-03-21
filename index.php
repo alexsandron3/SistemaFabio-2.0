@@ -8,7 +8,8 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+
+  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
   <title>INÍCIO</title>
 </head>
@@ -17,33 +18,32 @@ include_once("./includes/header.php");
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-  <?php include_once("./includes/servicos/servicoMensagens.php"); ?>
-
 
   <div class="row py-3">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
+                <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
         <div class="card-body p-5 bg-white rounded">
-        <form action='' method='GET' autocomplete='OFF'>
-    <div class='form-group row mb-5 mt-5'>
-      <label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>
-      <input type='date' class='form-control col-sm-2' name='inicioDataPasseio' id='inicioDataPasseio' value="">
-
-      <label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>
-      <input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' value="">
-      <input type='submit' class='btn btn-primary btn-sm ml-5 ' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
-      <div class="form-check mt-2 col-12">
-        <input class="form-check-input col-1 ml-1" type="checkbox" name="mostrarPasseiosExcluidos" value="1" id="mostrarPasseiosExcluidos">
-        <label class="form-check-label  col-3 ml-5 pl-5" for="mostrarPasseiosExcluidos">
-          EXIBE PASSEIOS ENCERRADOS
-        </label>
-      </div>
-    </div>
-  </form>
+          <form action='' method='GET' autocomplete='OFF'>
+            <div class='form-group row mb-5 mt-5'>
+              <label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>
+              <input type='date' class='form-control col-sm-2' name='inicioDataPasseio' id='inicioDataPasseio' value="">
+    
+              <label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>
+              <input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' value="">
+              <input type='submit' class='btn btn-info btn-sm ml-5 ' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
+              <div class="mt-2 col-12">
+                <input class="form-check-input col-1 ml-1" type="checkbox" name="mostrarPasseiosExcluidos" value="1" id="mostrarPasseiosExcluidos">
+                <label class="form-check-label  col-3 ml-5 pl-5" for="mostrarPasseiosExcluidos">
+                  EXIBE PASSEIOS ENCERRADOS
+                </label>
+              </div>
+            </div>
+          </form>
           <div class="table-responsive">
             <table class="table table-striped table-bordered" id="userTable">
-              <thead class="thead-light">
+              <thead>
                 <tr>
                   <th scope="col">PASSEIO</th>
                   <th scope="col">DATA</th>
@@ -55,6 +55,8 @@ include_once("./includes/header.php");
                   <th scope="col">VAGAS DISPONÍVEIS</th>
                 </tr>
               </thead>
+              <tbody>
+
               <?php
               /* -----------------------------------------------------------------------------------------------------  */
               $buttonEviaDataPasseio    = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
@@ -65,19 +67,55 @@ include_once("./includes/header.php");
               $fimDataPasseioFormatado = date_create($fimDataPasseio);
               $exibePasseio = (empty($mostrarPasseiosExcluidos) or is_null($mostrarPasseiosExcluidos)) ? false : true;
               $queryExibePasseio = ($exibePasseio == false) ? 'AND statusPasseio NOT IN (0)' : ' ';
-              $mensagemExibeExcluidos = ($exibePasseio == true) ? 'EXBINDO PASSEIOS ENCERRADOS' : ' EXIBINDO SOMENTE PASSEIOS ATIVOS';
+              $mensagemExibeExcluidos = ($exibePasseio == true) ? 'EXBINDO TODOS OS PASSEIOS, INCLUSIVE ENCERRADOS ' : ' EXIBINDO SOMENTE PASSEIOS ATIVOS';
               if ($buttonEviaDataPasseio) {
                 if (empty($inicioDataPasseio) or empty($fimDataPasseio)) {
-                  echo "<p class='h4 text-center alert-warning'>  RELATÓRIO DE VENDAS <br/>" . "PERÍODO SELECIONADO INVÁLIDO</p>";
+                  echo"<div class='alert alert-warning'>
+                  <div class='container text-center'>
+                    <div class='alert-icon'>
+                      <i class='material-icons'>warning</i>
+                    </div>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                      <span aria-hidden='true'><i class='material-icons'>clear</i></span>
+                    </button>
+                    <span class='h4 text-center'>
+                     <b>RELATÓRIO DE VENDAS</b></br> PERÍODO SELECIONADO INVÁLIDO
+                    </span>
+                    
+                  </div>";
                 } else {
-                  echo "<p class='h4 text-center alert-info'>  RELATÓRIO DE VENDAS <br/>" . "PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " 
-            <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos . "'> *</a></br>
-            " . $mensagemExibeExcluidos .  "
-            
-            </p>";
+                  echo"<div class='alert alert-success'>
+                  <div class='container text-center'>
+                    <div class='alert-icon'>
+                      <i class='material-icons'>check</i>
+                    </div>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                      <span aria-hidden='true'><i class='material-icons'>clear</i></span>
+                    </button>
+                    <span class='h4 text-center'>
+                     <b>RELATÓRIO DE VENDAS</b></br> " . "PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " 
+                    <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos . "'><i class='material-icons mb-2'>info_outline</i>
+                    </a></br>
+                    " . $mensagemExibeExcluidos .  "
+                    </span>
+                    
+                  </div>
+                </div>";
                 }
               } else {
-                echo "<p class='h4 text-center alert-info'>  RELATÓRIO DE VENDAS <br/></p>";
+                echo"<div class='alert alert-info'>
+                <div class='container text-center'>
+                  <div class='alert-icon'>
+                    <i class='material-icons'>warning</i>
+                  </div>
+                  <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'><i class='material-icons'>clear</i></span>
+                  </button>
+                  <span class='h4 text-center'>
+                   <b>RELATÓRIO DE VENDAS</b></br> 
+                  </span>
+                  
+                </div>";
               }
               /* -----------------------------------------------------------------------------------------------------  */
               $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' $queryExibePasseio ORDER BY dataPasseio";
@@ -202,7 +240,6 @@ include_once("./includes/header.php");
 
                 $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
               ?>
-                <tbody>
                   <tr>
                     <td><?php echo $nomePasseio ?></td>
                     <td><?php echo date_format($dataPasseio, "d/m/Y") ?></td>
