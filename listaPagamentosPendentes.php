@@ -74,7 +74,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 
 
                   ?>
-                    <tr class="text-muted">
+                    <tr class="text-bold">
                       <td class="text-center"><?php echo ++$contador; ?></td>
                       <td scope="row"> <?php echo  $rowPagamentosPendentes['nomeCliente']; ?></td>
                       <td><?php echo $rowPagamentosPendentes['idPagamento']; ?></td>

@@ -67,114 +67,144 @@ $(document).ready(function () {
 
     });
 });
+
 $(document).ready(function () {
+    var table = $('#userTable').DataTable();
+
+    $("#hide_show_all").on("change", function () {
+        var hide = $(this).is(":checked");
+        $(".hide_show").prop("checked", hide);
+
+        if (hide) {
+            $('#userTable tr th').hide(100);
+            $('#userTable tr td').hide(100);
+        } else {
+            $('#userTable tr th').show(100);
+            $('#userTable tr td').show(100);
+        }
+    });
+
+    $(".hide_show").on("change", function () {
+        var hide = $(this).is(":checked");
+
+        var all_ch = $(".hide_show:checked").length == $(".hide_show").length;
+
+        $("#hide_show_all").prop("checked", all_ch);
+
+        var ti = $(this).index(".hide_show");
+
+        $('#userTable tr').each(function () {
+            if (hide) {
+                $('td:eq(' + ti + ')', this).hide(100);
+                $('th:eq(' + ti + ')', this).hide(100);
+            } else {
+                $('td:eq(' + ti + ')', this).show(100);
+                $('th:eq(' + ti + ')', this).show(100);
+            }
+        });
+
+    });
+    $('#userTable tfoot th').each(function () {
+        var title = $(this).text();
+        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+    });
+
+    $('#myInput').keyup(function () {
+        table.draw();
+    });
+    $('input.column_filter').on('keyup click', function () {
+        filterColumn($(this).parents('tr').attr('data-column'));
+    });
+
+});
+$(document).ready(function () {
+    var table = $('#userTable').DataTable();
+
+    $("#hide_show_all").on("change", function () {
+        var hide = $(this).is(":checked");
+        $(".hide_show").prop("checked", hide);
+
+        if (hide) {
+            $('#userTable tr th').hide(100);
+            $('#userTable tr td').hide(100);
+        } else {
+            $('#userTable tr th').show(100);
+            $('#userTable tr td').show(100);
+        }
+    });
+
+    $(".hide_show").on("change", function () {
+        var hide = $(this).is(":checked");
+
+        var all_ch = $(".hide_show:checked").length == $(".hide_show").length;
+
+        $("#hide_show_all").prop("checked", all_ch);
+
+        var ti = $(this).index(".hide_show");
+
+        $('#userTable tr').each(function () {
+            if (hide) {
+                $('td:eq(' + ti + ')', this).hide(100);
+                $('th:eq(' + ti + ')', this).hide(100);
+            } else {
+                $('td:eq(' + ti + ')', this).show(100);
+                $('th:eq(' + ti + ')', this).show(100);
+            }
+        });
+
+    });
+    $('#userTable tfoot th').each(function () {
+        var title = $(this).text();
+        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+    });
+
+    $('#myInput').keyup(function () {
+        table.draw();
+    });
+    $('input.column_filter').on('keyup click', function () {
+        filterColumn($(this).parents('tr').attr('data-column'));
+    });
+
+});
+
+
+
+
+
+//TABELA ALTERNATIVA CASO A PRIMEIRA NÃO FUNCIONE
+$(document).ready(function () {
+    $.fn.dataTable.moment('DD/MM/YYYY');
+
     $('#simpleTable').DataTable({
         "lengthMenu": [[15, 50, 100, -1], [15, 50, 100, "TUDO"]],
         dom: 'Blfrtip',
         buttons:
             [
-                'pdfHtml5',
-                'excel',
-                'print'
-            ],
+                {
+                    extend: 'pdfHtml5',
+                    className: 'btn btn-info',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+    
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-info mr-1 ml-1',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+    
+                },
+                {
+                    extend: 'print',
+                    className: 'btn btn-info mr-1',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+    
+            ]
+    
     });
-});
-
-$(document).ready(function () {
-    var table = $('#userTable').DataTable();
-
-    $("#hide_show_all").on("change", function () {
-        var hide = $(this).is(":checked");
-        $(".hide_show").prop("checked", hide);
-
-        if (hide) {
-            $('#userTable tr th').hide(100);
-            $('#userTable tr td').hide(100);
-        } else {
-            $('#userTable tr th').show(100);
-            $('#userTable tr td').show(100);
-        }
-    });
-
-    $(".hide_show").on("change", function () {
-        var hide = $(this).is(":checked");
-
-        var all_ch = $(".hide_show:checked").length == $(".hide_show").length;
-
-        $("#hide_show_all").prop("checked", all_ch);
-
-        var ti = $(this).index(".hide_show");
-
-        $('#userTable tr').each(function () {
-            if (hide) {
-                $('td:eq(' + ti + ')', this).hide(100);
-                $('th:eq(' + ti + ')', this).hide(100);
-            } else {
-                $('td:eq(' + ti + ')', this).show(100);
-                $('th:eq(' + ti + ')', this).show(100);
-            }
-        });
-
-    });
-    $('#userTable tfoot th').each(function () {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-    });
-
-    $('#myInput').keyup(function () {
-        table.draw();
-    });
-    $('input.column_filter').on('keyup click', function () {
-        filterColumn($(this).parents('tr').attr('data-column'));
-    });
-
-});
-$(document).ready(function () {
-    var table = $('#userTable').DataTable();
-
-    $("#hide_show_all").on("change", function () {
-        var hide = $(this).is(":checked");
-        $(".hide_show").prop("checked", hide);
-
-        if (hide) {
-            $('#userTable tr th').hide(100);
-            $('#userTable tr td').hide(100);
-        } else {
-            $('#userTable tr th').show(100);
-            $('#userTable tr td').show(100);
-        }
-    });
-
-    $(".hide_show").on("change", function () {
-        var hide = $(this).is(":checked");
-
-        var all_ch = $(".hide_show:checked").length == $(".hide_show").length;
-
-        $("#hide_show_all").prop("checked", all_ch);
-
-        var ti = $(this).index(".hide_show");
-
-        $('#userTable tr').each(function () {
-            if (hide) {
-                $('td:eq(' + ti + ')', this).hide(100);
-                $('th:eq(' + ti + ')', this).hide(100);
-            } else {
-                $('td:eq(' + ti + ')', this).show(100);
-                $('th:eq(' + ti + ')', this).show(100);
-            }
-        });
-
-    });
-    $('#userTable tfoot th').each(function () {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-    });
-
-    $('#myInput').keyup(function () {
-        table.draw();
-    });
-    $('input.column_filter').on('keyup click', function () {
-        filterColumn($(this).parents('tr').attr('data-column'));
-    });
-
 });

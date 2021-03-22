@@ -49,7 +49,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
           <?php 
           mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
           #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PONTOS DE EMBARQUE</p>"; ?>
-    <table class="table table-striped table-hover table-bordered" id="userTable">
+    <table style="width:100%" class="table table-striped table-hover table-bordered" id="simpleTable">
       <thead>
         <tr>
           <th>NOME</th>

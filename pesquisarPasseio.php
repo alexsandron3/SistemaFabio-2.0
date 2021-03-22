@@ -54,7 +54,7 @@ include_once("./includes/header.php");
               <?php esconderTabela(6); ?>
             </div>
           <div class="table mt-5">
-            <table class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
               <thead>
                 <tr>
                   <th>ID</th>
