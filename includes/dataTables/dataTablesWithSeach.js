@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $.fn.dataTable.moment('DD/MM/YYYY');
+
     $('#userTable').DataTable({
         "footerCallback": function (row, data, start, end, display) {
             var api = this.api(), data;

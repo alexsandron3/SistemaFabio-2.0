@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
-<link href="/assets/css/material-kit.css?v=2.0.7" rel="stylesheet" />
+<!-- <link href="/assets/css/material-kit.css?v=2.0.7" rel="stylesheet" /> -->
 
 
 
@@ -33,7 +33,7 @@
 <!--  -->
 
 
- 
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="./includes/dataTables/datatables.min.js"></script>
@@ -43,7 +43,7 @@
 <link rel="stylesheet" href="./config/style.css">
 
 <!--  -->
- 
+
 <!--   Core JS Files   -->
 <!-- <script src="assets/js/core/jquery.min.js" type="text/javascript"></script> -->
 <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -54,9 +54,12 @@
 <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 <script src="assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 <!--  Google Maps Plugin  -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
 <script src="assets/js/material-kit.js?v=2.0.7" type="text/javascript"></script>
 <!-- <script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script> -->
+
+
+<script src="https://cdn.datatables.net/plug-ins/1.10.24/sorting/datetime-moment.js"></script>

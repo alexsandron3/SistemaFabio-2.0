@@ -91,14 +91,14 @@ include_once("./includes/header.php");
                     <tr>
                       <th><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></th>
                       <td><?php echo $valorPesquisaPasseio['nomePasseio'] . "<BR/>"; ?></td>
-                      <td><?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
+                      <td ><?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaPasseio['localPasseio'] . "<BR/>"; ?></td>
                       <td></td>
                       <td>
-                        <?php echo "<a class='btn btn-info btn-just-icon btn-sm '  href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
-                        <?php echo "<a class='btn btn-success btn-just-icon btn-sm' target='_blank' rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>price_check</i></a>"; ?>
-                        <?php echo "<a class='btn btn-warning btn-just-icon btn-sm'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'><i class='material-icons'>edit</i>  </a>"; ?>
-                        <?php echo "<a class='btn btn-danger btn-just-icon btn-sm' onclick='javascript:confirmationDeletePasseio($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "&dataPasseio=" . $valorPesquisaPasseio['dataPasseio'] . "&nomePasseio=" . $valorPesquisaPasseio['nomePasseio'] . "' ><i class='material-icons'>delete_forever</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='LISTA DE CLIENTES' class='btn btn-info btn-just-icon btn-sm '  href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='RELATÓRIOS DO PASSEIO' class='btn btn-success btn-just-icon btn-sm' target='_blank' rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>price_check</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR PASSEIO' class='btn btn-warning btn-just-icon btn-sm'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'><i class='material-icons'>edit</i>  </a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='APAGAR PASSEIO' class='btn btn-danger btn-just-icon btn-sm' onclick='javascript:confirmationDeletePasseio($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "&dataPasseio=" . $valorPesquisaPasseio['dataPasseio'] . "&nomePasseio=" . $valorPesquisaPasseio['nomePasseio'] . "' ><i class='material-icons'>delete_forever</i></a>"; ?>
                       </td>
                     </tr>
                   <?php
@@ -118,10 +118,10 @@ include_once("./includes/header.php");
                       <td><?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaPasseio['localPasseio'] . "<BR/>"; ?></td>
                       <td>
-                        <?php echo "<a class='btn btn-primary btn-sm ml-4' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
-                        <?php echo "<a class='btn btn-primary btn-sm mt-1' target='_blank' rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>price_check</i></a>"; ?>
-                        <?php echo "<a class='btn btn-primary btn-sm ml-1'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'><i class='material-icons'>edit</i>  </a>"; ?>
-                        <?php echo "<a class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDeletePasseio($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "&dataPasseio=" . $valorPesquisaPasseio['dataPasseio'] . "&nomePasseio=" . $valorPesquisaPasseio['nomePasseio'] . "' ><i class='material-icons'>delete_forever</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='LISTA DE CLIENTES' class='btn btn-primary btn-sm ml-4' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='RELATÓRIOS DO PASSEIO' class='btn btn-primary btn-sm mt-1' target='_blank' rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>price_check</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR PASSEIO' class='btn btn-primary btn-sm ml-1'  target='_blank' rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'><i class='material-icons'>edit</i>  </a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='APAGAR PASSEIO' class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDeletePasseio($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "&dataPasseio=" . $valorPesquisaPasseio['dataPasseio'] . "&nomePasseio=" . $valorPesquisaPasseio['nomePasseio'] . "' ><i class='material-icons'>delete_forever</i></a>"; ?>
                       </td>
                     </tr>
                 <?php
