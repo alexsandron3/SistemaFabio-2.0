@@ -32,6 +32,7 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
   <div class="row py-5">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
+      <p class="h2 text-center">EDIÇÃO DE PASSEIO</p>
         <div class="card-body p-5 bg-white rounded ">
                   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                   <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>

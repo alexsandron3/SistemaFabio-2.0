@@ -14,6 +14,7 @@ include_once("./includes/header.php");
 </head>
 
 <body>
+
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
@@ -24,20 +25,20 @@ include_once("./includes/header.php");
         <div class="card-body p-5 bg-white rounded">
                   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                   <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+                  
           <p class="h2 text-center">PESQUISAR CLIENTE</p>
           <form action="" autocomplete="off" method="POST" name="formularioPesquisarCliente">
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label" for="nomeCliente">INSIRA: </label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control col-sm-6" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE" onkeydown="upperCaseF(this)">
-                <input type="hidden" class="form-control col-sm-6" name="" id="paginaSelecionada" placeholder="página" onkeydown="upperCaseF(this)">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" class="form-control" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE" onkeydown="upperCaseF(this)">
+                <input type="hidden" class="form-control" name="" id="paginaSelecionada" placeholder="página" onkeydown="upperCaseF(this)">
+                <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-info form-group ">
               </div>
-
-
             </div>
-            <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-info">
           </form>
-
+          <div class="table-reponsive">
+              <?php esconderTabela(8); ?>
+            </div>
           <div class="table-responsive">
             <table class="table table-striped table-bordered" id="userTable">
               <thead>
@@ -115,19 +116,19 @@ include_once("./includes/header.php");
                       <td><?php echo $valorPesquisaCliente['emailCliente'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['redeSocial'] . "<BR/>"; ?></td>
                       <td class=" text-right">
-                        <?php echo "<a class='btn btn-info btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $idCliente . "'><i class='material-icons'>edit</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR CLIENTE' class='btn btn-info btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $idCliente . "'><i class='material-icons'>edit</i></a>"; ?>
 
 
                         <?php
                         if ($valorPesquisaCliente['statusCliente'] == 1) {
-                          echo "<a class='btn btn-success btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $idCliente . "' ><i class='material-icons'>shopping_cart</i></a>";
+                          echo "<a data-toggle='tooltip' data-placement='top' title='REALIZAR PAGAMENTO' class='btn btn-success btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $idCliente . "' ><i class='material-icons'>shopping_cart</i></a>";
                         }
                         ?>
                         <?php
                         if ($valorPesquisaCliente['statusCliente'] == 0) {
-                          echo "<a class='btn btn-success btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_add</i></a>";
+                          echo "<a data-toggle='tooltip' data-placement='top' title='REATIVAR CLIENTE' class='btn btn-success btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_add</i></a>";
                         } else {
-                          echo "<a class='btn btn-danger btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_remove</i></a>";
+                          echo "<a data-toggle='tooltip' data-placement='top' title='DESATIVAR CLIENTE' class='btn btn-danger btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_remove</i></a>";
                         }
                         ?>
 

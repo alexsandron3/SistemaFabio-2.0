@@ -41,22 +41,23 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+        <p class="h2 text-center mb-5">LISTA DE PASSAGEIROS</p>
                   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                   <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div class="table ml-1">
             
             <?php 
-            mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS");
+            mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
             #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS</p>"; ?>
 
             <table style="width:100%" class="table table-striped table-bordered" id="userTable">
               <thead>
                 <tr>
-                  <th class="text-center">#</th>
-                  <th> <a href="#"> NOME </a></th>
-                  <th> <a href="#">IDADE </a></th>
-                  <th> <a href="#">Nº IDENTIDADE </a></th>
-                  <th> <a href="#">ORGÃO EMISSOR</a></th>
+                  <th class="text-center">Nº ORDEM</th>
+                  <th>  NOME </th>
+                  <th> IDADE </th>
+                  <th> Nº IDENTIDADE </th>
+                  <th> ORGÃO EMISSOR</th>
                 </tr>
               </thead>
 
@@ -110,13 +111,13 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
             <?php
             if ($controleListaPasseio > 0) {
               echo "<div class='text-center'>";
-              echo "<p class='h5 text-center alert-warning'>TOTAL DE " . $controleListaPasseio . " CLIENTES </p>";
+              echo "<p class='h5 text-center alert-warning text-dark'>TOTAL DE " . $controleListaPasseio . " CLIENTES </p>";
 
               echo "</div>";
             } else {
 
               echo "<div class='text-center'>";
-              echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
+              echo "<p class='h5 text-center alert-warning text-dark'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
               echo "</div>";
             }
 

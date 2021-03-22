@@ -40,12 +40,14 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ml-1">
+        <p class="h2 text-center mb-5">PONTOS DE EMBARQUE</p>
+
                   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                   <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div class="table ml-1">   
             
           <?php 
-          mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PONTOS DE EMBARQUE");
+          mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
           #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PONTOS DE EMBARQUE</p>"; ?>
     <table class="table table-striped table-hover table-bordered" id="userTable">
       <thead>

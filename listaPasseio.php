@@ -44,11 +44,13 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
+      <p class="h2 text-center">LISTA DE CLIENTES</p>
+
         <div class="card-body p-5 bg-white rounded">
                   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                   <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div> <?php 
-          mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
+          mensagensInfoNoSession(" PASSEIO: ". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
           <span class='h5'> LOTAÇÃO: $lotacao </span> 
          | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS </span> 
          | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS </span>
@@ -66,18 +68,21 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  
         </p>"; */ ?>
             <div class="table-responsive">
+            <div class="table-reponsive">
+              <?php esconderTabela(9); ?>
+            </div>
               <table class="table table-striped table-bordered" id="userTable">
                 <thead>
                   <tr>
-                    <th> <a href="#"> NOME </a></th>
-                    <th> <a href="#">RG </a></th>
-                    <th> <a href="#">CPF CONSULTADO </a></th>
-                    <th> <a href="#">REFERÊNCIA </a></th>
-                    <th> <a href="#">STATUS </a></th>
-                    <th> <a href="#">CONTATO </a></th>
-                    <th> <a href="#">V. PAGO  </a></th>
-                    <th> <a href="#">V. VENDIDO </a></th>
-                    <th> <a href="#"> AÇÃO  </a></th>
+                    <th>  NOME </th>
+                    <th> RG </th>
+                    <th> CPF CONSULTADO </th>
+                    <th> REFERÊNCIA </th>
+                    <th> STATUS </th>
+                    <th> CONTATO </th>
+                    <th> V. PAGO  </th>
+                    <th> V. VENDIDO </th>
+                    <th>  AÇÃO  </th>
                   </tr>
                 </thead>
 
@@ -149,7 +154,9 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                       if ($_SESSION['nivelAcesso'] == 1 or $_SESSION['nivelAcesso'] == 0) {
                         if ($rowBuscaPasseio['valorPago'] == 0) {
                           $opcao = "DELETAR";
+                          $corTexto = "btn btn-danger";
                         } else {
+                          $corTexto = "btn btn-warning";
                           $opcao = "TRANSFERIR";
                         }
                       } else {
@@ -158,14 +165,18 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                       ?>
                       <td><?php echo number_format($valorPago, 2, '.', '') . "<BR/>" ?></td>
                       <td><?php echo $rowBuscaPasseio['valorVendido'] . "<BR/>"; ?></td>
-                      <td class="td-actions text-right"> <a target='_blank' red='noopener noreferrer' class="btn btn-info btn-just-icon btn-sm" href="editarPagamento.php?id=<?php echo $idPagamento; ?>">
-                          <i class="material-icons"> edit </i> </a>
+                      <td class="td-actions"> 
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" target='_blank' red='noopener noreferrer' class="btn btn-info btn-just-icon btn-sm" href="editarPagamento.php?id=<?php echo $idPagamento; ?>">
+                          <i class="material-icons"> edit </i> 
                         </a>
-                        <a target='_blank' rel='noopener noreferrer' class="btn btn-warning btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
-                          <i class="material-icons"><?php $iconAcao = ($opcao == "DELETAR") ? 'remove_shopping_cart' : 'swap_horiz';
+                        
+                        <a data-toggle="tooltip" data-placement="top" title="TRANSFERIR OU DELETAR PAGAMENTO" target='_blank' rel='noopener noreferrer' class="btn <?php echo $corTexto;?> btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
+                          <i class="material-icons"><?php $iconAcao = ($opcao == "DELETAR") ? 'delete_forever' : 'swap_horiz';
                                                     echo $iconAcao; ?> </i>
                         </a>
-                        <a target="_blank" href="https://wa.me/55<?php echo $rowBuscaPasseio['telefoneCliente']; ?>"> <i class="material-icons"> perm_contact_calendar </i> </a>
+                        <a data-toggle="tooltip" data-placement="top" title="ENVIAR UMA MENSAGEM NO WHATS APP" class='btn btn-success btn-just-icon btn-sm' target="_blank" href="https://wa.me/55<?php echo $rowBuscaPasseio['telefoneCliente']; ?> "> 
+                          <i class="material-icons"> perm_phone_msg </i> 
+                        </a>
 
 
 

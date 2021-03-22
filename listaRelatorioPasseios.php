@@ -35,6 +35,8 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 </head>
 
 <body>
+      <!-- INCLUSÃO DA NAVBAR -->
+      <?php include_once("./includes/htmlElements/navbar.php"); ?>
   <?php
 
   $contador = 0;
@@ -42,16 +44,18 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
+
         <div class="card-body p-5 bg-white rounded">
           <div class="table-responsive">
                     <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                     <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-            <div class="text-center mb-4">
-              <h4><small>LISTA DE PASSEIOS</small></h4>
-            </div>
+          <p class="h2 text-center">DEFINIR TÍTULO</p>
+
 
             <div class="table-reponsive">
-              <table class="table table-striped table-bordered" id="simpleTable" >
+              <?php esconderTabela(4); ?>
+            </div>
+              <table class="table table-striped table-bordered" id="userTable" >
                 <thead>
                   <tr>
                     <th class="text-center">Nº DE ORDEM</th>
@@ -75,16 +79,16 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                       <td><?php echo $dataPasseioFromatada ?></td>
                       <td class="td-actions text-right">
 
-                        <a href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">groups</i>
                         </a>
-                        <a href="editaDespesas.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-danger btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="DESPESAS" href="editaDespesas.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-danger btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">money_off</i>
                         </a>
-                        <a href="relatoriosDoPasseio.php?id= <?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-dark btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="RELATÓRIOS DO PASSEIO" href="relatoriosDoPasseio.php?id= <?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-dark btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">summarize</i>
                         </a>
-                        <a href="relatoriosPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-success btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="LUCROS" href="relatoriosPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-success btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">price_check </i>
 
                         </a>
@@ -99,6 +103,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
       </div>
     </div>
   </div>
+
 
 
 </body>

@@ -124,16 +124,16 @@ $transporte = $rowIdPagamento['transporte'];
                 $statusSeguroViagemfalse = 'checked';
               }
               echo "<div class='row'>";
-              echo "<legend class='col-form-label col-sm-2 pt-0'>SEGURO VIAGEM</legend>";
+              echo "<legend class='col-form-label col-sm-2 pt-0 text-muted'>SEGURO VIAGEM</legend>";
               echo "<div class='col-sm-5'>";
-              echo "<div class='form-check'>";
+              echo "<div class='col'>";
               echo "<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
                 value='1'  $statusSeguroViagemtrue '>";
               echo "<label class='form-check-label' for='seguroViagemClienteSim' >
                   SIM
                 </label>";
               echo "</div>";
-              echo "<div class='form-check'>";
+              echo "<div class='col'>";
               echo "<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
                 value='0' $statusSeguroViagemfalse >";
               echo "<label class='form-check-label' for='seguroViagemClientenao'>
@@ -152,16 +152,16 @@ $transporte = $rowIdPagamento['transporte'];
                 $clienteDesistenteFalse = 'checked';
               }
               echo "<div class='row'>";
-              echo "<legend class='col-form-label col-sm-2 pt-0'>DESISTENTE</legend>";
+              echo "<legend class='col-form-label col-sm-2 pt-0 text-muted'>DESISTENTE</legend>";
               echo "<div class='col-sm-5'>";
-              echo "<div class='form-check'>";
+              echo "<div class='col'>";
               echo "<input class='form-check-input' type='radio' name='clienteDesistente' id='clienteDesistenteSim'
                 value='1'  $clienteDesistenteTrue >";
               echo "<label class='form-check-label' for='clienteDesistenteSim'>
                   SIM
                 </label>";
               echo "</div>";
-              echo "<div class='form-check'>";
+              echo "<div class='col'>";
               echo "<input class='form-check-input' type='radio' name='clienteDesistente' id='clienteDesistenteoNao'
                 value='0'  $clienteDesistenteFalse >";
               echo "<label class='form-check-label' for='clienteDesistenteNao'>
@@ -181,16 +181,16 @@ $transporte = $rowIdPagamento['transporte'];
                 $clienteParceiroFalse = 'checked';
               }
               echo "<div class='row'>";
-              echo "<legend class='col-form-label col-sm-2 pt-0'>CLIENTE PARCEIRO</legend>";
+              echo "<legend class='col-form-label col-sm-2 pt-0 text-muted'>CLIENTE PARCEIRO</legend>";
               echo "<div class='col-sm-5'>";
-              echo "<div class='form-check'>";
+              echo "<div class='col'>";
               echo "<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
                 value='1'  $clienteParceiroTrue onclick='calculoPagamentoCliente()'>";
               echo "<label class='form-check-label' for='clienteParceiroSim'>
                   SIM
                 </label>";
               echo "</div>";
-              echo "<div class='form-check'>";
+              echo "<div class='col'>";
               echo "<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
                 value='0'  $clienteParceiroFalse onclick='calculoPagamentoCliente()'>";
               echo "<label class='form-check-label' for='clienteParceironao'>
