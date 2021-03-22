@@ -22,45 +22,46 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 
 
   <?php
-  $contador=0; 
+  $contador = 0;
   $query = " SELECT c.nomeCliente, c.idCliente, pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
            FROM  pagamento_passeio pp, cliente c, passeio p 
-           WHERE statusPagamento NOT IN (0,3) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ORDER BY $ordemPesquisa";
+           WHERE statusPagamento NOT IN (1) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ORDER BY $ordemPesquisa";
   $executaQuery = mysqli_query($conexao, $query);
   $quantidadePagamentoPendente = mysqli_num_rows($executaQuery);
   $queryValorTotalPendente = "SELECT SUM(valorPendente) AS valorTotalPendente 
                                     FROM pagamento_passeio pp, cliente c, passeio p 
-                                    WHERE statusPagamento NOT IN (0,3) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ";
+                                    WHERE statusPagamento NOT IN (1) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ";
   $executaQueryValorTotalPendente = mysqli_query($conexao, $queryValorTotalPendente);
   $rowValorTotalPendente = mysqli_fetch_assoc($executaQueryValorTotalPendente);
   ?>
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
-      <p class="h2 text-center">PAGAMENTOS PENDENTES</p>
+        <p class="h2 text-center">PAGAMENTOS PENDENTES</p>
 
         <div class="card-body p-5 bg-white rounded">
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <div class="table ml-1"> 
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div class="table ml-1">
             <?php
-          mensagensInfoNoSession("QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente);
-          #echo "<p class='h4 text-center alert-info mt-2'> QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente . "</p>"; ?>
+            mensagensInfoNoSession("QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente);
+            #echo "<p class='h4 text-center alert-info mt-2'> QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente . "</p>"; 
+            ?>
 
-<div class="table-reponsive">
+            <div class="table-reponsive">
               <?php esconderTabela(7); ?>
             </div>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered" id="userTable">
                 <thead>
                   <tr>
-                  <th >  Nº DE ORDEM </th>
-                    <th>  NOME </th>
+                    <th> Nº DE ORDEM </th>
+                    <th> NOME </th>
                     <th> Nº PEDIDO </th>
                     <th> PASSEIO </th>
-                    <th> PENDENTE  <?php/*  echo number_format($rowValorTotalPendente['valorTotalPendente'] * -1.00, 2, '.', ''); */ ?> </th>
-                    <th>  PREVISÃO PAGAMENTO </th>
-                    <th class="text-right">  AÇÕES </th>
+                    <th> PENDENTE </th>
+                    <th> PREVISÃO PAGAMENTO </th>
+                    <th class="text-right"> AÇÕES </th>
                   </tr>
                 </thead>
 
@@ -74,7 +75,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 
                   ?>
                     <tr class="text-muted">
-                    <td class="text-center"><?php echo ++$contador; ?></td>
+                      <td class="text-center"><?php echo ++$contador; ?></td>
                       <td scope="row"> <?php echo  $rowPagamentosPendentes['nomeCliente']; ?></td>
                       <td><?php echo $rowPagamentosPendentes['idPagamento']; ?></td>
                       <td><?php
@@ -92,13 +93,13 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                             ?>
                       </td>
                       <td class="td-actions text-right">
-                        <a  data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">edit</i>
                         </a>
                         <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" href="editarPagamento.php?id=<?php echo $rowPagamentosPendentes['idPagamento']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">payment</i>
                         </a>
-                        <a  data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">groups</i>
                         </a>
                       </td>
@@ -108,7 +109,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                   ?>
                 <tfoot>
                   <tr>
-                    <th colspan="5" style="text-align:right">Total:</th>
+                    <!-- <th colspan="5" style="text-align:right">Total:</th> -->
                   </tr>
                 </tfoot>
                 </tbody>
