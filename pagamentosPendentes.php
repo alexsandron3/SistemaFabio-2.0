@@ -54,7 +54,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
           <div class="table ml-1"> <?php 
           mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
           #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; ?>
-            <table class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="simpleTable">
               <thead>
                 <tr>
                   <th> NOME </th>

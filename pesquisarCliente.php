@@ -39,8 +39,9 @@ include_once("./includes/header.php");
           <div class="table-reponsive">
               <?php esconderTabela(8); ?>
             </div>
+            
           <div class="table-responsive">
-            <table class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
               <thead>
                 <tr>
                   <th>NOME</th>

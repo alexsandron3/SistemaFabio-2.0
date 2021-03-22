@@ -35,8 +35,8 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 </head>
 
 <body>
-      <!-- INCLUSÃO DA NAVBAR -->
-      <?php include_once("./includes/htmlElements/navbar.php"); ?>
+  <!-- INCLUSÃO DA NAVBAR -->
+  <?php include_once("./includes/htmlElements/navbar.php"); ?>
   <?php
 
   $contador = 0;
@@ -47,61 +47,61 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 
         <div class="card-body p-5 bg-white rounded">
           <div class="table-responsive">
-                    <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                    <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <p class="h2 text-center">DEFINIR TÍTULO</p>
+            <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+            <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+            <p class="h2 text-center">DEFINIR TÍTULO</p>
 
 
             <div class="table-reponsive">
               <?php esconderTabela(4); ?>
             </div>
-              <table class="table table-striped table-bordered" id="userTable" >
-                <thead>
-                  <tr>
-                    <th class="text-center">Nº DE ORDEM</th>
-                    <th>Passeio</th>
-                    <th>Data</th>
-                    <th class="text-right">Ações</th>
+            <table style="width:100%" class="table table-striped table-bordered" id="simpleTable">
+              <thead>
+                <tr>
+                  <th class="text-center">Nº DE ORDEM</th>
+                  <th>Passeio</th>
+                  <th>Data</th>
+                  <th class="text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+
+                while ($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)) {
+                  $dataPasseio = (empty($rowPesquisaIntervaloData['dataPasseio'])) ? "" : date_create($rowPesquisaIntervaloData['dataPasseio']);
+                  $dataPasseioFromatada = (empty($dataPasseio)) ? "" : date_format($dataPasseio, "d/m/Y");
+
+                  /* -----------------------------------------------------------------------------------------------------  */
+                ?>
+                  <tr class="text-bold">
+                    <td class="text-center"><?php echo ++$contador; ?></td>
+                    <td><?php echo $rowPesquisaIntervaloData['nomePasseio']; ?></td>
+                    <td><?php echo $dataPasseioFromatada ?></td>
+                    <td class="td-actions text-right">
+
+                      <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
+                        <i class="material-icons">groups</i>
+                      </a>
+                      <a data-toggle="tooltip" data-placement="top" title="DESPESAS" href="editaDespesas.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-danger btn-just-icon btn-sm" target="_blank">
+                        <i class="material-icons">money_off</i>
+                      </a>
+                      <a data-toggle="tooltip" data-placement="top" title="RELATÓRIOS DO PASSEIO" href="relatoriosDoPasseio.php?id= <?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-dark btn-just-icon btn-sm" target="_blank">
+                        <i class="material-icons">summarize</i>
+                      </a>
+                      <a data-toggle="tooltip" data-placement="top" title="LUCROS" href="relatoriosPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-success btn-just-icon btn-sm" target="_blank">
+                        <i class="material-icons">price_check </i>
+
+                      </a>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  <?php
-
-                  while ($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)) {
-                    $dataPasseio = (empty($rowPesquisaIntervaloData['dataPasseio'])) ? "" : date_create($rowPesquisaIntervaloData['dataPasseio']);
-                    $dataPasseioFromatada = (empty($dataPasseio)) ? "" : date_format($dataPasseio, "d/m/Y");
-
-                    /* -----------------------------------------------------------------------------------------------------  */
-                  ?>
-                    <tr>
-                      <td class="text-center"><?php echo ++$contador; ?></td>
-                      <td><?php echo $rowPesquisaIntervaloData['nomePasseio']; ?></td>
-                      <td><?php echo $dataPasseioFromatada ?></td>
-                      <td class="td-actions text-right">
-
-                        <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
-                          <i class="material-icons">groups</i>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="DESPESAS" href="editaDespesas.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-danger btn-just-icon btn-sm" target="_blank">
-                          <i class="material-icons">money_off</i>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="RELATÓRIOS DO PASSEIO" href="relatoriosDoPasseio.php?id= <?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-dark btn-just-icon btn-sm" target="_blank">
-                          <i class="material-icons">summarize</i>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="LUCROS" href="relatoriosPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-success btn-just-icon btn-sm" target="_blank">
-                          <i class="material-icons">price_check </i>
-
-                        </a>
-                      </td>
-                    </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div>
+                <?php } ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 
