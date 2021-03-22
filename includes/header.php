@@ -23,6 +23,7 @@
     include_once("servicos/servicoMsgText.php");
     include_once("servicos/servicoMensagens.php");
     include_once("constantes.php");
+    include_once("htmlElements/esconderTabelas.php"); 
 
     
 

@@ -17,35 +17,25 @@ $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-  <div class="d-flex flex-column">
-            <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-            <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2"></div>
-    <div class="p-2 text-center">
-      <a target="_blank" href="listaClientes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info">LISTA PASSAGEIROS</a>
-      <a target="_blank" href="pontosDeEmbarque.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info">PONTOS DE EMBARQUE</a>
-      <a target="_blank" href="pagamentosPendentes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info">PAGAMENTOS PENDENTES</a>
-      <a target="_blank" href="SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info">SEGURO VIAGEM</a>
-      <a target="_blank" href="listaAniversariantesMes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info">ANIVERSARIANTES</a>
+  <div class="row py-5">
+    <div class="col-lg-11 mx-auto">
+      <div class="card rounded shadow border-0">
+        <p class="h2 text-center">RELATÓRIOS DO PASSEIO</p>
+        <div class="card-body p-5 bg-white rounded ">
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+
+          <div class="text-center">
+          <a target="_blank" href="listaAniversariantesMes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">ANIVERSARIANTES</a>
+            <a target="_blank" href="listaClientes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">LISTA DE PASSAGEIROS</a>
+            <a target="_blank" href="pagamentosPendentes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PAGAMENTOS PENDENTES</a>
+            <a target="_blank" href="pontosDeEmbarque.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PONTOS DE EMBARQUE</a>
+            <a target="_blank" href="SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round"> <i class="material-icons mr-2">save_alt</i> SEGURO VIAGEM</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
 </body>
 
 </html>

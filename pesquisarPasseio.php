@@ -21,27 +21,38 @@ include_once("./includes/header.php");
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <p class="h2 text-center">PESQUISAR PASSEIO</p>
           <form action="" autocomplete="off" method="GET">
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label" for="nomePasseio">PESQUISAR</label>
-              <input type="text" class="form-control col-sm-4" name="valorPesquisaPasseio" id="" placeholder="NOME OU LOCAL" onkeydown="upperCaseF(this)">
-              <label class="col-sm-2 col-form-label" for="inicioDataPasseio">DATA:</label>
-              <input type="date" class="form-control col-sm-3" name="dataPasseio" id="dataPasseio">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" class="form-control" name="valorPesquisaPasseio" id="" placeholder="NOME OU LOCAL" onkeydown="upperCaseF(this)">
+              </div>
+              <div class="col">
+                <input type="date" class="form-control" name="dataPasseio" id="dataPasseio">
+              </div>
             </div>
-
-            <input type="submit" value="PESQUISAR" name="enviaPesqNome" class="btn btn-info btn-md">
-            <input type="submit" value="PESQUISAR" name="enviaPesqData" class="btn btn-info btn-md float-right">
-            <div class="row ml-5">
-              <input class="form-check-input " type="checkbox" name="mostrarPasseiosExcluidos" value="1" id="mostrarPasseiosExcluidos">
-              <label class="form-check-label " for="mostrarPasseiosExcluidos">
-                EXIBE PASSEIOS ENCERRADOS
-              </label>
+            <div class="form-row">
+              <div class="col ml-3 mt-2">
+                <input class="form-check-input " type="checkbox" name="mostrarPasseiosExcluidos" value="1" id="mostrarPasseiosExcluidos">
+                <label class="form-check-label " for="mostrarPasseiosExcluidos">
+                  EXIBE PASSEIOS ENCERRADOS
+                </label>
+              </div>
             </div>
-
+              <div class="form-row">
+                <div class="col">  
+                  <input type="submit" value="PESQUISAR" name="enviaPesqNome" class="btn btn-info btn-md">
+                </div>
+                <div class="col"> 
+                  <input type="submit" value="PESQUISAR" name="enviaPesqData" class="btn btn-info btn-md float-right">
+                </div>
+              </div>
           </form>
+          <div class="table-reponsive">
+              <?php esconderTabela(6); ?>
+            </div>
           <div class="table mt-5">
             <table class="table table-striped table-bordered" id="userTable">
               <thead>

@@ -37,25 +37,30 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
+      <p class="h2 text-center">PAGAMENTOS PENDENTES</p>
+
         <div class="card-body p-5 bg-white rounded">
                   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                   <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <div class="table ml-1"> <?php
+          <div class="table ml-1"> 
+            <?php
           mensagensInfoNoSession("QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente);
           #echo "<p class='h4 text-center alert-info mt-2'> QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente . "</p>"; ?>
 
-
+<div class="table-reponsive">
+              <?php esconderTabela(7); ?>
+            </div>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered" id="userTable">
                 <thead>
                   <tr>
-                  <th > <a href="#"> Nº DE ORDEM </a></th>
-                    <th> <a href="#"> NOME </a></th>
-                    <th> <a href="#">Nº PEDIDO </a></th>
-                    <th> <a href="#">PASSEIO </a></th>
-                    <th> <a href="#">PENDENTE  <?php/*  echo number_format($rowValorTotalPendente['valorTotalPendente'] * -1.00, 2, '.', ''); */ ?> </a></th>
-                    <th> <a href="#"> PREVISÃO PAGAMENTO </a></th>
-                    <th class="text-right"> <a href="#"> AÇÕES </a></th>
+                  <th >  Nº DE ORDEM </th>
+                    <th>  NOME </th>
+                    <th> Nº PEDIDO </th>
+                    <th> PASSEIO </th>
+                    <th> PENDENTE  <?php/*  echo number_format($rowValorTotalPendente['valorTotalPendente'] * -1.00, 2, '.', ''); */ ?> </th>
+                    <th>  PREVISÃO PAGAMENTO </th>
+                    <th class="text-right">  AÇÕES </th>
                   </tr>
                 </thead>
 
@@ -87,14 +92,14 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                             ?>
                       </td>
                       <td class="td-actions text-right">
-                        <a href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
-                          <i class="material-icons">manage_accounts</i>
+                        <a  data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
+                          <i class="material-icons">edit</i>
                         </a>
-                        <a href="editarPagamento.php?id=<?php echo $rowPagamentosPendentes['idPagamento']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" href="editarPagamento.php?id=<?php echo $rowPagamentosPendentes['idPagamento']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
                           <i class="material-icons">payment</i>
                         </a>
-                        <a href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
-                          <i class="material-icons">local_airport</i>
+                        <a  data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
+                          <i class="material-icons">groups</i>
                         </a>
                       </td>
                     </tr>

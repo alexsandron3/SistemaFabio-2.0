@@ -22,26 +22,40 @@ include_once("./includes/header.php");
   <div class="row py-3">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
-                <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+        <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+        <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
         <div class="card-body p-5 bg-white rounded">
+          <p class="h2 text-center">RELATÓRIO DE VENDAS</p>
           <form action='' method='GET' autocomplete='OFF'>
-            <div class='form-group row mb-5 mt-5'>
-              <label class='col-sm-2 col-form-label' for='inicioDataPasseio'></label>
-              <input type='date' class='form-control col-sm-2' name='inicioDataPasseio' id='inicioDataPasseio' value="">
-    
-              <label class='col-sm-2 col-form-label  pl-5' for='fimDataPasseio'>PERÍODO</label>
-              <input type='date' class='form-control col-sm-2' name='fimDataPasseio' id='fimDataPasseio' value="">
-              <input type='submit' class='btn btn-info btn-sm ml-5 ' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
-              <div class="mt-2 col-12">
-                <input class="form-check-input col-1 ml-1" type="checkbox" name="mostrarPasseiosExcluidos" value="1" id="mostrarPasseiosExcluidos">
-                <label class="form-check-label  col-3 ml-5 pl-5" for="mostrarPasseiosExcluidos">
+            <div class="form-row">
+
+              <div class="col">
+                <input data-toggle="tooltip" data-placement="top" title="SELECIONE O INÍCIO DO PERÍODO" type='date' class='form-control' name='inicioDataPasseio' id='inicioDataPasseio' value="">
+              </div>
+
+              <div class="col">
+                <input data-toggle="tooltip" data-placement="top" title="SELECIONE O FIM DO PERÍODO" type='date' class='form-control' name='fimDataPasseio' id='fimDataPasseio' value="">
+              </div>
+
+            </div>
+            <div class="form-row">
+              <div class="col ml-3 mt-2">
+                <input class="form-check-input " type="checkbox" name="mostrarPasseiosExcluidos" value="1" id="mostrarPasseiosExcluidos">
+                <label class="form-check-label " for="mostrarPasseiosExcluidos">
                   EXIBE PASSEIOS ENCERRADOS
                 </label>
               </div>
             </div>
+            <div class="form-row">
+              <div class="col">
+                <input type='submit' class='btn btn-info btn-md' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
+              </div>
+            </div>
+            <!-- <input type='submit' class='btn btn-info btn-sm ml-5 ' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'> -->
           </form>
-          <div class="table-responsive">
+          <div class="table-responsive mt-3">
+            <!--control show hide columns ( start )-->
+
             <table class="table table-striped table-bordered" id="userTable">
               <thead>
                 <tr>
@@ -57,20 +71,20 @@ include_once("./includes/header.php");
               </thead>
               <tbody>
 
-              <?php
-              /* -----------------------------------------------------------------------------------------------------  */
-              $buttonEviaDataPasseio    = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
-              $inicioDataPasseio        = filter_input(INPUT_GET, 'inicioDataPasseio', FILTER_SANITIZE_STRING);
-              $fimDataPasseio           = filter_input(INPUT_GET, 'fimDataPasseio', FILTER_SANITIZE_STRING);
-              $mostrarPasseiosExcluidos = filter_input(INPUT_GET, 'mostrarPasseiosExcluidos', FILTER_VALIDATE_BOOLEAN);
-              $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
-              $fimDataPasseioFormatado = date_create($fimDataPasseio);
-              $exibePasseio = (empty($mostrarPasseiosExcluidos) or is_null($mostrarPasseiosExcluidos)) ? false : true;
-              $queryExibePasseio = ($exibePasseio == false) ? 'AND statusPasseio NOT IN (0)' : ' ';
-              $mensagemExibeExcluidos = ($exibePasseio == true) ? 'EXBINDO TODOS OS PASSEIOS, INCLUSIVE ENCERRADOS ' : ' EXIBINDO SOMENTE PASSEIOS ATIVOS';
-              if ($buttonEviaDataPasseio) {
-                if (empty($inicioDataPasseio) or empty($fimDataPasseio)) {
-                  echo"<div class='alert alert-warning'>
+                <?php
+                /* -----------------------------------------------------------------------------------------------------  */
+                $buttonEviaDataPasseio    = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
+                $inicioDataPasseio        = filter_input(INPUT_GET, 'inicioDataPasseio', FILTER_SANITIZE_STRING);
+                $fimDataPasseio           = filter_input(INPUT_GET, 'fimDataPasseio', FILTER_SANITIZE_STRING);
+                $mostrarPasseiosExcluidos = filter_input(INPUT_GET, 'mostrarPasseiosExcluidos', FILTER_VALIDATE_BOOLEAN);
+                $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
+                $fimDataPasseioFormatado = date_create($fimDataPasseio);
+                $exibePasseio = (empty($mostrarPasseiosExcluidos) or is_null($mostrarPasseiosExcluidos)) ? false : true;
+                $queryExibePasseio = ($exibePasseio == false) ? 'AND statusPasseio NOT IN (0)' : ' ';
+                $mensagemExibeExcluidos = ($exibePasseio == true) ? 'EXBINDO TODOS OS PASSEIOS, INCLUSIVE ENCERRADOS ' : ' EXIBINDO SOMENTE PASSEIOS ATIVOS';
+                if ($buttonEviaDataPasseio) {
+                  if (empty($inicioDataPasseio) or empty($fimDataPasseio)) {
+                    echo "<div class='alert alert-warning'>
                   <div class='container text-center'>
                     <div class='alert-icon'>
                       <i class='material-icons'>warning</i>
@@ -79,12 +93,12 @@ include_once("./includes/header.php");
                       <span aria-hidden='true'><i class='material-icons'>clear</i></span>
                     </button>
                     <span class='h4 text-center'>
-                     <b>RELATÓRIO DE VENDAS</b></br> PERÍODO SELECIONADO INVÁLIDO
+                     PERÍODO SELECIONADO INVÁLIDO</b>
                     </span>
                     
                   </div>";
-                } else {
-                  echo"<div class='alert alert-success'>
+                  } else {
+                    echo "<div class='alert alert-success'>
                   <div class='container text-center'>
                     <div class='alert-icon'>
                       <i class='material-icons'>check</i>
@@ -93,17 +107,17 @@ include_once("./includes/header.php");
                       <span aria-hidden='true'><i class='material-icons'>clear</i></span>
                     </button>
                     <span class='h4 text-center'>
-                     <b>RELATÓRIO DE VENDAS</b></br> " . "PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " 
-                    <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos . "'><i class='material-icons mb-2'>info_outline</i>
+                     " . "PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " 
+                    <a  data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS ' target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos . "'><i class='material-icons mb-2'>info_outline</i>
                     </a></br>
                     " . $mensagemExibeExcluidos .  "
                     </span>
                     
                   </div>
                 </div>";
-                }
-              } else {
-                echo"<div class='alert alert-info'>
+                  }
+                } else {
+                  echo "<div class='alert alert-info'>
                 <div class='container text-center'>
                   <div class='alert-icon'>
                     <i class='material-icons'>warning</i>
@@ -112,134 +126,134 @@ include_once("./includes/header.php");
                     <span aria-hidden='true'><i class='material-icons'>clear</i></span>
                   </button>
                   <span class='h4 text-center'>
-                   <b>RELATÓRIO DE VENDAS</b></br> 
+                   <b>SELECIONE O PERÍODO</b></br> 
                   </span>
                   
                 </div>";
-              }
-              /* -----------------------------------------------------------------------------------------------------  */
-              $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' $queryExibePasseio ORDER BY dataPasseio";
-              $resultadoListaPasseio = mysqli_query($conexao, $listaPasseios);
+                }
+                /* -----------------------------------------------------------------------------------------------------  */
+                $listaPasseios = "SELECT idPasseio, dataPasseio FROM passeio WHERE dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' $queryExibePasseio ORDER BY dataPasseio";
+                $resultadoListaPasseio = mysqli_query($conexao, $listaPasseios);
 
-              while ($rowResultadoListaPasseio = mysqli_fetch_assoc($resultadoListaPasseio)) {
-                $idPasseio = $rowResultadoListaPasseio['idPasseio'];
-                $pagamentosUltimoDia = "SELECT dataPagamento, statusPagamento FROM pagamento_passeio WHERE dataPagamento >= NOW() - INTERVAL 1 DAY AND idPasseio = $idPasseio ";
-                $resultadoPagamentosUltimoDia = mysqli_query($conexao, $pagamentosUltimoDia);
-                $qtdPagamento = mysqli_num_rows($resultadoPagamentosUltimoDia);
-                $interessadosUltimoDia = 0;
-                $quitadosUltimoDia = 0;
-                $parciaisUltimoDia = 0;
-                $parceirosUltimoDia = 0;
-                $criancasUltimoDia = 0;
-                $confirmadosUltimoDia = 0;
-                while ($rowPagamentosUltimoDia = mysqli_fetch_assoc($resultadoPagamentosUltimoDia)) {
+                while ($rowResultadoListaPasseio = mysqli_fetch_assoc($resultadoListaPasseio)) {
+                  $idPasseio = $rowResultadoListaPasseio['idPasseio'];
+                  $pagamentosUltimoDia = "SELECT dataPagamento, statusPagamento FROM pagamento_passeio WHERE dataPagamento >= NOW() - INTERVAL 1 DAY AND idPasseio = $idPasseio ";
+                  $resultadoPagamentosUltimoDia = mysqli_query($conexao, $pagamentosUltimoDia);
+                  $qtdPagamento = mysqli_num_rows($resultadoPagamentosUltimoDia);
+                  $interessadosUltimoDia = 0;
+                  $quitadosUltimoDia = 0;
+                  $parciaisUltimoDia = 0;
+                  $parceirosUltimoDia = 0;
+                  $criancasUltimoDia = 0;
+                  $confirmadosUltimoDia = 0;
+                  while ($rowPagamentosUltimoDia = mysqli_fetch_assoc($resultadoPagamentosUltimoDia)) {
 
-                  if ($rowPagamentosUltimoDia['statusPagamento'] == 0) {
-                    $interessadosUltimoDia += 1;
-                  } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 1) {
-                    $quitadosUltimoDia += 1;
-                    $confirmadosUltimoDia += 1;
-                  } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 2) {
-                    $parciaisUltimoDia += 1;
-                    $confirmadosUltimoDia += 1;
-                  } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 3) {
-                    $parceirosUltimoDia += 1;
-                  } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 4) {
-                    $criancasUltimoDia += 1;
+                    if ($rowPagamentosUltimoDia['statusPagamento'] == 0) {
+                      $interessadosUltimoDia += 1;
+                    } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 1) {
+                      $quitadosUltimoDia += 1;
+                      $confirmadosUltimoDia += 1;
+                    } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 2) {
+                      $parciaisUltimoDia += 1;
+                      $confirmadosUltimoDia += 1;
+                    } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 3) {
+                      $parceirosUltimoDia += 1;
+                    } elseif ($rowPagamentosUltimoDia['statusPagamento'] == 4) {
+                      $criancasUltimoDia += 1;
+                    }
                   }
-                }
 
 
 
-                $idPasseio = $rowResultadoListaPasseio['idPasseio'];
-                $pagamentosUltimaHora = "SELECT dataPagamento, statusPagamento FROM pagamento_passeio WHERE dataPagamento >= NOW() - INTERVAL 1 HOUR AND idPasseio = $idPasseio";
-                $resultadoPagamentosUltimaHora = mysqli_query($conexao, $pagamentosUltimaHora);
-                $qtdPagamentoHora = mysqli_num_rows($resultadoPagamentosUltimaHora);
-                $interessadosUltimaHora = 0;
-                $quitadosUltimaHora = 0;
-                $parciaisUltimaHora = 0;
-                $parceirosUltimaHora = 0;
-                $criancasUltimaHora = 0;
-                $confirmadosUltimaHora = 0;
-                while ($rowPagamentosUltimaHora = mysqli_fetch_assoc($resultadoPagamentosUltimaHora)) {
+                  $idPasseio = $rowResultadoListaPasseio['idPasseio'];
+                  $pagamentosUltimaHora = "SELECT dataPagamento, statusPagamento FROM pagamento_passeio WHERE dataPagamento >= NOW() - INTERVAL 1 HOUR AND idPasseio = $idPasseio";
+                  $resultadoPagamentosUltimaHora = mysqli_query($conexao, $pagamentosUltimaHora);
+                  $qtdPagamentoHora = mysqli_num_rows($resultadoPagamentosUltimaHora);
+                  $interessadosUltimaHora = 0;
+                  $quitadosUltimaHora = 0;
+                  $parciaisUltimaHora = 0;
+                  $parceirosUltimaHora = 0;
+                  $criancasUltimaHora = 0;
+                  $confirmadosUltimaHora = 0;
+                  while ($rowPagamentosUltimaHora = mysqli_fetch_assoc($resultadoPagamentosUltimaHora)) {
 
-                  if ($rowPagamentosUltimaHora['statusPagamento'] == 0) {
-                    $interessadosUltimaHora += 1;
-                  } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 1) {
-                    $quitadosUltimaHora += 1;
-                    $confirmadosUltimaHora += 1;
-                  } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 2) {
-                    $parciaisUltimaHora += 1;
-                    $confirmadosUltimaHora += 1;
-                  } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 3) {
-                    $parceirosUltimaHora += 1;
-                  } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 4) {
-                    $criancasUltimaHora += 1;
+                    if ($rowPagamentosUltimaHora['statusPagamento'] == 0) {
+                      $interessadosUltimaHora += 1;
+                    } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 1) {
+                      $quitadosUltimaHora += 1;
+                      $confirmadosUltimaHora += 1;
+                    } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 2) {
+                      $parciaisUltimaHora += 1;
+                      $confirmadosUltimaHora += 1;
+                    } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 3) {
+                      $parceirosUltimaHora += 1;
+                    } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 4) {
+                      $criancasUltimaHora += 1;
+                    }
                   }
-                }
-                $recebeLotacaoPasseio    = "SELECT lotacao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
-                $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
-                $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
-                $lotacaoPasseio          = $rowLotacaoPasseio['lotacao'];
-                $nomePasseio          = $rowLotacaoPasseio['nomePasseio'];
-                $dataPasseio          = date_create($rowLotacaoPasseio['dataPasseio']);
+                  $recebeLotacaoPasseio    = "SELECT lotacao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
+                  $resultadoLotacaoPasseio = mysqli_query($conexao, $recebeLotacaoPasseio);
+                  $rowLotacaoPasseio       = mysqli_fetch_assoc($resultadoLotacaoPasseio);
+                  $lotacaoPasseio          = $rowLotacaoPasseio['lotacao'];
+                  $nomePasseio          = $rowLotacaoPasseio['nomePasseio'];
+                  $dataPasseio          = date_create($rowLotacaoPasseio['dataPasseio']);
 
-                $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
-                $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
-                $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
+                  $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
+                  $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
+                  $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
 
-                $getStatusPagamentoCliente       = "SELECT statusPagamento FROM pagamento_passeio WHERE idPasseio=$idPasseio";
-                $resultadoStatusPagamentoCliente = mysqli_query($conexao, $getStatusPagamentoCliente);
-                $interessado = 0;
-                $quitado = 0;
-                $parcial = 0;
-                $parceiro = 0;
-                $crianca = 0;
-                $confirmados = 0;
-                while ($rowGetStatusPagamentoCliente = mysqli_fetch_assoc($resultadoStatusPagamentoCliente)) {
-                  $statusCliente = $rowGetStatusPagamentoCliente['statusPagamento'];
-                  if ($statusCliente == 0) {
-                    $interessado += 1;
-                  } elseif ($statusCliente == 1) {
-                    $quitado += 1;
-                    $confirmados += 1;
-                  } elseif ($statusCliente == 2) {
-                    $parcial += 1;
-                    $confirmados += 1;
-                  } elseif ($statusCliente == 3) {
-                    $parceiro += 1;
-                  } elseif ($statusCliente == 4) {
-                    $crianca += 1;
+                  $getStatusPagamentoCliente       = "SELECT statusPagamento FROM pagamento_passeio WHERE idPasseio=$idPasseio";
+                  $resultadoStatusPagamentoCliente = mysqli_query($conexao, $getStatusPagamentoCliente);
+                  $interessado = 0;
+                  $quitado = 0;
+                  $parcial = 0;
+                  $parceiro = 0;
+                  $crianca = 0;
+                  $confirmados = 0;
+                  while ($rowGetStatusPagamentoCliente = mysqli_fetch_assoc($resultadoStatusPagamentoCliente)) {
+                    $statusCliente = $rowGetStatusPagamentoCliente['statusPagamento'];
+                    if ($statusCliente == 0) {
+                      $interessado += 1;
+                    } elseif ($statusCliente == 1) {
+                      $quitado += 1;
+                      $confirmados += 1;
+                    } elseif ($statusCliente == 2) {
+                      $parcial += 1;
+                      $confirmados += 1;
+                    } elseif ($statusCliente == 3) {
+                      $parceiro += 1;
+                    } elseif ($statusCliente == 4) {
+                      $crianca += 1;
+                    }
                   }
-                }
-                #----------------------------- STATUS -------------------------------------
-                if ($confirmadosUltimoDia > 0) {
-                  $statusConfirmados = "text-warning";
-                } else {
-                  $statusConfirmados = "";
-                }
+                  #----------------------------- STATUS -------------------------------------
+                  if ($confirmadosUltimoDia > 0) {
+                    $statusConfirmados = "text-warning";
+                  } else {
+                    $statusConfirmados = "";
+                  }
 
-                if ($interessadosUltimoDia > 0) {
-                  $statusInteressados = "text-warning";
-                } else {
-                  $statusInteressados = "";
-                }
+                  if ($interessadosUltimoDia > 0) {
+                    $statusInteressados = "text-warning";
+                  } else {
+                    $statusInteressados = "";
+                  }
 
-                if ($parceirosUltimoDia > 0) {
-                  $statusParceiros = "text-warning";
-                } else {
-                  $statusParceiros = "";
-                }
+                  if ($parceirosUltimoDia > 0) {
+                    $statusParceiros = "text-warning";
+                  } else {
+                    $statusParceiros = "";
+                  }
 
-                if ($criancasUltimoDia > 0) {
-                  $statusCriancas = "text-warning";
-                } else {
-                  $statusCriancas = "";
-                }
-                #------------------------------------------------------------------------------
+                  if ($criancasUltimoDia > 0) {
+                    $statusCriancas = "text-warning";
+                  } else {
+                    $statusCriancas = "";
+                  }
+                  #------------------------------------------------------------------------------
 
-                $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
-              ?>
+                  $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
+                ?>
                   <tr>
                     <td><?php echo $nomePasseio ?></td>
                     <td><?php echo date_format($dataPasseio, "d/m/Y") ?></td>
@@ -251,14 +265,15 @@ include_once("./includes/header.php");
                     <td class="text-center"><?php echo $vagasRestantes ?></td>
                   </tr>
                 <?php
-              }
+                }
                 ?>
-                </tbody>
+              </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
+
     <script>
       $(".more_info").click(function() {
         var $title = $(this).find(".title");
@@ -269,6 +284,11 @@ include_once("./includes/header.php");
         }
       });
     </script>
+
+
+
+
+
 </body>
 
 </html>

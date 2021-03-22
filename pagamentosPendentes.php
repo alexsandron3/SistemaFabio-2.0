@@ -11,9 +11,9 @@ if (empty($ordemPesquisa)) {
 /* -----------------------------------------------------------------------------------------------------  */
 
 $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes, pp.statusPagamento
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0,1,3) AND pp.clienteDesistente NOT IN(1) ORDER BY $ordemPesquisa";
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(1) AND pp.clienteDesistente NOT IN(1) ORDER BY $ordemPesquisa";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
-$queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet AND statusPagamento NOT IN (0,1,3) AND clienteDesistente NOT IN(1)";
+$queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet AND statusPagamento NOT IN (1) AND clienteDesistente NOT IN(1)";
 $resultadoTotalPendente = mysqli_query($conexao, $queryValorPendenteTotal);
 $rowTotalPendente = mysqli_fetch_assoc($resultadoTotalPendente);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -48,17 +48,18 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
+        <p class="h2 text-center mb-5">PAGAMENTOS PENDENTES </p>
                   <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                   <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div class="table ml-1"> <?php 
-          mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES");
+          mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
           #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; ?>
             <table class="table table-striped table-bordered" id="userTable">
               <thead>
                 <tr>
-                  <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=nomeCliente"> NOME </a></th>
-                  <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=referencia">REFERENCIA </a></th>
-                  <th> <a href="pagamentosPendentes.php?id=<?php echo $idPasseioGet; ?>&ordemPesquisa=valorPendente">PAGTO PENDENTE </a></th>
+                  <th> NOME </th>
+                  <th> REFERENCIA </th>
+                  <th> PAGTO PENDENTE</th>
                   <th> ANOTAÇÕES </th>
                 </tr>
               </thead>
