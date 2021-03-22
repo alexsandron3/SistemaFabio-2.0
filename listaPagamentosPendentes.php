@@ -58,7 +58,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                     <th>  NOME </th>
                     <th> Nº PEDIDO </th>
                     <th> PASSEIO </th>
-                    <th> PENDENTE  <?php/*  echo number_format($rowValorTotalPendente['valorTotalPendente'] * -1.00, 2, '.', ''); */ ?> </th>
+                    <th> PENDENTE  </th>
                     <th>  PREVISÃO PAGAMENTO </th>
                     <th class="text-right">  AÇÕES </th>
                   </tr>
