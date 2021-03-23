@@ -44,13 +44,15 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
-      <p class="h2 text-center">LISTA DE CLIENTES</p>
+        <p class="h2 text-center">LISTA DE CLIENTES</p>
 
         <div class="card-body p-5 bg-white rounded">
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <div> <?php 
-          mensagensInfoNoSession(" PASSEIO: ". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div>
+            <?php
+            mensagensInfoNoSession(" PASSEIO: " . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
+          
           <span class='h5'> LOTAÇÃO: $lotacao </span> 
          | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS </span> 
          | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS </span>
@@ -58,31 +60,23 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
          | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
          | <span class='h5' onclick='tituloListagem()' id='desistentes'>  DESISTENTES </span>
          | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  ");
-/*           echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
-         <span class='h5'> LOTAÇÃO: $lotacao </span> 
-        | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS </span> 
-        | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS </span>
-        | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS </span>
-        | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
-        | <span class='h5' onclick='tituloListagem()' id='desistentes'>  DESISTENTES </span>
-        | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  
-        </p>"; */ ?>
+            ?>
             <div class="table-responsive">
-            <div class="table-reponsive">
-              <?php esconderTabela(9); ?>
-            </div>
+              <div class="table-reponsive">
+                <?php esconderTabela(9); ?>
+              </div>
               <table class="table table-striped table-bordered" id="userTable">
                 <thead>
                   <tr>
-                    <th>  NOME </th>
+                    <th> NOME </th>
                     <th> RG </th>
                     <th> CPF CONSULTADO </th>
                     <th> REFERÊNCIA </th>
                     <th> STATUS </th>
                     <th> CONTATO </th>
-                    <th> V. PAGO  </th>
+                    <th> V. PAGO </th>
                     <th> V. VENDIDO </th>
-                    <th>  AÇÃO  </th>
+                    <th> AÇÃO </th>
                   </tr>
                 </thead>
 
@@ -113,33 +107,75 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                       $desistentes += 1;
                       $statusPagamento = "DESISTENTE";
                     } else {
-                      if ($statusCliente == 0) {
+
+                      switch ($statusCliente) {
+                        case CLIENTE_INTERESSADO:
+                          $controleListaPasseio = 1;
+                          $interessados = $interessados + 1;
+                          $statusPagamento = "INTERESSADO";
+                          break;
+
+                        case PAGAMENTO_QUITADO:
+                          $controleListaPasseio = 1;
+                          $confirmados = $confirmados + 1;
+                          $statusPagamento = "QUITADO";
+                          break;
+
+                        case CLIENTE_CONFIRMADO:
+                          $controleListaPasseio = 1;
+                          $confirmados = $confirmados + 1;
+                          $statusPagamento = "PARCIAL";
+                          break;
+
+                        case CLIENTE_PARCEIRO:
+                          $controleListaPasseio = 1;
+                          $quantidadeClienteParceiro = $quantidadeClienteParceiro + 1;
+                          $statusPagamento = "PARCEIRO";
+                          break;
+
+                        case CLIENTE_CRIANCA:
+                          $controleListaPasseio = 1;
+                          $criancas = $criancas + 1;
+                          $statusPagamento = "CRIANÇA";
+                          break;
+
+                        default:
+                          $statusPagamento = "DESCONHECIDO";
+                          break;
+                      }
+                      /* if ($statusCliente == CLIENTE_INTERESSADO) {
                         $controleListaPasseio = 1;
                         $interessados = $interessados + 1;
                         $statusPagamento = "INTERESSADO";
-                      } elseif ($statusCliente == 1) {
+
+                      } elseif ($statusCliente == PAGAMENTO_QUITADO) {
                         $controleListaPasseio = 1;
                         $confirmados = $confirmados + 1;
                         $statusPagamento = "QUITADO";
-                      } elseif ($statusCliente == 2) {
+                        
+                      } elseif ($statusCliente == CLIENTE_CONFIRMADO) {
                         $controleListaPasseio = 1;
                         $confirmados = $confirmados + 1;
                         $statusPagamento = "PARCIAL";
-                      } elseif ($statusCliente == 3) {
+
+                      } elseif ($statusCliente == CLIENTE_PARCEIRO) {
                         $controleListaPasseio = 1;
                         $quantidadeClienteParceiro = $quantidadeClienteParceiro + 1;
                         $statusPagamento = "PARCEIRO";
-                      } elseif ($statusCliente == 4) {
+
+                      } elseif ($statusCliente == CLIENTE_CRIANCA) {
                         $controleListaPasseio = 1;
                         $criancas = $criancas + 1;
                         $statusPagamento = "CRIANÇA";
+
                       } else {
+
                         $statusPagamento = "DESCONHECIDO";
-                      }
+                      } */
                       $nomePasseio = $rowBuscaPasseio['nomePasseio'];
                     }
                   ?>
-                    <tr class="text-muted">
+                    <tr class="text-bold odd">
                       <td><?php $nomeCliente = $rowBuscaPasseio['nomeCliente'];
                           echo $nomeCliente  . "<BR/>"; ?></td>
                       <td><?php echo $rowBuscaPasseio['rgCliente'] . "<BR/>"; ?></td>
@@ -147,7 +183,7 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                           ?></td>
                       <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
 
-                      <td><?php echo "<a class='btn btn-link' role='button' target='_blank' rel='noopener noreferrer' href='editarPagamento.php?id=" . $idPagamento . "' >" . $statusPagamento . "</a><BR/>"; ?></td>
+                      <td><?php echo $statusPagamento . "<BR/>"; ?></td>
                       <td> <?php echo $rowBuscaPasseio['telefoneCliente'] . "<BR/>"; ?></td>
                       <?php
                       $valorPago = (empty($rowBuscaPasseio['valorPago']) ? $valorPago = 0.00 : $valorPago =  $rowBuscaPasseio['valorPago']);
@@ -165,55 +201,39 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                       ?>
                       <td><?php echo number_format($valorPago, 2, '.', '') . "<BR/>" ?></td>
                       <td><?php echo $rowBuscaPasseio['valorVendido'] . "<BR/>"; ?></td>
-                      <td class="td-actions"> 
+                      <td class="td-actions">
                         <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" target='_blank' red='noopener noreferrer' class="btn btn-info btn-just-icon btn-sm" href="editarPagamento.php?id=<?php echo $idPagamento; ?>">
-                          <i class="material-icons"> edit </i> 
+                          <i class="material-icons"> edit </i>
                         </a>
-                        
-                        <a data-toggle="tooltip" data-placement="top" title="TRANSFERIR OU DELETAR PAGAMENTO" target='_blank' rel='noopener noreferrer' class="btn <?php echo $corTexto;?> btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
+
+                        <a data-toggle="tooltip" data-placement="top" title="TRANSFERIR OU DELETAR PAGAMENTO" target='_blank' rel='noopener noreferrer' class="btn <?php echo $corTexto; ?> btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
                           <i class="material-icons"><?php $iconAcao = ($opcao == "DELETAR") ? 'delete_forever' : 'swap_horiz';
                                                     echo $iconAcao; ?> </i>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="ENVIAR UMA MENSAGEM NO WHATS APP" class='btn btn-success btn-just-icon btn-sm' target="_blank" href="https://wa.me/55<?php echo $rowBuscaPasseio['telefoneCliente']; ?> "> 
-                          <i class="material-icons"> perm_phone_msg </i> 
+                        <a data-toggle="tooltip" data-placement="top" title="ENVIAR UMA MENSAGEM NO WHATS APP" class='btn btn-success btn-just-icon btn-sm' target="_blank" href="https://wa.me/55<?php echo $rowBuscaPasseio['telefoneCliente']; ?> ">
+                          <i class="material-icons"> perm_phone_msg </i>
                         </a>
-
-
-
-
                       </td>
-
-
                     </tr>
-
                   <?php
-
-
                   }
-
                   ?>
-                  <input class="text-invisble"  type="text" name=""  id="idPasseio" onclick="Export()" disabled="disabled" value="<?php echo $idPasseioGet;  ?>">
-                  <input class="text-invisble"  type="text" name="" id="clientesConfirmados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $confirmados;  ?>">
-                  <input class="text-invisble"  type="text" name="" id="clientesCriancas" onclick="tituloListagem()" disabled="disabled" value="<?php echo $criancas;  ?>">
-                  <input  class="text-invisble" type="text" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $interessados;  ?>">
-                  <input class="text-invisble"  type="text" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo $quantidadeClienteParceiro;  ?>">
-                  <input class="text-invisble"  type="text" name="" id="clientesDesistentes" onclick="tituloListagem()" disabled="disabled" value="<?php echo $desistentes;  ?>">
-                  <input class="text-invisble"  type="text" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro; echo $vagasDisponiveis;  ?>">
+                  <input class="text-invisble" type="text" name="" id="idPasseio" onclick="Export()" disabled="disabled" value="<?php echo $idPasseioGet;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesConfirmados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $confirmados;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesCriancas" onclick="tituloListagem()" disabled="disabled" value="<?php echo $criancas;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $interessados;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo $quantidadeClienteParceiro;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesDesistentes" onclick="tituloListagem()" disabled="disabled" value="<?php echo $desistentes;  ?>">
+                  <input class="text-invisble" type="text" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro;
+                                                                                                                                                    echo $vagasDisponiveis;  ?>">
                 </tbody>
               </table>
             </div>
             <?php
-            if ($controleListaPasseio > 0) {
-              echo "<div class='text-center'>";
-              echo "</div>";
-            } else {
-
-              echo "<div class='text-center'>";
+            if ($controleListaPasseio == 0) {
               mensagensWarningNoSession("Nenhum PAGAMENTO foi cadastrado até o momento");
               #echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
-              echo "</div>";
             }
-
 
             ?>
 

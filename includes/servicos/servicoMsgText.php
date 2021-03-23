@@ -13,7 +13,7 @@ function mensagensSucessNoSession($texto){
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'><i class='material-icons'>clear</i></span>
         </button>
-        <b></b> $texto
+        <b></b> <h4> $texto</h4>
 
         </div>
     </div>";    
@@ -30,7 +30,7 @@ function mensagensWarningNoSession($texto){
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'><i class='material-icons'>clear</i></span>
         </button>
-        <b></b> $texto
+        <b></b> <h4> $texto</h4>
 
         </div>
     </div>";    
@@ -47,7 +47,7 @@ function mensagensDangerNoSession($texto){
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'><i class='material-icons'>clear</i></span>
         </button>
-        <b></b> $texto
+        <b></b> <h4> $texto</h4>
 
         </div>
     </div>";    
@@ -65,7 +65,7 @@ function mensagensInfoNoSession($texto){
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'><i class='material-icons'>clear</i></span>
         </button>
-        <b></b> $texto
+        <b></b> <h4> $texto</h4>
 
         </div>
     </div>";    

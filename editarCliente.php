@@ -85,44 +85,41 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
                 <legend class="col-form-label col-3 pt-0 text-muted">CPF CONSULTADO</legend>
                 <div class="col">
                   <?php
-                  if ($rowResultadoBuscaPeloIdCliente['cpfConsultado'] == 1) {
-                    echo "
-                    <div class='ml-3'>  
-                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoSim' value='1'
-                      onclick='changeInputDate()' checked>
+                  if ($rowResultadoBuscaPeloIdCliente['cpfConsultado'] == 1) { ?>
+
+                    <div class='ml-3'>
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoSim' value='1' onclick='changeInputDate()' checked>
                       <label class='form-check-label' for='cpfConsultadoSim'>
                         SIM
                       </label>
                     </div>
-                    <div class='ml-3'>  
-                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoNao' value='0'
-                      onclick='changeInputDate()' >
+                    <div class='ml-3'>
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoNao' value='0' onclick='changeInputDate()'>
                       <label class='form-check-label' for='cpfConsultadoNao'>
                         NÃO
                       </label>
                     </div>";
-                  } else {
-                    echo "
-                    <div class='ml-3'>  
-                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoSim' value='1'
-                      onclick='changeInputDate()' >
+                  <?php
+                  } else { ?>
+
+                    <div class='ml-3'>
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoSim' value='1' onclick='changeInputDate()'>
                       <label class='form-check-label' for='cpfConsultadoSim'>
                         SIM
                       </label>
                     </div>
-                    <div class='ml-3'>  
-                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoNao' value='0'
-                      onclick='changeInputDate()' checked >
+                    <div class='ml-3'>
+                      <input class='form-check-input' type='radio' name='cpfConsultado' id='cpfConsultadoNao' value='0' onclick='changeInputDate()' checked>
                       <label class='form-check-label' for='cpfConsultadoNao'>
                         NÃO
                       </label>
                     </div>";
-                  }
-                  ?>
+                  <?php } ?>
+
                 </div>
                 <div class="col">
                   <label class=" col-form-label" for="dataCpfConsultado">DATA DA CONSULTA</label>
-                  <input type="date" class="form-control" name="dataCpfConsultado" id="dataCpfConsultado" placeholder="MM/DD/AAAA" onclick="setInputDate()">
+                  <input type="date" class="form-control" name="dataCpfConsultado" id="dataCpfConsultado" placeholder="MM/DD/AAAA" onclick="setInputDate()" value="<?php echo $rowResultadoBuscaPeloIdCliente['dataCpfConsultado'] ?>">
                 </div>
               </div>
             </fieldset>

@@ -93,11 +93,11 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
             <?php
             if ($controleListaPasseio > 0) {
               $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'];
-              $operadorTotal = ($valorPendenteTotal < 0) ? -1 : 1;
+              $sinalParaInverterValor = ($valorPendenteTotal < 0) ? -1 : 1;
 
               echo "<div class='text-center'>";
-              mensagensWarningNoSession("TOTAL DE R$" . $valorPendenteTotal * $operadorTotal . "  PENDENTE");
-              #echo "<p class='h5 text-center alert-warning'>TOTAL DE R$" . $valorPendenteTotal * $operadorTotal . "  PENDENTE</p>";
+              mensagensWarningNoSession("TOTAL DE R$" . $valorPendenteTotal * $sinalParaInverterValor . "  PENDENTE");
+              #echo "<p class='h5 text-center alert-warning'>TOTAL DE R$" . $valorPendenteTotal * $sinalParaInverterValor . "  PENDENTE</p>";
 
               echo "</div>";
             } else {

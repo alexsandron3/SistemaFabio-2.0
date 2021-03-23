@@ -14,7 +14,7 @@ $query = (!empty($idPasseioGet)) ?
 <html lang="pt-br">
 
 <head>
-<?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+    <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
     <title>ANIVERSARIANTES</title>
 </head>
@@ -28,29 +28,29 @@ $query = (!empty($idPasseioGet)) ?
     <div class="row py-2">
         <div class="col-lg-10 mx-auto">
             <div class="card rounded shadow border-0">
-            <p class="h2 text-center">ANIVERSARIANTES</p>
-                      <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+                <p class="h2 text-center">ANIVERSARIANTES</p>
+                <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+                <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
                 <div class="card-body p-5 bg-white rounded">
-                <?php
-    $dataDeHoje = new DateTime('today');
-    $mesAtual = $dataDeHoje->format('n');
-    if (empty($idPasseioGet)) {
-        mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual]);
+                    <?php
+                    $dataDeHoje = new DateTime('today');
+                    $mesAtual = $dataDeHoje->format('n');
+                    if (empty($idPasseioGet)) {
+                        mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual]);
 
-        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual] . "</p>";
-    } else {
-        $queryInformacoesPasseio = "SELECT nomePasseio, dataPasseio FROM passeio WHERE idPasseio=$idPasseioGet";
-        $executaQueryInformacoesPasseio = mysqli_query($conexao, $queryInformacoesPasseio);
-        $rowInformacoesPasseio = mysqli_fetch_assoc($executaQueryInformacoesPasseio);
-        $nomePasseio = $rowInformacoesPasseio['nomePasseio'];
-        $dataPasseio = $rowInformacoesPasseio['dataPasseio'];
-        $dataPasseio = new DateTime($dataPasseio);
-        $dataPasseio = $dataPasseio->format('d/m/Y');
-        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio");
-        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio</p>";
-    }
-    ?>
+                        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual] . "</p>";
+                    } else {
+                        $queryInformacoesPasseio = "SELECT nomePasseio, dataPasseio FROM passeio WHERE idPasseio=$idPasseioGet";
+                        $executaQueryInformacoesPasseio = mysqli_query($conexao, $queryInformacoesPasseio);
+                        $rowInformacoesPasseio = mysqli_fetch_assoc($executaQueryInformacoesPasseio);
+                        $nomePasseio = $rowInformacoesPasseio['nomePasseio'];
+                        $dataPasseio = $rowInformacoesPasseio['dataPasseio'];
+                        $dataPasseio = new DateTime($dataPasseio);
+                        $dataPasseio = $dataPasseio->format('d/m/Y');
+                        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio");
+                        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio</p>";
+                    }
+                    ?>
                     <div class="table-responsive">
                         <table style="width:100%" class="table table-striped table-bordered" id="userTable">
                             <thead>
@@ -95,18 +95,18 @@ $query = (!empty($idPasseioGet)) ?
                                 <?php
 
                                 foreach ($nomeClienteAniversario as $indice => $valor) {
-                                ?>
-                                    <tr>
+                                    ?>
+                                        <tr>
 
-                                        <td><?php echo ++$A . " </br>"; ?></td>
-                                        <td><?php echo "$valor </br>"; ?></td>
-                                        <td>
-                                        <?php
-                                         echo $dataClienteAniversario[$indice] . " </br>"; ?>
-                                        </td>
-                                        <td><?php echo $telefoneContato[$indice] . " </br>"; ?></td>
-                                        <td><?php echo $referencia[$indice] . " </br>"; ?></td>
-                                    </tr>
+                                            <td><?php echo ++$A . " </br>"; ?></td>
+                                            <td><?php echo "$valor </br>"; ?></td>
+                                            <td>
+                                                <?php
+                                                echo $dataClienteAniversario[$indice] . " </br>"; ?>
+                                            </td>
+                                            <td><?php echo $telefoneContato[$indice] . " </br>"; ?></td>
+                                            <td><?php echo $referencia[$indice] . " </br>"; ?></td>
+                                        </tr>
 
                                 <?php } ?>
 
