@@ -256,7 +256,10 @@ include_once("./includes/header.php");
                 ?>
                   <tr>
                     <td><?php echo $nomePasseio ?></td>
-                    <td><?php echo date_format($dataPasseio, "d/m/Y") ?></td>
+                    <td>
+                    <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+
+                    <?php echo date_format($dataPasseio, "d/m/Y") ?></td>
                     <td id="" data-toggle="tooltip" data-placement="top" title="<?php echo "RESERVADOS NA ÚLTIMA HORA: " . $confirmadosUltimaHora ?>" class="text-center more_info "><span class="<?php echo $statusConfirmados ?>"><?php echo "         " . $confirmados ?></span></td>
                     <td data-toggle="tooltip" data-placement="top" title="<?php echo "INTERESSADOS NA ÚLTIMA HORA: " . $interessadosUltimaHora ?>" class="text-center more_info"> <span class="<?php echo $statusInteressados ?>"><?php echo "         " . $interessado ?> </span></td>
                     <td data-toggle="tooltip" data-placement="top" title="<?php echo "PARCEIROS NA ÚLTIMA HORA: " . $parceirosUltimaHora ?>" class="text-center more_info"><span class="<?php echo $statusParceiros  ?>"><?php echo "         " . $parceiro ?></span></td>

@@ -109,8 +109,13 @@ include_once("./includes/header.php");
                 ?>
                     <tr>
                       <td><?php echo $valorPesquisaCliente['nomeCliente'] . "<BR/>"; ?></td>
-                      <td><?php $dataNascimentoFormatada = (empty($dataNascimento) or $dataNascimento == "0000-00-00") ? "" : date_format($dataNascimento, "d/m/Y") . "<BR/>";
-                          echo $dataNascimentoFormatada ?></td>
+                      <td>
+
+                      <?php $dataNascimentoFormatada = (empty($dataNascimento) or $dataNascimento == "0000-00-00") ? "" : date_format($dataNascimento, "d/m/Y") . "<BR/>";
+                          echo $dataNascimentoFormatada; ?>
+
+                          </td>
+
                       <td><?php echo $valorPesquisaCliente['idadeCliente'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['referencia'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['telefoneCliente'] . "<BR/>"; ?></td>

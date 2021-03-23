@@ -76,7 +76,10 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                   <tr class="text-bold">
                     <td class="text-center"><?php echo ++$contador; ?></td>
                     <td><?php echo $rowPesquisaIntervaloData['nomePasseio']; ?></td>
-                    <td><?php echo $dataPasseioFromatada ?></td>
+                    <td>
+                    <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+
+                    <?php echo $dataPasseioFromatada ?></td>
                     <td class="td-actions text-right">
 
                       <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">

@@ -184,10 +184,17 @@
         }
         return $statusPagamento;
     }
+    function identificarMes($data){
+        $data = new DateTime($data);
+        if($data->format('y') == "-0001"){
 
-    function exportarExcel(){
+        }else{
+            $mesAtual = $data->format('n') -1;
+            return MESES_DO_ANO[$mesAtual];
+                
+        }
         
-        
-    }
+  
+      }
 
 ?>

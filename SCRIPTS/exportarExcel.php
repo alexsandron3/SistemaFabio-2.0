@@ -43,7 +43,7 @@
     $primeiroNome = $rowDados['primeiroNome'];
 
     if (($pos = strpos($nomeCliente, " ")) !== FALSE) { 
-    $nomeSeguroViagem = substr($nomeCliente, strpos($nomeCliente, " ") + 1);    
+      $nomeSeguroViagem = substr($nomeCliente, strpos($nomeCliente, " ") + 1);    
     
     }else{
       $nomeSeguroViagem = "";

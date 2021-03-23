@@ -100,7 +100,10 @@ $query = (!empty($idPasseioGet)) ?
 
                                         <td><?php echo ++$A . " </br>"; ?></td>
                                         <td><?php echo "$valor </br>"; ?></td>
-                                        <td><?php echo $dataClienteAniversario[$indice] . " </br>"; ?></td>
+                                        <td>
+                                        <?php
+                                         echo $dataClienteAniversario[$indice] . " </br>"; ?>
+                                        </td>
                                         <td><?php echo $telefoneContato[$indice] . " </br>"; ?></td>
                                         <td><?php echo $referencia[$indice] . " </br>"; ?></td>
                                     </tr>
