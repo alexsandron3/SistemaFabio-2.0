@@ -306,9 +306,10 @@ include_once("./includes/header.php");
 
                     ?>
                       <tr>
+                      <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
+
                         <td><?php echo $nomePasseio ?></td>
                         <td>
-                          <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
 
                           <?php echo date_format($dataPasseio, "d/m/Y") ?>
                         </td>

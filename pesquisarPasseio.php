@@ -92,8 +92,8 @@ include_once("./includes/header.php");
                     <tr>
                       <td><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaPasseio['nomePasseio'] . "<BR/>"; ?></td>
-                      <td >
                       <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+                      <td >
                       <?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
                       <td>
                         
