@@ -78,12 +78,14 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                       <td class="text-center"><?php echo ++$contador; ?></td>
                       <td scope="row"> <?php echo  $rowPagamentosPendentes['nomeCliente']; ?></td>
                       <td><?php echo $rowPagamentosPendentes['idPagamento']; ?></td>
+                      
                       <td><?php
                           $dataPasseio = date_create($rowPagamentosPendentes['dataPasseio']);
                           echo $rowPagamentosPendentes['nomePasseio'] . " | " . date_format($dataPasseio, "d/m/Y");
                           ?>
                       </td>
                       <td><?php echo "R$" . number_format($rowPagamentosPendentes['valorPendente'] * -1.00, 2, '.', ''); ?></td>
+                      
                       <td> <?php
                             if ($rowPagamentosPendentes['previsaoPagamento'] != "0000-00-00") {
                               $dataPagamento = date_create($rowPagamentosPendentes['previsaoPagamento']);
@@ -91,6 +93,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                               echo date_format($dataPagamento, 'd/m/Y');
                             }
                             ?>
+                            
                       </td>
                       <td class="td-actions text-right">
                         <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">

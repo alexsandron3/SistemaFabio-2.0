@@ -49,7 +49,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
           <div class="table-responsive">
             <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
             <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-            <p class="h2 text-center">LISTA DE PASSEIOS/p>
+            <p class="h2 text-center">LISTA DE PASSEIOS
 
 
             <div class="table-reponsive">
@@ -76,8 +76,9 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                   <tr class="text-bold">
                     <td class="text-center"><?php echo ++$contador; ?></td>
                     <td><?php echo $rowPesquisaIntervaloData['nomePasseio']; ?></td>
-                    <td>
                     <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+
+                    <td>
 
                     <?php echo $dataPasseioFromatada ?></td>
                     <td class="td-actions text-right">
