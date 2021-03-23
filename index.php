@@ -256,6 +256,10 @@ include_once("./includes/header.php");
                     $parceiro = 0;
                     $crianca = 0;
                     $confirmados = 0;
+                    $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
+                    $porcentagemProgresso = ($vagasRestantes /$lotacaoPasseio -1)*100;
+                    
+
                     while ($rowGetStatusPagamentoCliente = mysqli_fetch_assoc($resultadoStatusPagamentoCliente)) {
                       $statusCliente = $rowGetStatusPagamentoCliente['statusPagamento'];
 
@@ -300,7 +304,6 @@ include_once("./includes/header.php");
                     }
                     #------------------------------------------------------------------------------
 
-                    $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
                     ?>
                       <tr>
                         <td><?php echo $nomePasseio ?></td>
@@ -314,9 +317,9 @@ include_once("./includes/header.php");
                         <td data-toggle="tooltip" data-placement="top" title="<?php echo "PARCEIROS NA ÚLTIMA HORA: " . $parceirosUltimaHora ?>" class="text-center more_info"><span class="<?php echo $statusParceiros  ?>"><?php echo "         " . $parceiro ?></span></td>
                         <td data-toggle="tooltip" data-placement="top" title="<?php echo "CRIANCAS NA ÚLTIMA HORA: " . $criancasUltimaHora ?>" class="text-center more_info"><span class="<?php echo $statusCriancas ?>"><?php echo "         " . $crianca ?></span></td>
                         <td class="text-center"><?php echo $lotacaoPasseio ?></td>
-                        <td class="text-center">
-                          <div class="progress progress-line-danger">
-                            <div class="progress-bar progress-bar-success" style="width: 35%">
+                        <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?php echo number_format($porcentagemProgresso *-1,2,'.','');?>%">
+                          <div class="progress progress-line-danger"  >
+                            <div class="progress-bar progress-bar-success" style="width: <?php echo $porcentagemProgresso *-1;?>%">
                               <span class="sr-only">35% Complete (success)</span>
                             </div>
 
