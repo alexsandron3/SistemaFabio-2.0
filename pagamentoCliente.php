@@ -101,143 +101,127 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                         if (mysqli_num_rows($resultadoVerificaSeExisteDespesa) != 0) {
                           $dataPasseioSelecionado = (empty($rowPasseioSelecionado['dataPasseio']) or $rowPasseioSelecionado == "0000-00-00") ? "" : date_create($rowPasseioSelecionado['dataPasseio']);
                           $dataPasseioSelecionadoPadrao = (empty($dataPasseioSelecionado) or  $dataPasseioSelecionado == "0000-00-00") ? "" : date_format($dataPasseioSelecionado, "d/m/Y");
-                          mensagensInfoNoSession("PASSEIO: " . $rowPasseioSelecionado['nomePasseio'] . " " . $dataPasseioSelecionadoPadrao);
-                          #echo "<p class='h4 text-center alert-info'>PASSEIO: " . $rowPasseioSelecionado['nomePasseio'] . " " . $dataPasseioSelecionadoPadrao . "</p>";
-                          echo "<div class='form-row'>";
-                            echo "<label class=' col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>";
-                            echo "<div class='col-6'>";
-                             echo "<input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='0' required onblur='calculoPagamentoCliente()'>";
-                            echo "</div>";
-                          echo "</div>";
+                          mensagensInfoNoSession("PASSEIO: " . $rowPasseioSelecionado['nomePasseio'] . " " . $dataPasseioSelecionadoPadrao); ?>
+                          <div class='form-row'>
+                            <label class=' col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>
+                            <div class='col-6'>
+                              <input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='0' required onblur='calculoPagamentoCliente()'>
+                            </div>
+                          </div>
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>
+                            <div class='col-6'>
+                              <input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='0' onchange='calculoPagamentoCliente()' readonly='readonly'>
+                            </div>
 
-                          /*  */
-    /*                       echo "<div class='form-row my-4'>";
-                          echo "<label class='col-sm-2 col-form-label' for='valorAereo'>AÉREO</label>";
-                          echo "<div class='col-sm-6'>";
-                          echo "<input type='text' class='form-control' name='valorAereo' id='valorAereo' placeholder='AEREO' value='0'onchange='calculoTotalDespesas()'>";
-                          echo "</div>"; */
-                          /*  */
-                          echo "<div class='form-row my-4'>";
-                            echo "<label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>";
-                            echo "<div class='col-6'>";
-                              echo "<input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO'  value='0' onchange='calculoPagamentoCliente()'readonly='readonly' >";
-                              echo "</div>";
- 
-                              echo "<div class='col-sm-2'>";
-                                echo "<input type='text' class='form-control' name='novoValorPago' id='novoValorPago' placeholder='NOVO PAGAMENTO' value='0' onblur='(new calculoPagamentoCliente()).novoValorPago()'>";
-                              echo "</div>";                              
-                                echo "<input type='hidden' class='form-control' name='valorAntigo' id='valorAntigo' placeholder='valorAntigo' value='0' >";
-                            echo "</div>";
+                            <div class='col-sm-2'>
+                              <input type='text' class='form-control' name='novoValorPago' id='novoValorPago' placeholder='NOVO PAGAMENTO' value='0' onblur='(new calculoPagamentoCliente()).novoValorPago()'>
+                            </div>
+                            <input type='hidden' class='form-control' name='valorAntigo' id='valorAntigo' placeholder='valorAntigo' value='0'>
+                          </div>
 
-                          echo "<div class='col-sm-2'>";
-                            echo "<div class='col-sm-6'>";
+                          <div class='col-sm-2'>
+                            <div class='col-sm-6'>
 
-                            echo "</div>";
-                          echo "</div>";
+                            </div>
+                          </div>
 
-                          echo "<div class='form-row my-4'>";
-                            echo "<label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>";
-                            echo "<div class='col-6'>";
-                              echo "<input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente'  placeholder='VALOR PENDENTE' readonly='readonly' onblur='calculoPagamentoCliente()'>";
-                            echo "</div>";
-                          echo "</div>";
-                          
-                          echo "<div class='form-row my-4'>";
-                          echo "<label class='col-sm-2 col-form-label' for='taxaPagamento'>TAXA DE PAGAMENTO</label>";
-                          echo "<div class='col-6'>";
-                          echo "<input type='text' class='form-control' name='taxaPagamento' id='taxaPagamento' value='0'  placeholder='TAXA DE PAGAMENTO' onblur='calculoPagamentoCliente()'>";
-                          echo "</div>";
-                          echo "</div>";
-                          echo "<div class='form-row my-4'>";
-                          echo "<label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>";
-                          echo "<div class='col-6'>";
-                          echo "<input type='text' class='form-control' name='localEmbarque' id='localEmbarque'  placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' onchange='calculoPagamentoCliente()'>";
-                          echo "</div>";
-                          echo "</div>";
-                          echo "<div class='form-row my-4'>";
-                          echo "<label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>";
-                          echo "<div class='col-sm-3'>";
-                          echo "<input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' placeholder='PREVISÃO PAGAMENTO'>";
-                          echo "</div>";
-                          echo "</div>";
-                          echo "";
-                          echo "<div class='form-row my-4'>";
-                          echo "<label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>";
-                          echo "<div class='col-sm-3'>";
-                          echo "<input type='text' class='form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE' autocomplete='on'>";
-                          echo "</div>";
-                          echo "</div>";
-                          echo "";
-                          echo "<div class='form-row my-4'>";
-                          echo "<label class='col-sm-2 col-form-label' for='idadeCliente'>IDADE</label>";
-                          echo "<div class='col-sm-1'>";
-                          echo "<input type='text' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='$idadeCliente'>";
-                          echo "</div>";
-                          echo "</div>";
-                          echo "";
-                          echo "<input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento'  onchange='calculoPagamentoCliente()'>";
-                          echo "<input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente'  value='" . $rowIdCliente['idadeCliente'] . "'>";
-                          
-                          
-                          echo "<div class='form-row my-4'>";
-                            echo "<label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>";
-                            echo "<textarea class='form-control col-sm-3 ' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled'
-                            placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'>" . $rowIdCliente['referencia'] .  "</textarea> ";
-                          echo "</div>";
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>
+                            <div class='col-6'>
+                              <input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' readonly='readonly' onblur='calculoPagamentoCliente()'>
+                            </div>
+                          </div>
+
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='taxaPagamento'>TAXA DE PAGAMENTO</label>
+                            <div class='col-6'>
+                              <input type='text' class='form-control' name='taxaPagamento' id='taxaPagamento' value='0' placeholder='TAXA DE PAGAMENTO' onblur='calculoPagamentoCliente()'>
+                            </div>
+                          </div>
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>
+                            <div class='col-6'>
+                              <input type='text' class='form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' onchange='calculoPagamentoCliente()'>
+                            </div>
+                          </div>
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>
+                            <div class='col-sm-3'>
+                              <input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' placeholder='PREVISÃO PAGAMENTO'>
+                            </div>
+                          </div>
+
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>
+                            <div class='col-sm-3'>
+                              <input type='text' class='form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE' autocomplete='on'>
+                            </div>
+                          </div>
+
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='idadeCliente'>IDADE</label>
+                            <div class='col-sm-1'>
+                              <input type='text' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='<?php echo $idadeCliente ?>'>
+                            </div>
+                          </div>
+
+                          <input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento' onchange='calculoPagamentoCliente()'>
+                          <input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente' value='<?php echo $rowIdCliente['idadeCliente'] ?>'>
 
 
-                          echo "<fieldset class='form-group' >";
-                          echo "<div class='row'>";
-                          echo "<legend class='col-form-label col-sm-2 pt-0 text-muted'>SEGURO VIAGEM</legend>";
-                          echo "<div class='col-sm-5 '>";
-                            echo "<div class='col'>";
-                              echo "<input class='form-check-input ' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim'
-                                  value='1'  required>";
-                              echo "<label class='form-check-label' for='seguroViagemClienteSim'>
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>
+                            <textarea class='form-control col-sm-3 ' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'><?php echo $rowIdCliente['referencia'] ?>"</textarea>
+                          </div>
+
+
+                          <fieldset class='form-group'>
+                            <div class='row'>
+                              <legend class='col-form-label col-sm-2 pt-0 text-muted'>SEGURO VIAGEM</legend>
+                              <div class='col-sm-5 '>
+                                <div class='col'>
+                                  <input class='form-check-input ' type='radio' name='seguroViagemCliente' id='seguroViagemClienteSim' value='1' required>
+                                  <label class='form-check-label' for='seguroViagemClienteSim'>
                                     SIM
-                                  </label>";
-                            echo "</div>";
-                            echo "<div class='col'>";
-                              echo "<input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao'
-                                  value='0' >";
-                              echo "<label class='form-check-label' for='seguroViagemClientenao'>
+                                  </label>
+                                </div>
+                                <div class='col'>
+                                  <input class='form-check-input' type='radio' name='seguroViagemCliente' id='seguroViagemClientenao' value='0'>
+                                  <label class='form-check-label' for='seguroViagemClientenao'>
                                     NÃO
-                                  </label>";
-                            echo "</div>";
-                          echo "</div>";
-                          echo "</fieldset>";
+                                  </label>
+                                </div>
+                              </div>
+                          </fieldset>
 
-                          echo "<fieldset class='form-group' >";
-                          echo "<div class='row'>";
-                          echo "<legend class='col-form-label col-sm-2 pt-0 text-muted'>CLIENTE PARCEIRO</legend>";
-                          echo "<div class='col-sm-5'>";
-                          echo "<div class='col'>";
-                          echo "<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim'
-                              value='1'  required onclick='calculoPagamentoCliente()'>";
-                          echo "<label class='form-check-label' for='clienteParceiroSim'>
-                                SIM
-                              </label>";
-                          echo "</div>";
-                          echo "<div class='col'>";
-                          echo "<input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao'
-                              value='0' onclick='calculoPagamentoCliente()' checked>";
-                          echo "<label class='form-check-label' for='clienteParceironao'>
-                                NÃO
-                              </label>";
-                          echo "</div>";
-                          echo "</div>";
-                          echo "</div>";
-                          echo "</fieldset>";
-                          echo "<div class='form-row my-4'>";
-                          echo "<label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>";
-                          echo "<textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='5' rows='3'
-                          placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>";
-                          echo "<label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>";
-                          echo "<textarea class='form-control col-sm-3 ml-3' name='historicoPagamento' id='historicoPagamento' cols='6' rows='3'
-                          placeholder='historicoPagamento' maxlength='500'>  </textarea>";
-                          echo "<textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3'
-                          placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'>  </textarea>";
-                          echo "</div>";
+                          <fieldset class='form-group'>
+                            <div class='row'>
+                              <legend class='col-form-label col-sm-2 pt-0 text-muted'>CLIENTE PARCEIRO</legend>
+                              <div class='col-sm-5'>
+                                <div class='col'>
+                                  <input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceiroSim' value='1' required onclick='calculoPagamentoCliente()'>
+                                  <label class='form-check-label' for='clienteParceiroSim'>
+                                    SIM
+                                  </label>
+                                </div>
+                                <div class='col'>
+                                  <input class='form-check-input' type='radio' name='clienteParceiro' id='clienteParceironao' value='0' onclick='calculoPagamentoCliente()' checked>
+                                  <label class='form-check-label' for='clienteParceironao'>
+                                    NÃO
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
+                            <textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='5' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>
+                            <label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>
+                            <textarea class='form-control col-sm-3 ml-3' name='historicoPagamento' id='historicoPagamento' cols='6' rows='3' placeholder='historicoPagamento' maxlength='500'>  </textarea>
+                            <textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3' placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'>  </textarea>
+                          </div>
+              <?php
                         } else {
                           mensagensWarningNoSession("VOCÊ PRECISA CRIAR AS DESPESAS DESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE CRIAÇÃO DE DESPESAS");
                           #echo "<p class='h4 text-center alert-warning'>VOCÊ PRECISA CRIAR AS DESPESAS DESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE CRIAÇÃO DE DESPESAS</p>";

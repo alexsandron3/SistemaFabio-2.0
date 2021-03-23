@@ -80,9 +80,9 @@ if (!empty($idPasseio)) {
 
   <div class="row py-2">
     <div class="col-lg-10 mx-auto">
-    
+
       <div class="card rounded shadow border-0">
-      <p class="h2 text-center">LUCROS</p>
+        <p class="h2 text-center">LUCROS</p>
         <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
         <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
         <div class="card-body p-5 bg-white rounded">
@@ -100,27 +100,21 @@ if (!empty($idPasseio)) {
             $valorPasseio             = 0;
             $taxaPagamento            = 0;
 
-            echo "<form action='' method='GET' autocomplete='OFF'>";
-              echo "<div class='form-row '>";
-
-              
-                echo "
-                <div class ='col'>
+          ?>
+            <form action='' method='GET' autocomplete='OFF'>
+              <div class='form-row '>
+                <div class='col'>
                   <input data-toggle='tooltip' data-placement='top' title='SELECIONE O INÍCIO DO PERÍODO' type='date' class='form-control' name='inicioDataPasseio' id='inicioDataPasseio'>
                 </div>
-                ";
-
-                echo "
-                <div class ='col'>
-                  <input data-toggle='tooltip' data-placement='top' title='SELECIONE O FIM DO PERÍODO ' type='date' class='form-control' name='fimDataPasseio' id='fimDataPasseio' >
-                  </div>
-                  ";
-              echo"</div>";
-              echo "<div class='form-row mt-3'>";
-                echo "<input type='submit' class='btn btn-info btn-md' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>";
-              echo "</div>";
-            echo "</form>";
-
+                <div class='col'>
+                  <input data-toggle='tooltip' data-placement='top' title='SELECIONE O FIM DO PERÍODO ' type='date' class='form-control' name='fimDataPasseio' id='fimDataPasseio'>
+                </div>
+              </div>
+              <div class='form-row mt-3'>
+                <input type='submit' class='btn btn-info btn-md' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
+              </div>
+            </form>
+          <?php
             /* -----------------------------------------------------------------------------------------------------  */
             $buttonEviaDataPasseio = filter_input(INPUT_GET, 'buttonEviaDataPasseio', FILTER_SANITIZE_STRING);
             $inicioDataPasseio     = filter_input(INPUT_GET, 'inicioDataPasseio', FILTER_SANITIZE_STRING);
@@ -173,7 +167,6 @@ if (!empty($idPasseio)) {
                 $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
                 $fimDataPasseioFormatado = date_create($fimDataPasseio);
                 mensagensInfoNoSession("PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <i class='material-icons'> <a data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS ' target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=1'> info_ountline</a></i>");
-                #echo "<p class='h4 text-center alert-warning'> PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <a target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=1'> *</a></p>";
               } else {
                 //echo"SITUAÇÃO 4";
                 $inicioDataPasseioPadrao = '2000-01-01';
@@ -235,7 +228,7 @@ if (!empty($idPasseio)) {
             }
           } else {
 
-            echo $nomePasseio . " ", date_format($dataPasseio, "d/m/Y");
+            mensagensInfoNoSession($nomePasseio . " " . date_format($dataPasseio, "d/m/Y"));
           }
           ?>
           </p>

@@ -10,7 +10,7 @@ function mensagensSucess($texto){
       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
           <span aria-hidden='true'><i class='material-icons'>clear</i></span>
       </button>
-      <b></b> $texto
+      <b></b><h4> $texto</h4>
 
       </div>
   </div>";    
@@ -27,7 +27,7 @@ function mensagensWarning($texto){
       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
           <span aria-hidden='true'><i class='material-icons'>clear</i></span>
       </button>
-      <b></b> $texto
+      <b></b><h4> $texto</h4>
 
       </div>
   </div>";    
@@ -44,7 +44,7 @@ function mensagensDanger($texto){
       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
           <span aria-hidden='true'><i class='material-icons'>clear</i></span>
       </button>
-      <b></b> $texto
+      <b></b><h4> $texto</h4>
 
       </div>
   </div>";    
@@ -62,7 +62,7 @@ function mensagensInfo($texto){
       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
           <span aria-hidden='true'><i class='material-icons'>clear</i></span>
       </button>
-      <b></b> $texto
+      <b></b><h4> $texto</h4>
 
       </div>
   </div>";    
