@@ -57,7 +57,7 @@ $(document).ready(function () {
                 },
                 {
                     extend: 'print',
-                    className: 'btn btn-info btn-sm',
+                    className: 'btn btn-info btn-sm ml-1',
                     exportOptions: {
                         columns: ':visible'
                     }
