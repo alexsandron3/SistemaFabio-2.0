@@ -50,9 +50,7 @@ include_once("./includes/header.php");
                 </div>
               </div>
           </form>
-          <div class="table-reponsive">
-              <?php esconderTabela(6); ?>
-            </div>
+
           <div class="table mt-5">
             <table style="width:100%" class="table table-striped table-bordered" id="userTable">
               <thead>
@@ -65,6 +63,9 @@ include_once("./includes/header.php");
                   <th>AÇÕES</th>
                 </tr>
               </thead>
+              <div class="table-reponsive">
+              <?php esconderTabela(6); ?>
+            </div>
               <tbody>
                 <?php
                 /* -----------------------------------------------------------------------------------------------------  */
@@ -89,10 +90,19 @@ include_once("./includes/header.php");
                     $idPasseio = $valorPesquisaPasseio['idPasseio'];
                 ?>
                     <tr>
-                      <th><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></th>
+                      <td><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaPasseio['nomePasseio'] . "<BR/>"; ?></td>
-                      <td ><?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
-                      <td><?php echo $valorPesquisaPasseio['localPasseio'] . "<BR/>"; ?></td>
+                      <td >
+                      <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+                      <?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
+                      <td>
+                        
+                      <?php 
+                        
+
+                        echo $valorPesquisaPasseio['localPasseio'] . "<BR/>"; 
+                        ?>
+                      </td>
                       <td></td>
                       <td>
                         <?php echo "<a data-toggle='tooltip' data-placement='top' title='LISTA DE CLIENTES' class='btn btn-info btn-just-icon btn-sm '  href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
@@ -113,10 +123,19 @@ include_once("./includes/header.php");
                     $idPasseio = $valorPesquisaPasseio['idPasseio'];
                   ?>
                     <tr>
-                      <th><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></th>
+                      <td><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaPasseio['nomePasseio'] . "<BR/>"; ?></td>
-                      <td><?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
+                      <td>
+                      <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+
+                        <?php 
+                          echo date_format($dataPasseio, "d/m/Y") . "<BR/>";
+                         
+                          ?>
+                      </td>
                       <td><?php echo $valorPesquisaPasseio['localPasseio'] . "<BR/>"; ?></td>
+                      <td></td>
+
                       <td>
                         <?php echo "<a data-toggle='tooltip' data-placement='top' title='LISTA DE CLIENTES' class='btn btn-primary btn-sm ml-4' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
                         <?php echo "<a data-toggle='tooltip' data-placement='top' title='RELATÓRIOS DO PASSEIO' class='btn btn-primary btn-sm mt-1' target='_blank' rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>price_check</i></a>"; ?>
