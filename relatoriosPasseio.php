@@ -70,7 +70,7 @@ if (!empty($idPasseio)) {
 <head>
   <?php include_once("./includes/head.php"); ?>
 
-  <title>RELATÓRIOS</title>
+  <title>LUCROS</title>
 </head>
 
 <body>

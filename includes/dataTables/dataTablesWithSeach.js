@@ -41,7 +41,7 @@ $(document).ready(function () {
             [
                 {
                     extend: 'pdfHtml5',
-                    className: 'btn btn-info',
+                    className: 'btn btn-info btn-sm',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -49,7 +49,7 @@ $(document).ready(function () {
                 },
                 {
                     extend: 'excel',
-                    className: 'btn btn-info mr-1 ml-1',
+                    className: 'btn btn-info btn-sm',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 },
                 {
                     extend: 'print',
-                    className: 'btn btn-info mr-1',
+                    className: 'btn btn-info btn-sm',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -182,7 +182,7 @@ $(document).ready(function () {
             [
                 {
                     extend: 'pdfHtml5',
-                    className: 'btn btn-info',
+                    className: 'btn btn-info btn-sm',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -190,7 +190,7 @@ $(document).ready(function () {
                 },
                 {
                     extend: 'excel',
-                    className: 'btn btn-info mr-1 ml-1',
+                    className: 'btn btn-info btn-sm',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -198,7 +198,7 @@ $(document).ready(function () {
                 },
                 {
                     extend: 'print',
-                    className: 'btn btn-info mr-1',
+                    className: 'btn btn-info btn-sm ',
                     exportOptions: {
                         columns: ':visible'
                     }
