@@ -31,7 +31,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 <head>
   <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
-  <title>PASSEIOS SELECIONADOS</title>
+  <title>LISTA DE PASSEIOS</title>
 </head>
 
 <body>
@@ -49,7 +49,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
           <div class="table-responsive">
             <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
             <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-            <p class="h2 text-center">DEFINIR TÍTULO</p>
+            <p class="h2 text-center">LISTA DE PASSEIOS/p>
 
 
             <div class="table-reponsive">
