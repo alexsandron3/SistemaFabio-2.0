@@ -34,3 +34,12 @@
 <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
 <!-- <script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script> -->
 <script src="https://cdn.datatables.net/plug-ins/1.10.24/sorting/datetime-moment.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8T3KQC9WL8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8T3KQC9WL8');
+</script>
