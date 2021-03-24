@@ -98,7 +98,7 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
                       <label class='form-check-label' for='cpfConsultadoNao'>
                         NÃO
                       </label>
-                    </div>";
+                    </div>
                   <?php
                   } else { ?>
 

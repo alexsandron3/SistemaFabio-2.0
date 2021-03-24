@@ -172,7 +172,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
 
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>
-                            <textarea class='form-control col-sm-3 ' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'><?php echo $rowIdCliente['referencia'] ?>"</textarea>
+                            <textarea class='form-control col-sm-3 ' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'><?php echo $rowIdCliente['referencia'] ?></textarea>
                           </div>
 
 
