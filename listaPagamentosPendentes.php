@@ -23,7 +23,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 
   <?php
   $contador = 0;
-  $query = " SELECT c.nomeCliente, c.idCliente, pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
+  $query = " SELECT c.nomeCliente, c.idCliente, c.referencia, pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
            FROM  pagamento_passeio pp, cliente c, passeio p 
            WHERE statusPagamento NOT IN (1) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ORDER BY $ordemPesquisa";
   $executaQuery = mysqli_query($conexao, $query);
@@ -57,6 +57,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                   <tr>
                     <th> Nº DE ORDEM </th>
                     <th> NOME </th>
+                    <th> REFERÊNCIA </th>
                     <th> Nº PEDIDO </th>
                     <th> PASSEIO </th>
                     <th> PENDENTE </th>
@@ -77,6 +78,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                     <tr class="text-bold">
                       <td class="text-center"><?php echo ++$contador; ?></td>
                       <td scope="row"> <?php echo  $rowPagamentosPendentes['nomeCliente']; ?></td>
+                      <td scope="row"> <?php echo  $rowPagamentosPendentes['referencia']; ?></td>
                       <td><?php echo $rowPagamentosPendentes['idPagamento']; ?></td>
                       
                       <td><?php
