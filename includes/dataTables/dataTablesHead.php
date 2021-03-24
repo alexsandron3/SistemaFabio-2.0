@@ -65,8 +65,21 @@
 <script src="https://cdn.datatables.net/plug-ins/1.10.24/sorting/datetime-moment.js"></script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<!-- ANALYTICS TOOLS -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8T3KQC9WL8"></script>
+
+<script type='text/javascript'>
+  window.smartlook||(function(d) {
+    var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    })(document);
+    smartlook('init', '15d3830369c4bb4fdd4e21a4ed015695a3e643a3');
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
