@@ -28,50 +28,56 @@ include_once("./includes/header.php");
           <form action="SCRIPTS/registroCliente.php" autocomplete="off" method="POST">
             <div class="form-row">
               <div class="col">
-                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="NOME COMPLETO" required="required" onkeydown="upperCaseF(this)">
+              <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label>
+                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente"  required="required" onkeydown="upperCaseF(this)">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <input type="email" class="form-control" name="emailCliente" id="emailCliente" placeholder="EMAIL DO CLIENTE">
+              <label class=" col-form-label text-dark" for="emailCliente">EMAIL: </label>
+                <input type="email" class="form-control" name="emailCliente" id="emailCliente" >
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="RG DO CLIENTE" type="text" class="form-control" name="rgCliente" id="rgCliente" placeholder="RG">
+              <label class=" col-form-label text-dark" for="rgCliente">RG: </label>
+                <input data-toggle="tooltip" data-placement="left" title="RG DO CLIENTE" type="text" class="form-control" name="rgCliente" id="rgCliente" >
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR" autocomplete="ON" onkeydown="upperCaseF(this)">
+              <label class=" col-form-label text-dark" for="orgaoEmissor">EMISSOR: </label>
+                <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor"  autocomplete="ON" onkeydown="upperCaseF(this)">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="CPF DO CLIENTE" type="text" class="form-control " name="cpfCliente" id="cpfCliente" placeholder="CPF DO CLIENTE">
+              <label class=" col-form-label text-dark" for="cpfCliente">CPF: </label>
+                <input data-toggle="tooltip" data-placement="left" title="CPF DO CLIENTE" type="text" class="form-control " name="cpfCliente" id="cpfCliente" >
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="TELEFONE DO CLIENTE" type="text" class="form-control" name="telefoneCliente" id="telefoneCliente" placeholder="TELEFONE">
+              <label class=" col-form-label text-dark" for="telefoneCliente">TELEFONE: </label>
+                <input data-toggle="tooltip" data-placement="left" title="TELEFONE DO CLIENTE" type="text" class="form-control" name="telefoneCliente" id="telefoneCliente">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <label class="col-form-label" for="dataNascimento">NASCIMENTO</label>
+                <label class="col-form-label text-dark" for="dataNascimento">NASCIMENTO: </label>
                 <input type="date" class="form-control col-6 " name="dataNascimento" id="dataNascimento" onblur="ageCount(dataNascimento.value)">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <label class=" col-form-label" for="idadeCliente">IDADE DO CLIENTE</label>
+                <label class=" col-form-label text-dark" for="idadeCliente">IDADE DO CLIENTE: </label>
                 <div class="col">
                 </div>
                 <input type="text" class="form-control col-3" name="idadeCliente" id="idadeCliente" readonly="readonly" onblur="ageCount()">
@@ -80,7 +86,7 @@ include_once("./includes/header.php");
 
             <fieldset class="form-group">
               <div class="row">
-                <legend class="col-form-label col-3 pt-0 text-muted">CPF CONSULTADO</legend>
+                <label class="col-form-label text-dark col-3 pt-0 text-dark">CPF CONSULTADO: </label>
                 <div class="col">
                   <input class="form-check-input" type="radio" name="cpfConsultado" id="cpfConsultadoSim" value="1" onclick="changeInputDate()">
                   <label class="form-check-label" for="cpfConsultadoSim">
@@ -95,8 +101,8 @@ include_once("./includes/header.php");
                   </div>
                 </div>
                 <div class="col">
-                  <label class=" col-form-label" for="dataCpfConsultado">DATA DA CONSULTA</label>
-                  <input type="date" class="form-control" name="dataCpfConsultado" id="dataCpfConsultado" placeholder="MM/DD/AAAA" onclick="setInputDate()">
+                  <label class=" col-form-label text-dark" for="dataCpfConsultado">DATA DA CONSULTA: </label>
+                  <input type="date" class="form-control" name="dataCpfConsultado" id="dataCpfConsultado"  onclick="setInputDate()">
                 </div>
               </div>
             </fieldset>
@@ -104,23 +110,28 @@ include_once("./includes/header.php");
             <div class="form-group">
               <div class="row">
                 <div class="col-6" >
-                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="form-control" name="enderecoCliente" id="enderecoCliente" rows="3" placeholder="ENDEREÇO" onkeydown="upperCaseF(this)"></textarea>
+                <label class="col-form-label text-dark" for="enderecoCliente">ENDEREÇO: </label>
+                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="form-control" name="enderecoCliente" id="enderecoCliente" rows="3" onkeydown="upperCaseF(this)"></textarea>
                 </div>
                 <div class="col-6">
-                  <textarea class="form-control" name="referenciaCliente" id="referenciaCliente" rows="3" placeholder="REFERÊNCIA" onkeydown="upperCaseF(this)"></textarea>
+                <label class="col-form-label text-dark" for="referenciaCliente">REFERÊNCIA: </label>
+                  <textarea class="form-control" name="referenciaCliente" id="referenciaCliente" rows="3"  onkeydown="upperCaseF(this)"></textarea>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col">
-                  <input data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO" class="form-control " type="tel" name="telefoneContato" id="telefoneContato" placeholder="TELEF. CONTATO">
+                <label class=" col-form-label text-dark" for="telefoneContato">TELEFONE PARA CONTATO: </label>
+                  <input data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO" class="form-control " type="tel" name="telefoneContato" id="telefoneContato" >
                 </div>
                 <div class="col">
-                  <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control " type="text" name="nomeContato" id="nomeContato" placeholder="PESSOA CONTATO" onkeydown="upperCaseF(this)">
+                <label class=" col-form-label text-dark" for="nomeContato">QUEM CONTATAR: </label>
+                  <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control " type="text" name="nomeContato" id="nomeContato"  onkeydown="upperCaseF(this)">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col">
-                  <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1" placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"></textarea>
+                <label class=" col-form-label text-dark" for="redeSocial">REDES SOCIAIS: </label>
+                  <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1"  onkeydown="upperCaseF(this)"></textarea>
                 </div>
               </div>
               <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-md">CADASTRAR</button>
