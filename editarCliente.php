@@ -34,39 +34,48 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
             <input type="hidden" name="idCliente" id="idCliente" value="<?php echo $rowResultadoBuscaPeloIdCliente['idCliente'] ?>">
 
             <div class="form-row">
-              <!-- <label class="col-sm-1 col-form-label" for="nomeCliente">NOME</label> -->
               <div class="col">
-                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="NOME COMPLETO" onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente['nomeCliente']; ?>">
+                <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label>
+                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente"  onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente['nomeCliente']; ?>">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col">
-                <input type="email" class="form-control" name="emailCliente" id="emailCliente" placeholder="EMAIL DO CLIENTE" value="<?php echo $rowResultadoBuscaPeloIdCliente['emailCliente']; ?>">
+                <label class=" col-form-label text-dark" for="emailCliente">EMAIL: </label>
+                <input type="email" class="form-control" name="emailCliente" id="emailCliente"  value="<?php echo $rowResultadoBuscaPeloIdCliente['emailCliente']; ?>">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="RG DO CLIENTE" type="text" class="form-control" name="rgCliente" id="rgCliente" placeholder="RG" value="<?php echo $rowResultadoBuscaPeloIdCliente['rgCliente']; ?>">
+                <label class=" col-form-label text-dark" for="rgCliente">RG: </label>
+                <input data-toggle="tooltip" data-placement="left" title="RG DO CLIENTE" type="text" class="form-control" name="rgCliente" id="rgCliente"  value="<?php echo $rowResultadoBuscaPeloIdCliente['rgCliente']; ?>">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col">
-                <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR" autocomplete="ON" onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente['orgaoEmissor']; ?>">
+                <label class=" col-form-label text-dark" for="orgaoEmissor">EMISSOR: </label>
+
+                <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor"  autocomplete="ON" onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente['orgaoEmissor']; ?>">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="CPF DO CLIENTE" type="text" class="form-control " name="cpfCliente" id="cpfCliente" placeholder="CPF DO CLIENTE" value="<?php echo $rowResultadoBuscaPeloIdCliente['cpfCliente']; ?>">
+                <label class=" col-form-label text-dark" for="cpfCliente">CPF: </label>
+
+                <input data-toggle="tooltip" data-placement="left" title="CPF DO CLIENTE" type="text" class="form-control " name="cpfCliente" id="cpfCliente"  value="<?php echo $rowResultadoBuscaPeloIdCliente['cpfCliente']; ?>">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="TELEFONE DO CLIENTE" type="text" class="form-control" name="telefoneCliente" id="telefoneCliente" placeholder="TELEFONE" value="<?php echo $rowResultadoBuscaPeloIdCliente['telefoneCliente']; ?>">
+                <label class=" col-form-label text-dark" for="telefoneCliente">TELEFONE: </label>
+
+                <input data-toggle="tooltip" data-placement="left" title="TELEFONE DO CLIENTE" type="text" class="form-control" name="telefoneCliente" id="telefoneCliente"  value="<?php echo $rowResultadoBuscaPeloIdCliente['telefoneCliente']; ?>">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col">
                 <label class="col-form-label" for="dataNascimento">NASCIMENTO</label>
+
                 <input type="date" class="form-control col-6" name="dataNascimento" id="dataNascimento" onblur="ageCount(dataNascimento.value)" value="<?php echo $rowResultadoBuscaPeloIdCliente['dataNascimento']; ?>">
               </div>
             </div>
@@ -113,13 +122,13 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
                       <label class='form-check-label' for='cpfConsultadoNao'>
                         NÃO
                       </label>
-                    </div>";
+                    </div>
                   <?php } ?>
 
                 </div>
                 <div class="col">
                   <label class=" col-form-label" for="dataCpfConsultado">DATA DA CONSULTA</label>
-                  <input type="date" class="form-control" name="dataCpfConsultado" id="dataCpfConsultado" placeholder="MM/DD/AAAA" onclick="setInputDate()" value="<?php echo $rowResultadoBuscaPeloIdCliente['dataCpfConsultado'] ?>">
+                  <input type="date" class="form-control" name="dataCpfConsultado" id="dataCpfConsultado"  onclick="setInputDate()" value="<?php echo $rowResultadoBuscaPeloIdCliente['dataCpfConsultado'] ?>">
                 </div>
               </div>
             </fieldset>
@@ -127,10 +136,12 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
             <div class="form-group my-4">
               <div class="row">
                 <div class="col-6">
-                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="form-control" name="enderecoCliente" id="enderecoCliente" rows="3" placeholder="ENDEREÇO" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['enderecoCliente'] ?></textarea>
+                  <label class="col-form-label text-dark" for="enderecoCliente">ENDEREÇO: </label>
+                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="form-control" name="enderecoCliente" id="enderecoCliente" rows="3"  onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['enderecoCliente'] ?></textarea>
                 </div>
                 <div class="col-6">
-                  <textarea class="form-control" name="referenciaCliente" id="referenciaCliente"  rows="3" placeholder="REFERÊNCIA" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['referencia'] ?></textarea>
+                  <label class="col-form-label text-dark" for="referenciaCliente">REFERÊNCIA: </label>
+                  <textarea class="form-control" name="referenciaCliente" id="referenciaCliente" rows="3"  onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['referencia'] ?></textarea>
                 </div>
 
               </div>
@@ -138,16 +149,19 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
 
             <div class="form-group row my-4">
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO" class="form-control " type="tel" name="telefoneContato" id="telefoneContato" placeholder="TELEF. CONTATO" value="<?php echo $rowResultadoBuscaPeloIdCliente['telefoneContato']; ?>">
+                <label class=" col-form-label text-dark" for="telefoneContato">TELEFONE PARA CONTATO: </label>
+                <input data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO" class="form-control " type="tel" name="telefoneContato" id="telefoneContato"  value="<?php echo $rowResultadoBuscaPeloIdCliente['telefoneContato']; ?>">
               </div>
               <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control" type="text" name="nomeContato" id="nomeContato" placeholder="QUEM CONTATAR" onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente['pessoaContato']; ?>">
+                <label class=" col-form-label text-dark" for="nomeContato">QUEM CONTATAR: </label>
+                <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control" type="text" name="nomeContato" id="nomeContato" onkeydown="upperCaseF(this)" value="<?php echo $rowResultadoBuscaPeloIdCliente['pessoaContato']; ?>">
               </div>
             </div>
 
             <div class="form-group row">
               <div class="col">
-                <textarea class="form-control " name="redeSocial" id="redeSocial" cols="10" rows="5" placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['redeSocial'] ?></textarea>
+                <label class=" col-form-label text-dark" for="redeSocial">REDES SOCIAIS: </label>
+                <textarea class="form-control " name="redeSocial" id="redeSocial" cols="10" rows="5"  onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['redeSocial'] ?></textarea>
               </div>
             </div>
 
