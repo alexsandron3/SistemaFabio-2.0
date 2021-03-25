@@ -127,8 +127,12 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
             <div class="form-group my-4">
               <div class="row">
                 <div class="col-6">
-                  <textarea class="form-control" name="referenciaCliente" id="referenciaCliente" cols="3" rows="1" placeholder="INFORMAÇÕES" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['referencia'] ?></textarea>
+                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="form-control" name="enderecoCliente" id="enderecoCliente" rows="3" placeholder="ENDEREÇO" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['enderecoCliente'] ?></textarea>
                 </div>
+                <div class="col-6">
+                  <textarea class="form-control" name="referenciaCliente" id="referenciaCliente"  rows="3" placeholder="REFERÊNCIA" onkeydown="upperCaseF(this)"><?php echo $rowResultadoBuscaPeloIdCliente['referencia'] ?></textarea>
+                </div>
+
               </div>
             </div>
 

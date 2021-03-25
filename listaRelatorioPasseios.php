@@ -49,9 +49,13 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
           <div class="table-responsive">
             <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
             <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-            <p class="h2 text-center">LISTA DE PASSEIOS
+<<<<<<< Updated upstream
+            <p class="h2 text-center">LISTA DE PASSEIOS/p>
 
 
+=======
+            <p class="h2 text-center">LISTA DE PASSEIO </p>
+>>>>>>> Stashed changes
             <div class="table-reponsive">
               <?php esconderTabela(4); ?>
             </div>
@@ -76,9 +80,8 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                   <tr class="text-bold">
                     <td class="text-center"><?php echo ++$contador; ?></td>
                     <td><?php echo $rowPesquisaIntervaloData['nomePasseio']; ?></td>
-                    <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
-
                     <td>
+                    <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
 
                     <?php echo $dataPasseioFromatada ?></td>
                     <td class="td-actions text-right">

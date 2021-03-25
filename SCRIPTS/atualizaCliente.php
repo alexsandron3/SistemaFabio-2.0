@@ -14,6 +14,7 @@
     $cpfConsultado          = filter_input(INPUT_POST, 'cpfConsultado',         FILTER_VALIDATE_BOOLEAN);
     $dataConsulta           = filter_input(INPUT_POST, 'dataCpfConsultado',     FILTER_SANITIZE_STRING);
     $referenciaCliente      = filter_input(INPUT_POST, 'referenciaCliente',     FILTER_SANITIZE_STRING);
+    $enderecoCliente        = filter_input(INPUT_POST, 'enderecoCliente',       FILTER_SANITIZE_STRING);
     $telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
@@ -26,7 +27,7 @@
 
     $queryUpdateCliente = "UPDATE cliente SET 
                             nomeCliente='$nome', emailCliente='$email', rgCliente='$rg', orgaoEmissor='$emissor', cpfCliente='$cpf', telefoneCliente='$telefoneCliente', dataNascimento='$dataNascimento', idadeCliente='$idade', 
-                            cpfConsultado='$cpfConsultado', dataCpfConsultado='$dataConsulta', referencia='$referenciaCliente', telefoneContato='$telefoneContato', pessoaContato='$nomeContato', redeSocial='$redeSocial' 
+                            cpfConsultado='$cpfConsultado', dataCpfConsultado='$dataConsulta', referencia='$referenciaCliente', enderecoCliente='$enderecoCliente', telefoneContato='$telefoneContato', pessoaContato='$nomeContato', redeSocial='$redeSocial' 
                             WHERE idCliente='$idCliente'";
     /* -----------------------------------------------------------------------------------------------------  */
     
