@@ -81,6 +81,8 @@ $("#hexTextBox").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#valorImpulsionamento").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorPulseira").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#outros").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#valorVendido").inputFilter(function(value) {
@@ -95,6 +97,8 @@ $("#hexTextBox").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#novoValorPago").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#novoValorPago").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
     
   //INT
   $("#quantidadeIngresso").inputFilter(function(value) {
@@ -106,6 +110,8 @@ $("#hexTextBox").inputFilter(function(value) {
   $("#quantidadeVan").inputFilter(function(value) {
   return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
   $("#quantidadeEscuna").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadeSeguroViagem").inputFilter(function(value) {
   return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
   $("#quantidadeAlmocoCliente").inputFilter(function(value) {
   return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
@@ -124,6 +130,8 @@ $("#hexTextBox").inputFilter(function(value) {
   $("#quantidadeKitLanche").inputFilter(function(value) {
   return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
   $("#quantidadeImpulsionamento").inputFilter(function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
+  $("#quantidadePulseira").inputFilter(function(value) {
   return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 200); });
 
 
@@ -260,6 +268,34 @@ function calculoTotalDespesas(){
     valorTotalImpulsionamento                                = quantidadeImpulsionamento * valorImpulsionamento;
     document.getElementById('valorTotalImpulsionamento').value = valorTotalImpulsionamento.toFixed(2);
 
+    var valorPulseira                                         = document.getElementById('valorPulseira').value;
+    valorPulseira                                             = parseFloat(valorPulseira);
+    document.getElementById('valorPulseira').value            = valorPulseira.toFixed(2);
+    var quantidadePulseira                                    = document.getElementById('quantidadePulseira').value;    
+    valorTotalPulseira                                        = quantidadePulseira *valorPulseira;
+    document.getElementById('valorTotalPulseira').value       = valorTotalPulseira.toFixed(2);
+
+    var valorHospedagem                                         = document.getElementById('valorHospedagem').value;
+    valorHospedagem                                             = parseFloat(valorHospedagem);
+    document.getElementById('valorHospedagem').value            = valorHospedagem.toFixed(2);
+    var quantidadeHospedagem                                    = document.getElementById('quantidadeHospedagem').value;    
+    valorTotalHospedagem                                        = quantidadeHospedagem *valorHospedagem;
+    document.getElementById('valorTotalHospedagem').value       = valorTotalHospedagem.toFixed(2);
+    
+    var valorAereo                                         = document.getElementById('valorAereo').value;
+    valorAereo                                             = parseFloat(valorAereo);
+    document.getElementById('valorAereo').value            = valorAereo.toFixed(2);
+    var quantidadeAereo                                    = document.getElementById('quantidadeAereo').value;    
+    valorTotalAereo                                        = quantidadeAereo *valorAereo;
+    document.getElementById('valorTotalAereo').value       = valorTotalAereo.toFixed(2);
+
+    var valorServicos                                         = document.getElementById('valorServicos').value;
+    valorServicos                                             = parseFloat(valorServicos);
+    document.getElementById('valorServicos').value            = valorServicos.toFixed(2);
+    var quantidadeServicos                                    = document.getElementById('quantidadeServicos').value;    
+    valorTotalServicos                                        = quantidadeServicos *valorServicos;
+    document.getElementById('valorTotalServicos').value       = valorTotalServicos.toFixed(2);
+
     var valorSeguroViagem                                    = document.getElementById('valorSeguroViagem').value;
     valorSeguroViagem                                        = parseFloat(valorSeguroViagem);
     document.getElementById('valorSeguroViagem').value       = valorSeguroViagem.toFixed(2);
@@ -277,7 +313,7 @@ function calculoTotalDespesas(){
     var valorTotal                  = Number(valorIngresso) * Number(quantidadeIngresso)  + Number(valorOnibus) * Number(quantidadeOnibus) + Number(valorMicro) * Number(quantidadeMicro) + Number(valorVan) * Number(quantidadeVan) + Number(valorEscuna) * Number(quantidadeEscuna) + Number(valorSeguroViagem) * Number(quantidadeSeguroViagem)
                                     + Number(valorAlmocoCliente) * Number(quantidadeAlmocoCliente) + Number(valorAlmocoMotorista) * Number(quantidadeAlmocoMotorista) + Number(valorEstacionamento) * Number(quantidadeEstacionamento) + Number(valorGuia) * Number(quantidadeGuia) 
                                     + Number(valorAutorizacaoTransporte) * Number(quantidadeAutorizacaoTransporte) + Number(valorTaxi) * Number(quantidadeTaxi) + Number(valorMarketing) * Number(quantidadeMarketing)  + Number(valorImpulsionamento) * Number(quantidadeImpulsionamento) 
-                                    + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche);
+                                    + Number(valorPulseira) * Number(quantidadePulseira) + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche) + Number(valorHospedagem) * Number(quantidadeHospedagem) + Number(valorAereo) * Number(quantidadeAereo) + Number(valorServicos) * Number(quantidadeServicos);
    console.log(valorTotal);
    if(valorTotal) {
        document.getElementById('totalDespesas').value = valorTotal.toFixed(2);
@@ -290,14 +326,14 @@ function calculoTotalDespesas(){
 function calculoPagamentoCliente(){
   
     var valorVendido                                   = document.getElementById('valorVendido').value;
-    //valorVendido                                       = parseFloat(valorVendido); 
-    document.getElementById('valorVendido').value      = parseFloat(valorVendido.toFixed(2));
+    valorVendido                                       = parseFloat(valorVendido); 
+    document.getElementById('valorVendido').value      = valorVendido.toFixed(2);
 
     
 
     var valorPago                                      = document.getElementById('valorPago').value;
-    //valorPago                                          = parseFloat(valorPago); 
-    document.getElementById('valorPago').value         = parseFloat(valorPago.toFixed(2));
+    valorPago                                          = parseFloat(valorPago); 
+    document.getElementById('valorPago').value         = valorPago.toFixed(2);
 
  
     
@@ -436,6 +472,12 @@ function confirmationDelete(anchor)
    if(conf)
       window.location=anchor.attr("href");
 }
+function confirmationDeletePasseio(anchor)
+{
+   var conf = confirm('VOCÊ TEM CERTEZA QUE DESEJA APAGAR ESSE PASSEIO??');
+   if(conf)
+      window.location=anchor.attr("href");
+}
 
 //VERIFICANDO CLIQUE NA SELEÇÃO DE PÁGINA ------------------------------------------------------
 function cliquePrimeirPagina(){
@@ -555,6 +597,9 @@ function tituloListagem(){
 
   var clientesCriancas = document.getElementById("clientesCriancas").value;
   document.getElementById("criancas").innerHTML = "CRIANÇAS:  " +clientesCriancas;
+
+  var clientesDesistentes = document.getElementById("clientesDesistentes").value;
+  document.getElementById("desistentes").innerHTML = "DESISTENTES:  " +clientesDesistentes;
   
 
 }
@@ -607,3 +652,5 @@ function verificaDataDePrevisaoPagamento(){
   
   
 }
+
+
