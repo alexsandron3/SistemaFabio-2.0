@@ -7,6 +7,7 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
+
   <?php include_once("./includes/head.php"); ?>
 
   <title>CADASTRAR CLIENTE</title>
@@ -102,25 +103,27 @@ include_once("./includes/header.php");
 
             <div class="form-group">
               <div class="row">
+                <div class="col-6" >
+                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="form-control" name="enderecoCliente" id="enderecoCliente" rows="3" placeholder="ENDEREÇO" onkeydown="upperCaseF(this)"></textarea>
+                </div>
                 <div class="col-6">
                   <textarea class="form-control" name="referenciaCliente" id="referenciaCliente" rows="3" placeholder="REFERÊNCIA" onkeydown="upperCaseF(this)"></textarea>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO" class="form-control " type="tel" name="telefoneContato" id="telefoneContato" placeholder="TELEF. CONTATO">
+              <div class="form-group row">
+                <div class="col">
+                  <input data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO" class="form-control " type="tel" name="telefoneContato" id="telefoneContato" placeholder="TELEF. CONTATO">
+                </div>
+                <div class="col">
+                  <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control " type="text" name="nomeContato" id="nomeContato" placeholder="PESSOA CONTATO" onkeydown="upperCaseF(this)">
+                </div>
               </div>
-              <div class="col">
-                <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control " type="text" name="nomeContato" id="nomeContato" placeholder="PESSOA CONTATO" onkeydown="upperCaseF(this)">
+              <div class="form-group row">
+                <div class="col">
+                  <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1" placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"></textarea>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <div class="col">
-                <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1" placeholder="REDES SOCIAIS" onkeydown="upperCaseF(this)"></textarea>
-              </div>
-            </div>
-            <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-md">CADASTRAR</button>
+              <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-md">CADASTRAR</button>
           </form>
         </div>
       </div>

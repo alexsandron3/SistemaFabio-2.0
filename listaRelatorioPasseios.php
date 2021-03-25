@@ -49,8 +49,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
           <div class="table-responsive">
             <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
             <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-            <p class="h2 text-center">LISTA DE PASSEIOS
-
+            <p class="h2 text-center">LISTA DE PASSEIO </p>
 
             <div class="table-reponsive">
               <?php esconderTabela(4); ?>
