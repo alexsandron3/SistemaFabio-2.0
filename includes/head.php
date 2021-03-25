@@ -1,12 +1,12 @@
+<!-- TAGS DE RESPONSIVIDADE -->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!--  -->
+<!-- TAGS DE ESTILO -->
 <link href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=2.0.7" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" rel="stylesheet" />
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> -->
-<!-- <link rel="stylesheet" href="/config/style.css"> -->
-<!-- <link href="/assets/css/material-kit.css?v=2.0.7" rel="stylesheet" /> -->
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -17,20 +17,11 @@
 
 
 
+<!-- TAGS DE SCRIPT -->
 
-<!--   Core JS Files   -->
-<!-- <script src="assets/js/core/jquery.min.js" type="text/javascript"></script> -->
 <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
 <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
 <script src="assets/js/plugins/moment.min.js"></script>
-<!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-<!-- <script src="assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script> -->
-<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-<!-- <script src="assets/js/plugins/nouislider.min.js" type="text/javascript"></script> -->
-<!--  Google Maps Plugin  -->
-<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
-<!-- Place this tag in your head or just before your close body tag. -->
-<!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
-<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
-<!-- <script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script> -->
+
 <script src="https://cdn.datatables.net/plug-ins/1.10.24/sorting/datetime-moment.js"></script>
+<script src="assets/js/material-kit.js?v=2.0.7" type="text/javascript"></script>
