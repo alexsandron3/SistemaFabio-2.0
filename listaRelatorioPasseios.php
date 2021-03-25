@@ -49,13 +49,9 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
           <div class="table-responsive">
             <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
             <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-<<<<<<< Updated upstream
             <p class="h2 text-center">LISTA DE PASSEIOS/p>
 
 
-=======
-            <p class="h2 text-center">LISTA DE PASSEIO </p>
->>>>>>> Stashed changes
             <div class="table-reponsive">
               <?php esconderTabela(4); ?>
             </div>
