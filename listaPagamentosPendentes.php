@@ -98,13 +98,13 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                             
                       </td>
                       <td class="td-actions text-right">
-                        <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" >
                           <i class="material-icons">edit</i>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" href="editarPagamento.php?id=<?php echo $rowPagamentosPendentes['idPagamento']; ?>" class="btn btn-warning btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" href="editarPagamento.php?id=<?php echo $rowPagamentosPendentes['idPagamento']; ?>" class="btn btn-warning btn-just-icon btn-sm" >
                           <i class="material-icons">payment</i>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
+                        <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" >
                           <i class="material-icons">groups</i>
                         </a>
                       </td>

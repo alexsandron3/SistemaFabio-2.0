@@ -26,11 +26,11 @@ $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
 
           <div class="text-center">
-          <a target="_blank" href="listaAniversariantesMes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">ANIVERSARIANTES</a>
-            <a target="_blank" href="listaClientes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">LISTA DE PASSAGEIROS</a>
-            <a target="_blank" href="pagamentosPendentes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PAGAMENTOS PENDENTES</a>
-            <a target="_blank" href="pontosDeEmbarque.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PONTOS DE EMBARQUE</a>
-            <a target="_blank" href="SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round"> <i class="material-icons mr-2">save_alt</i> SEGURO VIAGEM</a>
+          <a  href="listaAniversariantesMes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">ANIVERSARIANTES</a>
+            <a  href="listaClientes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">LISTA DE PASSAGEIROS</a>
+            <a  href="pagamentosPendentes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PAGAMENTOS PENDENTES</a>
+            <a  href="pontosDeEmbarque.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PONTOS DE EMBARQUE</a>
+            <a  href="SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round"> <i class="material-icons mr-2">save_alt</i> SEGURO VIAGEM</a>
           </div>
         </div>
       </div>

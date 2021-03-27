@@ -122,19 +122,19 @@ include_once("./includes/header.php");
                       <td><?php echo $valorPesquisaCliente['emailCliente'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['redeSocial'] . "<BR/>"; ?></td>
                       <td class=" text-right">
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR CLIENTE' class='btn btn-info btn-sm' target='_blank' rel='noopener noreferrer' href='editarCliente.php?id=" . $idCliente . "'><i class='material-icons'>edit</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR CLIENTE' class='btn btn-info btn-sm' rel='noopener noreferrer' href='editarCliente.php?id=" . $idCliente . "'><i class='material-icons'>edit</i></a>"; ?>
 
 
                         <?php
                         if ($valorPesquisaCliente['statusCliente'] == 1) {
-                          echo "<a data-toggle='tooltip' data-placement='top' title='REALIZAR PAGAMENTO' class='btn btn-success btn-sm' target='_blank' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $idCliente . "' ><i class='material-icons'>shopping_cart</i></a>";
+                          echo "<a data-toggle='tooltip' data-placement='top' title='REALIZAR PAGAMENTO' class='btn btn-success btn-sm' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $idCliente . "' ><i class='material-icons'>shopping_cart</i></a>";
                         }
                         ?>
                         <?php
                         if ($valorPesquisaCliente['statusCliente'] == 0) {
-                          echo "<a data-toggle='tooltip' data-placement='top' title='REATIVAR CLIENTE' class='btn btn-success btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_add</i></a>";
+                          echo "<a data-toggle='tooltip' data-placement='top' title='REATIVAR CLIENTE' class='btn btn-success btn-sm' onclick='javascript:confirmationDelete($(this));return false;' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_add</i></a>";
                         } else {
-                          echo "<a data-toggle='tooltip' data-placement='top' title='DESATIVAR CLIENTE' class='btn btn-danger btn-sm' onclick='javascript:confirmationDelete($(this));return false;' target='_blank' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_remove</i></a>";
+                          echo "<a data-toggle='tooltip' data-placement='top' title='DESATIVAR CLIENTE' class='btn btn-danger btn-sm' onclick='javascript:confirmationDelete($(this));return false;' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_remove</i></a>";
                         }
                         ?>
 

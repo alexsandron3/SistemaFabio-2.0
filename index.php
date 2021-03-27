@@ -112,7 +112,7 @@ include_once("./includes/header.php");
                           <?php echo "
                           <span class='h4 text-center'>
                             " . "PERÍODO SELECIONADO: " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . "
-                            <a data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS ' target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos . "'><i class='material-icons mb-2'>info_outline</i>
+                            <a data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS '  href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos . "'><i class='material-icons mb-2'>info_outline</i>
                             </a></br>
                             " . $mensagemExibeExcluidos . "
                           </span>";

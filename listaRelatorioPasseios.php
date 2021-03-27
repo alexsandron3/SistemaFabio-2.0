@@ -82,16 +82,16 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                     <?php echo $dataPasseioFromatada ?></td>
                     <td class="td-actions text-right">
 
-                      <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" target="_blank">
+                      <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" >
                         <i class="material-icons">groups</i>
                       </a>
-                      <a data-toggle="tooltip" data-placement="top" title="DESPESAS" href="editaDespesas.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-danger btn-just-icon btn-sm" target="_blank">
+                      <a data-toggle="tooltip" data-placement="top" title="DESPESAS" href="editaDespesas.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-danger btn-just-icon btn-sm" >
                         <i class="material-icons">money_off</i>
                       </a>
-                      <a data-toggle="tooltip" data-placement="top" title="RELATÓRIOS DO PASSEIO" href="relatoriosDoPasseio.php?id= <?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-dark btn-just-icon btn-sm" target="_blank">
+                      <a data-toggle="tooltip" data-placement="top" title="RELATÓRIOS DO PASSEIO" href="relatoriosDoPasseio.php?id= <?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-dark btn-just-icon btn-sm" >
                         <i class="material-icons">summarize</i>
                       </a>
-                      <a data-toggle="tooltip" data-placement="top" title="LUCROS" href="relatoriosPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-success btn-just-icon btn-sm" target="_blank">
+                      <a data-toggle="tooltip" data-placement="top" title="LUCROS" href="relatoriosPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-success btn-just-icon btn-sm" >
                         <i class="material-icons">price_check </i>
 
                       </a>

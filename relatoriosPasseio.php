@@ -166,7 +166,7 @@ if (!empty($idPasseio)) {
                 }
                 $inicioDataPasseioFormatado = date_create($inicioDataPasseio);
                 $fimDataPasseioFormatado = date_create($fimDataPasseio);
-                mensagensInfoNoSession("PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <i class='material-icons'> <a data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS ' target='_blank'href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=1'> info_ountline</a></i>");
+                mensagensInfoNoSession("PERÍODO SELECIONADO:  " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . " <i class='material-icons'> <a data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS ' href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=1'> info_ountline</a></i>");
               } else {
                 //echo"SITUAÇÃO 4";
                 $inicioDataPasseioPadrao = '2000-01-01';
@@ -216,9 +216,7 @@ if (!empty($idPasseio)) {
                   /* -----------------------------------------------------------------------------------------------------  */
                 }
                 if ($inicioDataPasseioPadrao == '2000-01-01' && $fimDataPasseioPadrao == '2099-01-01') {
-                  mensagensInfoNoSession("EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <i class='material-icons mb-2'> <a  data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS ' target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio=&mostrarPasseiosExcluidos=1'> info_outline </a></i>");
-
-                  #echo "<p class='h4 text-center alert-warning'> EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <a target='_blank' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio=&mostrarPasseiosExcluidos=1'> *</a></p>";
+                  mensagensInfoNoSession("EXIBINDO INFORMAÇÕES SOBRE TODOS OS PASSEIOS <i class='material-icons mb-2'> <a  data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS ' href='listaRelatorioPasseios.php?inicioDataPasseio=&fimDataPasseio=&mostrarPasseiosExcluidos=1'> info_outline </a></i>");
                 } else {
                   //
                 }
@@ -263,14 +261,14 @@ if (!empty($idPasseio)) {
               <input type="text" class="form-control " name="lucroDespesas" id="lucroDespesas" placeholder="0" value="<?php echo number_format((float) $lucroDespesas, 2, '.', '') ?>" readonly>
             </div>
             <div class="col">
-              <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="DESPESAS PASSEIO + SEGURO VIAGEM" for="totalDespesas"> <a target="_blank" class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="editaDespesas.php?id=<?php echo $idPasseio ?>">TOTAL DESPESAS</a> </label>
+              <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="DESPESAS PASSEIO + SEGURO VIAGEM" for="totalDespesas"> <a  class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="editaDespesas.php?id=<?php echo $idPasseio ?>">TOTAL DESPESAS</a> </label>
               <input type="text" class="form-control " name="totalDespesas" id="totalDespesas" placeholder="0" value="<?php echo number_format((float) $valorTotalDespesas, 2, '.', '') ?>" readonly>
             </div>
           </div>
 
           <div class="form-row">
             <div class="col-6">
-              <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="QTD DE CLIENTES QUE FIZERAM UM PAGAMENTO" for="qtdCliente"> <a target="_blank" class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="listaPasseio.php?id=<?php echo $idPasseio ?>"> QTD DE CLIENTES</a></label>
+              <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="QTD DE CLIENTES QUE FIZERAM UM PAGAMENTO" for="qtdCliente"> <a  class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="listaPasseio.php?id=<?php echo $idPasseio ?>"> QTD DE CLIENTES</a></label>
               <input type="text" class="form-control " name="qtdCliente" id="qtdCliente" placeholder="0" value="<?php echo number_format((float) $qtdCliente, 2, '.', '') ?>" readonly>
             </div>
           </div>
