@@ -51,7 +51,6 @@ include_once("./includes/header.php");
                 <input type='submit' class='btn btn-info btn-md' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
               </div>
             </div>
-            <!-- <input type='submit' class='btn btn-info btn-sm ml-5 ' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'> -->
           </form>
           <div class="table-responsive mt-3">
             <!--control show hide columns ( start )-->

@@ -261,15 +261,35 @@ if (!empty($idPasseio)) {
               <input type="text" class="form-control " name="lucroDespesas" id="lucroDespesas" placeholder="0" value="<?php echo number_format((float) $lucroDespesas, 2, '.', '') ?>" readonly>
             </div>
             <div class="col">
-              <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="DESPESAS PASSEIO + SEGURO VIAGEM" for="totalDespesas"> <a  class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="editaDespesas.php?id=<?php echo $idPasseio ?>">TOTAL DESPESAS</a> </label>
-              <input type="text" class="form-control " name="totalDespesas" id="totalDespesas" placeholder="0" value="<?php echo number_format((float) $valorTotalDespesas, 2, '.', '') ?>" readonly>
+              <?php
+              if (empty($idPasseio)) { ?>
+                <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="DESPESAS PASSEIO + SEGURO VIAGEM" for="totalDespesas"> TOTAL DESPESAS</label>
+
+                <input type="text" class="form-control " name="totalDespesas" id="totalDespesas" placeholder="0" value="<?php echo number_format((float) $valorTotalDespesas, 2, '.', '') ?>" readonly>
+              <?php } else {
+              ?>
+
+                <a class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="editaDespesas.php?id=<?php echo $idPasseio ?>">TOTAL DESPESAS</a> </label>
+
+                <input type="text" class="form-control " name="totalDespesas" id="totalDespesas" placeholder="0" value="<?php echo number_format((float) $valorTotalDespesas, 2, '.', '') ?>" readonly>
+              <?php } ?>
             </div>
           </div>
 
           <div class="form-row">
             <div class="col-6">
-              <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="QTD DE CLIENTES QUE FIZERAM UM PAGAMENTO" for="qtdCliente"> <a  class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="listaPasseio.php?id=<?php echo $idPasseio ?>"> QTD DE CLIENTES</a></label>
-              <input type="text" class="form-control " name="qtdCliente" id="qtdCliente" placeholder="0" value="<?php echo number_format((float) $qtdCliente, 2, '.', '') ?>" readonly>
+              <?php
+              if (empty($idPasseio)) { ?>
+                <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="QTD DE CLIENTES QUE FIZERAM UM PAGAMENTO" for="qtdCliente"> QTD DE CLIENTES </label>
+                <input type="text" class="form-control " name="qtdCliente" id="qtdCliente" placeholder="0" value="<?php echo number_format((float) $qtdCliente, 2, '.', '') ?>" readonly>
+
+              <?php } else {
+
+              ?>
+                <label class="col-form-label" data-toggle="tooltip" data-placement="top" title="QTD DE CLIENTES QUE FIZERAM UM PAGAMENTO" for="qtdCliente"> <a class="<?php echo $decoraçãoLink ?> " rel="noopener noreferrer" href="listaPasseio.php?id=<?php echo $idPasseio ?>"> QTD DE CLIENTES</a></label>
+
+                <input type="text" class="form-control " name="qtdCliente" id="qtdCliente" placeholder="0" value="<?php echo number_format((float) $qtdCliente, 2, '.', '') ?>" readonly>
+              <?php } ?>
             </div>
           </div>
 
