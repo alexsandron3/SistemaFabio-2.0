@@ -17,3 +17,8 @@
     border: 1px solid red;
 }
 
+.Assinatura-Linha{
+    margin-top: -1px;
+    position: relative;
+    
+}
