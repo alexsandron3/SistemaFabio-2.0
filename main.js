@@ -5,7 +5,7 @@ $(document).ready(function() {
     //make username editable
     $('#nome').editable();
     $('#nacionalidade').editable();
-    $('#Profissao').editable();
+    $('#profissao').editable();
     $('#estadoCivil').editable();
     $('#dataNascimento').editable();
     $('#identidade').editable();
@@ -13,8 +13,8 @@ $(document).ready(function() {
     $('#cpf').editable();
     $('#enderecoCliente').editable();
     $('#nomePasseio').editable();
-    $('#nomePasseio').editable();
     $('#vagasSolicitadas').editable();
+    $('#valorTotal').editable();
     $('#valorEntrada').editable();
     $('#previsaoPagamento').editable();
     $('#metodoPagamento').editable();
@@ -22,6 +22,8 @@ $(document).ready(function() {
     $('#inicioVigenciaContrato').editable();
     $('#terminoVigenciaContrato').editable();
     $('#dataDeHoje').editable();
+    $('#testemunha1').editable();
+    $('#testemunha2').editable();
     
     //make status editable
     $('#status').editable({
@@ -41,3 +43,5 @@ $(document).ready(function() {
         */
     });
 });
+
+

@@ -1,3 +1,8 @@
+
+.body{
+    background-color: white!important;
+}
+
 .text-invisble{
     display: none;
 }
@@ -22,3 +27,4 @@
     position: relative;
     
 }
+
