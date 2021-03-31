@@ -202,9 +202,9 @@ $transporte = $rowIdPagamento['transporte'];
               </fieldset>
               <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
-                <textarea class='form-control ml-3' name='anotacoes' id='anotacoes' cols='60' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'> <?php echo $anotacoes ?></textarea>
+                <textarea class='form-control ml-3' name='anotacoes' id='anotacoes' cols='20' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'> <?php echo $anotacoes ?></textarea>
                 <label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>
-                <textarea class='form-control ml-3' name='historicoPagamento' id='historicoPagamento' cols='60' rows='3' placeholder='historicoPagamento' maxlength='500'> <?php echo $historicoPagamento ?> </textarea>
+                <textarea class='form-control ml-3' name='historicoPagamento' id='historicoPagamento' cols='30' rows='3' placeholder='historicoPagamento' maxlength='500'> <?php echo $historicoPagamento ?> </textarea>
                 <textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3' placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'> <?php echo $historicoPagamento ?> </textarea>
               </div>
 
