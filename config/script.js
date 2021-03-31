@@ -99,6 +99,8 @@ $("#hexTextBox").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
     $("#novoValorPago").inputFilter(function(value) {
     return /^-?\d*[.]?\d{0,2}$/.test(value); });
+    $("#valorAereo").inputFilter(function(value) {
+    return /^-?\d*[.]?\d{0,2}$/.test(value); });
     
   //INT
   $("#quantidadeIngresso").inputFilter(function(value) {

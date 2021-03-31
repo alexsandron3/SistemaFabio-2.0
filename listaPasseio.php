@@ -202,15 +202,15 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                       <td><?php echo number_format($valorPago, 2, '.', '') . "<BR/>" ?></td>
                       <td><?php echo $rowBuscaPasseio['valorVendido'] . "<BR/>"; ?></td>
                       <td class="td-actions">
-                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" target='_blank' red='noopener noreferrer' class="btn btn-info btn-just-icon btn-sm" href="editarPagamento.php?id=<?php echo $idPagamento; ?>">
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO"  red='noopener noreferrer' class="btn btn-info btn-just-icon btn-sm" href="editarPagamento.php?id=<?php echo $idPagamento; ?>">
                           <i class="material-icons"> edit </i>
                         </a>
 
-                        <a data-toggle="tooltip" data-placement="top" title="TRANSFERIR OU DELETAR PAGAMENTO" target='_blank' rel='noopener noreferrer' class="btn <?php echo $corTexto; ?> btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
+                        <a data-toggle="tooltip" data-placement="top" title="TRANSFERIR OU DELETAR PAGAMENTO"  rel='noopener noreferrer' class="btn <?php echo $corTexto; ?> btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
                           <i class="material-icons"><?php $iconAcao = ($opcao == "DELETAR") ? 'delete_forever' : 'swap_horiz';
                                                     echo $iconAcao; ?> </i>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="ENVIAR UMA MENSAGEM NO WHATS APP" class='btn btn-success btn-just-icon btn-sm' target="_blank" href="https://wa.me/55<?php echo $rowBuscaPasseio['telefoneCliente']; ?> ">
+                        <a data-toggle="tooltip" data-placement="top" title="ENVIAR UMA MENSAGEM NO WHATS APP" class='btn btn-success btn-just-icon btn-sm' href="https://wa.me/55<?php echo $rowBuscaPasseio['telefoneCliente']; ?> ">
                           <i class="material-icons"> perm_phone_msg </i>
                         </a>
                       </td>
