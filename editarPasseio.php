@@ -32,68 +32,72 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
   <div class="row py-5">
     <div class="col-lg-10 mx-auto">
       <div class="card rounded shadow border-0">
-      <p class="h2 text-center">EDIÇÃO DE PASSEIO</p>
+        <p class="h2 text-center">EDIÇÃO DE PASSEIO</p>
         <div class="card-body p-5 bg-white rounded ">
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <form action="SCRIPTS/atualizaPasseio.php" autocomplete="off" method="POST">
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label latinTextBox" for="nomePasseio">NOME DO PASSEIO</label>
+            <div class="form-row">
+              <label class="col-sm-2 col-form-label latinTextBox" for="nomePasseio">NOME DO PASSEIO</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" name="nomePasseio" id="latinTextBox" placeholder="NOME DO PASSEIO" required="required" value="<?php echo $rowBuscaPasseio['nomePasseio'] ?>" onkeydown="upperCaseF(this)">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label" for="localPasseio">LOCAL DO PASSEIO</label>
+            <div class="form-row my-4">
+              <label class="col-sm-2 col-form-label" for="localPasseio">LOCAL DO PASSEIO</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" name="localPasseio" id="LocalPasseiolatinTextBox" placeholder="LOCAL DO PASSEIO" value="<?php echo $rowBuscaPasseio['localPasseio'] ?>" onkeydown="upperCaseF(this)">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label" for="valorPasseio">VALOR DO PASSEIO</label>
+            <div class="form-row my-4">
+              <label class="col-sm-2 col-form-label" for="valorPasseio">VALOR DO PASSEIO</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO" value="<?php echo $rowBuscaPasseio['valorPasseio'] ?>" onkeydown="upperCaseF(this)">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label" for="lotacao"> LOTAÇÃO</label>
+            <div class="form-row my-4">
+              <label class="col-sm-2 col-form-label" for="lotacao"> LOTAÇÃO</label>
               <div class="col-sm-1">
                 <input type="text" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="0-200" value="<?php echo $rowBuscaPasseio['lotacao'] ?>">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label" for="idadeIsencao"> ISENÇÃO</label>
+            <div class="form-row my-4">
+              <label class="col-sm-2 col-form-label" for="idadeIsencao"> ISENÇÃO</label>
               <div class="col-sm-1">
                 <input type="number" class="form-control" name="idadeIsencao" id="idadeIsencao" placeholder="0-200" required="required" value="<?php echo $rowBuscaPasseio['idadeIsencao'] ?>">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label" for="dataPasseio">DATA DO PASSEIO</label>
+            <div class="form-row my-4">
+              <label class="col-sm-2 col-form-label" for="dataPasseio">DATA DO PASSEIO</label>
               <div class="col-sm-6">
                 <input type="date" class="form-control col-sm-4" name="dataPasseio" id="dataPasseio" required="required" value="<?php echo $rowBuscaPasseio['dataPasseio'] ?>">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
-              <textarea class="form-control col-sm-3 ml-3" name="anotacoesPasseio" id="anotacoesPasseio" cols="3" rows="1" value="<?php echo $rowBuscaPasseio['anotacoes'] ?>" placeholder="ANOTAÇÕES" onkeydown="upperCaseF(this)"></textarea>
+            <div class="form-row my-4">
+              <label class="col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
+              <textarea class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" value="<?php echo $rowBuscaPasseio['anotacoes'] ?>" placeholder="" onkeydown="upperCaseF(this)"></textarea>
             </div>
-            <div class="row">
-              <legend class="col-form-label col-sm-1">STATUS DO PASSEIO</legend>
-              <div class="col-sm">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="statusPasseio" id="statusPasseioAtivo" value="1" <?php echo $passeioAtivo ?>>
-                  <label class="form-check-label" for="statusPasseioAtivo">
-                    ATIVO
-                  </label>
+
+            <fieldset class='form-group'>
+              <div class='row'>
+                <legend class='col-form-label col-sm-2 pt-0 text-muted'>STATUS DO PASSEIO</legend>
+                <div class='col-sm-5 '>
+                  <div class='col'>
+                    <input class='form-check-input ' type='radio' name='statusPasseio' id='statusPasseioAtivo' value='1' <?php echo $passeioAtivo ?>>
+                    <label class='form-check-label' for='statusPasseioAtivo'>
+                      SIM
+                    </label>
+                  </div>
+                  <div class='col'>
+                    <input class='form-check-input' type='radio' name='statusPasseio' id='statusPasseioInativo' value='0' <?php echo $passeioInativo ?>>
+                    <label class='form-check-label' for='statusPasseioInativo'>
+                      NÃO
+                    </label>
+                  </div>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="statusPasseio" id="statusPasseioInativo" value="0" <?php echo $passeioInativo ?>>
-                  <label class="form-check-label" for="statusPasseioInativo">
-                    ENCERRADO
-                  </label>
-                </div>
-              </div>
-            </div>
+            </fieldset>
+
+
             <input type="hidden" name="idPasseio" id="idPasseio" value="<?php echo $rowBuscaPasseio['idPasseio'] ?>">
             <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-lg">ATUALIZAR</button>
           </form>
