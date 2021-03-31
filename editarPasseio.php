@@ -74,8 +74,8 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
               </div>
             </div>
             <div class="form-row my-4">
-              <label class="col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
-              <textarea class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" value="<?php echo $rowBuscaPasseio['anotacoes'] ?>" placeholder="" onkeydown="upperCaseF(this)"></textarea>
+              <label class="col-2 col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
+              <textarea class="form-control ml-3" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" value="<?php echo $rowBuscaPasseio['anotacoes'] ?>" placeholder="" onkeydown="upperCaseF(this)"></textarea>
             </div>
 
             <fieldset class='form-group'>
