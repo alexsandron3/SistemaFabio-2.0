@@ -172,7 +172,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
 
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>
-                            <textarea class='form-control col-sm-3 ' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'><?php echo $rowIdCliente['referencia'] ?></textarea>
+                            <textarea class='form-control ' name='referenciaCliente' id='referenciaCliente' cols='60' rows='3' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'><?php echo $rowIdCliente['referencia'] ?></textarea>
                           </div>
 
 
@@ -215,10 +215,10 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                             </div>
                           </fieldset>
                           <div class='form-row my-4'>
-                            <label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
-                            <textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='5' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>
-                            <label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>
-                            <textarea class='form-control col-sm-3 ml-3' name='historicoPagamento' id='historicoPagamento' cols='6' rows='3' placeholder='historicoPagamento' maxlength='500'>  </textarea>
+                            <label class='col-3 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
+                            <textarea class='form-control  ml-3' name='anotacoes' id='anotacoes' cols='60' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>
+                            <label class='col-form-label' for='anotacoes'>HISTÓRICO</label>
+                            <textarea class='form-control ml-3' name='historicoPagamento' id='historicoPagamento' cols='60' rows='3' placeholder='historicoPagamento' maxlength='500'>  </textarea>
                             <textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3' placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'>  </textarea>
                           </div>
               <?php
