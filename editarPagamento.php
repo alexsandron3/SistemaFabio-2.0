@@ -57,15 +57,15 @@ $transporte = $rowIdPagamento['transporte'];
               mensagensInfoNoSession("" . $rowIdPagamento['nomeCliente'] . " | " . $rowIdPagamento['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y"));
               #echo "<p class='h4 text-center alert-info'> " . $rowIdPagamento['nomeCliente'] . " | " . $rowIdPagamento['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y") . "</p>";
               ?>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>
-                <div class='col-sm-6'>
+                <div class='col-6'>
                   <input type='text' class='form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='<?php echo $valorVendido ?>'>
                 </div>
               </div>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>
-                <div class='col-sm-6'>
+                <div class='col-6'>
                   <input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='<?php echo $valorPago ?>'>
                 </div>
                 <div class='col-sm-2'>
@@ -74,47 +74,49 @@ $transporte = $rowIdPagamento['transporte'];
                   <input type='hidden' class='form-control' name='idCliente' id='idCliente' placeholder='idCliente' value='<?php echo $idCliente ?>'>
                 </div>
               </div>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>
-                <div class='col-sm-6'>
+                <div class='col-6'>
                   <input type='text' class='form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' value='<?php echo $valorPendente ?>' readonly='readonly'>
                 </div>
               </div>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='taxaPagamento'>TAXA DE PAGAMENTO</label>
-                <div class='col-sm-6'>
+                <div class='col-6'>
                   <input type='text' class='form-control' name='taxaPagamento' id='taxaPagamento' value='<?php echo $taxaPagamento ?>' placeholder='TAXA DE PAGAMENTO'>
                 </div>
               </div>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>
-                <div class='col-sm-6'>
+                <div class='col-6'>
                   <input type='text' class='form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' value='<?php echo $localEmbarque ?>' required='required' autocomplete='on'>
                 </div>
               </div>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>
                 <div class='col-sm-3'>
                   <input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' value='<?php echo $rowIdPagamento['previsaoPagamento']  ?>' placeholder='PREVISÃO PAGAMENTO' onblur='verificaDataDePrevisaoPagamento()'>
                 </div>
               </div>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>
                 <div class='col-sm-3'>
                   <input type='text' class='form-control' name='meioTransporte' id='meioTransporte' value='<?php "  echo $transporte  " ?>' placeholder='TRANSPORTE' autocomplete='on'>
                 </div>
               </div>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='idadeCliente'>IDADE</label>
                 <div class='col-sm-1'>
                   <input type='text' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='<?php echo $idadeCliente ?>'>
                 </div>
               </div>
               <input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento' onchange='calculoPagamentoCliente()'>
-              <div class='form-group row'>
+             
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>
-                <textarea class='form-control col-sm-3 ml-3' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)'> <?php echo $rowIdPagamento['referencia'] ?></textarea>
+                <textarea class='form-control ml-3' name='referenciaCliente' id='referenciaCliente' cols='60' rows='3' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)'> <?php echo $rowIdPagamento['referencia'] ?></textarea>
               </div>
+              
               <fieldset class='form-group'>
                 <?php
                 $statusSeguroViagemtrue = '';
@@ -198,14 +200,14 @@ $transporte = $rowIdPagamento['transporte'];
                   </div>
                 </div>
               </fieldset>
-              <div class='form-group row'>
+              <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
-                <textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='6' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'> <?php echo $anotacoes ?></textarea>
+                <textarea class='form-control ml-3' name='anotacoes' id='anotacoes' cols='20' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'> <?php echo $anotacoes ?></textarea>
                 <label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>
-                <textarea class='form-control col-sm-3 ml-3' name='historicoPagamento' id='historicoPagamento' cols='6' rows='3' placeholder='historicoPagamento' maxlength='500'> <?php echo $historicoPagamento ?> </textarea>
+                <textarea class='form-control ml-3' name='historicoPagamento' id='historicoPagamento' cols='30' rows='3' placeholder='historicoPagamento' maxlength='500'> <?php echo $historicoPagamento ?> </textarea>
                 <textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3' placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'> <?php echo $historicoPagamento ?> </textarea>
               </div>
-              
+
             </div>
             <input type="submit" class="btn btn-info btn-sm" value="FINALIZAR PAGAMENTO" name="buttonFinalizarPagamento">
 

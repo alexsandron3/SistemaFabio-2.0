@@ -62,7 +62,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                 }
                 ?>
                 <input type="submit" class="btn btn-info btn-sm ml-2" value="CARREGAR INFORMAÇÕES" name="buttonCarregarInformacoes">
-                <input type="hidden" class="form-control col-sm-1 ml-3" name="passeioSelecionado" id="passeioSelecionado" onchange="idPasseioSelecionado()" readonly="readonly">
+                <input type="hidden" class="form-control col-sm-1 ml-3" name="passeioSelecionado" id="passeioSelecionado" onblur="idPasseioSelecionado()" readonly="readonly">
             </div>
           </form>
           <form action="SCRIPTS/realizaPagamento.php" method="post" autocomplete="OFF">
@@ -111,7 +111,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>
                             <div class='col-6'>
-                              <input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='0' onchange='calculoPagamentoCliente()' readonly='readonly'>
+                              <input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='0' onblur='calculoPagamentoCliente()' readonly='readonly'>
                             </div>
 
                             <div class='col-sm-2'>
@@ -142,7 +142,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>
                             <div class='col-6'>
-                              <input type='text' class='form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' onchange='calculoPagamentoCliente()'>
+                              <input type='text' class='form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' onblur='calculoPagamentoCliente()'>
                             </div>
                           </div>
                           <div class='form-row my-4'>
@@ -166,13 +166,13 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                             </div>
                           </div>
 
-                          <input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento' onchange='calculoPagamentoCliente()'>
+                          <input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento' onblur='calculoPagamentoCliente()'>
                           <input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente' value='<?php echo $rowIdCliente['idadeCliente'] ?>'>
 
 
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='referenciaCliente'>REFERÊNCIA</label>
-                            <textarea class='form-control col-sm-3 ' name='referenciaCliente' id='referenciaCliente' cols='3' rows='1' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'><?php echo $rowIdCliente['referencia'] ?></textarea>
+                            <textarea class='form-control ' name='referenciaCliente' id='referenciaCliente' cols='60' rows='3' disabled='disabled' placeholder='INFORMAÇÕES' onkeydown='upperCaseF(this)' maxlength='100'><?php echo $rowIdCliente['referencia'] ?></textarea>
                           </div>
 
 
@@ -215,10 +215,10 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                             </div>
                           </fieldset>
                           <div class='form-row my-4'>
-                            <label class='col-sm-2 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
-                            <textarea class='form-control col-sm-3 ml-3' name='anotacoes' id='anotacoes' cols='5' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>
-                            <label class='col-sm-2 col-form-label' for='anotacoes'>HISTÓRICO</label>
-                            <textarea class='form-control col-sm-3 ml-3' name='historicoPagamento' id='historicoPagamento' cols='6' rows='3' placeholder='historicoPagamento' maxlength='500'>  </textarea>
+                            <label class='col-3 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
+                            <textarea class='form-control  ml-3' name='anotacoes' id='anotacoes' cols='20' rows='3' placeholder='ANOTAÇÕES' onkeydown='upperCaseF(this)' maxlength='500'></textarea>
+                            <label class='col-form-label' for='anotacoes'>HISTÓRICO</label>
+                            <textarea class='form-control ml-3' name='historicoPagamento' id='historicoPagamento' cols='30' rows='3' placeholder='historicoPagamento' maxlength='500'>  </textarea>
                             <textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3' placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'>  </textarea>
                           </div>
               <?php

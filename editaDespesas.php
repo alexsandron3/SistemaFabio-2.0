@@ -57,13 +57,13 @@ if (!empty($idPasseioGet)) {
             <div class='form-group row'>
               <label class='col-sm-2 col-form-label' for='valorAereo'>AÉREO</label>
               <div class='col-sm-6'>
-                <input type='text' class='form-control' name='valorAereo' id='valorAereo' placeholder='AEREO' value='<?php echo $rowDespesa['valorAereo']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='valorAereo' id='valorAereo' placeholder='AEREO' value='<?php echo $rowDespesa['valorAereo']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-1'>
-                <input type='text' class='form-control' name='quantidadeAereo' id='quantidadeAereo' placeholder='QTD' value='<?php echo $rowDespesa['quantidadeAereo']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='quantidadeAereo' id='quantidadeAereo' placeholder='QTD' value='<?php echo $rowDespesa['quantidadeAereo']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-2'>
-                <input type='text' readonly class='form-control col-sm-8' name='valorTotalAereo' id='valorTotalAereo' placeholder='TOTAL' value='0' onchange='calculoTotalDespesas()'>
+                <input type='text' readonly class='form-control col-sm-8' name='valorTotalAereo' id='valorTotalAereo' placeholder='TOTAL' value='0' onblur='calculoTotalDespesas()'>
               </div>
             </div>
 
@@ -148,13 +148,13 @@ if (!empty($idPasseioGet)) {
             <div class='form-group row'>
               <label class='col-sm-2 col-form-label' for='valorHospedagem'>HOSPEDAGEM</label>
               <div class='col-sm-6'>
-                <input type='text' class='form-control' name='valorHospedagem' id='valorHospedagem' placeholder='HOSPEDAGEM' value='<?php echo $rowDespesa['valorHospedagem']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='valorHospedagem' id='valorHospedagem' placeholder='HOSPEDAGEM' value='<?php echo $rowDespesa['valorHospedagem']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-1'>
-                <input type='text' class='form-control' name='quantidadeHospedagem' id='quantidadeHospedagem' placeholder='QTD' value='<?php echo $rowDespesa['quantidadeHospedagem']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='quantidadeHospedagem' id='quantidadeHospedagem' placeholder='QTD' value='<?php echo $rowDespesa['quantidadeHospedagem']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-2'>
-                <input type='text' readonly class='form-control col-sm-8' name='valorTotalHospedagem' id='valorTotalHospedagem' placeholder='TOTAL' value='0' onchange='calculoTotalDespesas()'>
+                <input type='text' readonly class='form-control col-sm-8' name='valorTotalHospedagem' id='valorTotalHospedagem' placeholder='TOTAL' value='0' onblur='calculoTotalDespesas()'>
               </div>
             </div>
 
@@ -242,13 +242,13 @@ if (!empty($idPasseioGet)) {
             <div class='form-group row'>
               <label class='col-sm-2 col-form-label' for='valorPulseira'>PULSEIRAS</label>
               <div class='col-sm-6'>
-                <input type='text' class='form-control' name='valorPulseira' id='valorPulseira' placeholder='PULSEIRA' value='<?php echo $rowDespesa['valorPulseira']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='valorPulseira' id='valorPulseira' placeholder='PULSEIRA' value='<?php echo $rowDespesa['valorPulseira']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-1'>
-                <input type='text' class='form-control' name='quantidadePulseira' id='quantidadePulseira' placeholder='QTD' value='<?php echo $rowDespesa['quantidadePulseira']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='quantidadePulseira' id='quantidadePulseira' placeholder='QTD' value='<?php echo $rowDespesa['quantidadePulseira']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-2'>
-                <input type='text' readonly class='form-control col-sm-8' name='valorTotalPulseira' id='valorTotalPulseira' placeholder='TOTAL' value='0' onchange='calculoTotalDespesas()'>
+                <input type='text' readonly class='form-control col-sm-8' name='valorTotalPulseira' id='valorTotalPulseira' placeholder='TOTAL' value='0' onblur='calculoTotalDespesas()'>
               </div>
             </div>
 
@@ -268,13 +268,13 @@ if (!empty($idPasseioGet)) {
             <div class='form-group row'>
               <label class='col-sm-2 col-form-label' for='valorServicos'>SERVIÇOS</label>
               <div class='col-sm-6'>
-                <input type='text' class='form-control' name='valorServicos' id='valorServicos' placeholder='SERVIÇOS' value='<?php echo $rowDespesa['valorServicos']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='valorServicos' id='valorServicos' placeholder='SERVIÇOS' value='<?php echo $rowDespesa['valorServicos']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-1'>
-                <input type='text' class='form-control' name='quantidadeServicos' id='quantidadeServicos' placeholder='QTD' value='<?php echo $rowDespesa['quantidadeServicos']; ?>' onchange='calculoTotalDespesas()'>
+                <input type='text' class='form-control' name='quantidadeServicos' id='quantidadeServicos' placeholder='QTD' value='<?php echo $rowDespesa['quantidadeServicos']; ?>' onblur='calculoTotalDespesas()'>
               </div>
               <div class='col-sm-2'>
-                <input type='text' readonly class='form-control col-sm-8' name='valorTotalServicos' id='valorTotalServicos' placeholder='TOTAL' value='0' onchange='calculoTotalDespesas()'>
+                <input type='text' readonly class='form-control col-sm-8' name='valorTotalServicos' id='valorTotalServicos' placeholder='TOTAL' value='0' onblur='calculoTotalDespesas()'>
               </div>
             </div>
 
