@@ -1,3 +1,30 @@
+
+.body{
+    background-color: white!important;
+}
+
 .text-invisble{
     display: none;
 }
+
+.logo{
+    opacity: 0.3;
+}
+
+.box{
+    height: 100px;
+    width: 50%;
+    border: 1px solid black;
+}
+.box-red{
+    height: 500px;
+    width: auto;
+    border: 1px solid red;
+}
+
+.Assinatura-Linha{
+    margin-top: -1px;
+    position: relative;
+    
+}
+
