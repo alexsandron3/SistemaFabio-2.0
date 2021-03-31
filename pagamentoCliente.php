@@ -62,7 +62,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                 }
                 ?>
                 <input type="submit" class="btn btn-info btn-sm ml-2" value="CARREGAR INFORMAÇÕES" name="buttonCarregarInformacoes">
-                <input type="hidden" class="form-control col-sm-1 ml-3" name="passeioSelecionado" id="passeioSelecionado" onchange="idPasseioSelecionado()" readonly="readonly">
+                <input type="hidden" class="form-control col-sm-1 ml-3" name="passeioSelecionado" id="passeioSelecionado" onblur="idPasseioSelecionado()" readonly="readonly">
             </div>
           </form>
           <form action="SCRIPTS/realizaPagamento.php" method="post" autocomplete="OFF">
@@ -111,7 +111,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>
                             <div class='col-6'>
-                              <input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='0' onchange='calculoPagamentoCliente()' readonly='readonly'>
+                              <input type='text' class='form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='0' onblur='calculoPagamentoCliente()' readonly='readonly'>
                             </div>
 
                             <div class='col-sm-2'>
@@ -142,7 +142,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>
                             <div class='col-6'>
-                              <input type='text' class='form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' onchange='calculoPagamentoCliente()'>
+                              <input type='text' class='form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' onblur='calculoPagamentoCliente()'>
                             </div>
                           </div>
                           <div class='form-row my-4'>
@@ -166,7 +166,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                             </div>
                           </div>
 
-                          <input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento' onchange='calculoPagamentoCliente()'>
+                          <input type='hidden' class='form-control' name='statusPagamento' id='statusPagamento' placeholder='statusPagamento' onblur='calculoPagamentoCliente()'>
                           <input type='hidden' class='form-control' name='idadeCliente' id='idadeCliente' placeholder='idadeCliente' value='<?php echo $rowIdCliente['idadeCliente'] ?>'>
 
 
