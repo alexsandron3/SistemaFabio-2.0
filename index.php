@@ -53,7 +53,6 @@ include_once("./includes/header.php");
             </div>
           </form>
           <div class="table-responsive mt-3">
-            <!--control show hide columns ( start )-->
 
             <table style="width:100%" class="table table-striped table-bordered" id="userTable">
               <thead>
