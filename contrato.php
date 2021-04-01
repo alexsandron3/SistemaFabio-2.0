@@ -1,9 +1,17 @@
+<?php
+include_once("./includes/header.php");
+$idCliente = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$queryBuscarInformacoesCliente = "SELECT * FROM cliente WHERE idCliente=$idCliente";
+$executaQueryBuscarInformacoesCliente = mysqli_query($conn, $queryBuscarInformacoesCliente);
+$rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoesCliente);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <title>X-editable starter template</title>
+  <title>CONTRATO PRESTAÇÃO SERVIÇOS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- bootstrap -->
@@ -13,67 +21,90 @@
   <link href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=2.0.7" rel="stylesheet" />
   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  
 
   <!-- x-editable (bootstrap version) -->
-  <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
-    rel="stylesheet" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
 
   <script src="config/bootstrap-editable.min.js"></script>
 
   <!-- main.js -->
   <script src="main.js"></script>
+  <script type="text/javascript">
+    function print_page() {
+      var ButtonControl = document.getElementById("btnprint");
+      window.open('imprimirContrato.php');
+
+      /*             ButtonControl.style.visibility = "hidden";
+                  window.print();
+                  ButtonControl.style.visibility = "visible"; */
+    }
+  </script>
+
+  <style>
+    .body {
+      background-color: white !important;
+    }
+
+    .Assinatura-Linha {
+      margin-top: -1px;
+      position: relative;
+
+    }
+
+    .logo {
+      opacity: 0.3;
+    }
+  </style>
 </head>
 
 <body class="body">
-
   <div class="container">
 
-    <h1>CONTRATO DE PRESTAÇÃO DE SERVIÇOS</h1>
+    <input type="button" id="btnprint" value="IMPRIMIR ESTA PÁGINA" onclick="print_page()" />
+    <img src="img/fabioPasseiosLogo.jpeg" class="float-right logo">
+    <h2 class="text-center">CONTRATO DE PRESTAÇÃO DE SERVIÇOS</h2>
     <p class="h4"> <b> <span class="h3"> CONTRATADA:</span> FABIO PASSEIOS</b>, com sede em <b> Rua Antônio Marins de
         Oliveira, 1.126, São Mateus, São João de Meriti, RJ, CEP 25.530-000</b>, inscrita no C.N.P.J. sob o nº
       <b>39.769.016/0001-07</b>, razão social <b>TAIS ANDREA XAVIER DE NEGREIROS</b> representada na forma deste
       contrato.
     </p>
+
     <h3>CONTRATANTE: </h3>
     <div class="row">
-      <p class="border border-dark col"><b>Nome:</b> <a href="#" id="nome" data-type="text" data-placement="right"
-          data-title="NOME DO CLIENTE">NOME</a> </p>
+      <p class="border border-dark col"><b>Nome:</b> <a href="#" id="nome" data-type="text" data-placement="right" data-title="NOME DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['nomeCliente']; ?></a> </p>
 
     </div>
 
     <div class="row">
 
-      <p class="col-4 border border-dark"> <b> Nacionalidade: </b> <a href="#" id="nacionalidade" data-type="text"
-          data-placement="right" data-title="NACIONALIDADE DO CLIENTE">NACIONALIDADE</a> </p>
-      <p class="col-4 border border-dark"> <b> Profissão: </b> <a href="#" id="profissao" data-type="text"
-          data-placement="right" data-title="PROFISSÃO DO CLIENTE">PROFISSÃO</a> </p>
-      <p class="col-4 border border-dark"> <b> Estado Civil: </b> <a href="#" id="estadoCivil" data-type="text"
-          data-placement="right" data-title="ESTADO CIVIL DO CLIENTE">ESTADO CIVIL</a> </p>
+      <p class="col-4 border border-dark"> <b> Nacionalidade: </b> <a href="#" id="nacionalidade" data-type="text" data-placement="right" data-title="NACIONALIDADE DO CLIENTE">NACIONALIDADE</a> </p>
+      <p class="col-4 border border-dark"> <b> Profissão: </b> <a href="#" id="profissao" data-type="text" data-placement="right" data-title="PROFISSÃO DO CLIENTE">PROFISSÃO</a> </p>
+      <p class="col-4 border border-dark"> <b> Estado Civil: </b> <a href="#" id="estadoCivil" data-type="text" data-placement="right" data-title="ESTADO CIVIL DO CLIENTE">ESTADO CIVIL</a> </p>
     </div>
     <div class="row">
-      <p class="col-6 border border-dark"> <b>Data de nascimento: </b> <a href="#" id="dataNascimento" data-type="text"
-          data-placement="right" data-title="DATA DE NASCIMENTO DO CLIENTE">DATA DE NASCIMENTO </a> </p>
-      <p class="col-6 border border-dark"> <b>Tel/Cel:</b> <a href="#" id="telefone" data-type="text"
-          data-placement="right" data-title="TELEFONE DO CLIENTE">TELEFONE </a> </p>
+      <p class="col-6 border border-dark"> <b>Data de nascimento: </b>
+      <a href="#" id="dataNascimento" data-type="date" data-pk="1" data-title="SELECIONE A DATA">
+          <?php
+          $dataNascimento = new DateTime($rowBuscarInformacoesCliente['dataNascimento']);
+          echo date_format($dataNascimento, 'm/d/Y');
+          ?>
+        </a>
+      </p>
+      <p class="col-6 border border-dark"> <b>Tel/Cel:</b> <a href="#" id="telefone" data-type="text" data-placement="right" data-title="TELEFONE DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['telefoneCliente']; ?> </a> </p>
     </div>
     <div class="row">
-      <p class="col-6 border border-dark"> <b>Carteira de Identidade:</b> <a href="#" id="identidade" data-type="text"
-          data-placement="right" data-title="IDENTIDADE DO CLIENTE">IDENTIDADE </a></p>
-      <p class="col-6 border border-dark"> <b>CPF:</b> <a href="#" id="cpf" data-type="text" data-placement="right"
-          data-title="CPF DO CLIENTE">CPF </a></p>
+      <p class="col-6 border border-dark"> <b>Carteira de Identidade:</b> <a href="#" id="identidade" data-type="text" data-placement="right" data-title="IDENTIDADE DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['rgCliente']; ?> </a></p>
+      <p class="col-6 border border-dark"> <b>CPF:</b> <a href="#" id="cpf" data-type="text" data-placement="right" data-title="CPF DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['cpfCliente']; ?> </a></p>
     </div>
     <div class="row">
-      <p class="border border-dark col"><b>Endereço:</b> <a href="#" id="enderecoCliente" data-type="text"
-          data-placement="right" data-title="ENDEREÇO DO CLIENTE">ENDEREÇO </a></p>
+      <p class="border border-dark col"><b>Endereço:</b> <a href="#" id="enderecoCliente" data-type="text" data-placement="right" data-title="ENDEREÇO DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['enderecoCliente']; ?> </a></p>
 
     </div>
 
     <h3> <b> 1 - OBJETO DO CONTRATO: </b> </h3>
     <p class="h4"> Cláusula 1ª. O presente contrato tem como OBJETO, a prestação, pela CONTRATADA, à <b>CONTRATANTE</b>,
-      dos serviços na área de turismo referente ao passeio <a href="#" id="nomePasseio" data-type="text"
-        data-placement="right" data-title="NOME DO PASSEIO REQUISITADO">PASSEIO </a> , para vagas <a href="#"
-        id="vagasSolicitadas" data-type="text" data-placement="right"
-        data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">VAGAS </a>.</p>
+      dos serviços na área de turismo referente ao passeio <a href="#" id="nomePasseio" data-type="text" data-placement="right" data-title="NOME DO PASSEIO REQUISITADO">PASSEIO </a> , para vagas <a href="#" id="vagasSolicitadas" data-type="text" data-placement="right" data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGAS.</p>
 
     <h3> <b> 2- DESISTÊNCIA E CANCELAMENTO: </b> </h3>
     <p class="h4"> <span class="h3"> <b>2.1 - DESISTÊNCIA: </b></span> A desistência por parte do <b> CONTRATANTE</b>
@@ -102,17 +133,30 @@
       <b>CONTRATADA</b>
       terá até 12 meses para fazer a devolução.
     </p>
-    <p class="h4"> <span class="h3"> <b>2.5 – : </b> </span> O <b>CONTRATANTE</b> que se declarar com <b>COVID</b>, não
+    <p class="h4"> <span class="h3"> <b>2.5 – </b> </span> O <b>CONTRATANTE</b> que se declarar com <b>COVID</b>, não
       poderá
       comparecer ao passeio para cumprir a quarentena, ou que esteja acometido de qualquer doença que o impeça de ir no
       passeio, ficará com o crédito do valor pago para utilização passeio futuro. No caso de pedido de devolução do
-      valor pago pelo a <b>CONTRATADA</b> terá até 12 meses para fazer a devolução.
+      valor pago a <b>CONTRATADA</b> terá até 12 meses para fazer a devolução.
     </p>
     <h3> <b>3 - DOCUMENTAÇÃO DE RESPONSABILIDADE DO CONTRATANTE</b> </h3>
     <p class="h4">A documentação pessoal é de total responsabilidade do passageiro. Assim, a impossibilidade de embarque
       (aéreo ou rodoviário) ou entrada em locais agendados, mesmo que já pagos, gerada por falta de documentação
       caracterizará cancelamento por parte do passageiro, e não haverá devolução de valores. </p>
     <h3> <b>4 - CONDIÇÕES PARA COMPRA DE INGRESSOS PARA PARQUES TEMÁTICOS OU SHOWS:</b> </h3>
+    </br>
+    <p class="text-center text-muted"> Rua Antônio Marins de Oliveira, 1126, São Mateus, São João de Meriti – 21-97034-8381 </p>
+    <hr>
+    <img src="img/fabioPasseiosLogo.jpeg" class="float-right logo">
+    </br>
+
+    </br>
+    <hr style="width: 80%;" class="float-center">
+
+    </br>
+    </br>
+    </br>
+
     <p class="h4"> <span class="h3"> <b>4.1 - </b> </span> Os ingressos quando adquiridos antecipadamente não são
       reembolsáveis. Uma vez adquiridos e pagos não poderão ser reembolsados, mesmo que haja desistência.
     </p>
@@ -164,6 +208,19 @@
     <h3> <b> 9 - OPCIONAIS: </b></h3>
     <p class="h4">Indicamos passeios, visitas e restaurantes opcionais. Estes não estão inclusos em nosso produto,
       constituindo-se mera sugestão, não sendo de nossa responsabilidade a operacionalização e qualidade dos mesmos.</p>
+
+    <br>
+    <p class="text-center text-muted"> Rua Antônio Marins de Oliveira, 1126, São Mateus, São João de Meriti – 21-97034-8381 </p>
+    <hr>
+    <br>
+    <br>
+    <img src="img/fabioPasseiosLogo.jpeg" class="float-right logo">
+
+    <br>
+    <br>
+    <hr style="width: 80%;" class="float-center">
+
+    <br>
     <h3> <b> 10 – SEGURO VIAGEM: </b></h3>
     <p class="h4">O seguro viagem é garantido ao contratante/passageiro que fizer sua reserva até 2 dias antes da
       realização do passeio/viagem.</p>
@@ -173,38 +230,36 @@
       o valor de R$ <a href="#" id="valorTotal" data-type="text" data-placement="right" data-title="VALOR TOTAL">0.00
       </a> da seguinte forma:
     </p>
-    <p class="h4">a) Para garantir sua reserva o <b>CONTRATANTE</b> se compromete a dar uma entrada no valor de
-      R$ <a href="#" id="valorEntrada" data-type="text" data-placement="right" data-title="VALOR ENTRADA">0.00 </a> até
-      <a href="#" id="previsaoPagamento" data-type="text" data-placement="right"
-        data-title="PREVISÃO DE PAGAMENTO ">PREVISÃO DE PAGAMENTO </a> através de
-      <a href="#" id="metodoPagamento" data-type="text" data-placement="right" data-title="MÉTODO PAGAMENTO ">MÉTODO
-        PAGAMENTO </a> .
+    <p class="h4">
+    <div id="itemA" data-type="wysihtml5" data-pk="1">a) Para garantir sua reserva o <b>CONTRATANTE</b> se compromete a dar uma entrada no valor de R$ 0.00  até PREVISÃO DE PAGAMENTO através de __.</div>
     </p>
-    <p class="h4">b) O restante do pagamento será realizado conforme discriminado abaixo: <br>
-      <a href="#" id="restantePagamento" data-type="text" data-placement="right"
-        data-title="RESTANTE PAGAMENTO ">RESTANTE PAGAMENTO </a>
+    <p class="h4">
+    <div id="itemB" data-type="wysihtml5" data-pk="1"> b) O restante do pagamento será realizado conforme discriminado abaixo: <br> __</div>  
     </p>
-    <p class="h4">c) A falta do pagamento acordado nos itens “a” e/ou “b” dentro do prazo estabelecido ensejará o
-      cancelamento do presente contrato. Ficando sua vaga à disposição da <b>CONTRATADA</b> para venda.</p>
+    <p class="h4">
+      
+    <div id="itemC" data-type="wysihtml5" data-pk="1">c) A falta do pagamento acordado nos itens “a” e/ou “b” dentro do prazo estabelecido ensejará o cancelamento do presente contrato. Ficando sua vaga à disposição da <b>CONTRATADA</b> para venda. </div>
+    </p>
     <p class="h4">d) Nos casos em que a forma de pagamento acordada for em boleto bancário o contrato será cancelado
       quando
       do não pagamento de 3 boletos, sem direito à devolução dos pagamentos realizados.</p>
     <h3> <b> 12 - PRAZO DE VIGÊNCIA: </b></h3>
-    <p class="h4">O presente contrato terá início em 
-      <a href="#" id="inicioVigenciaContrato" data-type="text" data-placement="right" data-title="INÍCIO VIGÊNCIA ">INICÍO VIGÊNCIA</a> e término em <a href="#"
-        id="terminoVigenciaContrato" data-type="text" data-placement="right" data-title="TÉRMINO VIGÊNCIA ">TÉRMINO VIGÊNCIA</a>.</p>
+    <p class="h4">O presente contrato terá início em
+    <a href="#" id="inicioVigenciaContrato" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a> e término em <a href="#" id="terminoVigenciaContrato" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a>.
+    </p>
     <h3> <b> 13 - FORO </b></h3>
     <p class="h4">Fica estabelecido pelas partes que o foro escolhido é o da comarca de São João de Meriti/RJ, podendo
       ser renunciada qualquer outro, para resolver as controvérsias que eventualmente surjam deste contrato. </p>
     <p class="h4">Por estarem assim justos e acordados, firmam o presente instrumento, em duas vias de igual teor. </p>
-    <p class="h4">São João de Meriti, <a href="#" id="dataDeHoje" data-type="text" data-placement="right" data-title="DATA ">DATA</a>. </p>
+    <p class="h4">São João de Meriti,   <a href="#" id="dob" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a>. </p>
     <div class="row">
       <div class="col">
         <img src="img/assinaturaTais.png" alt="">
         <hr class="bg-dark Assinatura-Linha" style="width: 42.5%;">
         <p class="h4"></p> <b> <span class="Assinatura-Tais-Empresa-Nome">FABIO PASSEIOS</span></b></p>
       </div>
-      <div class="col mt-5">
+      <div class="col mt-3">
+        <a href="#" id="assinaturaContratante" data-type="text" data-placement="right" data-title="ASSINATURA DO CONTRATANTE"><?php echo $rowBuscarInformacoesCliente['nomeCliente'];?></a>
         <hr class="bg-dark Assinatura-Linha">
         <p class="h4"> <b> <span class="Assinatura-Tais-Empresa-Nome">CONTRATANTE</span></b></p>
       </div>
@@ -227,6 +282,23 @@
 
       </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <p class="text-center text-muted"> Rua Antônio Marins de Oliveira, 1126, São Mateus, São João de Meriti – 21-97034-8381 </p>
+    <hr>
   </div>
 
 </body>

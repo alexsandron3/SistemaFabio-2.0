@@ -127,6 +127,7 @@ include_once("./includes/header.php");
 
                         <?php
                         if ($valorPesquisaCliente['statusCliente'] == 1) {
+                          echo "<a data-toggle='tooltip' data-placement='top' title='GERAR CONTRATO' class='btn btn-info btn-sm' rel='noopener noreferrer' href='contrato.php?id="  . $idCliente . "' ><i class='material-icons'>description</i></a>";
                           echo "<a data-toggle='tooltip' data-placement='top' title='REALIZAR PAGAMENTO' class='btn btn-success btn-sm' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $idCliente . "' ><i class='material-icons'>shopping_cart</i></a>";
                         }
                         ?>
