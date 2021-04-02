@@ -29,17 +29,17 @@ $(document).ready(function () {
     });
 
     $('#itemA').editable({
-        title: 'ITEM A'
+        title: 'ITEM A',
+        rows: 10
     });
-
     $('#itemB').editable({
-        title: 'ITEM B'
+        title: 'ITEM B',
+        rows: 10
     });
-
     $('#itemC').editable({
-        title: 'ITEM C'
+        title: 'ITEM C',
+        rows: 10
     });
-
 
     //toggle `popup` / `inline` mode
     $.fn.editable.defaults.mode = 'popup';
