@@ -21,7 +21,8 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
   <link href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=2.0.7" rel="stylesheet" />
   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-  
+  <!-- PRINT -->
+
 
   <!-- x-editable (bootstrap version) -->
   <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
@@ -33,15 +34,33 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
   <script type="text/javascript">
     function print_page() {
       var ButtonControl = document.getElementById("btnprint");
-      window.open('imprimirContrato.php');
+      /* window.open('imprimirContrato.php'); */
 
-      /*             ButtonControl.style.visibility = "hidden";
+                  ButtonControl.style.visibility = "hidden";
                   window.print();
-                  ButtonControl.style.visibility = "visible"; */
+                  ButtonControl.style.visibility = "visible";
     }
   </script>
 
   <style>
+    @media print {
+      *{
+        text-decoration: none !important;
+        color: black;
+        border-bottom: dashed 0px !important;
+      }
+
+      .body {
+        background-color: white !important;
+      }
+
+      .Assinatura-Linha {
+        margin-top: -1px;
+        position: relative;
+
+      }
+    }
+
     .body {
       background-color: white !important;
     }
@@ -84,7 +103,7 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
     </div>
     <div class="row">
       <p class="col-6 border border-dark"> <b>Data de nascimento: </b>
-      <a href="#" id="dataNascimento" data-type="date" data-pk="1" data-title="SELECIONE A DATA">
+        <a href="#" id="dataNascimento" data-type="date" data-pk="1" data-title="SELECIONE A DATA">
           <?php
           $dataNascimento = new DateTime($rowBuscarInformacoesCliente['dataNascimento']);
           echo date_format($dataNascimento, 'm/d/Y');
@@ -231,13 +250,13 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
       </a> da seguinte forma:
     </p>
     <p class="h4">
-    <div id="itemA" data-type="wysihtml5" data-pk="1">a) Para garantir sua reserva o <b>CONTRATANTE</b> se compromete a dar uma entrada no valor de R$ 0.00  até PREVISÃO DE PAGAMENTO através de __.</div>
+    <div id="itemA" data-type="wysihtml5" data-pk="1">a) Para garantir sua reserva o <b>CONTRATANTE</b> se compromete a dar uma entrada no valor de R$ 0.00 até PREVISÃO DE PAGAMENTO através de __.</div>
     </p>
     <p class="h4">
-    <div id="itemB" data-type="wysihtml5" data-pk="1"> b) O restante do pagamento será realizado conforme discriminado abaixo: <br> __</div>  
+    <div id="itemB" data-type="wysihtml5" data-pk="1"> b) O restante do pagamento será realizado conforme discriminado abaixo: <br> __</div>
     </p>
     <p class="h4">
-      
+
     <div id="itemC" data-type="wysihtml5" data-pk="1">c) A falta do pagamento acordado nos itens “a” e/ou “b” dentro do prazo estabelecido ensejará o cancelamento do presente contrato. Ficando sua vaga à disposição da <b>CONTRATADA</b> para venda. </div>
     </p>
     <p class="h4">d) Nos casos em que a forma de pagamento acordada for em boleto bancário o contrato será cancelado
@@ -245,13 +264,13 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
       do não pagamento de 3 boletos, sem direito à devolução dos pagamentos realizados.</p>
     <h3> <b> 12 - PRAZO DE VIGÊNCIA: </b></h3>
     <p class="h4">O presente contrato terá início em
-    <a href="#" id="inicioVigenciaContrato" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a> e término em <a href="#" id="terminoVigenciaContrato" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a>.
+      <a href="#" id="inicioVigenciaContrato" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a> e término em <a href="#" id="terminoVigenciaContrato" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a>.
     </p>
     <h3> <b> 13 - FORO </b></h3>
     <p class="h4">Fica estabelecido pelas partes que o foro escolhido é o da comarca de São João de Meriti/RJ, podendo
       ser renunciada qualquer outro, para resolver as controvérsias que eventualmente surjam deste contrato. </p>
     <p class="h4">Por estarem assim justos e acordados, firmam o presente instrumento, em duas vias de igual teor. </p>
-    <p class="h4">São João de Meriti,   <a href="#" id="dob" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a>. </p>
+    <p class="h4">São João de Meriti, <a href="#" id="dob" data-type="date" data-pk="1" data-title="SELECIONE A DATA">dd/mm/aaaa</a>. </p>
     <div class="row">
       <div class="col">
         <img src="img/assinaturaTais.png" alt="">
@@ -259,7 +278,7 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
         <p class="h4"></p> <b> <span class="Assinatura-Tais-Empresa-Nome">FABIO PASSEIOS</span></b></p>
       </div>
       <div class="col mt-3">
-        <a href="#" id="assinaturaContratante" data-type="text" data-placement="right" data-title="ASSINATURA DO CONTRATANTE"><?php echo $rowBuscarInformacoesCliente['nomeCliente'];?></a>
+        <a href="#" id="assinaturaContratante" data-type="text" data-placement="right" data-title="ASSINATURA DO CONTRATANTE"><?php echo $rowBuscarInformacoesCliente['nomeCliente']; ?></a>
         <hr class="bg-dark Assinatura-Linha">
         <p class="h4"> <b> <span class="Assinatura-Tais-Empresa-Nome">CONTRATANTE</span></b></p>
       </div>
