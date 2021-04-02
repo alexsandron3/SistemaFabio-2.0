@@ -8,7 +8,7 @@ $(document).ready(function(){
 });
 function updateOrder() {	
 	var item_order = new Array();
-	$('ul.reorder-gallery li').each(function() {
+	$('ol li').each(function() {
 		item_order.push($(this).attr("id"));
 	});
 	var order_string = 'order='+item_order;

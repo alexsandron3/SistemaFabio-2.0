@@ -30,7 +30,7 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
   <script src="config/bootstrap-editable.min.js"></script>
 
   <!-- main.js -->
-  <script src="main.js"></script>
+  <script src="config/contrato.js"></script>
   <script type="text/javascript">
     function print_page() {
       var ButtonControl = document.getElementById("btnprint");
