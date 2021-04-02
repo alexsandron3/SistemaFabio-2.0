@@ -9,7 +9,7 @@
     <script src="reorder.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=2.0.7" rel="stylesheet" />
-    <link rel="stylesheet" href="../config/style.css">
+    <link rel="stylesheet" href="../config/style1.css">
 </head>
 
 <body>
