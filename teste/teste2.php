@@ -1,5 +1,4 @@
-
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -19,52 +18,53 @@
         <div class="row mx auto">
 
             <div class="col-4 ">
-            <ol type="1" class="reorder-gallery">
-                <div class="row dragg">
-                
-                    <?php
-                    $contador = 1;
-                    $poltronaLadoA = 1;
-                    while ($contador <= 24) {
-                        include_once("../includes/header.php");
+                <ol type="1" class="reorder-gallery">
+                    <div class="row dragg">
 
-                        $sql_query = "SELECT pp.idCliente, c.nomeCliente FROM pagamento_passeio pp, cliente c WHERE pp.idPasseio=34 AND pp.idCliente=c.idCliente ORDER BY ordemPoltrona";
-        
-                        $resultset = mysqli_query($conexao, $sql_query) or die("database error:" . mysqli_error($conexao));
-                        $data_records = array();
+                        <?php
                         $contador = 1;
-                        while ($row = mysqli_fetch_assoc($resultset)) {
-                    ?>
-                        <div class="col-6 box ">
+                        $poltronaLadoA = 1;
+                        while ($contador <= 24) {
+                            include_once("../includes/header.php");
 
-                            <?php
+                            $sql_query = "SELECT pp.idCliente, c.nomeCliente FROM pagamento_passeio pp, cliente c WHERE pp.idPasseio=34 AND pp.idCliente=c.idCliente ORDER BY ordemPoltrona";
 
-                            if ($contador <= 2) {
-                                echo "<span>" . $row['nomeCliente'] ."</span>";
-                            } else {
-                                if ($contador % 2 != 0) {
-                                    $poltronaLadoA = $poltronaLadoA + 2;
-                                } else {
-                                    $poltronaLadoA + 1;
-                                }
+                            $resultset = mysqli_query($conexao, $sql_query) or die("database error:" . mysqli_error($conexao));
+                            $data_records = array();
+                            $contador = 1;
+                            while ($row = mysqli_fetch_assoc($resultset)) {
+                        ?>
+                                <div class="col-6 box ">
+                                <li class="col-4 mx-auto" id="<?php echo $row['idCliente']; ?>" class="ui-sortable-handle"></li>
+                                    <?php
 
-                                echo  "<span>" . $row['nomeCliente'] ."</span>";
+                                    if ($contador <= 2) {
+                                        echo "<span class='h6'>" . $row['nomeCliente'] . "</span>";
+                                    } else {
+                                        if ($contador % 2 != 0) {
+                                            $poltronaLadoA = $poltronaLadoA + 2;
+                                        } else {
+                                            $poltronaLadoA + 1;
+                                        }
+
+                                        echo  "<span class='h6'>" . $row['nomeCliente'] . "</span>";
+                                    }
+                                    ?>
+                                    
+
+                                    <div class="dragg">
+                                    </div>
+                                </div>
+
+
+                        <?php
+                                $contador = $contador + 1;
+                                $poltronaLadoA = $poltronaLadoA + 1;
                             }
-                            ?>
-                                                <li class="col-4" id="<?php echo $row['idCliente']; ?>" class="ui-sortable-handle"></li>
+                        } ?>
 
-                            <div class="dragg">
-                            </div>
-                        </div>
-                        
 
-                    <?php
-                        $contador = $contador + 1;
-                        $poltronaLadoA = $poltronaLadoA + 1;
-                    } }?>
-                
-
-                </div>
+                    </div>
                 </ol>
             </div>
 
