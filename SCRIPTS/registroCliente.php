@@ -40,6 +40,8 @@
     if(mysqli_num_rows($executaQueryVerificaSeClienteExiste) == 0 OR $cpf == NULL){
         /* -----------------------------------------------------------------------------------------------------  */
         cadastro($queryCadastraCliente, $conexao, "CLIENTE", "cadastroCliente");
+        $idUltimoClienteCadastrado = mysqli_insert_id($conexao);
+        redirecionamento("pagamentoCliente", $idUltimoClienteCadastrado);
         gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "CADASTRAR" , 0);
 
         /* -----------------------------------------------------------------------------------------------------  */
