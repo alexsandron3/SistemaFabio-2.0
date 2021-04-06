@@ -1,0 +1,62 @@
+
+
+.waiters {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #eef;
+    min-height: 82px;
+    min-width: 82px;
+}
+
+.waiter {
+    height: 80px;
+    width: 80px;
+    text-align: center;
+    background: #CCCCCF;
+    margin: 1px;
+    padding: 4px 2px;
+    float: left;
+}
+
+.target-drop {
+    height: 78px;
+    width: 78px;
+    background: #EEE;
+    border: 1px dashed #ccc;
+    float: left;
+    margin: 1px;
+    padding: 4px 2px;
+}
+
+.waiter .waiter-name {
+    font-weight: normal;
+    font-size: .65em;
+    width: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.r-table {
+    min-height: 90px;
+    border: 1px solid #CCC;
+    display: inline-block;
+    padding: 3px;
+    text-align: center;
+}
+
+.top4 {
+    width: 90px;
+}
+
+.top8 {
+    width: 172px;
+}
+
+.r-table .table-name {
+    font-weight: normal;
+    font-size: .65em;
+    line-height: 10px;
+}

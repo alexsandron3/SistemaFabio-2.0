@@ -278,9 +278,9 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
         <p class="h4"></p> <b> <span class="Assinatura-Tais-Empresa-Nome">FABIO PASSEIOS</span></b></p>
       </div>
       <div class="col mt-3">
-        <a href="#" id="assinaturaContratante" data-type="text" data-placement="right" data-title="ASSINATURA DO CONTRATANTE"><?php echo $rowBuscarInformacoesCliente['nomeCliente']; ?></a>
+        
         <hr class="bg-dark Assinatura-Linha">
-        <p class="h4"> <b> <span class="Assinatura-Tais-Empresa-Nome">CONTRATANTE</span></b></p>
+        <p class="h4"> <b> <span class="Assinatura-Tais-Empresa-Nome"><a href="#" id="assinaturaContratante" data-type="text" data-placement="right" data-title="ASSINATURA DO CONTRATANTE"><?php echo $rowBuscarInformacoesCliente['nomeCliente']; ?></a></span></b></p>
       </div>
 
 
@@ -291,12 +291,14 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
         <p class="h3">Testemunhas: </p>
       </div>
       <div class="col-6">
-        <a href="#" id="testemunha1" data-type="text" data-placement="right" data-title="Testemunnha 1">Testemunha 1</a>
+        </BR>
+        </BR>
         <hr class="bg-dark Assinatura-Linha" style="width: 50.5%;">
 
       </div>
       <div class="col-6">
-        <a href="#" id="testemunha2" data-type="text" data-placement="right" data-title="Testemunnha 2">Testemunha 2</a>
+      </BR>
+        </BR>
         <hr class="bg-dark Assinatura-Linha" style="width: 50.5%;">
 
       </div>
@@ -323,13 +325,3 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
 </body>
 
 </html>
-
-<!--     <div>
-      <span>Username:</span>
-      <a href="#" id="username" data-type="text" data-placement="right" data-title="Enter username">superuser</a>
-    </div>
-
-    <div>
-      <span>Status:</span>
-      <a href="#" id="status"></a>
-    </div> -->
