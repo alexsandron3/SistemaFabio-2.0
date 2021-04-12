@@ -97,9 +97,9 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
 
     <div class="row">
 
-      <p class="col-4 border border-dark"> <b> Nacionalidade: </b> <a href="#" id="nacionalidade" data-type="text" data-placement="right" data-title="NACIONALIDADE DO CLIENTE">NACIONALIDADE</a> </p>
-      <p class="col-4 border border-dark"> <b> Profissão: </b> <a href="#" id="profissao" data-type="text" data-placement="right" data-title="PROFISSÃO DO CLIENTE">PROFISSÃO</a> </p>
-      <p class="col-4 border border-dark"> <b> Estado Civil: </b> <a href="#" id="estadoCivil" data-type="text" data-placement="right" data-title="ESTADO CIVIL DO CLIENTE">ESTADO CIVIL</a> </p>
+      <p class="col-4 border border-dark"> <b> Nacionalidade: </b> <a href="#" id="nacionalidade" data-type="text" data-placement="right" data-title="NACIONALIDADE DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['nacionalidade']; ?></a> </p>
+      <p class="col-4 border border-dark"> <b> Profissão: </b> <a href="#" id="profissao" data-type="text" data-placement="right" data-title="PROFISSÃO DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['profissao']; ?></a> </p>
+      <p class="col-4 border border-dark"> <b> Estado Civil: </b> <a href="#" id="estadoCivil" data-type="text" data-placement="right" data-title="ESTADO CIVIL DO CLIENTE"><?php echo $rowBuscarInformacoesCliente['estadoCivil']; ?></a> </p>
     </div>
     <div class="row">
       <p class="col-6 border border-dark"> <b>Data de nascimento: </b>
