@@ -11,7 +11,7 @@ if (empty($ordemPesquisa)) {
 /* -----------------------------------------------------------------------------------------------------  */
 
 $queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.referencia,
-                              pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, pp.dataPagamento, pp.clienteDesistente 
+                              pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, pp.dataPagamento, pp.clienteDesistente, pp.valorPendente 
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -63,7 +63,7 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
             ?>
             <div class="table-responsive">
               <div class="table-reponsive">
-                <?php esconderTabela(9); ?>
+                <?php esconderTabela(10); ?>
               </div>
               <table class="table table-striped table-bordered" id="userTable">
                 <thead>
@@ -76,6 +76,7 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                     <th> CONTATO </th>
                     <th> V. PAGO </th>
                     <th> V. VENDIDO </th>
+                    <th> V. PENDENTE </th>
                     <th> AÇÃO </th>
                   </tr>
                 </thead>
@@ -143,35 +144,6 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                           $statusPagamento = "DESCONHECIDO";
                           break;
                       }
-                      /* if ($statusCliente == CLIENTE_INTERESSADO) {
-                        $controleListaPasseio = 1;
-                        $interessados = $interessados + 1;
-                        $statusPagamento = "INTERESSADO";
-
-                      } elseif ($statusCliente == PAGAMENTO_QUITADO) {
-                        $controleListaPasseio = 1;
-                        $confirmados = $confirmados + 1;
-                        $statusPagamento = "QUITADO";
-                        
-                      } elseif ($statusCliente == CLIENTE_CONFIRMADO) {
-                        $controleListaPasseio = 1;
-                        $confirmados = $confirmados + 1;
-                        $statusPagamento = "PARCIAL";
-
-                      } elseif ($statusCliente == CLIENTE_PARCEIRO) {
-                        $controleListaPasseio = 1;
-                        $quantidadeClienteParceiro = $quantidadeClienteParceiro + 1;
-                        $statusPagamento = "PARCEIRO";
-
-                      } elseif ($statusCliente == CLIENTE_CRIANCA) {
-                        $controleListaPasseio = 1;
-                        $criancas = $criancas + 1;
-                        $statusPagamento = "CRIANÇA";
-
-                      } else {
-
-                        $statusPagamento = "DESCONHECIDO";
-                      } */
                       $nomePasseio = $rowBuscaPasseio['nomePasseio'];
                     }
                   ?>
@@ -201,12 +173,21 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                       ?>
                       <td><?php echo number_format($valorPago, 2, '.', '') . "<BR/>" ?></td>
                       <td><?php echo $rowBuscaPasseio['valorVendido'] . "<BR/>"; ?></td>
+                      <td><?php
+                          if ($rowBuscaPasseio['valorPendente'] == 0) {
+                            echo $rowBuscaPasseio['valorPendente'];
+                          } else {
+
+                            echo $rowBuscaPasseio['valorPendente'] * -1;
+                          }
+                          ?>
+                        </td>
                       <td class="td-actions">
-                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO"  red='noopener noreferrer' class="btn btn-info btn-just-icon btn-sm" href="editarPagamento.php?id=<?php echo $idPagamento; ?>">
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" red='noopener noreferrer' class="btn btn-info btn-just-icon btn-sm" href="editarPagamento.php?id=<?php echo $idPagamento; ?>">
                           <i class="material-icons"> edit </i>
                         </a>
 
-                        <a data-toggle="tooltip" data-placement="top" title="TRANSFERIR OU DELETAR PAGAMENTO"  rel='noopener noreferrer' class="btn <?php echo $corTexto; ?> btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
+                        <a data-toggle="tooltip" data-placement="top" title="TRANSFERIR OU DELETAR PAGAMENTO" rel='noopener noreferrer' class="btn <?php echo $corTexto; ?> btn-just-icon btn-sm" href="SCRIPTS/apagarPagamento.php?idPagamento=<?php echo $idPagamento; ?>&idPasseio=<?php echo $idPasseio; ?>&opcao=<?php echo $opcao ?>&confirmar=0&nomeCliente=<?php echo $nomeCliente; ?>&dataPasseio=<?php echo $rowpegarNomePasseio['dataPasseio'] ?>&nomePasseio=<?php echo $nomePasseioTitulo; ?>&valorPago=<?php echo number_format($valorPago, 2, '.', ''); ?>">
                           <i class="material-icons"><?php $iconAcao = ($opcao == "DELETAR") ? 'delete_forever' : 'swap_horiz';
                                                     echo $iconAcao; ?> </i>
                         </a>
@@ -214,6 +195,7 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                           <i class="material-icons"> perm_phone_msg </i>
                         </a>
                       </td>
+ 
                     </tr>
                   <?php
                   }
@@ -232,7 +214,6 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
             <?php
             if ($controleListaPasseio == 0) {
               mensagensWarningNoSession("Nenhum PAGAMENTO foi cadastrado até o momento");
-              #echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO foi cadastrado até o momento</p>";
             }
 
             ?>
