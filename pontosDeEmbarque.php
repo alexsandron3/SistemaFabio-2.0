@@ -6,7 +6,7 @@ include_once("./includes/header.php");
 $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
 
-$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, pp.localEmbarque, pp.anotacoes
+$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, pp.localEmbarque, pp.anotacoes, c.referencia
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) AND pp.clienteDesistente NOT IN(1) ORDER BY localEmbarque";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -56,6 +56,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
           <th>PONTO EMBARQUE</th>
           <th>IDADE</th>
           <th>ANOTAÇÕES</th>
+          <th>REFERENCIA</th>
         </tr>
       </thead>
 
@@ -73,6 +74,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
             <td><?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
                 echo $idade . "<BR/>"; ?></td>
             <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
+            <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
           </tr>
 
         <?php

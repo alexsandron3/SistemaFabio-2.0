@@ -104,7 +104,6 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 
               echo "<div class='text-center'>";
               mensagensWarningNoSession("Nenhum PAGAMENTO PENDENTE até o momento");
-              echo "<p class='h5 text-center alert-warning'>Nenhum PAGAMENTO PENDENTE até o momento</p>";
               echo "</div>";
             }
 
