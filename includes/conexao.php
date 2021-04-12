@@ -1,8 +1,8 @@
 <?php 
-$dbHost = "localhost";
-$dbUsuario = "root";
-$dbSenha = "";
-$dbNome = "fabiosistema2";
+$dbHost = "mysql742.umbler.com";
+$dbUsuario = "adminfabio";
+$dbSenha = "mengo007";
+$dbNome = "fabiopasseios";
 
 //CRIANDO CONEXÃO
 $conexao = mysqli_connect($dbHost, $dbUsuario, $dbSenha, $dbNome);
