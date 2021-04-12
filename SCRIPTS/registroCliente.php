@@ -19,14 +19,19 @@
     $telefoneContato        = filter_input(INPUT_POST, 'telefoneContato',       FILTER_SANITIZE_STRING); 
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
+    $nacionalidade          = filter_input(INPUT_POST, 'nacionalidade',            FILTER_SANITIZE_STRING);
+    $profissao              = filter_input(INPUT_POST, 'profissao',            FILTER_SANITIZE_STRING);
+    $estadoCivil            = filter_input(INPUT_POST, 'estadoCivil',            FILTER_SANITIZE_STRING);
     $statusCliente          = 1;
     $idUser                 = $_SESSION['id'];
 
     /* -----------------------------------------------------------------------------------------------------  */
     
     $queryCadastraCliente = "INSERT INTO 
-                            cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, enderecoCliente,telefoneContato, pessoaContato,  redeSocial, statusCliente )
-                            VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$enderecoCliente', '$telefoneContato', '$nomeContato','$redeSocial', '$statusCliente')
+                            cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, enderecoCliente,telefoneContato, pessoaContato,  redeSocial, statusCliente,
+                                     nacionalidade, profissao, estadoCivil )
+                            VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$enderecoCliente', '$telefoneContato', '$nomeContato','$redeSocial', '$statusCliente',
+                                     '$nacionalidade', '$profissao', '$estadoCivil')
                             ";
 
     /* -----------------------------------------------------------------------------------------------------  */
@@ -52,7 +57,3 @@
         redirecionamento("editarCliente", $idCliente);
         gerarLog("CLIENTE", $conexao, $idUser, $nome, null, null, null, "CADASTRAR" , 0);
     }
-
-    
-    
- ?>   
