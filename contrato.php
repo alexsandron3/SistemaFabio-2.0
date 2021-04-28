@@ -106,7 +106,7 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
         <a href="#" id="dataNascimento" data-type="date" data-pk="1" data-title="SELECIONE A DATA">
           <?php
           $dataNascimento = new DateTime($rowBuscarInformacoesCliente['dataNascimento']);
-          echo date_format($dataNascimento, 'm/d/Y');
+          echo date_format($dataNascimento, 'd/m/Y');
           ?>
         </a>
       </p>
