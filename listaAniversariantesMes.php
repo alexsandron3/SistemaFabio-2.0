@@ -35,8 +35,9 @@ $query = (!empty($idPasseioGet)) ?
                     <?php
                     $dataDeHoje = new DateTime('today');
                     $mesAtual = $dataDeHoje->format('n');
+                    echo $mesAtual;
                     if (empty($idPasseioGet)) {
-                        mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual]);
+                        mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual -1]);
 
                         #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual] . "</p>";
                     } else {
