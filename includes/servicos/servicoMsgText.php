@@ -65,7 +65,7 @@ function mensagensInfoNoSession($texto){
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'><i class='material-icons'>clear</i></span>
         </button>
-        <b></b> <h4> $texto</h4>
+        <b></b> <h4 class='text-secondary'> $texto</h4>
 
         </div>
     </div>";    
