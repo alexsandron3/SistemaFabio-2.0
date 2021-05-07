@@ -1,13 +1,22 @@
 <?php
+
 //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
 include_once("./includes/header.php");
 $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$mesEscolhido = filter_input(INPUT_GET, 'mesEscolhido', FILTER_SANITIZE_NUMBER_INT);
+
 $query = (!empty($idPasseioGet)) ?
     "SELECT  c.dataNascimento, c.nomeCliente, c.telefoneContato, c.referencia 
                                 FROM cliente c, pagamento_passeio pp 
                                 WHERE statusCliente = 1 AND pp.idPasseio = $idPasseioGet AND c.idCliente = pp.idCliente AND dataNascimento NOT IN (' ')"
     :
     "SELECT  dataNascimento, nomeCliente, telefoneContato, referencia FROM cliente WHERE statusCliente = 1 AND dataNascimento NOT IN (' ')";
+    if(empty($mesEscolhido)){
+        $dataDeHoje = new DateTime('today');
+        $mesAtual = $dataDeHoje->format('n');
+    }else{
+        $mesAtual = $mesEscolhido;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -33,9 +42,7 @@ $query = (!empty($idPasseioGet)) ?
                 <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
                 <div class="card-body p-5 bg-white rounded">
                     <?php
-                    $dataDeHoje = new DateTime('today');
-                    $mesAtual = $dataDeHoje->format('n');
-                    echo $mesAtual;
+
                     if (empty($idPasseioGet)) {
                         mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual -1]);
 
@@ -47,11 +54,21 @@ $query = (!empty($idPasseioGet)) ?
                         $nomePasseio = $rowInformacoesPasseio['nomePasseio'];
                         $dataPasseio = $rowInformacoesPasseio['dataPasseio'];
                         $dataPasseio = new DateTime($dataPasseio);
-                        $dataPasseio = $dataPasseio->format('d/m/Y');
-                        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio");
+                        $dataPasseioFormatada = $dataPasseio->format('d/m/Y');
+                        $mesPasseio = $dataPasseio->format('n');
+                        
+
+                        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseioFormatada");
                         #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio</p>";
                     }
                     ?>
+                    <form action="listaAniversariantesMes.php" action="GET">
+                    <?php 
+                        if(empty($idPasseioGet)){
+                            ?>
+                        <input type="text" name="mesEscolhido" id="" class="form-control col-2" placeholder="NÚMERO DO MÊS" data-toggle="tooltip" data-placement="left" title="AQUI VICÊ PODERÁ PESQUISAR POR UM MÊS ESPECÍFICO">
+                    <?php } ?>
+                    </form>
                     <div class="table-responsive">
                         <table style="width:100%" class="table table-striped table-bordered" id="userTable">
                             <thead>
@@ -66,6 +83,7 @@ $query = (!empty($idPasseioGet)) ?
                             <?php
                             $executaQuery = mysqli_query($conexao, $query);
                             $nomeClienteAniversario = array();
+
                             while ($rowInfoormacoesCliente = mysqli_fetch_assoc($executaQuery)) {
                                 $dataNascimento = $rowInfoormacoesCliente['dataNascimento'];
                                 $nomeCliente = $rowInfoormacoesCliente['nomeCliente'];
@@ -77,14 +95,25 @@ $query = (!empty($idPasseioGet)) ?
                                 $mesAniversariante = $dataAniversariante->format('n');
 
                                 $diaAniversariante = $dataAniversariante->format('d');
-                                $diaAtual = $dataDeHoje->format('d');
+                                
 
+                                if(!empty($idPasseioGet)){
+                                    if($mesAniversariante == $mesPasseio){
+                                        
+                                        $nomeClienteAniversario[] = $rowInfoormacoesCliente['nomeCliente'];
+                                        $dataClienteAniversario[] =  $dataAniversariante->format('d/m/Y');
+                                        $telefoneContato[] = $rowInfoormacoesCliente['telefoneContato'];
+                                        $referencia[] = $rowInfoormacoesCliente['referencia'];
+                                    }
 
-                                if ($mesAniversariante == $mesAtual) {
-                                    $nomeClienteAniversario[] = $rowInfoormacoesCliente['nomeCliente'];
-                                    $dataClienteAniversario[] =  $dataAniversariante->format('d/m/Y');
-                                    $telefoneContato[] = $rowInfoormacoesCliente['telefoneContato'];
-                                    $referencia[] = $rowInfoormacoesCliente['referencia'];
+                                }else{
+                                    if ($mesAniversariante == $mesAtual) {
+                                        $nomeClienteAniversario[] = $rowInfoormacoesCliente['nomeCliente'];
+                                        $dataClienteAniversario[] =  $dataAniversariante->format('d/m/Y');
+                                        $telefoneContato[] = $rowInfoormacoesCliente['telefoneContato'];
+                                        $referencia[] = $rowInfoormacoesCliente['referencia'];
+                                    }
+
                                 }
                             }
                             $A = 0;
