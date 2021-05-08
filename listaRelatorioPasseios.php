@@ -37,6 +37,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 <body>
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
+  <link rel="stylesheet" href="./config/style.css">
   <?php
 
   $contador = 0;
