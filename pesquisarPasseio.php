@@ -18,12 +18,15 @@ include_once("./includes/header.php");
 
 
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
           <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <button onClick="window.location.href=window.location.href">Refresh Page</button>
+
           <p class="h2 text-center">PESQUISAR PASSEIO</p>
+
           <form action="" autocomplete="off" method="GET">
             <div class="form-row">
               <div class="col">
@@ -41,14 +44,14 @@ include_once("./includes/header.php");
                 </label>
               </div>
             </div>
-              <div class="form-row">
-                <div class="col">  
-                  <input type="submit" value="PESQUISAR" name="enviaPesqNome" class="btn btn-info btn-md">
-                </div>
-                <div class="col"> 
-                  <input type="submit" value="PESQUISAR" name="enviaPesqData" class="btn btn-info btn-md float-right">
-                </div>
+            <div class="form-row">
+              <div class="col">
+                <input type="submit" value="PESQUISAR" name="enviaPesqNome" class="btn btn-info btn-md">
               </div>
+              <div class="col">
+                <input type="submit" value="PESQUISAR" name="enviaPesqData" class="btn btn-info btn-md float-right">
+              </div>
+            </div>
           </form>
 
           <div class="table mt-5">
@@ -64,8 +67,8 @@ include_once("./includes/header.php");
                 </tr>
               </thead>
               <div class="table-reponsive">
-              <?php esconderTabela(6); ?>
-            </div>
+                <?php esconderTabela(6); ?>
+              </div>
               <tbody>
                 <?php
                 /* -----------------------------------------------------------------------------------------------------  */
@@ -92,24 +95,34 @@ include_once("./includes/header.php");
                     <tr>
                       <td><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaPasseio['nomePasseio'] . "<BR/>"; ?></td>
-                      <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
-                      <td >
-                      <?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
+                      <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
                       <td>
-                        
-                      <?php 
-                        
+                        <?php echo date_format($dataPasseio, "d/m/Y") . "<BR/>"; ?></td>
+                      <td>
 
-                        echo $valorPesquisaPasseio['localPasseio'] . "<BR/>"; 
+                        <?php
+
+
+                        echo $valorPesquisaPasseio['localPasseio'] . "<BR/>";
                         ?>
                       </td>
                       <td></td>
                       <td>
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='LISTA DE CLIENTES' class='btn btn-info btn-just-icon btn-sm '  href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='LUCROS' class='btn btn-success btn-just-icon btn-sm'  rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>price_check</i></a>"; ?>
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='RELATÓRIOS DO PASSEIO' class='btn btn-dark btn-just-icon btn-sm'  rel='noopener noreferrer' href='relatoriosDoPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>summarize</i></a>"; ?>
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR PASSEIO' class='btn btn-warning btn-just-icon btn-sm'   rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'><i class='material-icons'>edit</i>  </a>"; ?>
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='APAGAR PASSEIO' class='btn btn-danger btn-just-icon btn-sm' onclick='javascript:confirmationDeletePasseio($(this));return false;'  rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "&dataPasseio=" . $valorPesquisaPasseio['dataPasseio'] . "&nomePasseio=" . $valorPesquisaPasseio['nomePasseio'] . "' ><i class='material-icons'>delete_forever</i></a>"; ?>
+
+                        <?php
+                        $linkListaPassageiros = "listaPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'];
+                        $linkLucrosPasseio = "relatoriosPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'];
+                        $linkRelatoriosPasseio = "relatoriosDoPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'];
+                        $linkEditarPasseio = "editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'];
+                        $linkDeletarPasseio = "SCRIPTS/apagarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'];
+
+                        ?>
+                        <button class='btn btn-info btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkListaPassageiros; ?>')"><i class='material-icons'>groups</i></button>
+                        <button class='btn btn-success btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkLucrosPasseio ?>')"><i class='material-icons'>price_check</i></button>
+                        <button class='btn btn-dark btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkRelatoriosPasseio ?>')"><i class='material-icons'>summarize</i></button>
+                        <button class='btn btn-warning btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkEditarPasseio ?>')"><i class='material-icons' data-toggle='tooltip' data-placement='top' title='EDITAR PASSEIO'>edit</i></button>
+                        <button class='btn btn-danger btn-just-icon btn-sm ' onclick="javascript:confirmationDeletePasseio($(this));return false;" href="<?php echo $linkDeletarPasseio; ?>"><i class='material-icons'>delete_forever</i></button>
+
                       </td>
                     </tr>
                   <?php
@@ -127,18 +140,18 @@ include_once("./includes/header.php");
                       <td><?php echo $valorPesquisaPasseio['idPasseio'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaPasseio['nomePasseio'] . "<BR/>"; ?></td>
                       <td>
-                      <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+                        <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
 
-                        <?php 
-                          echo date_format($dataPasseio, "d/m/Y") . "<BR/>";
-                         
-                          ?>
+                        <?php
+                        echo date_format($dataPasseio, "d/m/Y") . "<BR/>";
+
+                        ?>
                       </td>
                       <td><?php echo $valorPesquisaPasseio['localPasseio'] . "<BR/>"; ?></td>
                       <td></td>
 
                       <td>
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='LISTA DE CLIENTES' class='btn btn-primary btn-sm ml-4' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
+                        <?php echo "<a data-toggle='tooltip' target='_BLANK'data-placement='top' title='LISTA DE CLIENTES' class='btn btn-primary btn-sm ml-4' href='listaPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>groups</i></a>"; ?>
                         <?php echo "<a data-toggle='tooltip' data-placement='top' title='RELATÓRIOS DO PASSEIO' class='btn btn-primary btn-sm mt-1'  rel='noopener noreferrer' href='relatoriosPasseio.php?id="  . $valorPesquisaPasseio['idPasseio'] . "' ><i class='material-icons'>price_check</i></a>"; ?>
                         <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR PASSEIO' class='btn btn-primary btn-sm ml-1'   rel='noopener noreferrer' href='editarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'] . "'><i class='material-icons'>edit</i>  </a>"; ?>
                         <?php echo "<a data-toggle='tooltip' data-placement='top' title='APAGAR PASSEIO' class='btn btn-primary btn-sm mt-1' onclick='javascript:confirmationDeletePasseio($(this));return false;'  rel='noopener noreferrer' href='SCRIPTS/apagarPasseio.php?id="  .  $valorPesquisaPasseio['idPasseio'] . "&dataPasseio=" . $valorPesquisaPasseio['dataPasseio'] . "&nomePasseio=" . $valorPesquisaPasseio['nomePasseio'] . "' ><i class='material-icons'>delete_forever</i></a>"; ?>
@@ -151,12 +164,20 @@ include_once("./includes/header.php");
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 
   <script src="config/script.php"></script>
+  <script>
+
+
+    function novaJanela(linkListaPassageiros) {
+      var abrirNovaJanela = window.open(linkListaPassageiros, "nova aba");
+    }
+  </script>
 </body>
 
 </html>
