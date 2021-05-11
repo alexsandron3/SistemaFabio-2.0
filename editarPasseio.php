@@ -85,13 +85,13 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
                   <div class='col'>
                     <input class='form-check-input ' type='radio' name='statusPasseio' id='statusPasseioAtivo' value='1' <?php echo $passeioAtivo ?>>
                     <label class='form-check-label' for='statusPasseioAtivo'>
-                      SIM
+                      ATIVO
                     </label>
                   </div>
                   <div class='col'>
                     <input class='form-check-input' type='radio' name='statusPasseio' id='statusPasseioInativo' value='0' <?php echo $passeioInativo ?>>
                     <label class='form-check-label' for='statusPasseioInativo'>
-                      NÃO
+                      INATIVO
                     </label>
                   </div>
                 </div>
