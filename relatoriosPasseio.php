@@ -79,7 +79,7 @@ if (!empty($idPasseio)) {
 
 
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
 
       <div class="card rounded shadow border-0">
         <p class="h2 text-center">LUCROS</p>

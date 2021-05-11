@@ -20,12 +20,12 @@ include_once("./includes/header.php");
 
   <!-- TODO FORM -->
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-                  
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+
           <p class="h2 text-center">PESQUISAR CLIENTE</p>
           <form action="" autocomplete="off" method="POST" name="formularioPesquisarCliente">
             <div class="form-row">
@@ -37,9 +37,9 @@ include_once("./includes/header.php");
             </div>
           </form>
           <div class="table-reponsive">
-              <?php esconderTabela(8); ?>
-            </div>
-            
+            <?php esconderTabela(8); ?>
+          </div>
+
           <div class="table-responsive">
             <table style="width:100%" class="table table-striped table-bordered" id="userTable">
               <thead>
@@ -111,31 +111,42 @@ include_once("./includes/header.php");
                       <td><?php echo $valorPesquisaCliente['nomeCliente'] . "<BR/>"; ?></td>
                       <td>
 
-                      <?php $dataNascimentoFormatada = (empty($dataNascimento) or $dataNascimento == "0000-00-00") ? "" : date_format($dataNascimento, "d/m/Y") . "<BR/>";
-                          echo $dataNascimentoFormatada; ?>
+                        <?php $dataNascimentoFormatada = (empty($dataNascimento) or $dataNascimento == "0000-00-00") ? "" : date_format($dataNascimento, "d/m/Y") . "<BR/>";
+                        echo $dataNascimentoFormatada; ?>
 
-                          </td>
+                      </td>
 
                       <td><?php echo $valorPesquisaCliente['idadeCliente'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['referencia'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['telefoneCliente'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['emailCliente'] . "<BR/>"; ?></td>
                       <td><?php echo $valorPesquisaCliente['redeSocial'] . "<BR/>"; ?></td>
-                      <td class=" text-right">
-                        <?php echo "<a data-toggle='tooltip' data-placement='top' title='EDITAR CLIENTE' class='btn btn-info btn-sm' rel='noopener noreferrer' href='editarCliente.php?id=" . $idCliente . "'><i class='material-icons'>edit</i></a>"; ?>
-
-
+                      <?php
+                      $linkEditarCliente    = "editarCliente.php?id=" . $idCliente;
+                      $linkGerarContrato    = "contrato.php?id=" . $idCliente;
+                      $linkPagamentoCliente = "pagamentoCliente.php?id=" . $idCliente;
+                      $linkAtivarCliente    = "SCRIPTS/apagarCliente.php?id=" . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] ;
+                      $linkDesativarCliente = "SCRIPTS/apagarCliente.php?id=" . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] ;
+                      ?>
+                      <td>
+                        <button class='btn btn-info btn-sm ' onclick="novaJanela('<?php echo $linkEditarCliente; ?>')" data-toggle='tooltip' data-placement='top' title='EDITAR CLIENTE'><i class='material-icons'>edit</i></button>
                         <?php
                         if ($valorPesquisaCliente['statusCliente'] == 1) {
-                          echo "<a data-toggle='tooltip' data-placement='top' title='GERAR CONTRATO' class='btn btn-info btn-sm' rel='noopener noreferrer' href='contrato.php?id="  . $idCliente . "' ><i class='material-icons'>description</i></a>";
-                          echo "<a data-toggle='tooltip' data-placement='top' title='REALIZAR PAGAMENTO' class='btn btn-success btn-sm' rel='noopener noreferrer' href='pagamentoCliente.php?id="  . $idCliente . "' ><i class='material-icons'>shopping_cart</i></a>";
-                        }
                         ?>
+                          <button class='btn btn-dark btn-sm' onclick="novaJanela('<?php echo $linkGerarContrato; ?>')" data-toggle='tooltip' data-placement='top' title='GERAR CONTRATO'><i class='material-icons'>description</i></button>
+                          <button class='btn btn-success btn-sm' onclick="novaJanela('<?php echo $linkPagamentoCliente; ?>')" data-toggle='tooltip' data-placement='top' title='REALIZAR PAGAMENTO'><i class='material-icons'>shopping_cart</i></button>
+                        <?php } ?>
+
                         <?php
                         if ($valorPesquisaCliente['statusCliente'] == 0) {
-                          echo "<a data-toggle='tooltip' data-placement='top' title='REATIVAR CLIENTE' class='btn btn-success btn-sm' onclick='javascript:confirmationDelete($(this));return false;' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_add</i></a>";
+                        ?>
+                          <button class='btn btn-success btn-sm ' onclick="javascript:confirmationDelete($(this));return false;" href="<?php echo $linkAtivarCliente; ?>" data-toggle='tooltip' data-placement='top' title='REATIVAR CLIENTE'><i class='material-icons'>person_add</i></button>
+                        <?PHP
                         } else {
-                          echo "<a data-toggle='tooltip' data-placement='top' title='DESATIVAR CLIENTE' class='btn btn-danger btn-sm' onclick='javascript:confirmationDelete($(this));return false;' rel='noopener noreferrer' href='SCRIPTS/apagarCliente.php?id="  . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] . "' ><i class='material-icons'>person_remove</i></a>";
+                        ?>
+                          <button class='btn btn-danger btn-sm ' onclick="javascript:confirmationDelete($(this));return false;" href="<?php echo $linkDesativarCliente; ?>" data-toggle='tooltip' data-placement='top' title='DESATIVAR CLIENTE'><i class='material-icons'>person_remove</i></button>
+
+                        <?php
                         }
                         ?>
 

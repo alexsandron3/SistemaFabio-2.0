@@ -1,6 +1,35 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="d-flex justify-content-lg-start ml-2">
+        <a class="btn-just-icon " onclick="history.go(-1)">
+            <i class="material-icons">
+
+                <span class="material-icons-outlined">
+                    arrow_back
+                </span>
+            </i>
+        </a>
+
+        <a class="btn-just-icon  ml-3" onclick="history.go(+1)">
+            <i class="material-icons">
+
+                <span class="material-icons-outlined">
+                    arrow_forward
+                </span>
+            </i>
+        </a>
+        
+        <a class="btn-just-icon ml-3" onclick="history.go(0)">
+            <i class="material-icons mx-auto my-auto">
+                refresh
+            </i>
+        </a>
+
+
+
+    </div>
+
     <div class="container">
-    <a class="navbar-brand" href="javascript:;"></a>
+        <a class="navbar-brand" href="javascript:;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon"></span>

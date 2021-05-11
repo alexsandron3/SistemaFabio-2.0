@@ -23,7 +23,6 @@ include_once("./includes/header.php");
         <div class="card-body p-5 bg-white rounded">
           <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <button onClick="window.location.href=window.location.href">Refresh Page</button>
 
           <p class="h2 text-center">PESQUISAR PASSEIO</p>
 
@@ -117,11 +116,11 @@ include_once("./includes/header.php");
                         $linkDeletarPasseio = "SCRIPTS/apagarPasseio.php?id=" . $valorPesquisaPasseio['idPasseio'];
 
                         ?>
-                        <button class='btn btn-info btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkListaPassageiros; ?>')"><i class='material-icons'>groups</i></button>
-                        <button class='btn btn-success btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkLucrosPasseio ?>')"><i class='material-icons'>price_check</i></button>
-                        <button class='btn btn-dark btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkRelatoriosPasseio ?>')"><i class='material-icons'>summarize</i></button>
+                        <button class='btn btn-info btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkListaPassageiros; ?>')"><i class='material-icons' data-toggle='tooltip' data-placement='top' title='LISTA DE CLIENTES'>groups</i></button>
+                        <button class='btn btn-success btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkLucrosPasseio ?>')"><i class='material-icons'  data-toggle='tooltip' data-placement='top' title='LUCROS'>price_check</i></button>
+                        <button class='btn btn-dark btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkRelatoriosPasseio ?>')"><i class='material-icons' data-toggle='tooltip' data-placement='top' title='RELATÓRIOS DO PASSEIO'>summarize</i></button>
                         <button class='btn btn-warning btn-just-icon btn-sm ' onclick="novaJanela('<?php echo $linkEditarPasseio ?>')"><i class='material-icons' data-toggle='tooltip' data-placement='top' title='EDITAR PASSEIO'>edit</i></button>
-                        <button class='btn btn-danger btn-just-icon btn-sm ' onclick="javascript:confirmationDeletePasseio($(this));return false;" href="<?php echo $linkDeletarPasseio; ?>"><i class='material-icons'>delete_forever</i></button>
+                        <button class='btn btn-danger btn-just-icon btn-sm ' onclick="javascript:confirmationDeletePasseio($(this));return false;" href="<?php echo $linkDeletarPasseio; ?>"data-toggle='tooltip' data-placement='top' title='APAGAR PASSEIO'><i class='material-icons' >delete_forever</i></button>
 
                       </td>
                     </tr>
@@ -172,8 +171,6 @@ include_once("./includes/header.php");
 
   <script src="config/script.php"></script>
   <script>
-
-
     function novaJanela(linkListaPassageiros) {
       var abrirNovaJanela = window.open(linkListaPassageiros, "nova aba");
     }
