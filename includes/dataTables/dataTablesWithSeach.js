@@ -1,3 +1,49 @@
+//Tabelas padrão
+
+$(document).ready(function () {
+    $.fn.dataTable.moment('DD/MM/YYYY');
+    $('#tabelasPadrao').DataTable( {
+        "lengthMenu": [[15, 50, 100, -1], [15, 50, 100, "TUDO"]],
+        dom: 'Blfrtip',
+        buttons:
+            [
+                {
+                    extend: 'pdfHtml5',
+                    className: 'btn btn-info btn-sm',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-info btn-sm',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+                },
+                {
+                    extend: 'print',
+                    className: 'btn btn-info btn-sm ml-1',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+
+            ]
+        
+    } );
+} );
+
+
+
+
+
+
+
+
+
 $(document).ready(function () {
     $.fn.dataTable.moment('DD/MM/YYYY');
 
@@ -173,6 +219,8 @@ $(document).ready(function () {
 
 //TABELA ALTERNATIVA CASO A PRIMEIRA NÃO FUNCIONE
 $(document).ready(function () {
+    var api = this.api(), data;
+
     $.fn.dataTable.moment('DD/MM/YYYY');
 
     $('#simpleTable').DataTable({
