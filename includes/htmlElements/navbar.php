@@ -17,7 +17,7 @@
                 </span>
             </i>
         </a>
-        
+
         <a class="btn-just-icon ml-3" onclick="history.go(0)">
             <i class="material-icons mx-auto my-auto">
                 refresh
@@ -41,8 +41,30 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">INÍCIO </a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        CADASTRAR
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="cadastroCliente.php">CLIENTE</a>
+                        <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
+                        <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
+                    </div>
+                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="relatoriosPasseio.php">LUCROS </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        OUTROS
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="listaAniversariantesMes.php">ANIVERSARIANTES DO MÊS</a>
+                        <a class="dropdown-item" href="log.php">LOGS</a>
+                        <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
+                        <a class="dropdown-item" href="listaPagamentosPendentes.php">PEQUISAR PAGAMENTOS </a>
+                        <a class="dropdown-item" href="logout.php">SAIR</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,27 +75,8 @@
                         <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        CADASTRAR
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="cadastroCliente.php">CLIENTE</a>
-                        <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
-                        <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        OUTROS
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="log.php">LOGS</a>
-                        <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
-                        <a class="dropdown-item" href="listaAniversariantesMes.php">ANIVERSARIANTES DO MÊS</a>
-                        <a class="dropdown-item" href="logout.php">SAIR</a>
-                    </div>
-                </li>
+
+
             </ul>
         </div>
     </div>
