@@ -1,3 +1,5 @@
+<pre>
+
 <?php
     //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
     include_once("../includes/header.php");
@@ -54,10 +56,12 @@
 
     print $dados;
 
+    header('Content-Encoding:UTF-8');
+    header('Content-type:text/xls; charset=UTF-8');
+    header('Content-Disposition: attachment; filename='.$filename.'.xls');
   }
   /* -----------------------------------------------------------------------------------------------------  */
 
-header('Content-Encoding: UTF-8');
-header('Content-type: text/csv; charset=UTF-8');
-header('Content-Disposition: attachment; filename='.$filename.'.xls');
+
+
 ?> 
