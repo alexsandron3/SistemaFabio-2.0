@@ -1,8 +1,7 @@
-<pre>
-
 <?php
+  ob_start();
     //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
-    include_once("../includes/header.php");
+    include_once("../includes/conexao.php");
 
    /* -----------------------------------------------------------------------------------------------------  */
   //SCRIPT PARA EXPORTAR ARQUIVO EXCEL
@@ -56,11 +55,14 @@
 
     print $dados;
 
-    header('Content-Encoding:UTF-8');
-    header('Content-type:text/xls; charset=UTF-8');
-    header('Content-Disposition: attachment; filename='.$filename.'.xls');
+ 
   }
   /* -----------------------------------------------------------------------------------------------------  */
+
+  header('Content-Encoding:UTF-8');
+  header('Content-type:text/xls; charset=UTF-8');
+  header('Content-Disposition: attachment; filename='.$filename.'.xls');
+
 
 
 

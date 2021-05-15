@@ -48,13 +48,14 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
     <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
-        <p class="h2 text-center mb-5">PAGAMENTOS PENDENTES </p>
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <div class="table ml-1"> <?php 
-          mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
-          #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; ?>
-            <table style="width:100%" class="table table-striped table-bordered" id="simpleTable">
+          <p class="h2 text-center mb-5">PAGAMENTOS PENDENTES </p>
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div class="table ml-1"> <?php
+                                    mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
+                                    #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; 
+                                    ?>
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelasPadrao">
               <thead>
                 <tr>
                   <th> NOME </th>
@@ -77,7 +78,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                       <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
                       <td><?php
                           $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
-                          echo "R$ " . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', '') . "<BR/>"; ?> </td>
+                          echo "R$" . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', '') ; ?> </td>
                       <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
                     </tr>
 
@@ -89,6 +90,12 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                 $controleListaPasseio = mysqli_num_rows($resultadoBuscaPasseio);
                 ?>
               </tbody>
+              <tfoot>
+                <tr>
+                  <th colspan="2" style="text-align:right">Total:</th>
+                  <th></th>
+                </tr>
+              </tfoot>
             </table>
             <?php
             if ($controleListaPasseio > 0) {
