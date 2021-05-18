@@ -21,6 +21,7 @@
         <a href="index.php" class="btn bg-info text-white">PÁGINA INICIAL</a>
         <a href="logout.php" class="btn bg-warning text-white">DESLOGAR</a>
         <a href="reset-password.php" class="btn bg-danger text-white">TROCAR DE SENHA</a>
+        <a href="downloads/Install_Fabio_Passeios.exe" class="btn bg-dark text-white">BAIXAR APLICATIVO DESKTOP</a>
     </p>
 </body>
 </html>

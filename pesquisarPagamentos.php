@@ -81,7 +81,7 @@ $executaQuery = mysqli_query($conn, $query);
                                             
 
                                             ?>
-                                            <span class="d-none d-print-none"><?php echo MESES_DO_ANO[$dataFormatada-1] ?></span>
+                                            <span class="d-none d-print-none hidden"><?php echo MESES_DO_ANO[$dataFormatada-1] ?></span>
                                         </td>
                                         <td><?php
                                             echo $valor;
@@ -96,14 +96,6 @@ $executaQuery = mysqli_query($conn, $query);
                                         
                                     </tr>
                                 <?php } ?>
-                                
-                            <tfoot>
-                                <tr>
-
-                                </tr>
-
-                            </tfoot>
-
                             </tbody>
                         </table>
                     </div>
