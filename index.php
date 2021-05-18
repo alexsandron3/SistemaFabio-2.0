@@ -20,7 +20,7 @@ include_once("./includes/header.php");
 
 
   <div class="row py-3">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
         <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
@@ -107,14 +107,18 @@ include_once("./includes/header.php");
                           <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                             <span aria-hidden='true'><i class='material-icons'>clear</i></span>
                           </button>
-                          <?php echo "
-                          <span class='h4 text-center'>
-                            " . "PERÍODO SELECIONADO: " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y") . "
-                            <a data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS '  href='listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos . "'><i class='material-icons mb-2'>info_outline</i>
+                          <?php 
+                          $linkPasseiosFiltrados = "listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos;
+                          
+                          echo "<span class='h4 text-center'> " . "PERÍODO SELECIONADO: " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y")  ?>
+                              <a href="#!" onclick="novaJanela('<?php echo $linkPasseiosFiltrados; ?>')" data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS'><i class='material-icons mb-2'>info_outline</i></a>
+
                             </a></br>
-                            " . $mensagemExibeExcluidos . "
+                          <?php  
+                            echo $mensagemExibeExcluidos . "
                           </span>";
                           ?>
+
                         </div>
                       </div>
                     <?php
@@ -348,6 +352,7 @@ include_once("./includes/header.php");
         }
       });
     </script>
+  <script src="config/script.php"></script>
 
 </body>
 

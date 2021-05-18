@@ -13,6 +13,55 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
   <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
   <title>LISTA DE PAGAMENTOS PENDENTES</title>
+  <style>
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu>.dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -6px;
+      margin-left: -1px;
+      -webkit-border-radius: 0 6px 6px 6px;
+      -moz-border-radius: 0 6px 6px;
+      border-radius: 0 6px 6px 6px;
+    }
+
+    .dropdown-submenu:hover>.dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-submenu>a:after {
+      display: block;
+      content: " ";
+      float: right;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 5px 0 5px 5px;
+      border-left-color: #ccc;
+      margin-top: 5px;
+      margin-right: -10px;
+    }
+
+    .dropdown-submenu:hover>a:after {
+      border-left-color: #fff;
+    }
+
+    .dropdown-submenu.pull-left {
+      float: none;
+    }
+
+    .dropdown-submenu.pull-left>.dropdown-menu {
+      left: -100%;
+      margin-left: 10px;
+      -webkit-border-radius: 6px 0 6px 6px;
+      -moz-border-radius: 6px 0 6px 6px;
+      border-radius: 6px 0 6px 6px;
+    }
+  </style>
 </head>
 
 <body>
@@ -35,7 +84,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
   $rowValorTotalPendente = mysqli_fetch_assoc($executaQueryValorTotalPendente);
   ?>
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <p class="h2 text-center">PAGAMENTOS PENDENTES</p>
 
@@ -49,7 +98,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
             ?>
 
             <div class="table-reponsive">
-              <?php esconderTabela(7); ?>
+              <?php esconderTabela(8); ?>
             </div>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered" id="userTable">
@@ -76,18 +125,19 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 
                   ?>
                     <tr class="text-bold">
+
                       <td class="text-center"><?php echo ++$contador; ?></td>
                       <td scope="row"> <?php echo  $rowPagamentosPendentes['nomeCliente']; ?></td>
                       <td scope="row"> <?php echo  $rowPagamentosPendentes['referencia']; ?></td>
                       <td><?php echo $rowPagamentosPendentes['idPagamento']; ?></td>
-                      
+
                       <td><?php
                           $dataPasseio = date_create($rowPagamentosPendentes['dataPasseio']);
                           echo $rowPagamentosPendentes['nomePasseio'] . " | " . date_format($dataPasseio, "d/m/Y");
                           ?>
                       </td>
                       <td><?php echo "R$" . number_format($rowPagamentosPendentes['valorPendente'] * -1.00, 2, '.', ''); ?></td>
-                      
+
                       <td> <?php
                             if ($rowPagamentosPendentes['previsaoPagamento'] != "0000-00-00") {
                               $dataPagamento = date_create($rowPagamentosPendentes['previsaoPagamento']);
@@ -95,16 +145,16 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                               echo date_format($dataPagamento, 'd/m/Y');
                             }
                             ?>
-                            
+
                       </td>
                       <td class="td-actions text-right">
-                        <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm" >
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm">
                           <i class="material-icons">edit</i>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" href="editarPagamento.php?id=<?php echo $rowPagamentosPendentes['idPagamento']; ?>" class="btn btn-warning btn-just-icon btn-sm" >
+                        <a data-toggle="tooltip" data-placement="top" title="EDITAR PAGAMENTO" href="editarPagamento.php?id=<?php echo $rowPagamentosPendentes['idPagamento']; ?>" class="btn btn-warning btn-just-icon btn-sm">
                           <i class="material-icons">payment</i>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" >
+                        <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPagamentosPendentes['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm">
                           <i class="material-icons">groups</i>
                         </a>
                       </td>
@@ -114,7 +164,8 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                   ?>
                 <tfoot>
                   <tr>
-                    <!-- <th colspan="5" style="text-align:right">Total:</th> -->
+                    <th colspan="5" style="text-align:right">Total:</th>
+                    <th></th>
                   </tr>
                 </tfoot>
                 </tbody>
@@ -125,5 +176,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
         </div>
       </div>
     </div>
+  </div>
+</body>
 
 </html>

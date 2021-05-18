@@ -655,4 +655,8 @@ function verificaDataDePrevisaoPagamento(){
   
 }
 
+//ABRIR NOVA JANELA
+function novaJanela(linkListaPassageiros) {
+      var abrirNovaJanela = window.open(linkListaPassageiros, "nova aba");
+    }
 

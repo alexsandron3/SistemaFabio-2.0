@@ -10,14 +10,15 @@
     $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
     $dataPasseio         = filter_input(INPUT_POST, 'dataPasseio',          FILTER_SANITIZE_STRING);
     $anotacoes           = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
+    $statusPasseio       = filter_input(INPUT_POST, 'statusPasseio',        FILTER_VALIDATE_BOOLEAN);
     $idUser              = $_SESSION['id'];
 
 
     /* -----------------------------------------------------------------------------------------------------  */
 
     $queryCadastraPasseio = "INSERT INTO
-                            passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao)
-                            VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao')
+                            passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao, statusPasseio)
+                            VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao', '$statusPasseio')
                             ";
 
     /* -----------------------------------------------------------------------------------------------------  */
@@ -38,7 +39,6 @@
     }else{
         $idPasseio = $rowPasseioVerificado ['idPasseio']; 
         mensagensWarning("JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME");
-        #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>JÁ EXISTE UM PASSEIO NA MESMA DATA COM O MESMO NOME </p>";
         redirecionamento("editarPasseio", $idPasseio);
         gerarLog("PASSEIO", $conexao, $idUser, null, $nomePasseio, $dataPasseio, null, "CADASTRAR" , 0);
                 

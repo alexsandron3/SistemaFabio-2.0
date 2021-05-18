@@ -30,7 +30,7 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
 
 
   <div class="row py-5">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <p class="h2 text-center">EDIÇÃO DE PASSEIO</p>
         <div class="card-body p-5 bg-white rounded ">
@@ -85,13 +85,13 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
                   <div class='col'>
                     <input class='form-check-input ' type='radio' name='statusPasseio' id='statusPasseioAtivo' value='1' <?php echo $passeioAtivo ?>>
                     <label class='form-check-label' for='statusPasseioAtivo'>
-                      SIM
+                      ATIVO
                     </label>
                   </div>
                   <div class='col'>
                     <input class='form-check-input' type='radio' name='statusPasseio' id='statusPasseioInativo' value='0' <?php echo $passeioInativo ?>>
                     <label class='form-check-label' for='statusPasseioInativo'>
-                      NÃO
+                      INATIVO
                     </label>
                   </div>
                 </div>

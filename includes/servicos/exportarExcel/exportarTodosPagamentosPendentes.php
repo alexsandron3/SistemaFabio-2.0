@@ -1,5 +1,4 @@
 <?php
-echo "<pre>";
     //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
     include_once("../../../includes/header.php");
 

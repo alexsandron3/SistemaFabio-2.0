@@ -18,7 +18,7 @@ include_once("./includes/header.php");
 
 
   <div class="row py-5">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <p class="h2 text-center"> CADASTRO DE DESPESAS</p>
 

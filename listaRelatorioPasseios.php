@@ -37,13 +37,12 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 <body>
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
-  <link rel="stylesheet" href="./config/style.css">
   <?php
 
   $contador = 0;
   ?>
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
 
         <div class="card-body p-5 bg-white rounded">
@@ -78,24 +77,22 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                     <td class="text-center"><?php echo ++$contador; ?></td>
                     <td><?php echo $rowPesquisaIntervaloData['nomePasseio']; ?></td>
                     <td>
-                    <p class="d-none"><?php echo identificarMes($dataPasseio);?></p>
+                      <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
 
-                    <?php echo $dataPasseioFromatada ?></td>
+                      <?php echo $dataPasseioFromatada;
+                      $linkListaPassageiros     = "listaPasseio.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
+                      $linkEditarDespesas       = "editaDespesas.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
+                      $linkRelatoriosDoPasseio  = "relatoriosDoPasseio.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
+                      $linkLucrosDoPasseio      = "relatoriosPasseio.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
+                      ?>
+                    </td>
                     <td class="td-actions text-right">
 
-                      <a data-toggle="tooltip" data-placement="top" title="LISTA DE PASSAGEIROS" href="listaPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-info btn-just-icon btn-sm" >
-                        <i class="material-icons">groups</i>
-                      </a>
-                      <a data-toggle="tooltip" data-placement="top" title="DESPESAS" href="editaDespesas.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-danger btn-just-icon btn-sm" >
-                        <i class="material-icons">money_off</i>
-                      </a>
-                      <a data-toggle="tooltip" data-placement="top" title="RELATÓRIOS DO PASSEIO" href="relatoriosDoPasseio.php?id= <?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-dark btn-just-icon btn-sm" >
-                        <i class="material-icons">summarize</i>
-                      </a>
-                      <a data-toggle="tooltip" data-placement="top" title="LUCROS" href="relatoriosPasseio.php?id=<?php echo $rowPesquisaIntervaloData['idPasseio']; ?>" class="btn btn-success btn-just-icon btn-sm" >
-                        <i class="material-icons">price_check </i>
+                      <button class='btn btn-info btn-just-icon btn-sm' onclick="novaJanela('<?php echo $linkListaPassageiros; ?>')" data-toggle='tooltip' data-placement='top' title='LISTA DE PASSAGEIROS'><i class='material-icons'>groups</i></button>
+                      <button class='btn btn-success btn-just-icon btn-sm' onclick="novaJanela('<?php echo $linkLucrosDoPasseio; ?>')" data-toggle='tooltip' data-placement='top' title='LUCROS'><i class='material-icons'>price_check</i></button>
+                      <button class='btn btn-danger btn-just-icon btn-sm' onclick="novaJanela('<?php echo $linkEditarDespesas; ?>')" data-toggle='tooltip' data-placement='top' title='DESPESAS'><i class='material-icons'>money_off</i></button>
+                      <button class='btn btn-dark btn-just-icon btn-sm' onclick="novaJanela('<?php echo $linkRelatoriosDoPasseio; ?>')" data-toggle='tooltip' data-placement='top' title='RELATÓRIOS DO PASSEIO'><i class='material-icons'>summarize</i></button>
 
-                      </a>
                     </td>
                   </tr>
                 <?php } ?>
@@ -109,6 +106,11 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
   </div>
 
 
+  <script>
+    function novaJanela(linkListaPassageiros) {
+      var abrirNovaJanela = window.open(linkListaPassageiros, "nova aba");
+    }
+  </script>
 
 </body>
 

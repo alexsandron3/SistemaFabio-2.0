@@ -79,7 +79,7 @@ if (!empty($idPasseio)) {
 
 
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
 
       <div class="card rounded shadow border-0">
         <p class="h2 text-center">LUCROS</p>
@@ -308,7 +308,7 @@ if (!empty($idPasseio)) {
       </div>
     </div>
     <script src="assets/js/material-kit.js?v=2.0.7" type="text/javascript"></script>
-
+    
 </body>
 
 </html>

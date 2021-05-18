@@ -22,9 +22,9 @@ include_once("./includes/header.php");
 
 
   <div class="row py-5">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
-      <p class="h2 text-center">CADASTRO DE PASSEIO</p>
+        <p class="h2 text-center">CADASTRO DE PASSEIO</p>
 
         <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
         <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
@@ -66,6 +66,24 @@ include_once("./includes/header.php");
                 <textarea class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" placeholder="ANOTAÇÕES" onkeydown="upperCaseF(this)"></textarea>
               </div>
             </div>
+            <fieldset class='form-group'>
+              <div class='row'>
+                <legend class='col-form-label col-sm-2 pt-0 text-muted'>STATUS DO PASSEIO</legend>
+                <div class='col-sm-5 '>
+                  <div class='col'>
+                    <input class='form-check-input ' type='radio' name='statusPasseio' id='statusPasseioAtivo' value='1' checked>
+                    <label class='form-check-label' for='statusPasseioAtivo'>
+                      ATIVO
+                    </label>
+                  </div>
+                  <div class='col'>
+                    <input class='form-check-input' type='radio' name='statusPasseio' id='statusPasseioInativo' value='0'>
+                    <label class='form-check-label' for='statusPasseioInativo'>
+                      INATIVO
+                    </label>
+                  </div>
+                </div>
+            </fieldset>
             <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-lg">CADASTRAR</button>
           </form>
         </div>

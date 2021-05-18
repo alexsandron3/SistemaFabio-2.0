@@ -38,7 +38,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
         <p class="h2 text-center mb-5">LISTA DE PASSAGEIROS</p>

@@ -24,7 +24,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
   <div class="row py-2">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
           <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
