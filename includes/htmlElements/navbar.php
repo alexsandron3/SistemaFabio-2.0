@@ -62,7 +62,6 @@
                         <a class="dropdown-item" href="listaAniversariantesMes.php">ANIVERSARIANTES DO MÊS</a>
                         <a class="dropdown-item" href="log.php">LOGS</a>
                         <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
-                        <a class="dropdown-item" href="listaPagamentosPendentes.php">PEQUISAR PAGAMENTOS </a>
                         <a class="dropdown-item" href="logout.php">SAIR</a>
                     </div>
                 </li>
@@ -73,6 +72,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
                         <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
+                        <a class="dropdown-item" href="pesquisarPagamentos.php">PEQUISAR PAGAMENTOS </a>
                     </div>
                 </li>
 

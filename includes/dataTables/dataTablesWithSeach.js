@@ -92,7 +92,7 @@ $(document).ready(function () {
 
             // Total over all pages
             total = api
-                .column(4)
+                .column(5)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
@@ -100,16 +100,16 @@ $(document).ready(function () {
 
             // Total over this page
             pageTotal = api
-                .column(4, { page: 'current' })
+                .column(5, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
             // Update footer
-            $(api.column(4).footer()).html(
+            $(api.column(5).footer()).html(
 
-                'R$' + (Math.round((pageTotal + Number.EPSILON) * 100) / 100) + ' ( R$' + (Math.round((total + Number.EPSILON) * 100) / 100) + ' total)'
+                ' R$' + (Math.round((total + Number.EPSILON) * 100) / 100) + ' total'
             );
         },
         "lengthMenu": [[15, 50, 100, -1], [15, 50, 100, "TUDO"]],
@@ -119,6 +119,7 @@ $(document).ready(function () {
                 {
                     extend: 'pdfHtml5',
                     className: 'btn btn-info btn-sm',
+                    footer: 'true',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -127,6 +128,7 @@ $(document).ready(function () {
                 {
                     extend: 'excel',
                     className: 'btn btn-info btn-sm',
+                    footer: 'true',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -135,6 +137,7 @@ $(document).ready(function () {
                 {
                     extend: 'print',
                     className: 'btn btn-info btn-sm ml-1',
+                    footer: 'true',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -181,10 +184,7 @@ $(document).ready(function () {
         });
 
     });
-    $('#userTable tfoot th').each(function () {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-    });
+
 
     $('#myInput').keyup(function () {
         table.draw();
@@ -229,10 +229,6 @@ $(document).ready(function () {
             }
         });
 
-    });
-    $('#userTable tfoot th').each(function () {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
     });
 
     $('#myInput').keyup(function () {

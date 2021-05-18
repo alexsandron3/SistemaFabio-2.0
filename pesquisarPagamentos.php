@@ -1,13 +1,12 @@
 <?php
 //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
 include_once("./includes/header.php");
-$inicioPeriodoSelecionado   = filter_input(INPUT_GET, 'inicioPeriodoSelecionado',   FILTER_SANITIZE_STRING);
-$fimPeriodoSelecionado      = filter_input(INPUT_GET, 'fimPeriodoSelecionado',      FILTER_SANITIZE_STRING);
+// =================================================================================================================================
+$query = " SELECT pp.historicoPagamento, pp.idPagamento, c.nomeCliente, p.nomePasseio, p.dataPasseio 
+            FROM pagamento_passeio pp, cliente c, passeio p 
+            WHERE pp.idCliente=c.idCliente AND pp.idPasseio=p.idPasseio AND historicoPagamento REGEXP '\r\n'";
+$executaQuery = mysqli_query($conn, $query);
 
-$queryBuscaPagamentosRealizados         = "SELECT c.nomeCliente, pp.valorPago, pp.dataPagamento, p.nomePasseio 
-                                            FROM pagamento_passeio pp, cliente c, passeio p 
-                                            WHERE dataPagamento BETWEEN '$inicioPeriodoSelecionado' AND '$fimPeriodoSelecionado' AND p.idPasseio=pp.idPAsseio AND c.idCliente=pp.idCliente";
-$executarQueryBuscaPagamentosRealizados = mysqli_query($conn, $queryBuscaPagamentosRealizados);
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +30,7 @@ $executarQueryBuscaPagamentosRealizados = mysqli_query($conn, $queryBuscaPagamen
                 <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
                 <div class="card-body p-5 bg-white rounded">
                     <p class="h2 text-center">PESQUISAR PAGAMENTOS</p>
-                    <form action='' method='GET' autocomplete='OFF'>
+                    <!-- <form action='' method='GET' autocomplete='OFF'>
                         <div class="form-row">
                             <div class="col">
                                 <input data-toggle="tooltip" data-placement="top" title="SELECIONE O INÍCIO DO PERÍODO" type='date' class='form-control' name='inicioPeriodoSelecionado' id='inicioPeriodoSelecionado' value="">
@@ -46,30 +45,65 @@ $executarQueryBuscaPagamentosRealizados = mysqli_query($conn, $queryBuscaPagamen
                                 <input type='submit' class='btn btn-info btn-md' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                     <div class="table-responsive">
                         <table style="width:100%" class="table table-striped table-bordered" id="tabelasPadrao">
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
-                                    <th scope="col">Valor Pago</th>
-                                    <th scope="col">Data do Pagamento</th>
+                                    <th scope="col">Data do último pagamento</th>
+                                    <th scope="col">Último pagamento</th>
                                     <th scope="col">Passeio</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                while ($rowQueryBuscaPagamentosRealizados = mysqli_fetch_assoc($executarQueryBuscaPagamentosRealizados)) { ?>
+                                $indexHistoricoPagamento = 0;
+                                while ($resultadoQuery = mysqli_fetch_assoc($executaQuery)) {
+                                    $ultimaLinha = substr_count($resultadoQuery['historicoPagamento'], "\n");
+                                    $string = $resultadoQuery['historicoPagamento'];
+                                    $nomeCliente = $resultadoQuery['nomeCliente'];
+                                    $passeio = $resultadoQuery['nomePasseio'];
+                                    list($sentence[]) = array_slice(explode(PHP_EOL, $string), -1, $ultimaLinha);
+                                ?>
                                     <tr>
-                                        <td><?php echo $rowQueryBuscaPagamentosRealizados['nomeCliente'] ?></td>
-                                        <td><?php echo $rowQueryBuscaPagamentosRealizados['valorPago'] ?></td>
-                                        <td><?php 
-                                        echo $rowQueryBuscaPagamentosRealizados['dataPagamento'];
-                                          ?></td>
+                                        <td><?php
+                                            echo $nomeCliente;
+                                            ?>
                                         </td>
-                                        <td><?php echo $rowQueryBuscaPagamentosRealizados['nomePasseio'] ?></td>
+                                        <td><?php
+                                            $pesquisarData = $sentence[$indexHistoricoPagamento];
+                                            $data = substr($sentence[$indexHistoricoPagamento],0, strpos($sentence[$indexHistoricoPagamento], "R$"));
+                                            $valor =strstr($sentence[$indexHistoricoPagamento], 'R$');
+                                            echo $data;
+                                            $dataFormatada = new DateTime($data);
+                                            $dataFormatada = $dataFormatada->format('n');
+                                            
+
+                                            ?>
+                                            <span class="d-none d-print-none"><?php echo MESES_DO_ANO[$dataFormatada-1] ?></span>
+                                        </td>
+                                        <td><?php
+                                            echo $valor;
+                                            $indexHistoricoPagamento++;                         
+
+                                            ?>
+                                        </td>
+                                        <td><?php
+                                            echo $passeio;
+                                            ?>
+                                        </td>
+                                        
                                     </tr>
                                 <?php } ?>
+                                
+                            <tfoot>
+                                <tr>
+
+                                </tr>
+
+                            </tfoot>
+
                             </tbody>
                         </table>
                     </div>
@@ -77,6 +111,7 @@ $executarQueryBuscaPagamentosRealizados = mysqli_query($conn, $queryBuscaPagamen
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
