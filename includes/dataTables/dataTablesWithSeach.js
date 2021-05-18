@@ -67,6 +67,73 @@ $(document).ready(function () {
     } );
 } );
 
+$(document).ready(function () {
+    $.fn.dataTable.moment('DD/MM/YYYY');
+    $('#pesquisarPagamento').DataTable( {
+        "lengthMenu": [[15, 50, 100, -1], [15, 50, 100, "TUDO"]],
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\R$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 2 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+ 
+            // Update footer
+            $( api.column( 2 ).footer() ).html(
+               '  R$'+ total.toFixed(2) +' total'
+            );
+        },
+        dom: 'Blfrtip',
+        buttons:
+            [
+                {
+                    extend: 'pdfHtml5',
+                    className: 'btn btn-info btn-sm',
+                    footer: 'true',
+                    exportOptions: {
+                        columns: [1,2,3,':visible'],
+                        
+                    }
+
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-info btn-sm',
+                    footer: 'true',
+
+                    exportOptions: {
+                        columns: [1,2,3,':visible'],
+                    }
+
+                },
+                {
+                    extend: 'print',
+                    footer: 'true',
+                    className: 'btn btn-info btn-sm ml-1',
+                    exportOptions: {
+                        columns: [1,2,3,':visible'],
+                    }
+                },
+
+            ]
+        
+    } );
+} );
+
 
 
 
