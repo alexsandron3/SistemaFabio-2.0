@@ -47,13 +47,14 @@ $executaQuery = mysqli_query($conn, $query);
                         </div>
                     </form> -->
                     <div class="table-responsive">
-                        <table style="width:100%" class="table table-striped table-bordered" id="tabelasPadrao">
+                        <table style="width:100%" class="table table-striped table-bordered" id="pesquisarPagamento">
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Data do último pagamento</th>
                                     <th scope="col">Último pagamento</th>
                                     <th scope="col">Passeio</th>
+                                    <th scope="col" style="display: none;">MÊS</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,7 +82,6 @@ $executaQuery = mysqli_query($conn, $query);
                                             
 
                                             ?>
-                                            <span class="d-none d-print-none hidden"><?php echo MESES_DO_ANO[$dataFormatada-1] ?></span>
                                         </td>
                                         <td><?php
                                             echo $valor;
@@ -93,7 +93,10 @@ $executaQuery = mysqli_query($conn, $query);
                                             echo $passeio;
                                             ?>
                                         </td>
-                                        
+                                        <td style="display: none;"> 
+                                            <?php echo MESES_DO_ANO[$dataFormatada-1] ?>
+                                        </td>
+
                                     </tr>
                                 <?php } ?>
                             </tbody>
