@@ -1,6 +1,7 @@
 <?php
 //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
 include_once("./includes/header.php");
+include_once("./includes/constantes.php");
 // =================================================================================================================================
 $query = " SELECT pp.historicoPagamento, pp.idPagamento, c.nomeCliente, p.nomePasseio, p.dataPasseio 
             FROM pagamento_passeio pp, cliente c, passeio p 
@@ -16,7 +17,7 @@ $executaQuery = mysqli_query($conn, $query);
 
     <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
 
-    <title>Últimos Pagamentos</title>
+    <title>ÚLTIMOS PAGAMENTOS</title>
 </head>
 
 <body>
@@ -47,7 +48,7 @@ $executaQuery = mysqli_query($conn, $query);
                         </div>
                     </form> -->
                     <div class="table-responsive">
-                        <table style="width:100%" class="table table-striped table-bordered" id="pesquisarPagamento">
+                        <table style="width:100%" class="table table-striped table-bordered" id="userTable">
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
