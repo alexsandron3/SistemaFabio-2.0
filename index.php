@@ -9,8 +9,10 @@ include_once("./includes/header.php");
 
 <head>
 
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
-
+  <?php //include_once("./includes/dataTables/dataTablesHead.php"); 
+  ?>
+  <?php include_once("./includes/novoInclude.php"); ?>
+  
   <title>INÍCIO</title>
 </head>
 
@@ -18,11 +20,10 @@ include_once("./includes/header.php");
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
-
   <div class="row py-3">
     <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
-        <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+        <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESsSO -->
         <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
         <div class="card-body p-5 bg-white rounded">
           <p class="h2 text-center">RELATÓRIO DE VENDAS</p>
@@ -54,7 +55,7 @@ include_once("./includes/header.php");
           </form>
           <div class="table-responsive mt-3">
 
-            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="relatorioDeVendasIndexTable">
               <thead>
                 <tr>
                   <th scope="col">PASSEIO</th>
@@ -107,15 +108,15 @@ include_once("./includes/header.php");
                           <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                             <span aria-hidden='true'><i class='material-icons'>clear</i></span>
                           </button>
-                          <?php 
+                          <?php
                           $linkPasseiosFiltrados = "listaRelatorioPasseios.php?inicioDataPasseio=" . $inicioDataPasseio . "&fimDataPasseio=" . $fimDataPasseio . "&mostrarPasseiosExcluidos=" . $mostrarPasseiosExcluidos;
-                          
-                          echo "<span class='h4 text-center'> " . "PERÍODO SELECIONADO: " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y")  ?>
-                              <a href="#!" onclick="novaJanela('<?php echo $linkPasseiosFiltrados; ?>')" data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS'><i class='material-icons mb-2'>info_outline</i></a>
 
-                            </a></br>
-                          <?php  
-                            echo $mensagemExibeExcluidos . "
+                          echo "<span class='h4 text-center'> " . "PERÍODO SELECIONADO: " . date_format($inicioDataPasseioFormatado, "d/m/Y") . " => " . date_format($fimDataPasseioFormatado, "d/m/Y")  ?>
+                          <a href="#!" onclick="novaJanela('<?php echo $linkPasseiosFiltrados; ?>')" data-toggle='tooltip' data-placement='top' title='LISTA DOS PASSEIOS INCLUÍDOS'><i class='material-icons mb-2'>info_outline</i></a>
+
+                          </a></br>
+                          <?php
+                          echo $mensagemExibeExcluidos . "
                           </span>";
                           ?>
 
@@ -174,20 +175,6 @@ include_once("./includes/header.php");
                           $criancasUltimoDia += 1;
                           break;
                       }
-                      /* 
-                        if ($rowPagamentosUltimoDia['statusPagamento'] == CLIENTE_INTERESSADO) {
-                          $interessadosUltimoDia += 1;
-                        } elseif ($rowPagamentosUltimoDia['statusPagamento'] == PAGAMENTO_QUITADO) {
-                          $quitadosUltimoDia += 1;
-                          $confirmadosUltimoDia += 1;
-                        } elseif ($rowPagamentosUltimoDia['statusPagamento'] == CLIENTE_CONFIRMADO) {
-                          $parciaisUltimoDia += 1;
-                          $confirmadosUltimoDia += 1;
-                        } elseif ($rowPagamentosUltimoDia['statusPagamento'] == CLIENTE_PARCEIRO) {
-                          $parceirosUltimoDia += 1;
-                        } elseif ($rowPagamentosUltimoDia['statusPagamento'] == CLIENTE_CRIANCA) {
-                          $criancasUltimoDia += 1;
-                        } */
                     }
 
 
@@ -223,20 +210,6 @@ include_once("./includes/header.php");
                           $criancasUltimaHora += 1;
                           break;
                       }
-
-                      /* if ($rowPagamentosUltimaHora['statusPagamento'] == 0) {
-                          $interessadosUltimaHora += 1;
-                        } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 1) {
-                          $quitadosUltimaHora += 1;
-                          $confirmadosUltimaHora += 1;
-                        } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 2) {
-                          $parciaisUltimaHora += 1;
-                          $confirmadosUltimaHora += 1;
-                        } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 3) {
-                          $parceirosUltimaHora += 1;
-                        } elseif ($rowPagamentosUltimaHora['statusPagamento'] == 4) {
-                          $criancasUltimaHora += 1;
-                        } */
                     }
 
                     $recebeLotacaoPasseio    = "SELECT lotacao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio='$idPasseio'";
@@ -259,8 +232,8 @@ include_once("./includes/header.php");
                     $crianca = 0;
                     $confirmados = 0;
                     $vagasRestantes = ($lotacaoPasseio - $qtdClientesConfirmados);
-                    $porcentagemProgresso = ($vagasRestantes /$lotacaoPasseio -1)*100;
-                    
+                    $porcentagemProgresso = ($vagasRestantes / $lotacaoPasseio - 1) * 100;
+
 
                     while ($rowGetStatusPagamentoCliente = mysqli_fetch_assoc($resultadoStatusPagamentoCliente)) {
                       $statusCliente = $rowGetStatusPagamentoCliente['statusPagamento'];
@@ -308,7 +281,7 @@ include_once("./includes/header.php");
 
                     ?>
                       <tr>
-                      <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
+                        <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
 
                         <td><?php echo $nomePasseio ?></td>
                         <td>
@@ -320,9 +293,9 @@ include_once("./includes/header.php");
                         <td data-toggle="tooltip" data-placement="top" title="<?php echo "PARCEIROS NA ÚLTIMA HORA: " . $parceirosUltimaHora ?>" class="text-center more_info"><span class="<?php echo $statusParceiros  ?>"><?php echo "         " . $parceiro ?></span></td>
                         <td data-toggle="tooltip" data-placement="top" title="<?php echo "CRIANCAS NA ÚLTIMA HORA: " . $criancasUltimaHora ?>" class="text-center more_info"><span class="<?php echo $statusCriancas ?>"><?php echo "         " . $crianca ?></span></td>
                         <td class="text-center"><?php echo $lotacaoPasseio ?></td>
-                        <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?php echo number_format($porcentagemProgresso *-1,2,'.','');?>%">
-                          <div class="progress progress-line-danger"  >
-                            <div class="progress-bar progress-bar-success" style="width: <?php echo $porcentagemProgresso *-1;?>%">
+                        <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?php echo number_format($porcentagemProgresso * -1, 2, '.', ''); ?>%">
+                          <div class="progress progress-line-danger">
+                            <div class="progress-bar progress-bar-success" style="width: <?php echo $porcentagemProgresso * -1; ?>%">
                               <span class="sr-only">35% Complete (success)</span>
                             </div>
 
@@ -343,16 +316,9 @@ include_once("./includes/header.php");
     </div>
 
     <script>
-      $(".more_info").click(function() {
-        var $title = $(this).find(".title");
-        if (!$title.length) {
-          $(this).append('<span class="title"> </br>' + $(this).attr("title") + '</span>');
-        } else {
-          $title.remove();
-        }
-      });
+
     </script>
-  <script src="config/script.php"></script>
+    <script src="config/novoScript.js"></script>
 
 </body>
 

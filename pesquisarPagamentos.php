@@ -31,22 +31,6 @@ $executaQuery = mysqli_query($conn, $query);
                 <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
                 <div class="card-body p-5 bg-white rounded">
                     <p class="h2 text-center">PESQUISAR PAGAMENTOS</p>
-                    <!-- <form action='' method='GET' autocomplete='OFF'>
-                        <div class="form-row">
-                            <div class="col">
-                                <input data-toggle="tooltip" data-placement="top" title="SELECIONE O INÍCIO DO PERÍODO" type='date' class='form-control' name='inicioPeriodoSelecionado' id='inicioPeriodoSelecionado' value="">
-                            </div>
-
-                            <div class="col">
-                                <input data-toggle="tooltip" data-placement="top" title="SELECIONE O FIM DO PERÍODO" type='date' class='form-control' name='fimPeriodoSelecionado' id='fimPeriodoSelecionado' value="">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <input type='submit' class='btn btn-info btn-md' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
-                            </div>
-                        </div>
-                    </form> -->
                     <div class="table-responsive">
                         <table style="width:100%" class="table table-striped table-bordered" id="userTable">
                             <thead>

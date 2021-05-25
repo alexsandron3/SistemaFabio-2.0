@@ -7,8 +7,7 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
-
-  <?php include_once("./includes/head.php"); ?>
+  <?php include_once("./includes/novoInclude.php"); ?>
 
   <title>CADASTRAR CLIENTE</title>
 </head>
@@ -29,42 +28,42 @@ include_once("./includes/header.php");
             <div class="form-row">
               <div class="col">
                 <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label>
-                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" required="required" onkeydown="upperCaseF(this)">
+                <input type="text" class="campos-de-texto form-control your-field" name="nomeCliente" id="nomeCliente" required="required">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <label class=" col-form-label text-dark" for="emailCliente">EMAIL: </label>
-                <input type="email" class="form-control" name="emailCliente" id="emailCliente">
+                <label class="col-form-label text-dark" for="emailCliente">EMAIL: </label>
+                <input type="email" class=" campo-de-email form-control" name="emailCliente" id="emailCliente">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
                 <label class=" col-form-label text-dark" for="rgCliente">RG: </label>
-                <input data-toggle="tooltip" data-placement="left" title="RG DO CLIENTE" type="text" class="form-control" name="rgCliente" id="rgCliente">
+                <input data-toggle="tooltip" data-placement="left" title="RG DO CLIENTE" type="text" class="rg form-control" name="rgCliente" id="rgCliente">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
                 <label class=" col-form-label text-dark" for="orgaoEmissor">EMISSOR: </label>
-                <input type="text" class="form-control" name="orgaoEmissor" id="orgaoEmissor" autocomplete="ON" onkeydown="upperCaseF(this)">
+                <input type="text" class="campos-de-texto form-control" name="orgaoEmissor" id="orgaoEmissor" autocomplete="ON">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
-                <label class=" col-form-label text-dark" for="cpfCliente">CPF: </label>
-                <input data-toggle="tooltip" data-placement="left" title="CPF DO CLIENTE" type="text" class="form-control " name="cpfCliente" id="cpfCliente">
+                <label class="  col-form-label text-dark" for="cpfCliente">CPF: </label>
+                <input data-toggle="tooltip" data-placement="left" title="CPF DO CLIENTE" type="text" class="form-control cpf " name="cpfCliente" id="cpfCliente">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
                 <label class=" col-form-label text-dark" for="telefoneCliente">TELEFONE: </label>
-                <input data-toggle="tooltip" data-placement="left" title="TELEFONE DO CLIENTE" type="text" class="form-control" name="telefoneCliente" id="telefoneCliente">
+                <input data-toggle="tooltip" data-placement="left" title="TELEFONE DO CLIENTE" type="text" class="telefone form-control" name="telefoneCliente" id="telefoneCliente">
               </div>
             </div>
 
@@ -98,20 +97,20 @@ include_once("./includes/header.php");
             <div class="form-row my-4">
               <div class="col">
                 <label class="col-form-label text-dark" for="profissao">PROFISSÃO</label>
-                <input type="text" class="form-control col-6" id="profissao" name="profissao">
+                <input type="text" class="campos-de-texto form-control col-6" id="profissao" name="profissao">
               </div>
             </div>
 
             <div class="form-row my-4">
               <div class="col">
                 <label class="col-form-label text-dark" for="nacionalidade">NACIONALIDADE</label>
-                <input type="text" class="form-control col-6" id="nacionalidade" name="nacionalidade">
+                <input type="text" class="campos-de-texto form-control col-6" id="nacionalidade" name="nacionalidade">
               </div>
             </div>
 
             <fieldset class="form-group">
               <div class="row">
-                <label class="col-form-label text-dark col-3 pt-0 text-dark">CPF CONSULTADO: </label>
+                <label class="col-form-label text-dark col-lg-3 pt-0 text-dark">CPF CONSULTADO: </label>
                 <div class="col">
                   <input class="form-check-input" type="radio" name="cpfConsultado" id="cpfConsultadoSim" value="1" onclick="changeInputDate()">
                   <label class="form-check-label text-dark" for="cpfConsultadoSim">
@@ -136,11 +135,11 @@ include_once("./includes/header.php");
               <div class="row">
                 <div class="col-6">
                   <label class="col-form-label text-dark" for="enderecoCliente">ENDEREÇO: </label>
-                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="form-control" name="enderecoCliente" id="enderecoCliente" rows="3" onkeydown="upperCaseF(this)"></textarea>
+                  <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="text-area form-control" name="enderecoCliente" id="enderecoCliente" rows="3"></textarea>
                 </div>
                 <div class="col-6">
                   <label class="col-form-label text-dark" for="referenciaCliente">REFERÊNCIA: </label>
-                  <textarea class="form-control" name="referenciaCliente" id="referenciaCliente" rows="3" onkeydown="upperCaseF(this)"></textarea>
+                  <textarea class="text-area form-control" name="referenciaCliente" id="referenciaCliente" rows="3"></textarea>
                 </div>
               </div>
               <div class="form-group row">
@@ -150,13 +149,13 @@ include_once("./includes/header.php");
                 </div>
                 <div class="col">
                   <label class=" col-form-label text-dark" for="nomeContato">QUEM CONTATAR: </label>
-                  <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control " type="text" name="nomeContato" id="nomeContato" onkeydown="upperCaseF(this)">
+                  <input data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" class="form-control " type="text" name="nomeContato" id="nomeContato">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col">
                   <label class=" col-form-label text-dark" for="redeSocial">REDES SOCIAIS: </label>
-                  <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1" onkeydown="upperCaseF(this)"></textarea>
+                  <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1"></textarea>
                 </div>
               </div>
               <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-md">CADASTRAR</button>
@@ -167,7 +166,7 @@ include_once("./includes/header.php");
   </div>
 
 
-  <script src="config/script.php"></script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>
