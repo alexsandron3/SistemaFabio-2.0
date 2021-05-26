@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="mt-5">
-        <h1>OLÁ, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. BEM VINDO!</h1>
+        <h1>OLÁ, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. BEM VINDO À VERSÃO DE TESTE!</h1>
         <hr>
     </div>
     <p>

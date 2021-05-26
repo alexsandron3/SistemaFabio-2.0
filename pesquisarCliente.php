@@ -8,7 +8,7 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
   <title>PESQUISAR CLIENTE</title>
 </head>
@@ -166,7 +166,7 @@ include_once("./includes/header.php");
     </div>
   </div>
 
-  <script src="config/script.php"></script>
+  <script src="config/novoScript.js"></script>
 
 </body>
 

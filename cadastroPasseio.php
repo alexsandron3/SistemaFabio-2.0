@@ -32,7 +32,7 @@ include_once("./includes/header.php");
             <div class="form-row">
               <div class="col">
               <label class=" col-form-label text-dark" for="nomeCliente">PASSEIO: </label>
-                <input data-toggle="tooltip" data-placement="left" title="NOME DO PASSEIO" type="text" class="campos-de-texto form-control" name="nomePasseio" id="nomePasseio" placeholder="" required="required">
+                <input type="text" class="campos-de-texto form-control" name="nomePasseio" id="nomePasseio" placeholder="" required="required" data-toggle="tooltip" data-placement="left" title="NOME DO PASSEIO">
               </div>
             </div>
             <div class="form-row my-4">
@@ -48,7 +48,7 @@ include_once("./includes/header.php");
               </div>
               <div class="col-md-3">
                 <label class=" col-form-label text-dark" for="lotacao"> LOTAÇÃO:</label>
-                <input type="number" min="1" max="200" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="0-200" data-toggle="tooltip" data-placement="left" title="LOTAÇÃO DO PASSEIO"  required="required">
+                <input type="number" min="1" max="200" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="1-200" data-toggle="tooltip" data-placement="left" title="LOTAÇÃO DO PASSEIO"  required="required">
               </div>
               <div class="col-md-3">
                 <label class=" col-form-label text-dark" for="idadeIsencao"> ISENÇÃO:</label>
@@ -58,11 +58,11 @@ include_once("./includes/header.php");
             <div class="form-row my-4">
               <div class="col-lg-6">
                 <label class=" col-form-label text-dark mb-1 pt-3" for="dataPasseio">DATA DO PASSEIO:</label>
-                <input data-toggle="tooltip" data-placement="left" title="DATA DE REALIZAÇÃO DO PASSEIO" type="date" class="form-control col-lg-5 mt-4 pb-2" name="dataPasseio" id="dataPasseio" required="required" onblur="verificaDataPasseio()">
+                <input  type="date" class="form-control col-lg-5 mt-4 pb-2" name="dataPasseio" id="dataPasseio" required="required" onblur="verificaDataPasseio()" data-toggle="tooltip" data-placement="left" title="DATA DE REALIZAÇÃO DO PASSEIO">
               </div>
               <div class="col-lg-6">
-              <label class=" col-form-label text-dark" for="nomeCliente">ANOTAÇÕES: </label>
-                <textarea data-toggle="tooltip" data-placement="left" title="ANOTAÇÕES DO PASSEIO" class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3"  ></textarea>
+                <label class=" col-form-label text-dark" for="nomeCliente">ANOTAÇÕES: </label>
+                <textarea  class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" data-toggle="tooltip" data-placement="left" title="ANOTAÇÕES DO PASSEIO"></textarea>
               </div>
             </div>
             <div class="form-row my-4">

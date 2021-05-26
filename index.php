@@ -54,7 +54,6 @@ include_once("./includes/header.php");
             </div>
           </form>
           <div class="table-responsive mt-3">
-
             <table style="width:100%" class="table table-striped table-bordered" id="relatorioDeVendasIndexTable">
               <thead>
                 <tr>
@@ -284,8 +283,7 @@ include_once("./includes/header.php");
                         <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
 
                         <td><?php echo $nomePasseio ?></td>
-                        <td>
-
+                        <td >
                           <?php echo date_format($dataPasseio, "d/m/Y") ?>
                         </td>
                         <td id="" data-toggle="tooltip" data-placement="top" title="<?php echo "RESERVADOS NA ÚLTIMA HORA: " . $confirmadosUltimaHora ?>" class="text-center more_info "><span class="<?php echo $statusConfirmados ?>"><?php echo "         " . $confirmados ?></span></td>
@@ -318,6 +316,7 @@ include_once("./includes/header.php");
     <script>
 
     </script>
+    <script src="includes/plugins/DataTables/configFiles/dataTablesIndex.js"> </script>
     <script src="config/novoScript.js"></script>
 
 </body>

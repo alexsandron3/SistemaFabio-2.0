@@ -6,6 +6,9 @@
  <!-- DATATABLES  -->
     <link rel="stylesheet" type="text/css" href="./includes/plugins/DataTables/datatables.min.css"/>
     <script type="text/javascript" src="./includes/plugins/DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <!-- Moment.js: -->
+    <script src="http://cdn.datatables.net/plug-ins/1.10.10/sorting/datetime-moment.js"></script>
 
 <!-- MATERIAL KIL -->
     <!-- STYLE -->
@@ -33,5 +36,5 @@
     <link rel="stylesheet" href="./includes/plugins/Fontes/Material-Icons-Roboto.css">
 
 <!-- JQUERY MASK -->
-<script src="./includes/plugins/jqueryMask/src/jquery.mask.js"></script>
-<script src="./includes/plugins/JqueryRestrict/jquery.alphanum.js"> </script>
+    <script src="./includes/plugins/jqueryMask/src/jquery.mask.js"></script>
+    <script src="./includes/plugins/JqueryRestrict/jquery.alphanum.js"> </script>

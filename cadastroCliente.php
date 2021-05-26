@@ -28,7 +28,7 @@ include_once("./includes/header.php");
             <div class="form-row">
               <div class="col">
                 <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label>
-                <input type="text" class="campos-de-texto form-control your-field" name="nomeCliente" id="nomeCliente" required="required">
+                <input type="text" class="campos-de-texto form-control" name="nomeCliente" id="nomeCliente" required="required">
               </div>
             </div>
 
@@ -164,8 +164,6 @@ include_once("./includes/header.php");
       </div>
     </div>
   </div>
-
-
   <script src="config/novoScript.js"></script>
 </body>
 

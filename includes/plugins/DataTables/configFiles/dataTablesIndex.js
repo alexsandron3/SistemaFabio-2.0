@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $.fn.dataTable.moment('DD/MM/YYYY');    //Formatação sem Hora
 
     $('#relatorioDeVendasIndexTable').DataTable({
         "footerCallback": function (row, data, start, end, display) {
@@ -43,7 +44,7 @@ $(document).ready(function () {
                     className: 'btn btn-info btn-sm',
                     footer: 'true',
                     exportOptions: {
-                        columns: ':visible'
+                        columns: ':visible',
                     }
 
                 },
@@ -52,7 +53,7 @@ $(document).ready(function () {
                     className: 'btn btn-info btn-sm',
                     footer: 'true',
                     exportOptions: {
-                        columns: ':visible'
+                        columns: ':visible',
                     }
 
                 },
@@ -61,7 +62,7 @@ $(document).ready(function () {
                     className: 'btn btn-info btn-sm ml-1',
                     footer: 'true',
                     exportOptions: {
-                        columns: ':visible'
+                        columns: ':visible',
                     }
                 },
 

@@ -19,8 +19,7 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/head.php"); ?>
-
+  <?php include_once("./includes/novoInclude.php"); ?>
   <title>EDITAR PASSEIO</title>
 </head>
 
@@ -38,45 +37,42 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <form action="SCRIPTS/atualizaPasseio.php" autocomplete="off" method="POST">
             <div class="form-row">
-              <label class="col-sm-2 col-form-label latinTextBox" for="nomePasseio">NOME DO PASSEIO</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" name="nomePasseio" id="latinTextBox" placeholder="NOME DO PASSEIO" required="required" value="<?php echo $rowBuscaPasseio['nomePasseio'] ?>" onkeydown="upperCaseF(this)">
+              <div class="col">
+                <label class="col-form-label text-dark" for="nomePasseio">PASSEIO</label>
+                <input type="text" class="campos-de-texto form-control" name="nomePasseio" id="latinTextBox" placeholder="" required="required" value="<?php echo $rowBuscaPasseio['nomePasseio'] ?>" data-toggle="tooltip" data-placement="left" title="NOME DO PASSEIO">
               </div>
             </div>
             <div class="form-row my-4">
-              <label class="col-sm-2 col-form-label" for="localPasseio">LOCAL DO PASSEIO</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" name="localPasseio" id="LocalPasseiolatinTextBox" placeholder="LOCAL DO PASSEIO" value="<?php echo $rowBuscaPasseio['localPasseio'] ?>" onkeydown="upperCaseF(this)">
+              <div class="col">
+                <label class="col-form-label text-dark" for="localPasseio">LOCAL </label>
+                <input type="text" class="campos-de-texto form-control" name="localPasseio" id="LocalPasseiolatinTextBox" placeholder="" value="<?php echo $rowBuscaPasseio['localPasseio'] ?>" data-toggle="tooltip" data-placement="left" title="LOCAL DO PASSEIO">
+              </div>
+            </div>
+            <div class="form-row my-4 justify-content-between">
+              <div class="col-md-3">
+                <label class="col-form-label text-dark" for="valorPasseio">VALOR DO PASSEIO</label>
+                <input type="text" class="campo-monetario form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO" value="<?php echo $rowBuscaPasseio['valorPasseio'] ?>" data-toggle="tooltip" data-placement="top" title="VALOR DO PASSEIO">
+              </div>
+              <div class="col-md-3">
+                <label class="col-form-label text-dark" for="lotacao"> LOTAÇÃO</label>
+                <input type="number" min="1" max="200" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="1-200" value="<?php echo $rowBuscaPasseio['lotacao'] ?>" data-toggle="tooltip" data-placement="left" title="LOTAÇÃO DO PASSEIO" required="required">
+              </div>
+              <div class="col-md-3">
+                <label class="col-form-label text-dark" for="idadeIsencao"> ISENÇÃO</label>
+                <input type="number" min="0" max="99" class="form-control" name="idadeIsencao" id="idadeIsencao" placeholder="0-99" required="required" value="<?php echo $rowBuscaPasseio['idadeIsencao'] ?>" data-toggle="tooltip" data-placement="left" title="IDADE MÍNIMA PARA ISENÇÃO" required="required">
               </div>
             </div>
             <div class="form-row my-4">
-              <label class="col-sm-2 col-form-label" for="valorPasseio">VALOR DO PASSEIO</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO" value="<?php echo $rowBuscaPasseio['valorPasseio'] ?>" onkeydown="upperCaseF(this)">
+              <div class="col-lg-6">
+                <label class="col-form-label text-dark mb-1 pt-3 " for="dataPasseio">DATA DO PASSEIO</label>
+                <input type="date" class="form-control col-lg-5 mt-4 pb-2" name="dataPasseio" id="dataPasseio" required="required" value="<?php echo $rowBuscaPasseio['dataPasseio'] ?>" data-toggle="tooltip" data-placement="left" title="DATA DE REALIZAÇÃO DO PASSEIO">
+              </div>
+              <div class="col-lg-6">
+                <label class="col-form-label text-dark" for="anotacoesPasseio">ANOTAÇÕES</label>
+                <textarea class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" value="<?php echo $rowBuscaPasseio['anotacoes'] ?>" placeholder="" data-toggle="tooltip" data-placement="left" title="ANOTAÇÕES DO PASSEIO"></textarea>
               </div>
             </div>
-            <div class="form-row my-4">
-              <label class="col-sm-2 col-form-label" for="lotacao"> LOTAÇÃO</label>
-              <div class="col-sm-1">
-                <input type="text" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="0-200" value="<?php echo $rowBuscaPasseio['lotacao'] ?>">
-              </div>
-            </div>
-            <div class="form-row my-4">
-              <label class="col-sm-2 col-form-label" for="idadeIsencao"> ISENÇÃO</label>
-              <div class="col-sm-1">
-                <input type="number" class="form-control" name="idadeIsencao" id="idadeIsencao" placeholder="0-200" required="required" value="<?php echo $rowBuscaPasseio['idadeIsencao'] ?>">
-              </div>
-            </div>
-            <div class="form-row my-4">
-              <label class="col-sm-2 col-form-label" for="dataPasseio">DATA DO PASSEIO</label>
-              <div class="col-sm-6">
-                <input type="date" class="form-control col-sm-4" name="dataPasseio" id="dataPasseio" required="required" value="<?php echo $rowBuscaPasseio['dataPasseio'] ?>">
-              </div>
-            </div>
-            <div class="form-row my-4">
-              <label class="col-2 col-form-label" for="anotacoesPasseio">ANOTAÇÕES</label>
-              <textarea class="form-control ml-3" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" value="<?php echo $rowBuscaPasseio['anotacoes'] ?>" placeholder="" onkeydown="upperCaseF(this)"></textarea>
-            </div>
+
 
             <fieldset class='form-group'>
               <div class='row'>
@@ -96,8 +92,6 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
                   </div>
                 </div>
             </fieldset>
-
-
             <input type="hidden" name="idPasseio" id="idPasseio" value="<?php echo $rowBuscaPasseio['idPasseio'] ?>">
             <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-lg">ATUALIZAR</button>
           </form>
@@ -105,7 +99,6 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
       </div>
     </div>
   </div>
-  <script src="config/script.php"></script>
+  <script src="config/novoScript.js"></script>
 </body>
-
 </html>
