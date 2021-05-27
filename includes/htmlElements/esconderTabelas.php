@@ -19,15 +19,4 @@ function esconderTabela($quantidade){
         $contador++;
     }
 }
-
-
-/* 
-<div id='control_sh'>
-<input type="checkbox" class="hide_show"><span>Hide a</span>
-<input type="checkbox" class="hide_show"><span>Hide b</span>
-<input type="checkbox" class="hide_show"><span>Hide c</span>
-<input type="checkbox" class="hide_show"><span>Hide d</span>
-<input type="checkbox" class="hide_show"><span>Hide e</span>
-<input type="checkbox" class="hide_show"><span>Hide f</span>
-<input type="checkbox" id="hide_show_all"><span>Hide All</span>
-</div> */
+?>

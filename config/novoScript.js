@@ -33,6 +33,11 @@
             forceUpper: true,
             maxLength: 70,
         });
+        $('.campo-de-pesquisa').alphanum({
+            forceUpper: true,
+            maxLength: 70,
+            allow: '.-'
+        });
         $('.campo-de-email').alphanum({
             allow: '@._',
             maxLength: 70,
@@ -219,5 +224,36 @@
                 document.getElementById('idPasseioSelecionado').value = idPasseioSelecionado;
                 
             }
+    //Detalhes sobre os clientes 
+        function tituloDetalhesListagem(){
+            var clientesConfirmados = document.getElementById("clientesConfirmados").value;
+            document.getElementById("confirmados").innerHTML = "CONFIRMADOS: " +clientesConfirmados;
+            
+            var interessados = document.getElementById("clientesInteressados").value;
+            document.getElementById("interessados").innerHTML = "INTERESSADOS: " +interessados;
+        
+            var totalVagasDisponiveis = document.getElementById("totalVagasDisponiveis").value;
+            document.getElementById("vagasDisponiveis").innerHTML = "DISPONÍVEIS:  " +totalVagasDisponiveis;
+        
+            var clientesParceiros = document.getElementById("clientesParceiros").value;
+            document.getElementById("parceiros").innerHTML = "PARCEIROS:  " +clientesParceiros;
+        
+            var clientesCriancas = document.getElementById("clientesCriancas").value;
+            document.getElementById("criancas").innerHTML = "CRIANÇAS:  " +clientesCriancas;
+        
+            var clientesDesistentes = document.getElementById("clientesDesistentes").value;
+            document.getElementById("desistentes").innerHTML = "DESISTENTES:  " +clientesDesistentes;
+            
+        
+        }
+    //TransferirPagamento
+        function idPasseioSelecionadoFun(){
+            var idPasseioSelecionado = document.getElementById('selectIdPasseio').value;  
+            console.log(idPasseioSelecionado);
+        
+            document.getElementById('idPasseioSelecionado').value = idPasseioSelecionado;
+            
+        }
+            
 
             

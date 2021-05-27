@@ -1,16 +1,13 @@
 <?php
 //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
 include_once("./includes/header.php");
-
-// Check if the user is logged in, if not then redirect him to login page
-
 ?>
 
 <!DOCTYPE html>
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/head.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
   <title>LOGS</title>
 </head>
@@ -56,7 +53,6 @@ include_once("./includes/header.php");
         $rowInformacoesUser = mysqli_fetch_assoc($resultadoInformacoesUser);
         $nomeUser = $rowInformacoesUser['username'];
         $pos = strpos($tipoModificacao, 'FALHA');
-        #var_dump($pos); 
       ?>
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start bg-white" role="tab">
           <div class="d-flex w-100 justify-content-between">

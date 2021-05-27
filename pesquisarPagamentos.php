@@ -15,7 +15,7 @@ $executaQuery = mysqli_query($conn, $query);
 
 <head>
 
-    <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
     <title>ÚLTIMOS PAGAMENTOS</title>
 </head>
@@ -32,7 +32,7 @@ $executaQuery = mysqli_query($conn, $query);
                 <div class="card-body p-5 bg-white rounded">
                     <p class="h2 text-center">PESQUISAR PAGAMENTOS</p>
                     <div class="table-responsive">
-                        <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+                        <table style="width:100%" class="table table-striped table-bordered" id="tabelaPesquisarPagamentos">
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
@@ -59,10 +59,10 @@ $executaQuery = mysqli_query($conn, $query);
                                         </td>
                                         <td><?php
                                             $pesquisarData = $sentence[$indexHistoricoPagamento];
-                                            $data = substr($sentence[$indexHistoricoPagamento],0, strpos($sentence[$indexHistoricoPagamento], "R$"));
-                                            $valor =strstr($sentence[$indexHistoricoPagamento], 'R$');
-                                            echo $data;
+                                            $data  = substr($sentence[$indexHistoricoPagamento],0, strpos($sentence[$indexHistoricoPagamento], "R$"));
+                                            $valor = strstr($sentence[$indexHistoricoPagamento], 'R$');
                                             $dataFormatada = new DateTime($data);
+                                            echo $dataFormatada ->format('d/m/Y');
                                             $dataFormatada = $dataFormatada->format('n');
                                             
 
@@ -91,7 +91,8 @@ $executaQuery = mysqli_query($conn, $query);
             </div>
         </div>
     </div>
-
+    <script src="includes/plugins/DataTables/configFiles/dataTablesPesquisarPagamentos.js"> </script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

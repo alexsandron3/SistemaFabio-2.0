@@ -28,7 +28,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+  <?php include_once("./includes/novoInclude.php"); ?>
 
   <title>LISTA DE PASSAGEIROS </title>
 
@@ -50,7 +50,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
             mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
             #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS</p>"; ?>
 
-            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelaListaClientes">
               <thead>
                 <tr>
                   <th class="text-center">Nº ORDEM</th>
@@ -131,8 +131,8 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
   </div>
   </div>
 
-
-  <script src="config/script.php"></script>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesListaClientes.js"> </script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

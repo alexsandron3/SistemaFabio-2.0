@@ -27,7 +27,8 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+  <?php include_once("./includes/novoInclude.php"); ?>
+
 
 
   <title>PONTO DE EMBARQUE </title>
@@ -40,54 +41,62 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
     <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ml-1">
-        <p class="h2 text-center mb-5">PONTOS DE EMBARQUE</p>
+          <p class="h2 text-center mb-5">PONTOS DE EMBARQUE</p>
 
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <div class="table ml-1">   
-            
-          <?php 
-          mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
-          #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PONTOS DE EMBARQUE</p>"; ?>
-    <table style="width:100%" class="table table-striped table-hover table-bordered" id="simpleTable">
-      <thead>
-        <tr>
-          <th>NOME</th>
-          <th>PONTO EMBARQUE</th>
-          <th>IDADE</th>
-          <th>ANOTAÇÕES</th>
-          <th>REFERENCIA</th>
-        </tr>
-      </thead>
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <div class="table ml-1">
 
-      <tbody>
-        <?php
+            <?php
+            mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
+            #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PONTOS DE EMBARQUE</p>"; 
+            ?>
+            <table style="width:100%" class="table table-striped table-hover table-bordered" id="tabelaPontosDeEmbarque">
+              <thead>
+                <tr>
+                  <th>NOME</th>
+                  <th>PONTO EMBARQUE</th>
+                  <th>IDADE</th>
+                  <th>ANOTAÇÕES</th>
+                  <th>REFERENCIA</th>
+                </tr>
+              </thead>
 
-        while ($rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)) {
+              <tbody>
+                <?php
 
-
-
-        ?>
-          <tr>
-            <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
-            <td><?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?></td>
-            <td><?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
-                echo $idade . "<BR/>"; ?></td>
-            <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
-            <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
-          </tr>
-
-        <?php
+                while ($rowBuscaPasseio = mysqli_fetch_assoc($resultadoBuscaPasseio)) {
 
 
-        }
 
-        ?>
-      </tbody>
-    </table>
+                ?>
+                  <tr>
+                    <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
+                    <td><?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?></td>
+                    <td><?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
+                        echo $idade . "<BR/>"; ?></td>
+                    <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
+                    <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
+                  </tr>
 
+                <?php
+
+
+                }
+
+                ?>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <script src="config/script.php"></script>
+
+
+  <script src="includes/plugins/DataTables/configFiles/dataTablesPontosDeEmbarque.js"> </script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

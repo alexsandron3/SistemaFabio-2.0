@@ -10,7 +10,7 @@ $idPagamentoAntigo = filter_input(INPUT_GET, 'idPagamentoAntigo', FILTER_SANITIZ
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/head.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
   <title>TRANSFERIR PAGAMENTO</title>
 </head>
@@ -100,7 +100,7 @@ $idPagamentoAntigo = filter_input(INPUT_GET, 'idPagamentoAntigo', FILTER_SANITIZ
       </div>
     </div>
   </div>
-  <script src="config/script.php"></script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("./includes/head.php");?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }

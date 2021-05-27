@@ -30,8 +30,8 @@ include_once("./includes/header.php");
           <form action="" autocomplete="off" method="POST" name="formularioPesquisarCliente">
             <div class="form-row">
               <div class="col">
-                <input type="text" class="form-control" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE" onkeydown="upperCaseF(this)">
-                <input type="hidden" class="form-control" name="" id="paginaSelecionada" placeholder="página" onkeydown="upperCaseF(this)">
+                <input type="text" class="campo-de-pesquisa form-control" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE" >
+                <input type="hidden" class="form-control" name="" id="paginaSelecionada" placeholder="página" >
                 <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-info form-group ">
               </div>
             </div>
@@ -41,7 +41,7 @@ include_once("./includes/header.php");
           </div>
 
           <div class="table-responsive">
-            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelaPesquisarCliente">
               <thead>
                 <tr>
                   <th>NOME</th>
@@ -166,8 +166,8 @@ include_once("./includes/header.php");
     </div>
   </div>
 
+  <script src="includes/plugins/DataTables/configFiles/dataTablesPesquisarClientes.js"> </script>
   <script src="config/novoScript.js"></script>
-
 </body>
 
 </html>

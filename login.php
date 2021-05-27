@@ -87,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("./includes/head.php");?>
+<?php include_once("./includes/novoInclude.php"); ?>
     <link rel="stylesheet" href="config/style1.css">
     <link rel="stylesheet" href="config/bootstrap_login.css">
 

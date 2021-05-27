@@ -31,13 +31,13 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
 
   <title>LISTA CLIENTES </title>
 </head>
 
-<body>
+<body onload="tituloDetalhesListagem()">
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
 
@@ -54,18 +54,18 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
             mensagensInfoNoSession(" PASSEIO: " . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . " <br/>
           
           <span class='h5'> LOTAÇÃO: $lotacao </span> 
-         | <span class='h5' onclick='tituloListagem()' id='confirmados' >  CONFIRMADOS </span> 
-         | <span class='h5' onclick='tituloListagem()' id='interessados'>  INTERESSADOS </span>
-         | <span class='h5' onclick='tituloListagem()' id='criancas'>  CRIANÇAS </span>
-         | <span class='h5' onclick='tituloListagem()' id='parceiros'>  PARCEIROS </span>
-         | <span class='h5' onclick='tituloListagem()' id='desistentes'>  DESISTENTES </span>
-         | <span class='h5' onclick='tituloListagem()' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  ");
+         | <span class='h5' id='confirmados' >  CONFIRMADOS </span> 
+         | <span class='h5' id='interessados'>  INTERESSADOS </span>
+         | <span class='h5' id='criancas'>  CRIANÇAS </span>
+         | <span class='h5' id='parceiros'>  PARCEIROS </span>
+         | <span class='h5' id='desistentes'>  DESISTENTES </span>
+         | <span class='h5' id='vagasDisponiveis'>  VAGAS DISPONÍVEIS </span>  ");
             ?>
             <div class="table-responsive">
               <div class="table-reponsive">
                 <?php esconderTabela(10); ?>
               </div>
-              <table class="table table-striped table-bordered" id="userTable">
+              <table class="table table-striped table-bordered" id="tabelaListaPasseio">
                 <thead>
                   <tr>
                     <th> NOME </th>
@@ -201,12 +201,12 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                   }
                   ?>
                   <input class="text-invisble" type="text" name="" id="idPasseio" onclick="Export()" disabled="disabled" value="<?php echo $idPasseioGet;  ?>">
-                  <input class="text-invisble" type="text" name="" id="clientesConfirmados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $confirmados;  ?>">
-                  <input class="text-invisble" type="text" name="" id="clientesCriancas" onclick="tituloListagem()" disabled="disabled" value="<?php echo $criancas;  ?>">
-                  <input class="text-invisble" type="text" name="" id="clientesInteressados" onclick="tituloListagem()" disabled="disabled" value="<?php echo $interessados;  ?>">
-                  <input class="text-invisble" type="text" name="" id="clientesParceiros" onclick="tituloListagem()" disabled="disabled" value="<?php echo $quantidadeClienteParceiro;  ?>">
-                  <input class="text-invisble" type="text" name="" id="clientesDesistentes" onclick="tituloListagem()" disabled="disabled" value="<?php echo $desistentes;  ?>">
-                  <input class="text-invisble" type="text" name="" id="totalVagasDisponiveis" onclick="tituloListagem()" disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro;
+                  <input class="text-invisble" type="text" name="" id="clientesConfirmados"  disabled="disabled" value="<?php echo $confirmados;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesCriancas"  disabled="disabled" value="<?php echo $criancas;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesInteressados"  disabled="disabled" value="<?php echo $interessados;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesParceiros"  disabled="disabled" value="<?php echo $quantidadeClienteParceiro;  ?>">
+                  <input class="text-invisble" type="text" name="" id="clientesDesistentes"  disabled="disabled" value="<?php echo $desistentes;  ?>">
+                  <input class="text-invisble" type="text" name="" id="totalVagasDisponiveis"  disabled="disabled" value="<?php $vagasDisponiveis = $lotacao - $confirmados - $quantidadeClienteParceiro;
                                                                                                                                                     echo $vagasDisponiveis;  ?>">
                 </tbody>
               </table>
@@ -223,8 +223,8 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
       </div>
     </div>
   </div>
-  <script src="config/script.php"></script>
-  <script>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesListaPasseio.js"> </script>
+  <script src="config/novoScript.js"></script>  <script>
     function apagarPagamento() {
       var abrirJanela;
       var conf = confirm("APAGAR PAGAMENTO??");
