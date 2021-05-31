@@ -49,7 +49,7 @@ if (!empty($idPasseioGet)) {
         <div class="card-body p-5 bg-white rounded ">
           <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <form action="SCRIPTS/atualizaDespesas.php" autocomplete="off" method="POST" onkeydown="calculoDespesas()">
+          <form action="SCRIPTS/atualizaDespesas.php" autocomplete="off" method="POST" onkeydown="calculoDespesas()" class="block-form">
             <?php
             mensagensInfoNoSession("" . $rowDespesa['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y"));
             ?>

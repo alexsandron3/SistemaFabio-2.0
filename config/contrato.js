@@ -40,6 +40,10 @@ $(document).ready(function () {
         title: 'ITEM C',
         rows: 10
     });
+    $('#itensDoPacote').editable({
+        title: 'ITENS DO PACOTE',
+        rows: 10
+    });
 
     //toggle `popup` / `inline` mode
     $.fn.editable.defaults.mode = 'popup';

@@ -13,7 +13,7 @@ $(document).ready(function () {
 
             // Total over all pages
             total = api
-                .column(2)
+                .column(5)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
@@ -21,14 +21,14 @@ $(document).ready(function () {
 
             // Total over this page
             pageTotal = api
-                .column(2, { page: 'current' })
+                .column(5, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
             // Update footer
-            $(api.column(2).footer()).html(
+            $(api.column(5).footer()).html(
 
                 ' R$' + (Math.round((total + Number.EPSILON) * 100) / 100) + ' total'
             );
@@ -68,4 +68,50 @@ $(document).ready(function () {
             ]
 
     });
+});
+$(document).ready(function () {
+    var table = $('#tabelaPagamentosPendentes').DataTable();
+
+    $("#hide_show_all").on("change", function () {
+        var hide = $(this).is(":checked");
+        $(".hide_show").prop("checked", hide);
+
+        if (hide) {
+            $('#tabelaPagamentosPendentes tr th').hide(100);
+            $('#tabelaPagamentosPendentes tr td').hide(100);
+        } else {
+            $('#tabelaPagamentosPendentes tr th').show(100);
+            $('#tabelaPagamentosPendentes tr td').show(100);
+        }
+    });
+
+    $(".hide_show").on("change", function () {
+        var hide = $(this).is(":checked");
+
+        var all_ch = $(".hide_show:checked").length == $(".hide_show").length;
+
+        $("#hide_show_all").prop("checked", all_ch);
+
+        var ti = $(this).index(".hide_show");
+
+        $('#tabelaPagamentosPendentes tr').each(function () {
+            if (hide) {
+                $('td:eq(' + ti + ')', this).hide(100);
+                $('th:eq(' + ti + ')', this).hide(100);
+            } else {
+                $('td:eq(' + ti + ')', this).show(100);
+                $('th:eq(' + ti + ')', this).show(100);
+            }
+        });
+
+    });
+
+
+    $('#myInput').keyup(function () {
+        table.draw();
+    });
+    $('input.column_filter').on('keyup click', function () {
+        filterColumn($(this).parents('tr').attr('data-column'));
+    });
+
 });

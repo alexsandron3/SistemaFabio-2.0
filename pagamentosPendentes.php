@@ -53,8 +53,12 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div class="table ml-1"> <?php
                                     mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
-                                    #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; 
                                     ?>
+            <script>
+              var nomePasseio = '<?php echo $nomePasseioTitulo ?>';
+              var dataPasseio = '<?php echo date_format($dataPasseio, "d/m/Y") ?>';
+              document.title = "PAGAMENTOS PENDENTES" + nomePasseio + " " + dataPasseio;
+            </script>
             <table style="width:100%" class="table table-striped table-bordered" id="tabelaPagamentosPendentes">
               <thead>
                 <tr>

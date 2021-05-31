@@ -101,7 +101,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
               <?php esconderTabela(8); ?>
             </div>
             <div class="table-responsive">
-              <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+              <table style="width:100%" class="table table-striped table-bordered" id="tabelaPagamentosPendentes">
                 <thead>
                   <tr>
                     <th> Nº DE ORDEM </th>
@@ -177,6 +177,8 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
       </div>
     </div>
   </div>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesPagamentosPendentes.js"> </script>
+
 </body>
 
 </html>

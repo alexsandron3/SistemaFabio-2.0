@@ -52,7 +52,7 @@
                     </div>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="relatoriosPasseio.php">LUCROS </a>
+                    <a class="nav-link" href="relatoriosPasseio.php">PASSEIOS </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,7 +62,6 @@
                         <a class="dropdown-item" href="listaAniversariantesMes.php">ANIVERSARIANTES DO MÊS</a>
                         <a class="dropdown-item" href="log.php">LOGS</a>
                         <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
-                        <a class="dropdown-item" href="logout.php">SAIR</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -75,7 +74,10 @@
                         <a class="dropdown-item" href="pesquisarPagamentos.php">PEQUISAR PAGAMENTOS </a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">SAIR</a>
 
+                </li>
 
             </ul>
         </div>

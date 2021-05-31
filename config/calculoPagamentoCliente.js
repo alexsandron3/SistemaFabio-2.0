@@ -11,9 +11,10 @@
         //calculos
             var valorPendente   = (valorAntigoPago + taxaDePagamento + novoValorPago) - valorVendido;
         //verificações
-            if (valorPendente > 0) {
+            if (valorPendente > 0 || valorPendente < (valorVendido * -1) ||Number.isNaN(valorPendente) ) {
                 document.getElementById('valorPendenteCliente').value = "VALOR INCORRETO OU CAMPOS NÃO PREENCHIDOS";
                 document.getElementById('statusFormulario').value = 0;
+                document.getElementById('novoValorPago').value = 0;
                 statusFormulario = 0;
             }else {
                 document.getElementById('valorPendenteCliente').value = valorPendente;
@@ -47,7 +48,6 @@
         var diaAtual         = data.getDate();
         if (statusFormulario == true) {
             document.getElementById('historicoPagamento').innerHTML = historicoPagamentoAntigo + "\n " + diaAtual + "-" + (mesAtual+1) + "-" + anoAtual+ " R$: " + novoValorPago;
-            //console.log(historicoPagamentoAntigo + "\n " + diaAtual + "-" + (mesAtual + 1) + "-" + anoAtual + " R$: " + valorPago);
         } else {
             document.getElementById('historicoPagamento').innerHTML = historicoPagamentoAntigo;
         }

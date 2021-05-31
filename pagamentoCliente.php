@@ -105,64 +105,58 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                           <div class='form-row'>
                             <label class=' col-sm-2 col-form-label' for='valorVendido'>VALOR VENDIDO</label>
                             <div class='col-6'>
-                              <input type='text' class='campo-monetario form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='0' onblur="calculoPagamento()" required >
+                              <input type='text' class='block-form campo-monetario form-control' name='valorVendido' id='valorVendido' placeholder='VALOR VENDIDO' value='0' onblur="calculoPagamento()" required >
                             </div>
                           </div>
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='valorPago'>VALOR PAGO</label>
                             <div class='col-6'>
-                              <input type='text' class='campo-monetario form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='0'  onblur="calculoPagamento()" readonly='readonly'>
+                              <input type='text' class='block-form campo-monetario form-control' name='valorPago' id='valorPago' placeholder='VALOR PAGO' value='0'  onblur="calculoPagamento()" readonly='readonly'>
                             </div>
 
                             <div class='col-sm-2'>
-                              <input type='text' class='campo-monetario form-control' name='novoValorPago' id='novoValorPago' placeholder='NOVO PAGAMENTO' value='0' onblur="gerarHistorico()">
+                              <input type='text' class='block-form campo-monetario form-control' name='novoValorPago' id='novoValorPago' placeholder='NOVO PAGAMENTO' value='0' onblur="gerarHistorico()">
                             </div>
                             <input type='hidden' class='form-control' name='valorAntigo' id='valorAntigo' placeholder='valorAntigo' value='0' onblur="calculoPagamento()">
-                          </div>
-
-                          <div class='col-sm-2'>
-                            <div class='col-sm-6'>
-
-                            </div>
                           </div>
 
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='valorPendenteCliente'>VALOR PENDENTE</label>
                             <div class='col-6'>
-                              <input type='text' class='campo-monetario form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' onblur="calculoPagamento()" readonly='readonly' >
+                              <input type='text' class='block-form campo-monetario form-control' name='valorPendenteCliente' id='valorPendenteCliente' placeholder='VALOR PENDENTE' onblur="calculoPagamento()" readonly='readonly' >
                             </div>
                           </div>
 
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='taxaPagamento'>TAXA DE PAGAMENTO</label>
                             <div class='col-6'>
-                              <input type='text' class='campo-monetario form-control' name='taxaPagamento' id='taxaPagamento' value='0' placeholder='TAXA DE PAGAMENTO' onblur="calculoPagamento(); gerarHistorico()">
+                              <input type='text' class='block-form campo-monetario form-control' name='taxaPagamento' id='taxaPagamento' value='0' placeholder='TAXA DE PAGAMENTO' onblur="calculoPagamento(); gerarHistorico()">
                             </div>
                           </div>
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>
                             <div class='col-6'>
-                              <input type='text' class='campos-de-texto form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' >
+                              <input type='text' class='block-form campos-de-texto form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' >
                             </div>
                           </div>
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>
                             <div class='col-sm-3'>
-                              <input type='date' class='form-control' name='previsaoPagamento' id='previsaoPagamento' placeholder='PREVISÃO PAGAMENTO'>
+                              <input type='date' class='block-form form-control' name='previsaoPagamento' id='previsaoPagamento' placeholder='PREVISÃO PAGAMENTO'>
                             </div>
                           </div>
 
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>
                             <div class='col-sm-3'>
-                              <input type='text' class='campos-de-texto form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE' autocomplete='on'>
+                              <input type='text' class='block-form campos-de-texto form-control' name='meioTransporte' id='meioTransporte' placeholder='TRANSPORTE' autocomplete='on'>
                             </div>
                           </div>
 
                           <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='idadeCliente'>IDADE</label>
                             <div class='col-sm-1'>
-                              <input type='text' class=' form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='<?php echo $idadeCliente ?>'>
+                              <input type='text' class='block-form form-control' name='idadeCliente' id='idadeCliente' placeholder='' value='<?php echo $idadeCliente ?>'>
                             </div>
                           </div>
 
@@ -176,7 +170,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                           </div>
 
 
-                          <fieldset class='form-group'>
+                          <fieldset class='block-form form-group'>
                             <div class='row'>
                               <legend class='col-form-label col-sm-2 pt-0 text-muted'>SEGURO VIAGEM</legend>
                               <div class='col-sm-5 '>
@@ -195,7 +189,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                               </div>
                           </fieldset>
 
-                          <fieldset class='form-group'>
+                          <fieldset class='block-form form-group'>
                             <div class='row'>
                               <legend class='col-form-label col-sm-2 pt-0 text-muted'>CLIENTE PARCEIRO</legend>
                               <div class='col-sm-5'>

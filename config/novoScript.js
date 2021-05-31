@@ -15,7 +15,7 @@
       });
 //FORMATAÇÃO DOS FORMULÁRIOS
       //Bloquear envio do fomr com ENTER
-        $("form").bind("keypress", function (e) {
+        $(".block-form").bind("keypress", function (e) {
             if (e.keyCode == 13) {
                 $("#buttonFinalizarPagamento").attr('value');
                 //add more buttons here
@@ -30,11 +30,11 @@
         });
     //Jquery Restrict KevinSheedy
         $('.campos-de-texto').alpha({
-            forceUpper: true,
+           
             maxLength: 70,
         });
         $('.campo-de-pesquisa').alphanum({
-            forceUpper: true,
+           
             maxLength: 70,
             allow: '.-'
         });
@@ -255,5 +255,47 @@
             
         }
             
-
+    //TRASNFORMANDO TEXT EM UPPERCASE
+        function upperCaseF(a){
+            setTimeout(function(){
+                a.value = a.value.toUpperCase();
+            }, 1);
+        }
+    //CONFIRMAÇÃO DE APAGAR REGISTROS
+        
+    function confirmationDelete(anchor){
+        var conf = confirm('VOCÊ TEM CERTEZA QUE DESEJA DESATIVAR ESTE CLIENTE??');
+        if(conf)
+            window.location=anchor.attr("href");
+        }
+        
+    function confirmationDeletePasseio(anchor){
+        var conf = confirm('VOCÊ TEM CERTEZA QUE DESEJA APAGAR ESSE PASSEIO??');
+        if(conf)
+            window.location=anchor.attr("href");
+    }
+    //exportando arquivos    
+        function Export() {
+            var conf = confirm("Exportar para EXCEL?");
+            if(conf == true){
+            var idPasseio = document.getElementById('idPasseio').value;
+            console.log("ok");
+            window.open("SCRIPTS/exportarExcel.php?id="+ idPasseio, '_blank');
+            }
+        }
+    //Verificando data de pagamento
+        function verificaDePrevisaoPagamento(){
+            var previsaoPagamento = document.getElementById("previsaoPagamento").value;
+            var data = new Date();
+            var mes = data.getMonth() +1;
+            var dia = data.getDate();
+            var ano = data.getFullYear();
+            if(mes < 10){
+            mes = "0" + mes;
+            }
+            var dataCompleta = ano + "-" + mes + "-" + dia;
+            if(dataCompleta == previsaoPagamento){
+            alert("HOJE É O DIA DO PAGAMENTO");
+            }
             
+        }

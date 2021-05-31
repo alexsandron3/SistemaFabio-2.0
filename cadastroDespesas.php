@@ -53,7 +53,7 @@ include_once("./includes/header.php");
 
           </form>
         </div>
-        <form action="SCRIPTS/registroDespesas.php" autocomplete="off" method="POST" onkeydown="calculoDespesas()">
+        <form action="SCRIPTS/registroDespesas.php" autocomplete="off" method="POST" onkeydown="calculoDespesas()" class="block-form">
           <?php
           $idPasseioLista = filter_input(INPUT_POST, 'idPasseioSelecionado', FILTER_SANITIZE_NUMBER_INT);
 

@@ -123,7 +123,10 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
 
     <h3> <b> 1 - OBJETO DO CONTRATO: </b> </h3>
     <p class="h4"> Cláusula 1ª. O presente contrato tem como OBJETO, a prestação, pela CONTRATADA, à <b>CONTRATANTE</b>,
-      dos serviços na área de turismo referente ao passeio <a href="#" id="nomePasseio" data-type="text" data-placement="right" data-title="NOME DO PASSEIO REQUISITADO">PASSEIO </a> , para vagas <a href="#" id="vagasSolicitadas" data-type="text" data-placement="right" data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGAS.</p>
+      dos serviços na área de turismo referente ao passeio <a href="#" id="nomePasseio" data-type="text" data-placement="right" data-title="NOME DO PASSEIO REQUISITADO">PASSEIO </a> , para vagas <a href="#" id="vagasSolicitadas" data-type="text" data-placement="right" data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGAS.
+    </p>
+
+    <p class="h4"> <a href="#" id="itensDoPacote" data-type="wysihtml5" data-placement="right" data-title="ITENS DO PACOTE"> ITENS DO PACOTE: </a></p>
 
     <h3> <b> 2- DESISTÊNCIA E CANCELAMENTO: </b> </h3>
     <p class="h4"> <span class="h3"> <b>2.1 - DESISTÊNCIA: </b></span> A desistência por parte do <b> CONTRATANTE</b>

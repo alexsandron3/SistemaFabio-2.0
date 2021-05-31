@@ -21,6 +21,7 @@
     $nacionalidade          = filter_input(INPUT_POST, 'nacionalidade',         FILTER_SANITIZE_STRING);
     $profissao              = filter_input(INPUT_POST, 'profissao',             FILTER_SANITIZE_STRING);
     $estadoCivil            = filter_input(INPUT_POST, 'estadoCivil',           FILTER_SANITIZE_STRING);
+    $clienteRedeSocial      = filter_input(INPUT_POST, 'clienteRedeSocial',     FILTER_VALIDATE_BOOLEAN);
     $idUser                 = $_SESSION['id'];
 
     //FUNCAO DE CÁLCULO DE IDADE
@@ -31,7 +32,7 @@
     $queryUpdateCliente = "UPDATE cliente SET 
                             nomeCliente='$nome', emailCliente='$email', rgCliente='$rg', orgaoEmissor='$emissor', cpfCliente='$cpf', telefoneCliente='$telefoneCliente', dataNascimento='$dataNascimento', idadeCliente='$idade', 
                             cpfConsultado='$cpfConsultado', dataCpfConsultado='$dataConsulta', referencia='$referenciaCliente', enderecoCliente='$enderecoCliente', telefoneContato='$telefoneContato', pessoaContato='$nomeContato', redeSocial='$redeSocial',
-                            nacionalidade='$nacionalidade', profissao='$profissao', estadoCivil='$estadoCivil'  
+                            nacionalidade='$nacionalidade', profissao='$profissao', estadoCivil='$estadoCivil', clienteRedeSocial='$clienteRedeSocial'
                             WHERE idCliente='$idCliente'";
     /* -----------------------------------------------------------------------------------------------------  */
     

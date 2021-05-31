@@ -39,42 +39,42 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
             <div class="form-row">
               <div class="col">
                 <label class="col-form-label text-dark" for="nomePasseio">PASSEIO</label>
-                <input type="text" class="campos-de-texto form-control" name="nomePasseio" id="latinTextBox" placeholder="" required="required" value="<?php echo $rowBuscaPasseio['nomePasseio'] ?>" data-toggle="tooltip" data-placement="left" title="NOME DO PASSEIO">
+                <input type="text" class="block-form campos-de-texto form-control" name="nomePasseio" id="latinTextBox" placeholder="" required="required" value="<?php echo $rowBuscaPasseio['nomePasseio'] ?>" data-toggle="tooltip" data-placement="left" title="NOME DO PASSEIO" onkeydown="upperCaseF(this)">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col">
                 <label class="col-form-label text-dark" for="localPasseio">LOCAL </label>
-                <input type="text" class="campos-de-texto form-control" name="localPasseio" id="LocalPasseiolatinTextBox" placeholder="" value="<?php echo $rowBuscaPasseio['localPasseio'] ?>" data-toggle="tooltip" data-placement="left" title="LOCAL DO PASSEIO">
+                <input type="text" class="block-form campos-de-texto form-control" name="localPasseio" id="LocalPasseiolatinTextBox" placeholder="" value="<?php echo $rowBuscaPasseio['localPasseio'] ?>" data-toggle="tooltip" data-placement="left" title="LOCAL DO PASSEIO" onkeydown="upperCaseF(this)">
               </div>
             </div>
             <div class="form-row my-4 justify-content-between">
               <div class="col-md-3">
                 <label class="col-form-label text-dark" for="valorPasseio">VALOR DO PASSEIO</label>
-                <input type="text" class="campo-monetario form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO" value="<?php echo $rowBuscaPasseio['valorPasseio'] ?>" data-toggle="tooltip" data-placement="top" title="VALOR DO PASSEIO">
+                <input type="text" class="block-form campo-monetario form-control" name="valorPasseio" id="currencyTextBox" placeholder="VALOR DO PASSEIO" value="<?php echo $rowBuscaPasseio['valorPasseio'] ?>" data-toggle="tooltip" data-placement="top" title="VALOR DO PASSEIO">
               </div>
               <div class="col-md-3">
                 <label class="col-form-label text-dark" for="lotacao"> LOTAÇÃO</label>
-                <input type="number" min="1" max="200" class="form-control" name="lotacao" id="intLimitTextBox" placeholder="1-200" value="<?php echo $rowBuscaPasseio['lotacao'] ?>" data-toggle="tooltip" data-placement="left" title="LOTAÇÃO DO PASSEIO" required="required">
+                <input type="number" min="1" max="200" class="block-form form-control" name="lotacao" id="intLimitTextBox" placeholder="1-200" value="<?php echo $rowBuscaPasseio['lotacao'] ?>" data-toggle="tooltip" data-placement="left" title="LOTAÇÃO DO PASSEIO" required="required">
               </div>
               <div class="col-md-3">
                 <label class="col-form-label text-dark" for="idadeIsencao"> ISENÇÃO</label>
-                <input type="number" min="0" max="99" class="form-control" name="idadeIsencao" id="idadeIsencao" placeholder="0-99" required="required" value="<?php echo $rowBuscaPasseio['idadeIsencao'] ?>" data-toggle="tooltip" data-placement="left" title="IDADE MÍNIMA PARA ISENÇÃO" required="required">
+                <input type="number" min="0" max="99" class="block-form form-control" name="idadeIsencao" id="idadeIsencao" placeholder="0-99" required="required" value="<?php echo $rowBuscaPasseio['idadeIsencao'] ?>" data-toggle="tooltip" data-placement="left" title="IDADE MÍNIMA PARA ISENÇÃO" required="required">
               </div>
             </div>
             <div class="form-row my-4">
               <div class="col-lg-6">
                 <label class="col-form-label text-dark mb-1 pt-3 " for="dataPasseio">DATA DO PASSEIO</label>
-                <input type="date" class="form-control col-lg-5 mt-4 pb-2" name="dataPasseio" id="dataPasseio" required="required" value="<?php echo $rowBuscaPasseio['dataPasseio'] ?>" data-toggle="tooltip" data-placement="left" title="DATA DE REALIZAÇÃO DO PASSEIO">
+                <input type="date" class="block-form form-control col-lg-5 mt-4 pb-2" name="dataPasseio" id="dataPasseio" required="required" value="<?php echo $rowBuscaPasseio['dataPasseio'] ?>" data-toggle="tooltip" data-placement="left" title="DATA DE REALIZAÇÃO DO PASSEIO">
               </div>
               <div class="col-lg-6">
                 <label class="col-form-label text-dark" for="anotacoesPasseio">ANOTAÇÕES</label>
-                <textarea class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" value="<?php echo $rowBuscaPasseio['anotacoes'] ?>" placeholder="" data-toggle="tooltip" data-placement="left" title="ANOTAÇÕES DO PASSEIO"></textarea>
+                <textarea class="form-control" name="anotacoesPasseio" id="anotacoesPasseio" rows="3" value="" placeholder="" data-toggle="tooltip" data-placement="left" title="ANOTAÇÕES DO PASSEIO" onkeydown="upperCaseF(this)"> <?php echo $rowBuscaPasseio['anotacoes'] ?></textarea>
               </div>
             </div>
 
 
-            <fieldset class='form-group'>
+            <fieldset class='block-form form-group'>
               <div class='row'>
                 <legend class='col-form-label col-sm-2 pt-0 text-muted'>STATUS DO PASSEIO</legend>
                 <div class='col-sm-5 '>
@@ -87,7 +87,7 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
                   <div class='col'>
                     <input class='form-check-input' type='radio' name='statusPasseio' id='statusPasseioInativo' value='0' <?php echo $passeioInativo ?>>
                     <label class='form-check-label' for='statusPasseioInativo'>
-                      INATIVO
+                      ENCERRADO
                     </label>
                   </div>
                 </div>

@@ -25,7 +25,14 @@ if (empty($mesEscolhido)) {
 <head>
     <?php include_once("./includes/novoInclude.php"); ?>
 
-    <title>ANIVERSARIANTES</title>
+    <title>
+    ANIVERSARIANTES 
+    <?php
+         
+        echo MESES_DO_ANO[$mesAtual - 1];
+
+        ?>
+    </title>
 </head>
 
 <body>
@@ -46,7 +53,6 @@ if (empty($mesEscolhido)) {
                     if (empty($idPasseioGet)) {
                         mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual - 1]);
 
-                        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual] . "</p>";
                     } else {
                         $queryInformacoesPasseio = "SELECT nomePasseio, dataPasseio FROM passeio WHERE idPasseio=$idPasseioGet";
                         $executaQueryInformacoesPasseio = mysqli_query($conexao, $queryInformacoesPasseio);
@@ -58,22 +64,28 @@ if (empty($mesEscolhido)) {
                         $mesPasseio = $dataPasseio->format('n');
 
 
-                        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseioFormatada");
-                        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio</p>";
-                    }
-                    ?>
+                        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseioFormatada"); ?>
+
+                        <script> 
+                            var nomePasseio = '<?php echo $nomePasseio?>';
+                            var dataPasseio = '<?php echo $dataPasseioFormatada?>';
+                            document.title = "ANIVERSARIANTES " +nomePasseio + " " +  dataPasseio;
+                        </script>
+                    <?php } ?>
                     <form action="listaAniversariantesMes.php" action="GET">
                         <?php
                         if (empty($idPasseioGet)) {
                         ?>
-                            <input type="text" name="mesEscolhido" id="" class="form-control col-2" placeholder="NÚMERO DO MÊS" data-toggle="tooltip" data-placement="left" title="AQUI VICÊ PODERÁ PESQUISAR POR UM MÊS ESPECÍFICO">
+                            <label for="mesEscolhido" class="form-label text-dark">Pesquisar: </label>
+                            <input type="text" name="mesEscolhido" id="mesEscolhido" class="form-control col-3" placeholder="NÚMERO DO MÊS" data-toggle="tooltip" data-placement="left" title="AQUI VICÊ PODERÁ PESQUISAR POR UM MÊS ESPECÍFICO">
+
                         <?php } ?>
                     </form>
                     <div class="table-responsive">
                         <table style="width:100%" class="table table-striped table-bordered" id="tabelaAniversariantes">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">Nº DE ORDEM</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Data de Nascimento</th>
                                     <th scope="col">Contato</th>
@@ -131,7 +143,7 @@ if (empty($mesEscolhido)) {
                                         <td><?php echo ++$A . " </br>"; ?></td>
                                         <td><?php echo "$valor </br>"; ?></td>
                                         <td>
-                                            
+
                                             <?php
                                             echo $dataClienteAniversario[$indice] . " </br>"; ?>
                                         </td>
@@ -149,6 +161,7 @@ if (empty($mesEscolhido)) {
         </div>
     </div>
     <script src="includes/plugins/DataTables/configFiles/dataTablesAniversariantes.js"> </script>
+
 
 </body>
 
