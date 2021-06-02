@@ -28,7 +28,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+  <?php include_once("./includes/novoInclude.php"); ?>
 
   <title>LISTA DE PASSAGEIROS </title>
 
@@ -41,20 +41,24 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
     <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded ">
-        <p class="h2 text-center mb-5">LISTA DE PASSAGEIROS</p>
-                  <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
-                  <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+          <p class="h2 text-center mb-5">LISTA DE PASSAGEIROS</p>
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div class="table ml-1">
-            
-            <?php 
-            mensagensInfoNoSession("". $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
-            #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> LISTA DE PASSAGEIROS</p>"; ?>
 
-            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+            <?php
+            mensagensInfoNoSession("" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y")); ?>
+            <script>
+              var nomePasseio = '<?php echo $nomePasseioTitulo ?>';
+              var dataPasseio = '<?php echo date_format($dataPasseio, "d/m/Y") ?>';
+              document.title = "LISTA DE PASSAGEIROS " + nomePasseio + " " + dataPasseio;
+            </script>
+
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelaListaClientes">
               <thead>
                 <tr>
                   <th class="text-center">Nº ORDEM</th>
-                  <th>  NOME </th>
+                  <th> NOME </th>
                   <th> IDADE </th>
                   <th> Nº IDENTIDADE </th>
                   <th> ORGÃO EMISSOR</th>
@@ -131,8 +135,8 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
   </div>
   </div>
 
-
-  <script src="config/script.php"></script>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesListaClientes.js"> </script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

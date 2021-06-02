@@ -11,21 +11,28 @@ $query = (!empty($idPasseioGet)) ?
                                 WHERE statusCliente = 1 AND pp.idPasseio = $idPasseioGet AND c.idCliente = pp.idCliente AND dataNascimento NOT IN (' ')"
     :
     "SELECT  dataNascimento, nomeCliente, telefoneContato, referencia FROM cliente WHERE statusCliente = 1 AND dataNascimento NOT IN (' ')";
-    if(empty($mesEscolhido)){
-        $dataDeHoje = new DateTime('today');
-        $mesAtual = $dataDeHoje->format('n');
-    }else{
-        $mesAtual = $mesEscolhido;
-    }
+if (empty($mesEscolhido)) {
+    $dataDeHoje = new DateTime('today');
+    $mesAtual = $dataDeHoje->format('n');
+} else {
+    $mesAtual = $mesEscolhido;
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+    <?php include_once("./includes/novoInclude.php"); ?>
 
-    <title>ANIVERSARIANTES</title>
+    <title>
+    ANIVERSARIANTES 
+    <?php
+         
+        echo MESES_DO_ANO[$mesAtual - 1];
+
+        ?>
+    </title>
 </head>
 
 <body>
@@ -44,9 +51,8 @@ $query = (!empty($idPasseioGet)) ?
                     <?php
 
                     if (empty($idPasseioGet)) {
-                        mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual -1]);
+                        mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual - 1]);
 
-                        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual] . "</p>";
                     } else {
                         $queryInformacoesPasseio = "SELECT nomePasseio, dataPasseio FROM passeio WHERE idPasseio=$idPasseioGet";
                         $executaQueryInformacoesPasseio = mysqli_query($conexao, $queryInformacoesPasseio);
@@ -56,24 +62,30 @@ $query = (!empty($idPasseioGet)) ?
                         $dataPasseio = new DateTime($dataPasseio);
                         $dataPasseioFormatada = $dataPasseio->format('d/m/Y');
                         $mesPasseio = $dataPasseio->format('n');
-                        
 
-                        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseioFormatada");
-                        #echo "<p class='h4 text-center alert-info mt-2'> ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseio</p>";
-                    }
-                    ?>
-                    <form action="listaAniversariantesMes.php" action="GET">
-                    <?php 
-                        if(empty($idPasseioGet)){
-                            ?>
-                        <input type="text" name="mesEscolhido" id="" class="form-control col-2" placeholder="NÚMERO DO MÊS" data-toggle="tooltip" data-placement="left" title="AQUI VICÊ PODERÁ PESQUISAR POR UM MÊS ESPECÍFICO">
+
+                        mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseioFormatada"); ?>
+
+                        <script> 
+                            var nomePasseio = '<?php echo $nomePasseio?>';
+                            var dataPasseio = '<?php echo $dataPasseioFormatada?>';
+                            document.title = "ANIVERSARIANTES " +nomePasseio + " " +  dataPasseio;
+                        </script>
                     <?php } ?>
+                    <form action="listaAniversariantesMes.php" action="GET">
+                        <?php
+                        if (empty($idPasseioGet)) {
+                        ?>
+                            <label for="mesEscolhido" class="form-label text-dark">Pesquisar: </label>
+                            <input type="text" name="mesEscolhido" id="mesEscolhido" class="form-control col-3" placeholder="NÚMERO DO MÊS" data-toggle="tooltip" data-placement="left" title="AQUI VICÊ PODERÁ PESQUISAR POR UM MÊS ESPECÍFICO">
+
+                        <?php } ?>
                     </form>
                     <div class="table-responsive">
-                        <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+                        <table style="width:100%" class="table table-striped table-bordered" id="tabelaAniversariantes">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">Nº DE ORDEM</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Data de Nascimento</th>
                                     <th scope="col">Contato</th>
@@ -95,25 +107,25 @@ $query = (!empty($idPasseioGet)) ?
                                 $mesAniversariante = $dataAniversariante->format('n');
 
                                 $diaAniversariante = $dataAniversariante->format('d');
-                                
 
-                                if(!empty($idPasseioGet)){
-                                    if($mesAniversariante == $mesPasseio){
-                                        
+
+                                if (!empty($idPasseioGet)) {
+                                    if ($mesAniversariante == $mesPasseio) {
+
                                         $nomeClienteAniversario[] = $rowInfoormacoesCliente['nomeCliente'];
                                         $dataClienteAniversario[] =  $dataAniversariante->format('d/m/Y');
+                                        $dataOrganizarAniversario[] =  $dataAniversariante->format('Ymd');
                                         $telefoneContato[] = $rowInfoormacoesCliente['telefoneContato'];
                                         $referencia[] = $rowInfoormacoesCliente['referencia'];
                                     }
-
-                                }else{
+                                } else {
                                     if ($mesAniversariante == $mesAtual) {
                                         $nomeClienteAniversario[] = $rowInfoormacoesCliente['nomeCliente'];
                                         $dataClienteAniversario[] =  $dataAniversariante->format('d/m/Y');
+                                        $dataOrganizarAniversario[] =  $dataAniversariante->format('Ymd');
                                         $telefoneContato[] = $rowInfoormacoesCliente['telefoneContato'];
                                         $referencia[] = $rowInfoormacoesCliente['referencia'];
                                     }
-
                                 }
                             }
                             $A = 0;
@@ -125,18 +137,19 @@ $query = (!empty($idPasseioGet)) ?
                                 <?php
 
                                 foreach ($nomeClienteAniversario as $indice => $valor) {
-                                    ?>
-                                        <tr>
+                                ?>
+                                    <tr>
 
-                                            <td><?php echo ++$A . " </br>"; ?></td>
-                                            <td><?php echo "$valor </br>"; ?></td>
-                                            <td>
-                                                <?php
-                                                echo $dataClienteAniversario[$indice] . " </br>"; ?>
-                                            </td>
-                                            <td><?php echo $telefoneContato[$indice] . " </br>"; ?></td>
-                                            <td><?php echo $referencia[$indice] . " </br>"; ?></td>
-                                        </tr>
+                                        <td><?php echo ++$A . " </br>"; ?></td>
+                                        <td><?php echo "$valor </br>"; ?></td>
+                                        <td>
+
+                                            <?php
+                                            echo $dataClienteAniversario[$indice] . " </br>"; ?>
+                                        </td>
+                                        <td><?php echo $telefoneContato[$indice] . " </br>"; ?></td>
+                                        <td><?php echo $referencia[$indice] . " </br>"; ?></td>
+                                    </tr>
 
                                 <?php } ?>
 
@@ -147,9 +160,9 @@ $query = (!empty($idPasseioGet)) ?
             </div>
         </div>
     </div>
+    <script src="includes/plugins/DataTables/configFiles/dataTablesAniversariantes.js"> </script>
 
 
-    </div>
 </body>
 
 </html>

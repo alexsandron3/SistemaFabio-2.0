@@ -29,7 +29,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
   <title>LISTA DE PASSEIOS</title>
 </head>
@@ -55,7 +55,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
             <div class="table-reponsive">
               <?php esconderTabela(4); ?>
             </div>
-            <table style="width:100%" class="table table-striped table-bordered" id="simpleTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelaListaRelatoriosPasseio">
               <thead>
                 <tr>
                   <th class="text-center">Nº DE ORDEM</th>
@@ -77,7 +77,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                     <td class="text-center"><?php echo ++$contador; ?></td>
                     <td><?php echo $rowPesquisaIntervaloData['nomePasseio']; ?></td>
                     <td>
-                      <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
+                     
 
                       <?php echo $dataPasseioFromatada;
                       $linkListaPassageiros     = "listaPasseio.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
@@ -87,7 +87,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                       ?>
                     </td>
                     <td class="td-actions text-right">
-
+                    <p class="d-none"><?php echo identificarMes($dataPasseio); ?></p>
                       <button class='btn btn-info btn-just-icon btn-sm' onclick="novaJanela('<?php echo $linkListaPassageiros; ?>')" data-toggle='tooltip' data-placement='top' title='LISTA DE PASSAGEIROS'><i class='material-icons'>groups</i></button>
                       <button class='btn btn-success btn-just-icon btn-sm' onclick="novaJanela('<?php echo $linkLucrosDoPasseio; ?>')" data-toggle='tooltip' data-placement='top' title='LUCROS'><i class='material-icons'>price_check</i></button>
                       <button class='btn btn-danger btn-just-icon btn-sm' onclick="novaJanela('<?php echo $linkEditarDespesas; ?>')" data-toggle='tooltip' data-placement='top' title='DESPESAS'><i class='material-icons'>money_off</i></button>
@@ -105,7 +105,8 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
   </div>
   </div>
 
-
+  <script src="includes/plugins/DataTables/configFiles/dataTablesListaRelarioPasseios.js"> </script>
+  <script src="config/novoScript.js"></script>
   <script>
     function novaJanela(linkListaPassageiros) {
       var abrirNovaJanela = window.open(linkListaPassageiros, "nova aba");

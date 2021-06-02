@@ -7,7 +7,7 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
   <title>PESQUISAR PASSEIO</title>
 </head>
@@ -29,7 +29,7 @@ include_once("./includes/header.php");
           <form action="" autocomplete="off" method="GET">
             <div class="form-row">
               <div class="col">
-                <input type="text" class="form-control" name="valorPesquisaPasseio" id="" placeholder="NOME OU LOCAL" onkeydown="upperCaseF(this)">
+                <input type="text" class="campos-de-texto form-control" name="valorPesquisaPasseio" id="" placeholder="NOME OU LOCAL">
               </div>
               <div class="col">
                 <input type="date" class="form-control" name="dataPasseio" id="dataPasseio">
@@ -54,7 +54,7 @@ include_once("./includes/header.php");
           </form>
 
           <div class="table mt-5">
-            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelaPesquisarPasseio">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -169,7 +169,9 @@ include_once("./includes/header.php");
     </div>
   </div>
 
-  <script src="config/script.php"></script>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesPesquisarPasseio.js"> </script>
+  <script src="config/novoScript.js"></script>
+
   <script>
     function novaJanela(linkListaPassageiros) {
       var abrirNovaJanela = window.open(linkListaPassageiros, "nova aba");

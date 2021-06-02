@@ -34,7 +34,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+  <?php include_once("./includes/novoInclude.php"); ?>
 
 
   <title>PAGAMENTOS PENDENTES </title>
@@ -53,9 +53,13 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
           <div class="table ml-1"> <?php
                                     mensagensInfoNoSession($nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y"));
-                                    #echo "<p class='h5 text-center alert-info '>" . $nomePasseioTitulo . " " . date_format($dataPasseio, "d/m/Y") . "</BR> PAGAMENTOS PENDENTES</p>"; 
                                     ?>
-            <table style="width:100%" class="table table-striped table-bordered" id="tabelasPadrao">
+            <script>
+              var nomePasseio = '<?php echo $nomePasseioTitulo ?>';
+              var dataPasseio = '<?php echo date_format($dataPasseio, "d/m/Y") ?>';
+              document.title = "PAGAMENTOS PENDENTES" + nomePasseio + " " + dataPasseio;
+            </script>
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelaPagamentosPendentes">
               <thead>
                 <tr>
                   <th> NOME </th>
@@ -74,11 +78,11 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                   } else {
                 ?>
                     <tr>
-                      <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
+                      <td><a target="blank" href="editarCliente.php?id=<?php echo $rowBuscaPasseio['idCliente']?>">  <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?> </a></td>
                       <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
                       <td><?php
                           $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
-                          echo "R$" . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', '') ; ?> </td>
+                          echo "R$" . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', ''); ?> </td>
                       <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
                     </tr>
 
@@ -92,36 +96,18 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
               </tbody>
               <tfoot>
                 <tr>
-                  <th colspan="2" style="text-align:right">Total:</th>
+                  <th colspan="2" style="text-align:right">Pendente:</th>
                   <th></th>
                 </tr>
               </tfoot>
             </table>
-            <?php
-            if ($controleListaPasseio > 0) {
-              $valorPendenteTotal = $rowTotalPendente['valorPendenteTotal'];
-              $sinalParaInverterValor = ($valorPendenteTotal < 0) ? -1 : 1;
-
-              echo "<div class='text-center'>";
-              mensagensWarningNoSession("TOTAL DE R$" . $valorPendenteTotal * $sinalParaInverterValor . "  PENDENTE");
-              #echo "<p class='h5 text-center alert-warning'>TOTAL DE R$" . $valorPendenteTotal * $sinalParaInverterValor . "  PENDENTE</p>";
-
-              echo "</div>";
-            } else {
-
-              echo "<div class='text-center'>";
-              mensagensWarningNoSession("Nenhum PAGAMENTO PENDENTE até o momento");
-              echo "</div>";
-            }
-
-
-            ?>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script src="config/script.php"></script>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesPagamentosPendentes.js"> </script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

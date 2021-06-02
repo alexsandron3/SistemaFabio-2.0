@@ -15,9 +15,9 @@ $executaQuery = mysqli_query($conn, $query);
 
 <head>
 
-    <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
-    <title>ÚLTIMOS PAGAMENTOS</title>
+    <title>PAGAMENTOS REALIZADOS</title>
 </head>
 
 <body>
@@ -30,25 +30,9 @@ $executaQuery = mysqli_query($conn, $query);
                 <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
                 <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
                 <div class="card-body p-5 bg-white rounded">
-                    <p class="h2 text-center">PESQUISAR PAGAMENTOS</p>
-                    <!-- <form action='' method='GET' autocomplete='OFF'>
-                        <div class="form-row">
-                            <div class="col">
-                                <input data-toggle="tooltip" data-placement="top" title="SELECIONE O INÍCIO DO PERÍODO" type='date' class='form-control' name='inicioPeriodoSelecionado' id='inicioPeriodoSelecionado' value="">
-                            </div>
-
-                            <div class="col">
-                                <input data-toggle="tooltip" data-placement="top" title="SELECIONE O FIM DO PERÍODO" type='date' class='form-control' name='fimPeriodoSelecionado' id='fimPeriodoSelecionado' value="">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <input type='submit' class='btn btn-info btn-md' value='CARREGAR INFORMAÇÕES' name='buttonEviaDataPasseio'>
-                            </div>
-                        </div>
-                    </form> -->
+                    <p class="h2 text-center">PAGAMENTOS REALIZADOS</p>
                     <div class="table-responsive">
-                        <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+                        <table style="width:100%" class="table table-striped table-bordered" id="tabelaPesquisarPagamentos">
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
@@ -75,10 +59,10 @@ $executaQuery = mysqli_query($conn, $query);
                                         </td>
                                         <td><?php
                                             $pesquisarData = $sentence[$indexHistoricoPagamento];
-                                            $data = substr($sentence[$indexHistoricoPagamento],0, strpos($sentence[$indexHistoricoPagamento], "R$"));
-                                            $valor =strstr($sentence[$indexHistoricoPagamento], 'R$');
-                                            echo $data;
+                                            $data  = substr($sentence[$indexHistoricoPagamento],0, strpos($sentence[$indexHistoricoPagamento], "R$"));
+                                            $valor = strstr($sentence[$indexHistoricoPagamento], 'R$');
                                             $dataFormatada = new DateTime($data);
+                                            echo $dataFormatada ->format('d/m/Y');
                                             $dataFormatada = $dataFormatada->format('n');
                                             
 
@@ -107,7 +91,8 @@ $executaQuery = mysqli_query($conn, $query);
             </div>
         </div>
     </div>
-
+    <script src="includes/plugins/DataTables/configFiles/dataTablesPesquisarPagamentos.js"> </script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

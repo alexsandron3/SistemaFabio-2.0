@@ -87,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("./includes/head.php");?>
+<?php include_once("./includes/novoInclude.php"); ?>
     <link rel="stylesheet" href="config/style1.css">
     <link rel="stylesheet" href="config/bootstrap_login.css">
 
@@ -133,7 +133,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body class="d-flex h-100 text-center text-dark">
 
   <main class="form-signin">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="on">
       <img class="mb-4" src="img/fabioPasseiosLogo.jpeg" alt="" width="72" height="57">
       <h1 class="h3 mb-3 fw-normal">Logar-se</h1>
 

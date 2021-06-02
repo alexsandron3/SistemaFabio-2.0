@@ -8,7 +8,7 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/dataTables/dataTablesHead.php"); ?>
+  <?php include_once("./includes/novoInclude.php"); ?>
 
   <title>PESQUISAR CLIENTE</title>
 </head>
@@ -30,8 +30,8 @@ include_once("./includes/header.php");
           <form action="" autocomplete="off" method="POST" name="formularioPesquisarCliente">
             <div class="form-row">
               <div class="col">
-                <input type="text" class="form-control" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE" onkeydown="upperCaseF(this)">
-                <input type="hidden" class="form-control" name="" id="paginaSelecionada" placeholder="página" onkeydown="upperCaseF(this)">
+                <input type="text" class="campo-de-pesquisa form-control" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE">
+                <input type="hidden" class="form-control" name="" id="paginaSelecionada" placeholder="página">
                 <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-info form-group ">
               </div>
             </div>
@@ -41,7 +41,7 @@ include_once("./includes/header.php");
           </div>
 
           <div class="table-responsive">
-            <table style="width:100%" class="table table-striped table-bordered" id="userTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="tabelaPesquisarCliente">
               <thead>
                 <tr>
                   <th>NOME</th>
@@ -125,8 +125,8 @@ include_once("./includes/header.php");
                       $linkEditarCliente    = "editarCliente.php?id=" . $idCliente;
                       $linkGerarContrato    = "contrato.php?id=" . $idCliente;
                       $linkPagamentoCliente = "pagamentoCliente.php?id=" . $idCliente;
-                      $linkAtivarCliente    = "SCRIPTS/apagarCliente.php?id=" . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] ;
-                      $linkDesativarCliente = "SCRIPTS/apagarCliente.php?id=" . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'] ;
+                      $linkAtivarCliente    = "SCRIPTS/apagarCliente.php?id=" . $idCliente . "& status=0&nomeCliente=" . $valorPesquisaCliente['nomeCliente'];
+                      $linkDesativarCliente = "SCRIPTS/apagarCliente.php?id=" . $idCliente . "& status=1&nomeCliente=" . $valorPesquisaCliente['nomeCliente'];
                       ?>
                       <td>
                         <button class='btn btn-info btn-sm ' onclick="novaJanela('<?php echo $linkEditarCliente; ?>')" data-toggle='tooltip' data-placement='top' title='EDITAR CLIENTE'><i class='material-icons'>edit</i></button>
@@ -135,6 +135,7 @@ include_once("./includes/header.php");
                         ?>
                           <button class='btn btn-dark btn-sm' onclick="novaJanela('<?php echo $linkGerarContrato; ?>')" data-toggle='tooltip' data-placement='top' title='GERAR CONTRATO'><i class='material-icons'>description</i></button>
                           <button class='btn btn-success btn-sm' onclick="novaJanela('<?php echo $linkPagamentoCliente; ?>')" data-toggle='tooltip' data-placement='top' title='REALIZAR PAGAMENTO'><i class='material-icons'>shopping_cart</i></button>
+
                         <?php } ?>
 
                         <?php
@@ -166,8 +167,8 @@ include_once("./includes/header.php");
     </div>
   </div>
 
-  <script src="config/script.php"></script>
-
+  <script src="includes/plugins/DataTables/configFiles/dataTablesPesquisarClientes.js"> </script>
+  <script src="config/novoScript.js"></script>
 </body>
 
 </html>

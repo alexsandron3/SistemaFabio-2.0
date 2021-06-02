@@ -68,7 +68,7 @@ if (!empty($idPasseio)) {
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/head.php"); ?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
   <title>LUCROS</title>
 </head>

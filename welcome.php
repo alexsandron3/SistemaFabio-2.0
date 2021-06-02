@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("./includes/head.php");?>
+<?php include_once("./includes/novoInclude.php"); ?>
 
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="mt-5">
-        <h1>OLÁ, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. BEM VINDO!</h1>
+        <h1>OLÁ, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
         <hr>
     </div>
     <p>
