@@ -83,8 +83,8 @@ include_once("./includes/header.php");
 
             <div class="block-form form-row my-4">
               <div class="col">
-                <label class="col-form-label text-dark" for="estadoCivil" name="estadoCivil">ESTADO CIVIL</label>
-                <select class="form-control col-6" id="estadoCivil">
+                <label class="col-form-label text-dark" for="estadoCivil" >ESTADO CIVIL</label>
+                <select class="form-control col-6" id="estadoCivil" name="estadoCivil">
                   <option>Solteiro(a)</option>
                   <option>Casado(a)</option>
                   <option>Divorciado(a)</option>

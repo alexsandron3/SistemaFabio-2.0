@@ -86,7 +86,7 @@ $transporte = $rowIdPagamento['transporte'];
               <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>
                 <div class='col-6'>
-                  <input type='text' class='block-form campos-de-texto form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' value='<?php echo $localEmbarque ?>' required='required' autocomplete='on'>
+                  <input type='text' class='block-form campos-de-texto form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' value='<?php echo $localEmbarque ?>' required='required' autocomplete='on' onkeydown="upperCaseF(this)">
                 </div>
               </div>
               <div class='form-row my-4'>
@@ -98,7 +98,7 @@ $transporte = $rowIdPagamento['transporte'];
               <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>
                 <div class='col-sm-3'>
-                  <input type='text' class='block-form campos-de-texto form-control' name='meioTransporte' id='meioTransporte' value='<?php "  echo $transporte  " ?>' placeholder='TRANSPORTE' autocomplete='on'>
+                  <input type='text' class='block-form campos-de-texto form-control' name='meioTransporte' id='meioTransporte' value='<?php "  echo $transporte  " ?>' placeholder='TRANSPORTE' autocomplete='on' onkeydown="upperCaseF(this)">
                 </div>
               </div>
               <div class='form-row my-4'>

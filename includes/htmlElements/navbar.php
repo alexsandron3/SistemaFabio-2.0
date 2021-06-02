@@ -54,24 +54,24 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="relatoriosPasseio.php">PASSEIOS </a>
                 </li>
-                <li class="nav-item dropdown">
+<!--                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         OUTROS
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="listaAniversariantesMes.php">ANIVERSARIANTES DO MÊS</a>
-                        <a class="dropdown-item" href="log.php">LOGS</a>
-                        <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
                     </div>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         PESQUISAR
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="listaAniversariantesMes.php">ANIVERSARIANTES DO MÊS</a>
                         <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
+                        <a class="dropdown-item" href="log.php">LOGS</a>
+                        <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
                         <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-                        <a class="dropdown-item" href="pesquisarPagamentos.php">PEQUISAR PAGAMENTOS </a>
+                        <a class="dropdown-item" href="pesquisarPagamentos.php">PAGAMENTOS REALIZADOS </a>
                     </div>
                 </li>
                 <li class="nav-item">

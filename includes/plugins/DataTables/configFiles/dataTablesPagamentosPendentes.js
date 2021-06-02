@@ -30,7 +30,7 @@ $(document).ready(function () {
             // Update footer
             $(api.column(5).footer()).html(
 
-                ' R$' + (Math.round((total + Number.EPSILON) * 100) / 100) + ' total'
+                'R$' + (Math.round(pageTotal)) + ' Nesta página ' + '</BR>' + ' R$' + (Math.round((total + Number.EPSILON) * 100) / 100) + ' total '
             );
         },
         "lengthMenu": [[15, 50, 100, -1], [15, 50, 100, "TUDO"]],
