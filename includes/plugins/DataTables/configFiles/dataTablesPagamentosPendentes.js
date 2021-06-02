@@ -13,7 +13,7 @@ $(document).ready(function () {
 
             // Total over all pages
             total = api
-                .column(5)
+                .column(2)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
@@ -21,14 +21,14 @@ $(document).ready(function () {
 
             // Total over this page
             pageTotal = api
-                .column(5, { page: 'current' })
+                .column(2, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
             // Update footer
-            $(api.column(5).footer()).html(
+            $(api.column(2).footer()).html(
 
                 'R$' + (Math.round(pageTotal)) + ' Nesta página ' + '</BR>' + ' R$' + (Math.round((total + Number.EPSILON) * 100) / 100) + ' total '
             );

@@ -78,7 +78,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                   } else {
                 ?>
                     <tr>
-                      <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
+                      <td><a target="blank" href="editarCliente.php?id=<?php echo $rowBuscaPasseio['idCliente']?>">  <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?> </a></td>
                       <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
                       <td><?php
                           $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
