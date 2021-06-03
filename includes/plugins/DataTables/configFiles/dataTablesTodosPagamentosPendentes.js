@@ -1,5 +1,7 @@
+
+
 $(document).ready(function () {
-    $('#tabelaPagamentosPendentes').DataTable({
+    $('#tabelaTodosPagamentosPendentes').DataTable({
         "footerCallback": function (row, data, start, end, display) {
             var api = this.api(), data;
 
@@ -13,7 +15,7 @@ $(document).ready(function () {
 
             // Total over all pages
             total = api
-                .column(2)
+                .column(5)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
@@ -21,14 +23,14 @@ $(document).ready(function () {
 
             // Total over this page
             pageTotal = api
-                .column(2, { page: 'current' })
+                .column(5, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
             // Update footer
-            $(api.column(2).footer()).html(
+            $(api.column(5).footer()).html(
 
                 ' R$' + (Math.round((pageTotal + Number.EPSILON) * 100) / 100) + ' TOTAL '
             );
@@ -70,18 +72,18 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
-    var table = $('#tabelaPagamentosPendentes').DataTable();
+    var table = $('#tabelaTodosPagamentosPendentes').DataTable();
 
     $("#hide_show_all").on("change", function () {
         var hide = $(this).is(":checked");
         $(".hide_show").prop("checked", hide);
 
         if (hide) {
-            $('#tabelaPagamentosPendentes tr th').hide(100);
-            $('#tabelaPagamentosPendentes tr td').hide(100);
+            $('#tabelaTodosPagamentosPendentes tr th').hide(100);
+            $('#tabelaTodosPagamentosPendentes tr td').hide(100);
         } else {
-            $('#tabelaPagamentosPendentes tr th').show(100);
-            $('#tabelaPagamentosPendentes tr td').show(100);
+            $('#tabelaTodosPagamentosPendentes tr th').show(100);
+            $('#tabelaTodosPagamentosPendentes tr td').show(100);
         }
     });
 
@@ -94,7 +96,7 @@ $(document).ready(function () {
 
         var ti = $(this).index(".hide_show");
 
-        $('#tabelaPagamentosPendentes tr').each(function () {
+        $('#tabelaTodosPagamentosPendentes tr').each(function () {
             if (hide) {
                 $('td:eq(' + ti + ')', this).hide(100);
                 $('th:eq(' + ti + ')', this).hide(100);
