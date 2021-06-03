@@ -94,14 +94,13 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
           <div class="table ml-1">
             <?php
             mensagensInfoNoSession("QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente);
-            #echo "<p class='h4 text-center alert-info mt-2'> QUANTIDADE DE PAGAMENTOS PENDENTES:  " . $quantidadePagamentoPendente . "</p>"; 
             ?>
 
             <div class="table-reponsive">
               <?php esconderTabela(8); ?>
             </div>
             <div class="table-responsive">
-              <table style="width:100%" class="table table-striped table-bordered" id="tabelaPagamentosPendentes">
+              <table style="width:100%" class="table table-striped table-bordered" id="tabelaTodosPagamentosPendentes">
                 <thead>
                   <tr>
                     <th> Nº DE ORDEM </th>
@@ -177,7 +176,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
       </div>
     </div>
   </div>
-  <script src="includes/plugins/DataTables/configFiles/dataTablesPagamentosPendentes.js"> </script>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesTodosPagamentosPendentes.js"> </script>
 
 </body>
 
