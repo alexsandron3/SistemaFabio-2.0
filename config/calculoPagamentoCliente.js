@@ -18,7 +18,7 @@
                 statusFormulario = 0;
             }else {
                 document.getElementById('valorPendenteCliente').value = valorPendente;
-                document.getElementById('valorPago').value = valorAntigoPago + novoValorPago + taxaDePagamento;
+                document.getElementById('valorPago').value = (Math.round((valorAntigoPago + novoValorPago + taxaDePagamento + Number.EPSILON) * 100) / 100);
                 document.getElementById('statusFormulario').value = 1;
                 statusFormulario = 1;
 
