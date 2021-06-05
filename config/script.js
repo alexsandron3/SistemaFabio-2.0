@@ -160,155 +160,155 @@ function ageCount(dataNasc) {
 function calculoTotalDespesas(){
     var valorIngresso                                        = document.getElementById('valorIngresso').value;
     valorIngresso                                            = parseFloat(valorIngresso);
-    document.getElementById('valorIngresso').value           = valorIngresso.toFixed(2);
+    document.getElementById('valorIngresso').value           = valorIngresso;
     var quantidadeIngresso                                   = document.getElementById('quantidadeIngresso').value;
     valorTotalIngresso                                       = quantidadeIngresso * valorIngresso;
-    document.getElementById('valorTotalIngresso').value      = valorTotalIngresso.toFixed(2);
+    document.getElementById('valorTotalIngresso').value      = valorTotalIngresso;
 
 
     var valorOnibus                                          = document.getElementById('valorOnibus').value;
     valorOnibus                                              = parseFloat(valorOnibus);
-    document.getElementById('valorOnibus').value             = valorOnibus.toFixed(2);
+    document.getElementById('valorOnibus').value             = valorOnibus;
     var quantidadeOnibus                                     = document.getElementById('quantidadeOnibus').value;
     valorTotalOnibus                                         = quantidadeOnibus * valorOnibus;
-    document.getElementById('valorTotalOnibus').value        = valorTotalOnibus.toFixed(2);
+    document.getElementById('valorTotalOnibus').value        = valorTotalOnibus;
 
 
     var valorMicro                                           = document.getElementById('valorMicro').value;
     valorMicro                                               = parseFloat(valorMicro);
-    document.getElementById('valorMicro').value              = valorMicro.toFixed(2);
+    document.getElementById('valorMicro').value              = valorMicro;
     var quantidadeMicro                                      = document.getElementById('quantidadeMicro').value;
     valorTotalMicro                                          = quantidadeMicro * valorMicro;
-    document.getElementById('valorTotalMicro').value         = valorTotalMicro.toFixed(2);
+    document.getElementById('valorTotalMicro').value         = valorTotalMicro;
     
 
 
     var valorVan                                             = document.getElementById('valorVan').value;
     valorVan                                                 = parseFloat(valorVan);
-    document.getElementById('valorVan').value                = valorVan.toFixed(2);
+    document.getElementById('valorVan').value                = valorVan;
     var quantidadeVan                                        = document.getElementById('quantidadeVan').value;
     valorTotalVan                                            = quantidadeVan * valorVan;
-    document.getElementById('valorTotalVan').value           = valorTotalVan.toFixed(2);
+    document.getElementById('valorTotalVan').value           = valorTotalVan;
     
 
     var valorEscuna                                          = document.getElementById('valorEscuna').value;
     valorEscuna                                              = parseFloat(valorEscuna);
-    document.getElementById('valorEscuna').value             = valorEscuna.toFixed(2);
+    document.getElementById('valorEscuna').value             = valorEscuna;
     var quantidadeEscuna                                     = document.getElementById('quantidadeEscuna').value;
     valorTotalEscuna                                         = quantidadeEscuna * valorEscuna;
-    document.getElementById('valorTotalEscuna').value        = valorTotalEscuna.toFixed(2);
+    document.getElementById('valorTotalEscuna').value        = valorTotalEscuna;
     
 
     var valorAlmocoCliente                                   = document.getElementById('valorAlmocoCliente').value;
     valorAlmocoCliente                                       = parseFloat(valorAlmocoCliente);
-    document.getElementById('valorAlmocoCliente').value      = valorAlmocoCliente.toFixed(2);
+    document.getElementById('valorAlmocoCliente').value      = valorAlmocoCliente;
     var quantidadeAlmocoCliente                              = document.getElementById('quantidadeAlmocoCliente').value;
     valorTotalAlmocoCliente                                  = quantidadeAlmocoCliente * valorAlmocoCliente;
-    document.getElementById('valorTotalAlmocoCliente').value = valorTotalAlmocoCliente.toFixed(2);
+    document.getElementById('valorTotalAlmocoCliente').value = valorTotalAlmocoCliente;
     
 
     var valorAlmocoMotorista                                 = document.getElementById('valorAlmocoMotorista').value;
     valorAlmocoMotorista                                     = parseFloat(valorAlmocoMotorista);
-    document.getElementById('valorAlmocoMotorista').value    = valorAlmocoMotorista.toFixed(2);
+    document.getElementById('valorAlmocoMotorista').value    = valorAlmocoMotorista;
     var quantidadeAlmocoMotorista                            = document.getElementById('quantidadeAlmocoMotorista').value;
     valorTotalAlmocoMotorista                                = quantidadeAlmocoMotorista * valorAlmocoMotorista;
-    document.getElementById('valorTotalAlmocoMotorista').value = valorTotalAlmocoMotorista.toFixed(2);
+    document.getElementById('valorTotalAlmocoMotorista').value = valorTotalAlmocoMotorista;
 
     
     var valorEstacionamento                                  = document.getElementById('valorEstacionamento').value;
     valorEstacionamento                                      = parseFloat(valorEstacionamento);
-    document.getElementById('valorEstacionamento').value     = valorEstacionamento.toFixed(2);
+    document.getElementById('valorEstacionamento').value     = valorEstacionamento;
     var quantidadeEstacionamento                             = document.getElementById('quantidadeEstacionamento').value;
     valorTotalEstacionamento                                 = quantidadeEstacionamento * valorEstacionamento;
-    document.getElementById('valorTotalEstacionamento').value= valorTotalEstacionamento.toFixed(2);
+    document.getElementById('valorTotalEstacionamento').value= valorTotalEstacionamento;
 
 
     var valorGuia                                            = document.getElementById('valorGuia').value;
     valorGuia                                                = parseFloat(valorGuia);
-    document.getElementById('valorGuia').value               = valorGuia.toFixed(2);
+    document.getElementById('valorGuia').value               = valorGuia;
     var quantidadeGuia                                       = document.getElementById('quantidadeGuia').value;
     valorTotalGuia                                           = quantidadeGuia * valorGuia;
-    document.getElementById('valorTotalGuia').value          = valorTotalGuia.toFixed(2);
+    document.getElementById('valorTotalGuia').value          = valorTotalGuia;
     
 
     var valorAutorizacaoTransporte                           = document.getElementById('valorAutorizacaoTransporte').value;
     valorAutorizacaoTransporte                               = parseFloat(valorAutorizacaoTransporte);
-    document.getElementById('valorAutorizacaoTransporte').value             = valorAutorizacaoTransporte.toFixed(2);
+    document.getElementById('valorAutorizacaoTransporte').value             = valorAutorizacaoTransporte;
     var quantidadeAutorizacaoTransporte                      = document.getElementById('quantidadeAutorizacaoTransporte').value;
     valorTotalTransporte                                     = quantidadeAutorizacaoTransporte * valorAutorizacaoTransporte;
-    document.getElementById('valorTotalTransporte').value    = valorTotalTransporte.toFixed(2);
+    document.getElementById('valorTotalTransporte').value    = valorTotalTransporte;
     
 
     var valorTaxi                                            = document.getElementById('valorTaxi').value;
     valorTaxi                                                = parseFloat(valorTaxi);
-    document.getElementById('valorTaxi').value               = valorTaxi.toFixed(2);
+    document.getElementById('valorTaxi').value               = valorTaxi;
     var quantidadeTaxi                                       = document.getElementById('quantidadeTaxi').value;
     valorTotalTaxi                                           = quantidadeTaxi * valorTaxi;
-    document.getElementById('valorTotalTaxi').value          = valorTotalTaxi.toFixed(2);
+    document.getElementById('valorTotalTaxi').value          = valorTotalTaxi;
     
 
     var valorMarketing                                       = document.getElementById('valorMarketing').value;
     valorMarketing                                           = parseFloat(valorMarketing);
-    document.getElementById('valorMarketing').value          = valorMarketing.toFixed(2);
+    document.getElementById('valorMarketing').value          = valorMarketing;
     var quantidadeMarketing                                  = document.getElementById('quantidadeMarketing').value;
     valorTotalMarketing                                      = quantidadeMarketing * valorMarketing;
-    document.getElementById('valorTotalMarketing').value     = valorTotalMarketing.toFixed(2);
+    document.getElementById('valorTotalMarketing').value     = valorTotalMarketing;
     
 
     var valorKitLanche                                       = document.getElementById('valorKitLanche').value;
     valorKitLanche                                           = parseFloat(valorKitLanche);
-    document.getElementById('valorKitLanche').value          = valorKitLanche.toFixed(2);
+    document.getElementById('valorKitLanche').value          = valorKitLanche;
     var quantidadeKitLanche                                  = document.getElementById('quantidadeKitLanche').value;
     valorTotalKitLanche                                      = quantidadeKitLanche * valorKitLanche;
-    document.getElementById('valorTotalKitLanche').value     = valorTotalKitLanche.toFixed(2);
+    document.getElementById('valorTotalKitLanche').value     = valorTotalKitLanche;
 
     
     var valorImpulsionamento                                 = document.getElementById('valorImpulsionamento').value;
     valorImpulsionamento                                     = parseFloat(valorImpulsionamento);
-    document.getElementById('valorImpulsionamento').value    = valorImpulsionamento.toFixed(2);
+    document.getElementById('valorImpulsionamento').value    = valorImpulsionamento;
     var quantidadeImpulsionamento                            = document.getElementById('quantidadeImpulsionamento').value;    
     valorTotalImpulsionamento                                = quantidadeImpulsionamento * valorImpulsionamento;
-    document.getElementById('valorTotalImpulsionamento').value = valorTotalImpulsionamento.toFixed(2);
+    document.getElementById('valorTotalImpulsionamento').value = valorTotalImpulsionamento;
 
     var valorPulseira                                         = document.getElementById('valorPulseira').value;
     valorPulseira                                             = parseFloat(valorPulseira);
-    document.getElementById('valorPulseira').value            = valorPulseira.toFixed(2);
+    document.getElementById('valorPulseira').value            = valorPulseira;
     var quantidadePulseira                                    = document.getElementById('quantidadePulseira').value;    
     valorTotalPulseira                                        = quantidadePulseira *valorPulseira;
-    document.getElementById('valorTotalPulseira').value       = valorTotalPulseira.toFixed(2);
+    document.getElementById('valorTotalPulseira').value       = valorTotalPulseira;
 
     var valorHospedagem                                         = document.getElementById('valorHospedagem').value;
     valorHospedagem                                             = parseFloat(valorHospedagem);
-    document.getElementById('valorHospedagem').value            = valorHospedagem.toFixed(2);
+    document.getElementById('valorHospedagem').value            = valorHospedagem;
     var quantidadeHospedagem                                    = document.getElementById('quantidadeHospedagem').value;    
     valorTotalHospedagem                                        = quantidadeHospedagem *valorHospedagem;
-    document.getElementById('valorTotalHospedagem').value       = valorTotalHospedagem.toFixed(2);
+    document.getElementById('valorTotalHospedagem').value       = valorTotalHospedagem;
     
     var valorAereo                                         = document.getElementById('valorAereo').value;
     valorAereo                                             = parseFloat(valorAereo);
-    document.getElementById('valorAereo').value            = valorAereo.toFixed(2);
+    document.getElementById('valorAereo').value            = valorAereo;
     var quantidadeAereo                                    = document.getElementById('quantidadeAereo').value;    
     valorTotalAereo                                        = quantidadeAereo *valorAereo;
-    document.getElementById('valorTotalAereo').value       = valorTotalAereo.toFixed(2);
+    document.getElementById('valorTotalAereo').value       = valorTotalAereo;
 
     var valorServicos                                         = document.getElementById('valorServicos').value;
     valorServicos                                             = parseFloat(valorServicos);
-    document.getElementById('valorServicos').value            = valorServicos.toFixed(2);
+    document.getElementById('valorServicos').value            = valorServicos;
     var quantidadeServicos                                    = document.getElementById('quantidadeServicos').value;    
     valorTotalServicos                                        = quantidadeServicos *valorServicos;
-    document.getElementById('valorTotalServicos').value       = valorTotalServicos.toFixed(2);
+    document.getElementById('valorTotalServicos').value       = valorTotalServicos;
 
     var valorSeguroViagem                                    = document.getElementById('valorSeguroViagem').value;
     valorSeguroViagem                                        = parseFloat(valorSeguroViagem);
-    document.getElementById('valorSeguroViagem').value       = valorSeguroViagem.toFixed(2);
+    document.getElementById('valorSeguroViagem').value       = valorSeguroViagem;
     var quantidadeSeguroViagem                               = document.getElementById('quantidadeSeguroViagem').value;
     valorTotalSeguroViagem                                   = quantidadeSeguroViagem * valorSeguroViagem;
-    document.getElementById('valorTotalSeguroViagem').value  = valorTotalSeguroViagem.toFixed(2);
+    document.getElementById('valorTotalSeguroViagem').value  = valorTotalSeguroViagem;
 
 
     var outros                                               = document.getElementById('outros').value;
     outros                                     = parseFloat(outros);
-    document.getElementById('outros').value    = outros.toFixed(2); 
+    document.getElementById('outros').value    = outros; 
 
 
     
@@ -318,7 +318,7 @@ function calculoTotalDespesas(){
                                     + Number(valorPulseira) * Number(quantidadePulseira) + Number(outros)  + Number(valorKitLanche) * Number(quantidadeKitLanche) + Number(valorHospedagem) * Number(quantidadeHospedagem) + Number(valorAereo) * Number(quantidadeAereo) + Number(valorServicos) * Number(quantidadeServicos);
    console.log(valorTotal);
    if(valorTotal) {
-       document.getElementById('totalDespesas').value = valorTotal.toFixed(2);
+       document.getElementById('totalDespesas').value = valorTotal;
    }else{   
         document.getElementById('totalDespesas').value = 0; 
     }
@@ -328,25 +328,13 @@ function calculoTotalDespesas(){
 function calculoPagamentoCliente(){
   
     var valorVendido                                   = document.getElementById('valorVendido').value;
-    valorVendido                                       = parseFloat(valorVendido); 
-    document.getElementById('valorVendido').value      = valorVendido.toFixed(2);
-
-    
-
     var valorPago                                      = document.getElementById('valorPago').value;
-    valorPago                                          = parseFloat(valorPago); 
-    document.getElementById('valorPago').value         = valorPago.toFixed(2);
-
- 
     
-
     this.novoValorPago = function (){
       var valorAntigo = document.getElementById('valorAntigo').value;
-      valorAntigo = parseFloat(valorAntigo);
       var novoValor = document.getElementById('novoValorPago').value;
-      novoValor = parseFloat(novoValor);
-      document.getElementById('novoValorPago').value = novoValor.toFixed(2);
-      var novoValorPago = Number(valorPago.toFixed(2)) + Number(novoValor.toFixed(2));
+      document.getElementById('novoValorPago').value = novoValor;
+      var novoValorPago = Number(valorPago) + Number(novoValor);
 
       var historicoPagamentoAntigo = document.getElementById('historicoPagamentoAntigo').value;
      
@@ -361,16 +349,14 @@ function calculoPagamentoCliente(){
         var currentD= now.getDate();
         //console.log(now);
         document.getElementById('valorPago').value = novoValorPago;
-        document.getElementById('historicoPagamento').innerHTML = historicoPagamentoAntigo + "\n " + currentD + "-" + (currentM+1) + "-" + currentY+ " R$: " + novoValor.toFixed(2);
+        document.getElementById('historicoPagamento').innerHTML = historicoPagamentoAntigo + "\n " + currentD + "-" + (currentM+1) + "-" + currentY+ " R$: " + novoValor;
       }
       //console.log(novoValorPago);
     }
     var taxaPagamento                                  = document.getElementById('taxaPagamento').value;
-    taxaPagamento                                      = parseFloat(taxaPagamento);
-    document.getElementById('taxaPagamento').value     = taxaPagamento.toFixed(2);
+    document.getElementById('taxaPagamento').value     = taxaPagamento;
     
-    var valorPendenteCliente                           = Number(valorPago.toFixed(2)) + Number(taxaPagamento.toFixed(2)) - Number(valorVendido.toFixed(2));
-    valorPendenteClienteArredondado                   = parseFloat(valorPendenteCliente.toFixed(2)); 
+    var valorPendenteCliente                           = Number(valorPago) + Number(taxaPagamento) - Number(valorVendido);
     document.getElementById('valorPendenteCliente').value= valorPendenteClienteArredondado;
     
     var clienteParceiro = document.querySelector('input[name="clienteParceiro"]:checked').value;
@@ -381,12 +367,12 @@ function calculoPagamentoCliente(){
       console.log(3);
     }else{
       if(valorPendenteCliente < 0 && valorPago == 0){
-          document.getElementById('valorPendenteCliente').value =  valorPendenteCliente.toFixed(2);
+          document.getElementById('valorPendenteCliente').value =  valorPendenteCliente;
           console.log("NÃO PAGO");
           document.getElementById('statusPagamento').value = 0;  //NÃO PAGO
       }else if(valorPendenteCliente == 0){
           document.getElementById('statusPagamento').value = 1; //PAGO
-          document.getElementById('valorPendenteCliente').value =  valorPendenteCliente.toFixed(2);
+          document.getElementById('valorPendenteCliente').value =  valorPendenteCliente;
       }else if(valorPendenteCliente < 0 && valorPago > 0){
         document.getElementById('statusPagamento').value = 2; //INTERESSADO
         console.log("interessado");
@@ -394,7 +380,7 @@ function calculoPagamentoCliente(){
       }else{
         document.getElementById('valorPendenteCliente').value = "VALOR INCORRETO";
       }
-      //console.log(Number( valorPendenteCliente.toFixed(2)));
+      //console.log(Number( valorPendenteCliente));
     }
 
 }
@@ -579,7 +565,7 @@ function converterParaFloat(){
 
   var valorPasseio                           = document.getElementById('valorPasseio').value;
   valorPasseio                               = parseFloat(valorPasseio);
-  document.getElementById('valorPasseio').value= valorPasseio.toFixed(2);
+  document.getElementById('valorPasseio').value= valorPasseio;
 
 }
 
