@@ -10,15 +10,16 @@
 
         //calculos
             var valorPendente   = (valorAntigoPago + taxaDePagamento + novoValorPago) - valorVendido;
+            (Math.round((valorPendente + Number.EPSILON) * 100) / 100)
         //verificações
-            if (valorPendente > 0 || valorPendente < (valorVendido * -1) ||Number.isNaN(valorPendente) ) {
+            if (valorPendente > 0 || valorPendente < (valorVendido * -1) ||Number.isNaN(valorPendente) || novoValorPago > valorVendido) {
                 document.getElementById('valorPendenteCliente').value = "VALOR INCORRETO OU CAMPOS NÃO PREENCHIDOS";
                 document.getElementById('statusFormulario').value = 0;
                 document.getElementById('novoValorPago').value = 0;
                 statusFormulario = 0;
             }else {
-                document.getElementById('valorPendenteCliente').value = valorPendente;
-                document.getElementById('valorPago').value = (Math.round((valorAntigoPago + novoValorPago + taxaDePagamento + Number.EPSILON) * 100) / 100);
+                document.getElementById('valorPendenteCliente').value = (Math.round((valorPendente + Number.EPSILON) * 100) / 100);
+                document.getElementById('valorPago').value =             (Math.round((valorAntigoPago + novoValorPago + Number.EPSILON) * 100) / 100);
                 document.getElementById('statusFormulario').value = 1;
                 statusFormulario = 1;
 
