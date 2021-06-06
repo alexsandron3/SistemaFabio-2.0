@@ -1,16 +1,21 @@
 //CALCULO PAGAMENTO CLIENTE
     function calculoPagamento(){
         //recebendo valores
-            var valorVendido     = parseFloat(document.getElementById('valorVendido').value);
-            var valorAntigoPago  = parseFloat(document.getElementById('valorAntigo').value);
-            var novoValorPago    = parseFloat(document.getElementById('novoValorPago').value);
-            var taxaDePagamento  = parseFloat(document.getElementById('taxaPagamento').value);
-            
-            var statusFormulario = document.getElementById('statusFormulario').value;
+        var valorVendido = parseFloat(document.getElementById('valorVendido').value);
+        parseFloat((valorVendido).toFixed(2));
+        var valorAntigoPago  = parseFloat(document.getElementById('valorAntigo').value);
+            parseFloat((valorAntigoPago).toFixed(2));
+        var novoValorPago    = parseFloat(document.getElementById('novoValorPago').value);
+            parseFloat((novoValorPago).toFixed(2));
+
+        var taxaDePagamento  = parseFloat(document.getElementById('taxaPagamento').value);
+            parseFloat((valorPendente).toFixed(2));
+    
+        var statusFormulario = document.getElementById('statusFormulario').value;
 
         //calculos
             var valorPendente   = (valorAntigoPago + taxaDePagamento + novoValorPago) - valorVendido;
-            (Math.round((valorPendente + Number.EPSILON) * 100) / 100)
+        parseFloat((valorPendente).toFixed(2));
         //verificações
             if (valorPendente > 0 || valorPendente < (valorVendido * -1) ||Number.isNaN(valorPendente) || novoValorPago > valorVendido) {
                 document.getElementById('valorPendenteCliente').value = "VALOR INCORRETO OU CAMPOS NÃO PREENCHIDOS";
@@ -18,8 +23,8 @@
                 document.getElementById('novoValorPago').value = 0;
                 statusFormulario = 0;
             }else {
-                document.getElementById('valorPendenteCliente').value = (Math.round((valorPendente + Number.EPSILON) * 100) / 100);
-                document.getElementById('valorPago').value =             (Math.round((valorAntigoPago + novoValorPago + Number.EPSILON) * 100) / 100);
+                document.getElementById('valorPendenteCliente').value = parseFloat((valorPendente).toFixed(2));
+                document.getElementById('valorPago').value = parseFloat((valorAntigoPago + novoValorPago).toFixed(2));
                 document.getElementById('statusFormulario').value = 1;
                 statusFormulario = 1;
 
