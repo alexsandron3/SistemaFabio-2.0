@@ -98,7 +98,7 @@ $transporte = $rowIdPagamento['transporte'];
               <div class='form-row my-4'>
                 <label class='col-sm-2 col-form-label' for='meioTransporte'>TRANSPORTE</label>
                 <div class='col-sm-3'>
-                  <input type='text' class='block-form campos-de-texto form-control' name='meioTransporte' id='meioTransporte' value='<?php "  echo $transporte  " ?>' placeholder='TRANSPORTE' autocomplete='on' onkeydown="upperCaseF(this)">
+                  <input type='text' class='block-form campos-de-texto form-control' name='meioTransporte' id='meioTransporte' value='<?php   echo $transporte   ?>' placeholder='TRANSPORTE' autocomplete='on' onkeydown="upperCaseF(this)">
                 </div>
               </div>
               <div class='form-row my-4'>
