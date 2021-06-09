@@ -20,9 +20,9 @@
     $taxaPagamento                  = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $idUser                         = $_SESSION['id'];
 
-        $taxaPagamento = (empty($taxaPagamento))? 0: $taxaPagamento;
+    $taxaPagamento = (empty($taxaPagamento))? 0: $taxaPagamento;
 
-    $valorPendente                  = -$valorVendido + ($valorPago + $taxaPagamento);
+    $valorPendente                  = $valorVendido - number_format($valorPago + $taxaPagamento, 2, '.', ' ');
     
 
 
@@ -39,6 +39,7 @@
 
     $idadeCliente                   = calcularIdade($idCliente, $conn, "");
     $statusPagamento                = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
+    echo $valorPendente;
 
     $queryInformacoesCliente        = "SELECT nomeCliente FROM cliente WHERE idCliente=$idCliente";
     $executaQueryInformacoesCliente = mysqli_query($conexao, $queryInformacoesCliente);
