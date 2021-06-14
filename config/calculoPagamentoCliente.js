@@ -9,9 +9,9 @@ function calculoPagamento() {
     var statusFormulario = document.getElementById('statusFormulario').value;
 
     //calculos
-    var valorPendente = parseFloat(valorVendido - (valorAntigoPago + taxaDePagamento + novoValorPago)).toFixed(2);
+    var valorPendente = parseFloat((valorAntigoPago + taxaDePagamento + novoValorPago) - valorVendido).toFixed(2);
     //verificações
-    if (valorPendente < 0 || valorPendente > (valorVendido) || Number.isNaN(valorPendente) || novoValorPago > valorVendido) {
+    if (valorPendente > 0 || valorPendente < (valorVendido * -1) || Number.isNaN(valorPendente) || novoValorPago > valorVendido) {
         document.getElementById('valorPendenteCliente').value = "VALOR INCORRETO OU CAMPOS NÃO PREENCHIDOS";
         document.getElementById('statusFormulario').value = 0;
         document.getElementById('novoValorPago').value = 0;
