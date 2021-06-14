@@ -23,7 +23,7 @@
         $taxaPagamento = 0;
     }
 
-    $valorPendente               = -$valorVendido + ($valorPago + $taxaPagamento);
+    $valorPendente                  = $valorVendido - number_format($valorPago + $taxaPagamento, 2, '.', ' ');
 
     /* -----------------------------------------------------------------------------------------------------  */
 
