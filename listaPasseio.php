@@ -171,14 +171,14 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                         $opcao = "";
                       }
                       ?>
-                      <td><?php echo number_format($valorPago, 2, '.', '') . "<BR/>" ?></td>
-                      <td><?php echo $rowBuscaPasseio['valorVendido'] . "<BR/>"; ?></td>
+                      <td><?php echo "R$: " . number_format($valorPago, 2, '.', '') . "<BR/>" ?></td>
+                      <td><?php echo "R$: " . $rowBuscaPasseio['valorVendido'] . "<BR/>"; ?></td>
                       <td><?php
                           if ($rowBuscaPasseio['valorPendente'] == 0) {
-                            echo $rowBuscaPasseio['valorPendente'];
+                            echo "R$: " . $rowBuscaPasseio['valorPendente'];
                           } else {
 
-                            echo $rowBuscaPasseio['valorPendente'] * -1;
+                            echo "R$: " . $rowBuscaPasseio['valorPendente'] * -1;
                           }
                           ?>
                         </td>

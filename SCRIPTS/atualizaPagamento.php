@@ -23,7 +23,7 @@
 
     $taxaPagamento = (empty($taxaPagamento))? 0: $taxaPagamento;
 
-    $valorPendente                  = $valorVendido - number_format($valorPago + $taxaPagamento, 2, '.', ' ');
+    $valorPendente                  = -$valorVendido + number_format($valorPago + $taxaPagamento, 2, '.', ' ');
     
 
 

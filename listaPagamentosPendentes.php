@@ -135,7 +135,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                           echo $rowPagamentosPendentes['nomePasseio'] . " | " . date_format($dataPasseio, "d/m/Y");
                           ?>
                       </td>
-                      <td><?php echo "R$" . number_format($rowPagamentosPendentes['valorPendente'], 2, '.', ''); ?></td>
+                      <td><?php echo "R$" . number_format($rowPagamentosPendentes['valorPendente'] * -1.00, 2, '.', ''); ?></td>
 
                       <td> <?php
                             if ($rowPagamentosPendentes['previsaoPagamento'] != "0000-00-00") {
