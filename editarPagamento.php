@@ -67,7 +67,7 @@ $transporte = $rowIdPagamento['transporte'];
               $taxaPagamento = $rowIdPagamento['taxaPagamento'];
               $localEmbarque = $rowIdPagamento['localEmbarque'];
               $historicoPagamento = $rowIdPagamento['historicoPagamento'];
-              $clienteParceiro = $rowIdPagamento['statusPagamento'];
+              $clienteParceiro = $rowIdPagamento['clienteParceiro'];
               $idCliente = $rowIdPagamento['idCliente'];
               $idadeCliente = calcularIdade($idCliente, $conn, "");
               mensagensInfoNoSession("" . $rowIdPagamento['nomeCliente'] . " | " . $rowIdPagamento['nomePasseio'] . " " . date_format($dataPasseio, "d/m/Y"));
@@ -192,7 +192,7 @@ $transporte = $rowIdPagamento['transporte'];
                 $clienteParceiroTrue = '';
                 $clienteParceiroFalse = '';
 
-                if ($clienteParceiro == 3) {
+                if ($clienteParceiro == 1) {
                   $clienteParceiroTrue = 'checked';
                 } else {
                   $clienteParceiroFalse = 'checked';

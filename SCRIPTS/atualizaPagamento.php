@@ -19,10 +19,9 @@
     $valorPagoAtual                 = filter_input(INPUT_POST, 'valorPagoAtual',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $taxaPagamento                  = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $idUser                         = $_SESSION['id'];
-    echo $transporteCliente;
 
     $taxaPagamento = (empty($taxaPagamento))? 0: $taxaPagamento;
-
+    echo $clienteParceiro;
     $valorPendente                  = -$valorVendido + number_format($valorPago + $taxaPagamento, 2, '.', ' ');
     
 
