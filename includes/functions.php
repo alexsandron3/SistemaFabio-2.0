@@ -163,10 +163,34 @@
         return $diferenca;
     }
 
+/*     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){
+        $statusPagamento = null;
+        if($idadeCliente <= $idadeIsencao){
+            $statusPagamento = CLIENTE_CRIANCA;
+        }else{
+            if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
+                $statusPagamento = CLIENTE_INTERESSADO; 
+
+            }elseif( $valorPendenteCliente == 0){
+                $statusPagamento = PAGAMENTO_QUITADO; 
+
+            }elseif($valorPendenteCliente < 0 AND $valorPago > 0 AND $clienteParceiro == 0){
+                $statusPagamento = CLIENTE_CONFIRMADO; 
+    
+            }elseif($clienteParceiro == 1){
+                $statusPagamento = CLIENTE_PARCEIRO; 
+                
+            }
+        }
+        return $statusPagamento;
+    } */
     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){
         $statusPagamento = null;
         if($idadeCliente <= $idadeIsencao){
             $statusPagamento = CLIENTE_CRIANCA;
+        }elseif($clienteParceiro == 1){
+            $statusPagamento = CLIENTE_PARCEIRO; 
+            
         }else{
             if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
                 $statusPagamento = CLIENTE_INTERESSADO; 
