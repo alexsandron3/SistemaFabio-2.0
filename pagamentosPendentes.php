@@ -10,7 +10,7 @@ if (empty($ordemPesquisa)) {
 }
 /* -----------------------------------------------------------------------------------------------------  */
 
-$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes, pp.statusPagamento
+$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes, pp.statusPagamento, pp.idPagamento
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(1) AND pp.clienteDesistente NOT IN(1) ORDER BY $ordemPesquisa";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 $queryValorPendenteTotal = "SELECT SUM(valorPendente) AS valorPendenteTotal FROM pagamento_passeio WHERE idPasseio=$idPasseioGet AND statusPagamento NOT IN (1) AND clienteDesistente NOT IN(1)";
@@ -78,11 +78,11 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                   } else {
                 ?>
                     <tr>
-                      <td><a target="blank" href="editarCliente.php?id=<?php echo $rowBuscaPasseio['idCliente']?>">  <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?> </a></td>
+                      <td><a target="blank" href="editarCliente.php?id=<?php echo $rowBuscaPasseio['idCliente'] ?>"> <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?> </a></td>
                       <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
-                      <td><?php
-                          $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
-                          echo "R$" . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', ''); ?> </td>
+                      <td> <a href="editarPagamento.php?id=<?php echo $rowBuscaPasseio['idPagamento']?>" target="blank"> <?php
+                                                              $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
+                                                              echo "R$" . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', ''); ?> </a></td>
                       <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
                     </tr>
 
