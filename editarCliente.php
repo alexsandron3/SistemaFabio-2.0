@@ -117,7 +117,7 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
             <div class="form-row my-4">
               <div class="col">
                 <label class="col-form-label text-dark" for="poltrona">POLTRONA</label>
-                <input type="text" class="block-form campos-de-texto form-control col-6" id="poltrona" name="poltrona" value="<?php echo $rowResultadoBuscaPeloIdCliente['poltrona'] ?>" onkeydown="upperCaseF(this)">
+                <input type="text" class="block-form text-area form-control col-6" id="poltrona" name="poltrona" value="<?php echo $rowResultadoBuscaPeloIdCliente['poltrona'] ?>" onkeydown="upperCaseF(this)">
               </div>
             </div>
             <fieldset class="block-form form-group">
