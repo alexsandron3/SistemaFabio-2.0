@@ -114,6 +114,12 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
                 <input type="text" class="block-form campos-de-texto form-control col-6" id="nacionalidade" name="nacionalidade" value="<?php echo $rowResultadoBuscaPeloIdCliente['nacionalidade'] ?>" onkeydown="upperCaseF(this)">
               </div>
             </div>
+            <div class="form-row my-4">
+              <div class="col">
+                <label class="col-form-label text-dark" for="poltrona">POLTRONA</label>
+                <input type="text" class="block-form campos-de-texto form-control col-6" id="poltrona" name="poltrona" value="<?php echo $rowResultadoBuscaPeloIdCliente['poltrona'] ?>" onkeydown="upperCaseF(this)">
+              </div>
+            </div>
             <fieldset class="block-form form-group">
               <div class="row">
                 <legend class="col-form-label col-3 pt-0 ">CPF CONSULTADO</legend>
