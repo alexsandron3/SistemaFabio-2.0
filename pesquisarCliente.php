@@ -30,7 +30,7 @@ include_once("./includes/header.php");
           <form action="" autocomplete="off" method="POST" name="formularioPesquisarCliente">
             <div class="form-row">
               <div class="col">
-                <input type="text" class="campo-de-pesquisa form-control" name="valorPesquisaCliente" id="" placeholder="CPF OU NOME OU TELEFONE">
+                <input type="text" class="campo-de-pesquisa form-control" name="valorPesquisaCliente" id="" placeholder="CPF, NOME, TELEFONE OU REFERÊNCIA">
                 <input type="hidden" class="form-control" name="" id="paginaSelecionada" placeholder="página">
                 <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-info form-group ">
               </div>
@@ -86,7 +86,7 @@ include_once("./includes/header.php");
                     $vazio = false;
                     $paginaPesquisa = 1;
                     $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
-                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
+                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%'  OR c.referencia LIKE '%$valorPesquisaCliente' ORDER BY c.nomeCliente";
                     $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                     $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
 
@@ -95,7 +95,7 @@ include_once("./includes/header.php");
 
                     $quantidadePagina = 500;
                     $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
-                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' ORDER BY c.nomeCliente";
+                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' OR c.referencia LIKE '%$valorPesquisaCliente' ORDER BY c.nomeCliente";
                     $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                     $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
                   }
