@@ -24,7 +24,7 @@ include_once("./includes/header.php");
         <div class="card-body p-5 bg-white rounded ">
           <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <form action="SCRIPTS/registroCliente.php" autocomplete="off" method="POST" >
+          <form action="SCRIPTS/registroCliente.php" autocomplete="off" method="POST">
             <div class="form-row">
               <div class="col">
                 <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label>
@@ -49,7 +49,7 @@ include_once("./includes/header.php");
             <div class="form-row my-4">
               <div class="col">
                 <label class=" col-form-label text-dark" for="orgaoEmissor">EMISSOR: </label>
-                <input type="text" class="block-form campos-de-texto form-control" name="orgaoEmissor" id="orgaoEmissor" autocomplete="ON" onkeydown="upperCaseF(this)"> 
+                <input type="text" class="block-form campos-de-texto form-control" name="orgaoEmissor" id="orgaoEmissor" autocomplete="ON" onkeydown="upperCaseF(this)">
               </div>
             </div>
 
@@ -70,7 +70,7 @@ include_once("./includes/header.php");
             <div class="form-row my-4">
               <div class="col">
                 <label class="col-form-label text-dark" for="dataNascimento">NASCIMENTO: </label>
-                <input type="date" class="block-form form-control col-6 " name="dataNascimento" id="dataNascimento" onblur="ageCount(dataNascimento.value)" >
+                <input type="date" class="block-form form-control col-6 " name="dataNascimento" id="dataNascimento" onblur="ageCount(dataNascimento.value)">
               </div>
             </div>
 
@@ -83,7 +83,7 @@ include_once("./includes/header.php");
 
             <div class="block-form form-row my-4">
               <div class="col">
-                <label class="col-form-label text-dark" for="estadoCivil" >ESTADO CIVIL</label>
+                <label class="col-form-label text-dark" for="estadoCivil">ESTADO CIVIL</label>
                 <select class="form-control col-6" id="estadoCivil" name="estadoCivil">
                   <option>Solteiro(a)</option>
                   <option>Casado(a)</option>
@@ -107,7 +107,12 @@ include_once("./includes/header.php");
                 <input type="text" class="block-form campos-de-texto form-control col-6" id="nacionalidade" name="nacionalidade" onkeydown="upperCaseF(this)">
               </div>
             </div>
-
+            <div class="form-row my-4">
+              <div class="col">
+                <label class="col-form-label text-dark" for="poltrona">POLTRONA</label>
+                <input type="text" class="block-form text-area form-control col-6" id="poltrona" name="poltrona" value="" onkeydown="upperCaseF(this)">
+              </div>
+            </div>
             <fieldset class="block-form form-group">
               <div class="row">
                 <label class="col-form-label text-dark col-lg-3 pt-0 text-dark">CPF CONSULTADO: </label>
@@ -145,7 +150,7 @@ include_once("./includes/header.php");
               <div class="block-form form-group row">
                 <div class="col">
                   <label class=" col-form-label text-dark" for="telefoneContato">TELEFONE PARA CONTATO: </label>
-                  <input  class="telefone form-control " type="tel" name="telefoneContato" id="telefoneContato" data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO">
+                  <input class="telefone form-control " type="tel" name="telefoneContato" id="telefoneContato" data-toggle="tooltip" data-placement="left" title="TELEFONE PARA CONTATO">
                 </div>
                 <div class="col">
                   <label class=" col-form-label text-dark" for="nomeContato">QUEM CONTATAR: </label>
@@ -170,7 +175,7 @@ include_once("./includes/header.php");
                         <label class="form-check-label text-dark" for="clienteRedeSocialNao">
                           NÃO
                         </label>
-    
+
                       </div>
                     </div>
                   </div>

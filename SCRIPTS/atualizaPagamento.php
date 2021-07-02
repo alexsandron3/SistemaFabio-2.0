@@ -21,8 +21,7 @@
     $idUser                         = $_SESSION['id'];
 
     $taxaPagamento = (empty($taxaPagamento))? 0: $taxaPagamento;
-    echo $clienteParceiro;
-    $valorPendente                  = -$valorVendido + number_format($valorPago + $taxaPagamento, 2, '.', ' ');
+    $valorPendente                  = round(-$valorVendido + $valorPago + $taxaPagamento, 2);
     
 
 
