@@ -20,6 +20,7 @@
     $nomeContato            = filter_input(INPUT_POST, 'nomeContato',           FILTER_SANITIZE_STRING);
     $redeSocial             = filter_input(INPUT_POST, 'redeSocial',            FILTER_SANITIZE_STRING);
     $nacionalidade          = filter_input(INPUT_POST, 'nacionalidade',         FILTER_SANITIZE_STRING);
+    $poltrona               = filter_input(INPUT_POST, 'poltrona'       ,         FILTER_SANITIZE_STRING);
     $profissao              = filter_input(INPUT_POST, 'profissao',             FILTER_SANITIZE_STRING);
     $estadoCivil            = filter_input(INPUT_POST, 'estadoCivil',           FILTER_SANITIZE_STRING);
     $clienteRedeSocial      = filter_input(INPUT_POST, 'clienteRedeSocial',     FILTER_VALIDATE_BOOLEAN);
@@ -30,9 +31,9 @@
     
     $queryCadastraCliente = "INSERT INTO 
                             cliente (nomeCliente, emailCliente, rgCliente, orgaoEmissor, cpfCliente, telefoneCliente, dataNascimento, idadeCliente, cpfConsultado, dataCpfConsultado, referencia, enderecoCliente,telefoneContato, pessoaContato,  redeSocial, statusCliente,
-                                     nacionalidade, profissao, estadoCivil, clienteRedeSocial )
+                                     nacionalidade, poltrona, profissao, estadoCivil, clienteRedeSocial )
                             VALUES  ('$nome', '$email', '$rg', '$emissor', '$cpf', '$telefoneCliente', '$dataNascimento', '$idade', '$cpfConsultado', '$dataConsulta', '$referenciaCliente', '$enderecoCliente', '$telefoneContato', '$nomeContato','$redeSocial', '$statusCliente',
-                                     '$nacionalidade', '$profissao', '$estadoCivil', '$clienteRedeSocial')
+                                     '$nacionalidade', '$poltrona', '$profissao', '$estadoCivil', '$clienteRedeSocial')
                             ";
 
     /* -----------------------------------------------------------------------------------------------------  */

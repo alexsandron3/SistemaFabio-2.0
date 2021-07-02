@@ -44,16 +44,16 @@
         if($permissaoParaCadatrar){
             if(mysqli_insert_id($conexao)){
                 mensagensSucess("$tipoCadastro CADASTRADO(A) com sucesso");
-                #$_SESSION['msg'] = "<p class='h5 text-center alert-success'> $tipoCadastro CADASTRADO(A) com sucesso</p>";
+                
                 redirecionamento($paginaRedirecionamento, null);
             }else{
                 mensagensWarning("$tipoCadastro NÃO foi CADASTRADO(A), alguma informação não foi inserida dentro dos padrões.");
-                #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), alguma informação não foi inserida dentro dos padrões. </p>";
+                
                 redirecionamento($paginaRedirecionamento, null);
             }
         }else{
             mensagensDanger("$tipoCadastro NÃO foi CADASTRADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO.");
-            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoCadastro NÃO foi CADASTRADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+            
             redirecionamento($paginaRedirecionamento, null);
         }
 
@@ -66,18 +66,18 @@
         if($permissaoParaAtualizar){
             if(mysqli_affected_rows($conexao)){
                 mensagensSucess("$tipoAtualizacao ATUALIZADO(A) com sucesso");
-                #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoAtualizacao ATUALIZADO(A) com sucesso</p>";
+                
                 redirecionamento($paginaRedirecionamento, $id);
                 
             }else{
                 mensagensWarning("$tipoAtualizacao não foi ATUALIZADO(A)");
-                #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoAtualizacao não foi ATUALIZADO(A) </p>";
+                
                 redirecionamento($paginaRedirecionamento, $id);
 
             }
         }else{
             mensagensDanger("$tipoAtualizacao NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO.");
-            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoAtualizacao NÃO foi ATUALIZADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+            
             redirecionamento($paginaRedirecionamento, $id);
         }
     }
@@ -90,26 +90,26 @@
                 $executaQuery = mysqli_query ($conexao, $query );
                 if( mysqli_affected_rows($conexao)){
                     mensagensSucess("$tipoDelete APAGADO(A) com sucesso");
-                    #$_SESSION['msg'] = "<p class='h5 text-center alert-success'>$tipoDelete APAGADO(A) com sucesso</p>";
+                    
                     redirecionamento($paginaRedirecionamento, $idPasseio);
 
                 }else {
                     mensagensWarning("$tipoDelete NÃO foi APAGADO(A)");
-                    #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'>$tipoDelete NÃO foi APAGADO(A) </p>";
+                    
                     redirecionamento($paginaRedirecionamento, $idPasseio);
 
 
                 }
             }else {
                 mensagensInfo("Necessário selecionar um $tipoDelete");
-                #$_SESSION['msg'] = "<p class='h5 text-center alert-warning''>Necessário selecionar um $tipoDelete</p>";
+                
                 redirecionamento($paginaRedirecionamento, $idPasseio);
 
 
             }
         }else{
             mensagensDanger("$tipoDelete NÃO foi APAGADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO.");
-            #$_SESSION['msg'] = "<p class='h5 text-center alert-danger'> $tipoDelete NÃO foi APAGADO(A), VOCÊ NÃO PODE REALIZAR ALTERAÇÕES DEVIDO A FALTA DE PERMISSÃO. </p>";
+            
             redirecionamento($paginaRedirecionamento, $idPasseio);
 
 
@@ -162,28 +162,6 @@
         $dias = $diferenca->d;
         return $diferenca;
     }
-
-/*     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){
-        $statusPagamento = null;
-        if($idadeCliente <= $idadeIsencao){
-            $statusPagamento = CLIENTE_CRIANCA;
-        }else{
-            if($valorPendenteCliente < 0 AND $valorPago == 0 AND $clienteParceiro == 0){
-                $statusPagamento = CLIENTE_INTERESSADO; 
-
-            }elseif( $valorPendenteCliente == 0){
-                $statusPagamento = PAGAMENTO_QUITADO; 
-
-            }elseif($valorPendenteCliente < 0 AND $valorPago > 0 AND $clienteParceiro == 0){
-                $statusPagamento = CLIENTE_CONFIRMADO; 
-    
-            }elseif($clienteParceiro == 1){
-                $statusPagamento = CLIENTE_PARCEIRO; 
-                
-            }
-        }
-        return $statusPagamento;
-    } */
     function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro){
         $statusPagamento = null;
         if($idadeCliente <= $idadeIsencao){
