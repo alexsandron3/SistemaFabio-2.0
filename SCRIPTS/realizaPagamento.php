@@ -22,8 +22,12 @@
     if(empty($taxaPagamento)){
         $taxaPagamento = 0;
     }
+    if(empty($clienteParceiro)){
+        $clienteParceiro = 0;
+    }
 
-    $valorPendente                  = round($valorVendido - $valorPago + $taxaPagamento, 2);
+    $valorPendente                  = round(-$valorVendido + $valorPago + $taxaPagamento, 2);
+
 
     /* -----------------------------------------------------------------------------------------------------  */
 
@@ -38,11 +42,16 @@
 
     $idadeCliente                   = calcularIdade($idCliente, $conn, "");
     $statusPagamento                = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
-    
-
+    echo $valorPendente . " -> PENDENTE </BR>";
+    echo $valorPago . " -> PAGO </BR>";
+    echo $idadeCliente . " -> I. CLIENTE </BR>";
+    echo $idadeIsencao . " -> ISENCAO </BR>";
+    echo $clienteParceiro . " -> PARCEIRO </BR>";
+    echo $statusPagamento . " -> STATUS </BR>";
     $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
     $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
     $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
+
 
     $queryInformacoesCliente        = "SELECT nomeCliente FROM cliente WHERE idCliente=$idCliente";
     $executaQueryInformacoesCliente = mysqli_query($conexao, $queryInformacoesCliente);
@@ -58,7 +67,7 @@
                                 '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW())
                                 ";
  
-
+    echo $queryEnviaPagamentoCliente;
     /* -----------------------------------------------------------------------------------------------------  */
     //VERIFICANDO NIVEL DE ACESSO, ALERTAS, CADASTRANDO PAGAMENTOS E GERANDO LOG
 
