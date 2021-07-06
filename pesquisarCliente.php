@@ -28,6 +28,7 @@ include_once("./includes/header.php");
 
           <p class="h2 text-center">PESQUISAR CLIENTE</p>
           <form action="" autocomplete="off" method="POST" name="formularioPesquisarCliente">
+
             <div class="form-row">
               <div class="col">
                 <input type="text" class="campo-de-pesquisa form-control" name="valorPesquisaCliente" id="" placeholder="CPF, NOME, TELEFONE OU REFERÊNCIA">
@@ -35,10 +36,20 @@ include_once("./includes/header.php");
                 <input type="submit" value="PESQUISAR" name="enviarPesqCliente" id="enviarPesqCliente" class="btn btn-info form-group ">
               </div>
             </div>
+            <div class="table-reponsive">
+              <div class="form-row">
+                <div class="col ml-3 mt-2">
+                  <input class="form-check-input " type="checkbox" name="mostrarClientesExcluidos" value="1" id="mostrarClientesExcluidos">
+                  <label class="form-check-label " for="mostrarClientesExcluidos">
+                    Exibir clientes inativos
+                  </label>
+                  <?php esconderTabela(8); ?>
+
+                </div>
+              </div>
+            </div>
           </form>
-          <div class="table-reponsive">
-            <?php esconderTabela(8); ?>
-          </div>
+
 
           <div class="table-responsive">
             <table style="width:100%" class="table table-striped table-bordered" id="tabelaPesquisarCliente">
@@ -79,14 +90,20 @@ include_once("./includes/header.php");
 
                     #$inicio = ($quantidadePagina * $pagina) - $quantidadePagina;
                     $numeroPaginas = $numeroPaginasTotal;
+                    $mostrarClientesExcluidos = filter_input(INPUT_POST, 'mostrarClientesExcluidos', FILTER_VALIDATE_BOOLEAN);
+                    $exibeCliente = (empty($mostrarClientesExcluidos) or is_null($mostrarClientesExcluidos)) ? false : true;
+                    $queryExibeCliente = ($exibeCliente == false) ? 'statusCliente NOT IN (0) ' : ' ';
                     $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
-                                              FROM cliente c  ORDER BY c.nomeCliente";
+                                              FROM cliente c  WHERE $queryExibeCliente ORDER BY c.nomeCliente";
                     $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                   } else {
                     $vazio = false;
                     $paginaPesquisa = 1;
+                    $mostrarClientesExcluidos = filter_input(INPUT_POST, 'mostrarClientesExcluidos', FILTER_VALIDATE_BOOLEAN);
+                    $exibeCliente = (empty($mostrarClientesExcluidos) or is_null($mostrarClientesExcluidos)) ? false : true;
+                    $queryExibeCliente = ($exibeCliente == false) ? 'AND statusCliente NOT IN (0) ' : ' ';
                     $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
-                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%'  OR c.referencia LIKE '%$valorPesquisaCliente' ORDER BY c.nomeCliente";
+                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' $queryExibeCliente OR c.cpfCliente LIKE '%$valorPesquisaCliente%' $queryExibeCliente OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' $queryExibeCliente OR c.referencia LIKE '%$valorPesquisaCliente' $queryExibeCliente ORDER BY c.nomeCliente";
                     $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                     $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
 
@@ -95,7 +112,7 @@ include_once("./includes/header.php");
 
                     $quantidadePagina = 500;
                     $queryPesquisaCliente = "     SELECT c.nomeCliente, c.dataNascimento, c.idadeCliente, c.referencia, c.telefoneCliente, c.emailCliente, c.emailCliente, c.redeSocial, c.cpfCliente, c.idCliente, c.statusCliente 
-                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' OR c.cpfCliente LIKE '%$valorPesquisaCliente%' OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' OR c.referencia LIKE '%$valorPesquisaCliente' ORDER BY c.nomeCliente";
+                                              FROM cliente c WHERE upper(c.nomeCliente) LIKE '%$valorPesquisaCliente%' $queryExibeCliente OR c.cpfCliente LIKE '%$valorPesquisaCliente%' $queryExibeCliente OR c.telefoneCliente LIKE '%$valorPesquisaCliente%' $queryExibeCliente OR c.referencia LIKE '%$valorPesquisaCliente' $queryExibeCliente ORDER BY c.nomeCliente";
                     $resultadoPesquisaCliente = mysqli_query($conexao, $queryPesquisaCliente);
                     $totalCliente = mysqli_num_rows($resultadoPesquisaCliente);
                   }
