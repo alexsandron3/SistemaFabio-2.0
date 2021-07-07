@@ -10,7 +10,7 @@ if (empty($ordemPesquisa)) {
 }
 /* -----------------------------------------------------------------------------------------------------  */
 
-$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.referencia,
+$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, p.lotacao, c.nomeCliente, c.rgCliente, c.dataCpfConsultado, c.telefoneCliente, c.orgaoEmissor, c.idadeCliente, c.referencia, c.cpfCliente
                               pp.statusPagamento, pp.idPagamento, pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, pp.dataPagamento, pp.clienteDesistente, pp.valorPendente 
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente ORDER BY $ordemPesquisa ";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
@@ -70,10 +70,10 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                   <tr>
                     <th> NOME </th>
                     <th> RG </th>
-                    <th> CPF CONSULTADO </th>
+                    <th> ORGÃO EMISSOR RG </th>
                     <th> REFERÊNCIA </th>
                     <th> STATUS </th>
-                    <th> CONTATO </th>
+                    <th> NUMERO CPF </th>
                     <th> V. PAGO </th>
                     <th> V. VENDIDO </th>
                     <th> V. PENDENTE </th>
@@ -151,12 +151,12 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
                       <td><?php $nomeCliente = $rowBuscaPasseio['nomeCliente'];
                           echo $nomeCliente  . "<BR/>"; ?></td>
                       <td><?php echo $rowBuscaPasseio['rgCliente'] . "<BR/>"; ?></td>
-                      <td><?php echo $dataCpfConsultadoFormatado;
+                      <td><?php echo $rowBuscaPasseio['orgaoEmissor'];
                           ?></td>
                       <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
 
                       <td><?php echo $statusPagamento . "<BR/>"; ?></td>
-                      <td> <?php echo $rowBuscaPasseio['telefoneCliente'] . "<BR/>"; ?></td>
+                      <td> <?php echo $rowBuscaPasseio['cpfCliente'] . "<BR/>"; ?></td>
                       <?php
                       $valorPago = (empty($rowBuscaPasseio['valorPago']) ? $valorPago = 0.00 : $valorPago =  $rowBuscaPasseio['valorPago']);
                       if ($_SESSION['nivelAcesso'] == 1 or $_SESSION['nivelAcesso'] == 0) {

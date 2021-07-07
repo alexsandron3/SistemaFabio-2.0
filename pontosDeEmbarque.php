@@ -6,7 +6,7 @@ include_once("./includes/header.php");
 $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 /* -----------------------------------------------------------------------------------------------------  */
 
-$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.poltrona, pp.localEmbarque, pp.anotacoes, c.referencia, pp.transporte
+$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.idCliente, c.poltrona, pp.localEmbarque, pp.anotacoes, c.referencia, pp.transporte, pp.idPagamento
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) AND pp.clienteDesistente NOT IN(1) ORDER BY localEmbarque";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -55,7 +55,8 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
               var dataPasseio = '<?php echo date_format($dataPasseio, "d/m/Y") ?>';
               document.title = "PONTOS DE EMBARQUE " + nomePasseio + " " + dataPasseio;
             </script>
-            <table style="width:100%" class="table table-striped table-hover table-bordered" id="tabelaPontosDeEmbarque">
+            <table style="width:100%" class="table table-striped table-hover table-bordered"
+              id="tabelaPontosDeEmbarque">
               <thead>
                 <tr>
                   <th>NOME</th>
@@ -76,16 +77,30 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 
 
                 ?>
-                  <tr>
-                    <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
-                    <td><?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?></td>
-                    <td><?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
-                        echo $idade . "<BR/>"; ?></td>
-                    <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
-                    <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
-                    <td><?php echo $rowBuscaPasseio['poltrona'] . "<BR/>"; ?></td>
-                    <td><?php echo $rowBuscaPasseio['transporte'] . "<BR/>"; ?></td>
-                  </tr>
+                <tr>
+                  <td><a href="editarPagamento.php?id=<?php echo $rowBuscaPasseio['idPagamento']?>" target="BLANK">
+                      <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?>
+                    </a></td>
+                  <td>
+                    <?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?>
+                  </td>
+                  <td>
+                    <?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
+                        echo $idade . "<BR/>"; ?>
+                  </td>
+                  <td>
+                    <?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?>
+                  </td>
+                  <td>
+                    <?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?>
+                  </td>
+                  <td>
+                    <?php echo $rowBuscaPasseio['poltrona'] . "<BR/>"; ?>
+                  </td>
+                  <td>
+                    <?php echo $rowBuscaPasseio['transporte'] . "<BR/>"; ?>
+                  </td>
+                </tr>
 
                 <?php
 
