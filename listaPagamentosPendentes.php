@@ -72,7 +72,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 
   <?php
   $contador = 0;
-  $query = " SELECT c.nomeCliente, c.idCliente, c.referencia, pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
+  $query = " SELECT c.nomeCliente, c.idCliente, c.referencia, pp.anotacoes , pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
            FROM  pagamento_passeio pp, cliente c, passeio p 
            WHERE statusPagamento NOT IN (1) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ORDER BY $ordemPesquisa";
   $executaQuery = mysqli_query($conexao, $query);
@@ -97,7 +97,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
             ?>
 
             <div class="table-reponsive">
-              <?php esconderTabela(8); ?>
+              <?php esconderTabela(9); ?>
             </div>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered" id="tabelaTodosPagamentosPendentes">
@@ -110,6 +110,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                     <th> PASSEIO </th>
                     <th> PENDENTE </th>
                     <th> PREVISÃO PAGAMENTO </th>
+                    <th> ANOTAÇÕES </th>
                     <th class="text-right"> AÇÕES </th>
                   </tr>
                 </thead>
@@ -146,6 +147,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                             ?>
 
                       </td>
+                      <td><?php echo $rowPagamentosPendentes['anotacoes']?></td>
                       <td class="td-actions text-right">
                         <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm">
                           <i class="material-icons">edit</i>
