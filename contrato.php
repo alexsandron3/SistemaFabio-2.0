@@ -15,7 +15,7 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- bootstrap -->
-  <style> .body{background-color:white;}</style>
+  <style> .body{background-color:white;} img {max-width: 111px; max-height: 106px;}</style>
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
   <link href="config/style.css" rel="stylesheet">
   <link href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=2.0.7" rel="stylesheet" />
@@ -72,7 +72,7 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
     }
 
     .logo {
-      opacity: 0.3;
+      opacity: 0.5;
     }
   </style>
 </head>
