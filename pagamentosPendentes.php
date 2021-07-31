@@ -80,10 +80,11 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                     <tr>
                       <td><a target="blank" href="editarCliente.php?id=<?php echo $rowBuscaPasseio['idCliente'] ?>"> <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?> </a></td>
                       <td><?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?></td>
-                      <td> <a href="editarPagamento.php?id=<?php echo $rowBuscaPasseio['idPagamento']?>" target="blank"> <?php
-                                                              $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
-                                                              echo "R$" . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', ''); ?> </a></td>
+                      <td> <a href="editarPagamento.php?id=<?php echo $rowBuscaPasseio['idPagamento'] ?>" target="blank"> <?php
+                                                                                                                          $operador = ($rowBuscaPasseio['valorPendente'] < 0) ? -1 : 1;
+                                                                                                                          echo "R$" . number_format($rowBuscaPasseio['valorPendente'] * $operador, 2, '.', ''); ?> </a></td>
                       <td><?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?></td>
+                      
                     </tr>
 
                 <?php
