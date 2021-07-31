@@ -14,7 +14,7 @@ if (!empty($idPasseio)) {
   /* -----------------------------------------------------------------------------------------------------  */
   $pesquisaIdPasseio = "SELECT DISTINCT p.idPasseio, p.nomePasseio,SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente,
                                                     FORMAT(SUM(taxaPagamento), 2) AS totalTaxaPagamento, p.nomePasseio, p.dataPasseio, p.valorPasseio 
-                                                    FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio";
+                                                    FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0)";
   $resultadPesquisaIdPasseio = mysqli_query($conexao, $pesquisaIdPasseio);
   $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
                                       FROM pagamento_passeio pp, passeio p WHERE pp.idPasseio=p.idPasseio AND pp.idPasseio=$idPasseio AND statusPagamento NOT IN(0,3)";
@@ -34,7 +34,7 @@ if (!empty($idPasseio)) {
   }
   /* -----------------------------------------------------------------------------------------------------  */
 
-  $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas, p.dataPasseio FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.idPasseio=$idPasseio";
+  $totalDespesas =        "SELECT SUM(d.totalDespesas) AS totalDespesas, p.dataPasseio FROM  despesa d, passeio p WHERE d.idPasseio=p.idPasseio AND p.idPasseio=$idPasseio ";
 
   $resultadoTotalDespesas = mysqli_query($conexao, $totalDespesas);
   while ($rowTotalDespesa = mysqli_fetch_assoc($resultadoTotalDespesas)) {
@@ -127,7 +127,7 @@ if (!empty($idPasseio)) {
                 /* -----------------------------------------------------------------------------------------------------  */
                 $pesquisaIntervaloData = "SELECT DISTINCT p.idPasseio, p.nomePasseio, SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente,
                                             FORMAT(SUM(taxaPagamento), 2) AS totalTaxaPagamento, p.nomePasseio, p.dataPasseio, p.valorPasseio 
-                                            FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio'";
+                                            FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseio' AND '$fimDataPasseio' AND statusPagamento NOT IN(0)";
                 $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
                 $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 
@@ -175,7 +175,7 @@ if (!empty($idPasseio)) {
                 /* -----------------------------------------------------------------------------------------------------  */
                 $pesquisaIntervaloData = "SELECT DISTINCT p.idPasseio, p.nomePasseio, SUM(pp.valorPago) AS somarValorPago, SUM(pp.valorPendente) AS valorPendente, COUNT(pp.idPagamento) AS qtdCliente, AVG(pp.valorVendido) AS valorMediaVendido,
                                             FORMAT(SUM(taxaPagamento), 2) AS totalTaxaPagamento, p.nomePasseio, p.dataPasseio, p.valorPasseio 
-                                            FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao'";
+                                            FROM pagamento_passeio pp, passeio p  WHERE pp.idPasseio=p.idPasseio AND dataPasseio BETWEEN '$inicioDataPasseioPadrao' AND '$fimDataPasseioPadrao' AND statusPagamento NOT IN(0)";
                 $resultadPesquisaIntervaloData = mysqli_query($conexao, $pesquisaIntervaloData);
 
                 $pesquisaValorMedioVendido = "SELECT DISTINCT AVG(pp.valorVendido) AS valorMediaVendido 

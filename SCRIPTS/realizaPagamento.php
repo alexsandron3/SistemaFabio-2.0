@@ -42,12 +42,12 @@
 
     $idadeCliente                   = calcularIdade($idCliente, $conn, "");
     $statusPagamento                = statusPagamento($valorPendente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro);
-    echo $valorPendente . " -> PENDENTE </BR>";
-    echo $valorPago . " -> PAGO </BR>";
-    echo $idadeCliente . " -> I. CLIENTE </BR>";
-    echo $idadeIsencao . " -> ISENCAO </BR>";
-    echo $clienteParceiro . " -> PARCEIRO </BR>";
-    echo $statusPagamento . " -> STATUS </BR>";
+    // echo $valorPendente . " -> PENDENTE </BR>";
+    // echo $valorPago . " -> PAGO </BR>";
+    // echo $idadeCliente . " -> I. CLIENTE </BR>";
+    // echo $idadeIsencao . " -> ISENCAO </BR>";
+    // echo $clienteParceiro . " -> PARCEIRO </BR>";
+    // echo $statusPagamento . " -> STATUS </BR>";
     $getStatusPagamento       = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=$idPasseio AND statusPagamento NOT IN (0,4)";
     $resultadoStatusPagamento = mysqli_query($conexao, $getStatusPagamento);
     $qtdClientesConfirmados   = mysqli_num_rows($resultadoStatusPagamento);
@@ -62,12 +62,12 @@
     
 
     $queryEnviaPagamentoCliente = "INSERT INTO pagamento_passeio 
-                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento, createdAt())  
+                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento, createdAt)  
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
                                 '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW(), NOW())
                                 ";
  
-    echo $queryEnviaPagamentoCliente;
+    // echo $queryEnviaPagamentoCliente;
     /* -----------------------------------------------------------------------------------------------------  */
     //VERIFICANDO NIVEL DE ACESSO, ALERTAS, CADASTRANDO PAGAMENTOS E GERANDO LOG
 
