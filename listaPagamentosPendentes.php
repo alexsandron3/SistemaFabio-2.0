@@ -72,7 +72,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 
   <?php
   $contador = 0;
-  $query = " SELECT c.nomeCliente, c.idCliente, c.referencia, pp.anotacoes , pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
+  $query = " SELECT c.nomeCliente, c.idCliente, c.referencia, pp.anotacoes , pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, pp.statusPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio 
            FROM  pagamento_passeio pp, cliente c, passeio p 
            WHERE statusPagamento NOT IN (1) AND valorPendente < 0  AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio ORDER BY $ordemPesquisa";
   $executaQuery = mysqli_query($conexao, $query);
@@ -97,7 +97,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
             ?>
 
             <div class="table-reponsive">
-              <?php esconderTabela(9); ?>
+              <?php esconderTabela(10); ?>
             </div>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered" id="tabelaTodosPagamentosPendentes">
@@ -111,6 +111,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                     <th> PENDENTE </th>
                     <th> PREVISÃO PAGAMENTO </th>
                     <th> ANOTAÇÕES </th>
+                    <th>STATUS</th>
                     <th class="text-right"> AÇÕES </th>
                   </tr>
                 </thead>
@@ -147,7 +148,36 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
                             ?>
 
                       </td>
-                      <td><?php echo $rowPagamentosPendentes['anotacoes']?></td>
+                      <td><?php echo $rowPagamentosPendentes['anotacoes'] ?></td>
+                      <td><?php
+                          switch ($rowPagamentosPendentes['statusPagamento']) {
+                            case CLIENTE_INTERESSADO:
+
+                              $statusPagamento = "INTERESSADO";
+                              break;
+
+                            case PAGAMENTO_QUITADO:
+                              $statusPagamento = "QUITADO";
+                              break;
+
+                            case CLIENTE_CONFIRMADO:
+                              $statusPagamento = "PARCIAL";
+                              break;
+
+                            case CLIENTE_PARCEIRO:
+                              $statusPagamento = "PARCEIRO";
+                              break;
+
+                            case CLIENTE_CRIANCA:
+                              $statusPagamento = "CRIANÇA";
+                              break;
+
+                            default:
+                              $statusPagamento = "DESCONHECIDO";
+                              break;
+                          }
+                          echo $statusPagamento;
+                          ?></td>
                       <td class="td-actions text-right">
                         <a data-toggle="tooltip" data-placement="top" title="EDITAR CLIENTE" href="editarCliente.php?id=<?php echo $rowPagamentosPendentes['idCliente']; ?>" class="btn btn-warning btn-just-icon btn-sm">
                           <i class="material-icons">edit</i>
