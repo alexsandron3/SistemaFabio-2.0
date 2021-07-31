@@ -62,9 +62,9 @@
     
 
     $queryEnviaPagamentoCliente = "INSERT INTO pagamento_passeio 
-                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento)  
+                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento, createdAt())  
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
-                                '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW())
+                                '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW(), NOW())
                                 ";
  
     echo $queryEnviaPagamentoCliente;
