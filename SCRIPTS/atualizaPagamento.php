@@ -20,6 +20,9 @@
     $taxaPagamento                  = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $idUser                         = $_SESSION['id'];
 
+    $clienteParceiro = (empty($clienteParceiro))? 0: $clienteParceiro;
+    $clienteDesistente = (empty($clienteDesistente))? 0: $clienteDesistente;
+    $statusEditaSeguroViagemCliente = (empty($statusEditaSeguroViagemCliente))? 0: $statusEditaSeguroViagemCliente;
     $taxaPagamento = (empty($taxaPagamento))? 0: $taxaPagamento;
     $valorPendente                  = round(-$valorVendido + $valorPago + $taxaPagamento, 2);
     
@@ -48,9 +51,11 @@
 
     $queryUpdatePagamentoCliente    =  "UPDATE pagamento_passeio SET    
                                     valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento', statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$statusEditaSeguroViagemCliente',
-                                    transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque', dataPagamento=NOW(), clienteDesistente='$clienteDesistente'
+                                    transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque', dataPagamento=NOW(), lastModified=NOW(), clienteDesistente='$clienteDesistente'
                                     WHERE idPagamento='$idPagamento'
                                     ";
+
+                                    // echo $queryUpdatePagamentoCliente;
 
     /* -----------------------------------------------------------------------------------------------------  */
 
