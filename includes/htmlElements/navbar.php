@@ -63,7 +63,7 @@
                         <a class="dropdown-item" href="log.php">LOGS</a>
                         <a class="dropdown-item" href="listaPagamentosPendentes.php">PAGAMENTOS PENDENTES</a>
                         <a class="dropdown-item" href="pesquisarPagamentos.php">PAGAMENTOS REALIZADOS </a>
-                        <a class="dropdown-item" href="pesquisarPagamentos.php">RELATÓRIO PERIÓDICO DE VENDAS </a>
+                        <a class="dropdown-item" href="relatorioPeriodico.php">RELATÓRIO PERIÓDICO DE VENDAS </a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
