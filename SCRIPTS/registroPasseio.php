@@ -3,22 +3,23 @@
     include_once("../includes/header.php");
 
     //RECEBENDO E VALIDANDO VALORES
-    $nomePasseio         = filter_input(INPUT_POST, 'nomePasseio',          FILTER_SANITIZE_STRING);
-    $localPasseio        = filter_input(INPUT_POST, 'localPasseio',         FILTER_SANITIZE_STRING);
-    $valorPasseio        = filter_input(INPUT_POST, 'valorPasseio',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $lotacao             = filter_input(INPUT_POST, 'lotacao',              FILTER_SANITIZE_NUMBER_INT);
-    $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
-    $dataPasseio         = filter_input(INPUT_POST, 'dataPasseio',          FILTER_SANITIZE_STRING);
-    $anotacoes           = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
-    $statusPasseio       = filter_input(INPUT_POST, 'statusPasseio',        FILTER_VALIDATE_BOOLEAN);
-    $idUser              = $_SESSION['id'];
+    $nomePasseio          = filter_input(INPUT_POST, 'nomePasseio',          FILTER_SANITIZE_STRING);
+    $localPasseio         = filter_input(INPUT_POST, 'localPasseio',         FILTER_SANITIZE_STRING);
+    $valorPasseio         = filter_input(INPUT_POST, 'valorPasseio',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $lotacao              = filter_input(INPUT_POST, 'lotacao',              FILTER_SANITIZE_NUMBER_INT);
+    $idadeIsencao         = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
+    $dataPasseio          = filter_input(INPUT_POST, 'dataPasseio',          FILTER_SANITIZE_STRING);
+    $anotacoes            = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
+    $statusPasseio        = filter_input(INPUT_POST, 'statusPasseio',        FILTER_VALIDATE_BOOLEAN);
+    $dataLancamentoPasseio= filter_input(INPUT_POST, 'dataLancamentoPasseio',FILTER_SANITIZE_STRING);
+    $idUser               = $_SESSION['id'];
 
 
     /* -----------------------------------------------------------------------------------------------------  */
 
     $queryCadastraPasseio = "INSERT INTO
-                            passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao, statusPasseio)
-                            VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao', '$statusPasseio')
+                            passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao, statusPasseio, dataLancamento)
+                            VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao', '$statusPasseio', '$dataLancamentoPasseio')
                             ";
 
     /* -----------------------------------------------------------------------------------------------------  */

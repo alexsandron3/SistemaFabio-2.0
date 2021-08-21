@@ -91,6 +91,10 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
                     </label>
                   </div>
                 </div>
+                <div class="col-lg-6">
+                  <label class=" col-form-label text-dark pt-3" for="dataLancamentoPasseio">DATA DE LANÇAMENTO:</label>
+                  <input type="date" class="block-form form-control col-lg-5  pb-2" name="dataLancamentoPasseio" id="dataLancamentoPasseio" required="required" data-toggle="tooltip" data-placement="left" title="DATA DE LANÇAMENTO DO PASSEIO" value="<?php echo $rowBuscaPasseio['dataLancamento'] ?>">
+                </div>
             </fieldset>
             <input type="hidden" name="idPasseio" id="idPasseio" value="<?php echo $rowBuscaPasseio['idPasseio'] ?>">
             <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-lg">ATUALIZAR</button>
@@ -101,4 +105,5 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
   </div>
   <script src="config/novoScript.js"></script>
 </body>
+
 </html>
