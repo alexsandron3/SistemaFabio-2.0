@@ -33,6 +33,7 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
                 <th scope="col">Data do Passeio</th>
                 <th scope="col">Primeiro Pagamento</th>
                 <th scope="col">Último Pagamento</th>
+                <th scope="col">Tempo de Venda</th>
                 <th scope="col">Pagantes</th>
               </tr>
             </thead>
@@ -60,6 +61,7 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
                   <td> <?php echo $dataPasseio->format('d/m/Y') ?> </td>
                   <td> <?php echo $primeiroPagamento->format('d/m/Y H:i') ?> </td>
                   <td> <?php echo $ultimoPagamento->format('d/m/Y H:i') ?> </td>
+                  <td> <?php echo $tempoDeVenda->format('%a dias') ?> </td>
                   <td> <?php echo $totalPagantes ?> </td>
                 </tr>
               <?php
