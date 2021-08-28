@@ -55,7 +55,9 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
                   $executaQuery = mysqli_query($conexao, $queryRelatorioPeriodico);
                   $rowQuery = mysqli_fetch_assoc($executaQuery);
                   $primeiroPagamento = new DateTime($rowQuery['primeiro_pagamento']);
+                  $primeiroPagamento-> setTime(0,0);
                   $ultimoPagamento = new DateTime($rowQuery['ultimo_pagamento']);
+                  $ultimoPagamento-> setTime(0,0);
                   $dataPasseio = new DateTime($rowQueryTodosPasseio['dataPasseio']);
                   $dataLancamento = new DateTime($rowQueryTodosPasseio['dataLancamento']);
                   $tempoDeVenda = $primeiroPagamento->diff($ultimoPagamento);
@@ -70,10 +72,10 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
                   $totalPagantes = $rowQuery['pagantes'];
                 ?>
                   <tr>
-                    <td><?php echo $nomePasseio ?></td>
+                    <td> <?php echo $nomePasseio ?></td>
                     <td> <?php echo $dataPasseio->format('d/m/Y') ?> </td>
-                    <td> <?php echo $primeiroPagamento->format('d/m/Y H:i') ?> </td>
-                    <td> <?php echo $ultimoPagamento->format('d/m/Y H:i') ?> </td>
+                    <td> <?php echo $primeiroPagamento->format('d/m/Y') ?> </td>
+                    <td> <?php echo $ultimoPagamento->format('d/m/Y') ?> </td>
                     <td> <?php echo $tempoDeVenda->format('%a dias') ?> </td>
                     <td> <?php echo  $tempoPrimeiraVenda ?> </td>
                     <td> <?php echo $totalPagantes ?> </td>
