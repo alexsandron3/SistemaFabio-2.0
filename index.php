@@ -26,7 +26,7 @@ include_once("./includes/header.php");
         <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESsSO -->
         <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
         <div class="card-body p-5 bg-white rounded">
-          <p class="h2 text-center">RELATÓRIO DE VENDAS</p>
+          <p class="h2 text-center">RELATÓRIO GERENCIAL DE VENDAS</p>
           <form action='' method='GET' autocomplete='OFF'>
             <div class="form-row">
 

@@ -192,4 +192,33 @@
   
       }
 
+    function verifyDate($data) {
+        $dataObject = new stdClass();
+        if(empty($data) || $data === '0000-00-00') {
+            $dataObject->dateOriginal = false;
+            $dataObject->dateFormated = false;
+            $dataObject->isEmpty = true;
+            return $dataObject;
+        }else {
+            $data = new DateTime(($data));
+            $dataObject->dateOriginal = $data;
+            $dataObject->dateFormated = $data->format('d/m/Y');
+            $dataObject->isEmpty = false;
+            return $dataObject;
+        }
+    }
+
+    function dateDiff($inicialDate, $finalDate) {
+        if ($inicialDate->isEmpty || $finalDate->isEmpty) {
+            return 0;
+        } else {
+            $startDateOriginal = $inicialDate->dateOriginal;
+            $finalDateOriginal = $finalDate->dateOriginal;
+            $startDateOriginal->setTime(0,0);
+            $finalDateOriginal->setTime(0,0);
+            $diff = $startDateOriginal->diff($finalDateOriginal);
+            $diff = $diff->format('%R%a');
+            return abs($diff) +1;
+        }
+    }
 ?>
