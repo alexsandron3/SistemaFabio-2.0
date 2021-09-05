@@ -41,7 +41,7 @@ include_once("./includes/header.php");
             </div>
           </form>
           <div class="table-responsive mt-3">
-            <table style="width:100%" class="table table-striped table-bordered" id="relatorioDeVendasIndexTable">
+            <table style="width:100%" class="table table-striped table-bordered" id="relatorioVendasTable">
               <thead>
                 <tr>
                   <th scope="col">PASSEIO</th>
@@ -83,7 +83,7 @@ include_once("./includes/header.php");
       </div>
     </div>
   </div>
-
+  <script src="includes/plugins/DataTables/configFiles/dataTablesRelVendas.js"> </script>
 
 </body>
 
