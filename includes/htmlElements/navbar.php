@@ -65,6 +65,7 @@
                         <a class="dropdown-item" href="pesquisarPagamentos.php">PAGAMENTOS REALIZADOS </a>
                         <a class="dropdown-item" href="relatorioPeriodico.php">RELATÓRIO PERIÓDICO DE VENDAS </a>
                         <a class="dropdown-item" href="relatorioVendas.php">RELATÓRIO DE VENDAS </a>
+                        <a class="dropdown-item" href="teste.php">RELATÓRIO DE VENDAS ADICIONAL </a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
