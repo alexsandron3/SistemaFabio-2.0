@@ -29,7 +29,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
   <title>LISTA DE PASSEIOS</title>
 </head>
@@ -104,7 +104,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
     </div>
   </div>
   </div>
-
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="includes/plugins/DataTables/configFiles/dataTablesListaRelarioPasseios.js"> </script>
   <script src="config/novoScript.js"></script>
   <script>

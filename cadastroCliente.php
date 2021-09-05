@@ -7,7 +7,7 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
   <title>CADASTRAR CLIENTE</title>
 </head>
@@ -188,6 +188,7 @@ include_once("./includes/header.php");
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="config/novoScript.js"></script>
 </body>
 

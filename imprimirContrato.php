@@ -51,9 +51,10 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
             position: relative;
 
         }
+
         .logo {
-      opacity: 0.3;
-    }
+            opacity: 0.3;
+        }
     </style>
 </head>
 
@@ -300,13 +301,3 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
 </body>
 
 </html>
-
-<!--     <div>
-      <span>Username:</span>
-      <a href="#" id="username" data-type="text" data-placement="right" data-title="Enter username">superuser</a>
-    </div>
-
-    <div>
-      <span>Status:</span>
-      <a href="#" id="status"></a>
-    </div> -->

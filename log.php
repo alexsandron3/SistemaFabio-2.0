@@ -7,8 +7,8 @@ include_once("./includes/header.php");
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php");
-  ?>
+  <?php include_once("./includes/mdbcss.php"); ?>
+
 
   <title>LOGS</title>
 </head>
@@ -29,10 +29,10 @@ include_once("./includes/header.php");
   ?>
     <div class="list-group" id="list-tab" role="tablist">
       <div id="myDIV">
-      <div class="m-3 p-auto">
-        <input type="text" class="form-control" placeholder="PESQUISAR" id="myInput" name="pesquisarNoLog">
-      </div>
-      
+        <div class="m-3 p-auto">
+          <input type="text" class="form-control" placeholder="PESQUISAR" id="myInput" name="pesquisarNoLog">
+        </div>
+
 
         <?php $buscarInformacoesLog = "SELECT * FROM log ORDER BY `log`.`dataLog` DESC";
         $resultadoInformacoesLog = mysqli_query($conexao, $buscarInformacoesLog);
@@ -78,7 +78,7 @@ include_once("./includes/header.php");
       ?>
       </div>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+    <?php include_once("./includes/mdbJs.php"); ?>
     <script src="./config/jquery-searchFilter.js"></script>
     <script src="./config/scriptSearch.js"></script>
 </body>
