@@ -31,7 +31,7 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
 
   <title>LISTA CLIENTES </title>
@@ -223,6 +223,7 @@ $lotacao = $rowpegarNomePasseio['lotacao'];
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="includes/plugins/DataTables/configFiles/dataTablesListaPasseio.js"> </script>
   <script src="config/novoScript.js"></script>  <script>
     function apagarPagamento() {

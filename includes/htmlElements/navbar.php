@@ -128,7 +128,7 @@
 
                 <!-- Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">INÍCIO</a>
+                    <a class="nav-link" href="#home">INÍCIO</a>
                 </li>
 
                 <!-- CADASTRAR -->
