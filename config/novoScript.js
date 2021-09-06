@@ -1,5 +1,3 @@
-//INDEX.PHP
-
 //ABRIR NOVA JANELA
 function novaJanela(linkListaPassageiros) {
     var abrirNovaJanela = window.open(linkListaPassageiros, "nova aba");
@@ -26,15 +24,12 @@ $(".block-form").bind("keypress", function(e) {
 $(document).ready(function() {
     $('.cpf').mask('000.000.000-00');
     $('.telefone').mask('00000000000');
-    //$('.campo-monetario').mask("###0.00", {reverse: true});
 });
 //Jquery Restrict KevinSheedy
 $('.campos-de-texto').alpha({
-
     maxLength: 70,
 });
 $('.campo-de-pesquisa').alphanum({
-
     maxLength: 70,
     allow: '.-'
 });
@@ -53,7 +48,6 @@ $('.campo-monetario').numeric({
     allowMinus: true,
     maxDecimalPlaces: 2,
     disallow: '!@#$%^&*()+=[]\\\';,/{}|":<>?~` _'
-
 });
 //Cálculo de idade
 function ageCount(dataNasc) {

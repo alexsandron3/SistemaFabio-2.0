@@ -20,3 +20,8 @@
     
 }
 
+.btn-check:checked+.btn-secondary {
+    background-color: rgb(51, 48, 48);
+    color: #FFF;
+}
+
