@@ -1,39 +1,50 @@
-$(document).ready(function () {
-  $.fn.dataTable.moment('DD/MM/YYYY');    //Formatação sem Hora
-  $('#relatorioVendasTable').DataTable({
-      "lengthMenu": [[15, 50, 100, -1], [15, 50, 100, "TUDO"]],
-      dom: 'Blfrtip',
-      buttons:
-          [
-              {
-                  extend: 'pdfHtml5',
-                  className: 'btn btn-info btn-sm',
-                  footer: 'true',
-                  exportOptions: {
-                      columns: ':visible',
 
-                  }
+$(document).ready(function() {
+  // $.fn.dataTable.moment('DD/MM/YYYY'); //Formatação sem Hora
+  // const value = $('#inicio').val();
+  // console.log(value);
 
-              },
-              {
-                  extend: 'excel',
-                  className: 'btn btn-info btn-sm',
-                  footer: 'true',
-                  exportOptions: {
-                      columns: ':visible',
-                  }
-
-              },
-              {
-                  extend: 'print',
-                  className: 'btn btn-info btn-sm ml-1',
-                  footer: 'true',
-                  exportOptions: {
-                      columns: ':visible',
-                  }
-              },
-
-          ]
-
+  const table = $('#relatorioVendasTable').DataTable(
+    {
+    "processing": true,
+    "serverSide": true,
+    // "searching": false,
+    "filter": true,
+    "ajax": {
+      "url": "./teste-backend-search.php",
+      "type": "POST",
+      "datatype": "json",
+      
+      data: {
+        "inicio": function (data) {
+          console.log(data);
+          // Lendo valores
+          const inicio = $('#inicio').val();
+          const today = new Date();
+          const inputDate = new Date(inicio);
+          today.setHours(0,0,0,0)
+          inputDate.setHours(0,0,0,0)
+          inputDate.setDate(inputDate.getDate() +1)
+          if (moment(inputDate).isAfter(today)){
+            return moment(today).format('YYYY-MM-DD');
+          }
+          return inicio;
+          
+        },
+        "fim": "2030-09-06"
+      },
+      dataSrc: '',
+    },
+    "columns": [
+      {"data": "nomePasseio"},
+      {"data": "dataPasseio"},
+      {"data": "NVendas"},
+      {"data": "ValorVenda"},
+      {"data": "ValorPago"},
+    ]
   });
+  
+  $('#inicio').change(function () {
+    table.draw();
+  })
 });

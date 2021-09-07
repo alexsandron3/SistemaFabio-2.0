@@ -10,7 +10,7 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
   <title>LISTA DE PAGAMENTOS PENDENTES</title>
   <style>
@@ -208,6 +208,8 @@ $ordemPesquisa = (empty($ordemPesquisa)) ? "nomeCliente" : $ordemPesquisa;
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
+
   <script src="includes/plugins/DataTables/configFiles/dataTablesTodosPagamentosPendentes.js"> </script>
 
 </body>

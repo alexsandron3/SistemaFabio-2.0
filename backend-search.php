@@ -3,7 +3,7 @@ include_once("./includes/header.php");
 
 if (isset($_REQUEST["inicio"]) && isset($_REQUEST["fim"])) {
   // Prepare a select statement
-  $sql = "SELECT p.nomePasseio, p.dataPasseio, count(pp.idPagamento) AS 'NVendas',SUM(pp.valorVendido) AS 'ValorVenda', SUM(pp.valorPago) AS 'ValorPago' FROM pagamento_passeio pp, passeio p WHERE `createdAt` BETWEEN ? AND ? AND p.idPasseio = pp.idPasseio GROUP BY pp.idPasseio;";
+  $sql = "SELECT p.nomePasseio, p.dataPasseio, count(pp.idPagamento) AS 'NVendas',SUM(pp.valorVendido) AS 'ValorVenda', SUM(pp.valorPago) AS 'ValorPago' FROM pagamento_passeio pp, passeio p WHERE `createdAt` BETWEEN ? AND ? AND p.idPasseio = pp.idPasseio GROUP BY pp.idPasseio AND statusPagamento NOT IN (0) AND pp.valorPago > 0;";
 
   if ($stmt = mysqli_prepare($conexao, $sql)) {
     // Bind variables to the prepared statement as parameters

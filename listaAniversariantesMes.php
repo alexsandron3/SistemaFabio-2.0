@@ -23,12 +23,12 @@ if (empty($mesEscolhido)) {
 <html lang="pt-br">
 
 <head>
-    <?php include_once("./includes/novoInclude.php"); ?>
+    <?php include_once("./includes/mdbcss.php"); ?>
 
     <title>
-    ANIVERSARIANTES 
-    <?php
-         
+        ANIVERSARIANTES
+        <?php
+
         echo MESES_DO_ANO[$mesAtual - 1];
 
         ?>
@@ -52,7 +52,6 @@ if (empty($mesEscolhido)) {
 
                     if (empty($idPasseioGet)) {
                         mensagensInfoNoSession("ANIVERSARIANTES DO MÊS DE  " . MESES_DO_ANO[$mesAtual - 1]);
-
                     } else {
                         $queryInformacoesPasseio = "SELECT nomePasseio, dataPasseio FROM passeio WHERE idPasseio=$idPasseioGet";
                         $executaQueryInformacoesPasseio = mysqli_query($conexao, $queryInformacoesPasseio);
@@ -66,10 +65,10 @@ if (empty($mesEscolhido)) {
 
                         mensagensInfoNoSession("ANIVERSARIANTES DO PASSEIO: $nomePasseio $dataPasseioFormatada"); ?>
 
-                        <script> 
-                            var nomePasseio = '<?php echo $nomePasseio?>';
-                            var dataPasseio = '<?php echo $dataPasseioFormatada?>';
-                            document.title = "ANIVERSARIANTES " +nomePasseio + " " +  dataPasseio;
+                        <script>
+                            var nomePasseio = '<?php echo $nomePasseio ?>';
+                            var dataPasseio = '<?php echo $dataPasseioFormatada ?>';
+                            document.title = "ANIVERSARIANTES " + nomePasseio + " " + dataPasseio;
                         </script>
                     <?php } ?>
                     <form action="listaAniversariantesMes.php" action="GET">
@@ -160,6 +159,7 @@ if (empty($mesEscolhido)) {
             </div>
         </div>
     </div>
+    <?php include_once("./includes/mdbJs.php"); ?>
     <script src="includes/plugins/DataTables/configFiles/dataTablesAniversariantes.js"> </script>
 
 

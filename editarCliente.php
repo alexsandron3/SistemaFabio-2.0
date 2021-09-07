@@ -14,7 +14,7 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+  <?php include_once("./includes/mdbcss.php"); ?>
 
   <title>EDITAR CLIENTE</title>
 </head>
@@ -291,6 +291,7 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="config/novoScript.js"></script>
 </body>
 

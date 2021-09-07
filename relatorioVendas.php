@@ -8,7 +8,7 @@ include_once("./includes/header.php");
 <html lang="en">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
   <title>RELATÓRIO DE VENDAS</title>
 </head>
 
@@ -83,7 +83,7 @@ include_once("./includes/header.php");
       </div>
     </div>
   </div>
-  <script src="includes/plugins/DataTables/configFiles/dataTablesRelVendas.js"> </script>
+  <?php include_once("./includes/mdbJs.php"); ?>
 
 </body>
 

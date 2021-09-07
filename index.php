@@ -1,17 +1,13 @@
 <?php
 //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
 include_once("./includes/header.php");
-
 ?>
 
 <!DOCTYPE html>
 <html lang="PT-BR">
 
 <head>
-
-  <?php //include_once("./includes/dataTables/dataTablesHead.php"); 
-  ?>
-  <?php include_once("./includes/novoInclude.php"); ?>
+  <?php include_once("./includes/mdbcss.php"); ?>
   
   <title>INÍCIO</title>
 </head>
@@ -316,8 +312,8 @@ include_once("./includes/header.php");
     <script>
 
     </script>
+    <?php include_once("./includes/mdbJs.php"); ?>
     <script src="includes/plugins/DataTables/configFiles/dataTablesIndex.js"> </script>
-    <script src="config/novoScript.js"></script>
 
 </body>
 

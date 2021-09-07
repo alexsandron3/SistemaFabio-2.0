@@ -15,7 +15,7 @@ $executaQuery = mysqli_query($conn, $query);
 
 <head>
 
-<?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
     <title>PAGAMENTOS REALIZADOS</title>
 </head>
@@ -91,6 +91,8 @@ $executaQuery = mysqli_query($conn, $query);
             </div>
         </div>
     </div>
+    <?php include_once("./includes/mdbJs.php"); ?>
+
     <script src="includes/plugins/DataTables/configFiles/dataTablesPesquisarPagamentos.js"> </script>
   <script src="config/novoScript.js"></script>
 </body>

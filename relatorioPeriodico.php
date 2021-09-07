@@ -11,7 +11,7 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
 <html lang="en">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
   <title>Relatório Periódico de Vendas</title>
 </head>
 
@@ -93,7 +93,9 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
     </div>
   </div>
 
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="includes/plugins/DataTables/configFiles/dataTablesRelPeriodVendas.js"> </script>
+
 </body>
 
 </html>
