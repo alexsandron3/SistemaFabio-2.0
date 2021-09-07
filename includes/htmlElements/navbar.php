@@ -199,14 +199,14 @@
                             <a class="dropdown-item" href="relatorioPeriodico.php">RELATÓRIO PERIÓDICO DE VENDAS</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="relatorioVendas.php">RELATÓRIO DE VENDAS</a>
-                        </li>
-                        <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="teste.php">RELATÓRIO VENDAS ADICIONAL</a>
+                            <a class="dropdown-item" href="teste.php">RELATÓRIO DE VENDAS</a>
                         </li>
+                        <!-- <li>
+                            <a class="dropdown-item" href="teste.php">RELATÓRIO VENDAS ADICIONAL</a>
+                        </li> -->
                     </ul>
                 </li>
             </ul>

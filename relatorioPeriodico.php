@@ -94,6 +94,8 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
   </div>
 
   <?php include_once("./includes/mdbJs.php"); ?>
+  <script src="includes/plugins/DataTables/configFiles/dataTablesRelPeriodVendas.js"> </script>
+
 </body>
 
 </html>
