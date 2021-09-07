@@ -15,7 +15,7 @@ include_once("./includes/header.php");
 <body>
   <!-- INCLUSÃO DA NAVBAR -->
   <?php include_once("./includes/htmlElements/navbar.php"); ?>
-  <div class="row py-3">
+  <div class="row py-3 container-fluid">
     <div class="col-10 mx-auto">
       <div class="card rounded shadow border-0">
         <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESsSO -->
