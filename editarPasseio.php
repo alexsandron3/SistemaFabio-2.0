@@ -19,7 +19,7 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+  <?php include_once("./includes/mdbcss.php"); ?>
   <title>EDITAR PASSEIO</title>
 </head>
 
@@ -103,6 +103,7 @@ $passeioInativo = ($rowBuscaPasseio['statusPasseio'] == 0) ? "checked" : " ";
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="config/novoScript.js"></script>
 </body>
 

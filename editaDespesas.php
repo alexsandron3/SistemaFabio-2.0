@@ -32,7 +32,7 @@ if (!empty($idPasseioGet)) {
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
   <title>ATUALIZAR DESPESAS</title>
 </head>
@@ -329,6 +329,7 @@ if (!empty($idPasseioGet)) {
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="config/novoScript.js"></script>
 </body>
 

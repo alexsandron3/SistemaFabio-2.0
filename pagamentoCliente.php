@@ -15,7 +15,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
   <title>PAGAMENTO</title>
 </head>
@@ -252,7 +252,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
       </div>
     </div>
   </div>
-
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="config/novoScript.js"></script>
   <script src="config/calculoPagamentoCliente.js"></script>
 

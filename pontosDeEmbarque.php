@@ -27,7 +27,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+  <?php include_once("./includes/mdbcss.php"); ?>
 
 
 
@@ -55,8 +55,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
               var dataPasseio = '<?php echo date_format($dataPasseio, "d/m/Y") ?>';
               document.title = "PONTOS DE EMBARQUE " + nomePasseio + " " + dataPasseio;
             </script>
-            <table style="width:100%" class="table table-striped table-hover table-bordered"
-              id="tabelaPontosDeEmbarque">
+            <table style="width:100%" class="table table-striped table-hover table-bordered" id="tabelaPontosDeEmbarque">
               <thead>
                 <tr>
                   <th>NOME</th>
@@ -77,30 +76,30 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 
 
                 ?>
-                <tr>
-                  <td><a href="editarPagamento.php?id=<?php echo $rowBuscaPasseio['idPagamento']?>" target="BLANK">
-                      <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?>
-                    </a></td>
-                  <td>
-                    <?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?>
-                  </td>
-                  <td>
-                    <?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
-                        echo $idade . "<BR/>"; ?>
-                  </td>
-                  <td>
-                    <?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?>
-                  </td>
-                  <td>
-                    <?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?>
-                  </td>
-                  <td>
-                    <?php echo $rowBuscaPasseio['poltrona'] . "<BR/>"; ?>
-                  </td>
-                  <td>
-                    <?php echo $rowBuscaPasseio['transporte'] . "<BR/>"; ?>
-                  </td>
-                </tr>
+                  <tr>
+                    <td><a href="editarPagamento.php?id=<?php echo $rowBuscaPasseio['idPagamento'] ?>" target="BLANK">
+                        <?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?>
+                      </a></td>
+                    <td>
+                      <?php echo $rowBuscaPasseio['localEmbarque'] . "<BR/>"; ?>
+                    </td>
+                    <td>
+                      <?php $idade = calcularIdade($rowBuscaPasseio['idCliente'], $conn, "");
+                      echo $idade . "<BR/>"; ?>
+                    </td>
+                    <td>
+                      <?php echo $rowBuscaPasseio['anotacoes'] . "<BR/>"; ?>
+                    </td>
+                    <td>
+                      <?php echo $rowBuscaPasseio['referencia'] . "<BR/>"; ?>
+                    </td>
+                    <td>
+                      <?php echo $rowBuscaPasseio['poltrona'] . "<BR/>"; ?>
+                    </td>
+                    <td>
+                      <?php echo $rowBuscaPasseio['transporte'] . "<BR/>"; ?>
+                    </td>
+                  </tr>
 
                 <?php
 
@@ -117,6 +116,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
     </div>
   </div>
 
+  <?php include_once("./includes/mdbJs.php"); ?>
 
   <script src="includes/plugins/DataTables/configFiles/dataTablesPontosDeEmbarque.js"> </script>
   <script src="config/novoScript.js"></script>

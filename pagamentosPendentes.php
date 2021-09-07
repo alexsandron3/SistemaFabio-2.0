@@ -34,7 +34,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
 <html lang="PT-BR">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
 
   <title>PAGAMENTOS PENDENTES </title>
@@ -106,6 +106,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="includes/plugins/DataTables/configFiles/dataTablesPagamentosPendentes.js"> </script>
   <script src="config/novoScript.js"></script>
 </body>

@@ -11,7 +11,7 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
 <html lang="en">
 
 <head>
-  <?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
   <title>Relatório Periódico de Vendas</title>
 </head>
 
@@ -35,10 +35,11 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
                   <th scope="col">Data do Passeio</th>
                   <th scope="col">Primeira Venda</th>
                   <th scope="col">Última Venda</th>
-                  <th scope="col">Tempo de Venda</th>
-                  <th scope="col">Tempo da Primeira Venda</th>
-                  <th scope="col">Pagantes</th>
                   <th scope="col">Data de Lançamento</th>
+                  <th scope="col">Qtde Pessoas</th>
+                  <th scope="col">Qtd Dias Em Venda</th>
+                  <th scope="col">Qtd Dias 1° Venda</th>
+                  <th scope="col">Qtd Total Dias de Venda</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,34 +55,32 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
                 (SELECT COUNT(pp.idPagamento) FROM passeio p, pagamento_passeio pp WHERE p.idPasseio =$idPasseio AND pp.idPasseio= p.idPasseio AND pp.statusPagamento NOT IN (0, 4)) AS 'pagantes'";
                   $executaQuery = mysqli_query($conexao, $queryRelatorioPeriodico);
                   $rowQuery = mysqli_fetch_assoc($executaQuery);
-                  $primeiroPagamento = new DateTime($rowQuery['primeiro_pagamento']);
-                  $primeiroPagamento-> setTime(0,0);
-                  $ultimoPagamento = new DateTime($rowQuery['ultimo_pagamento']);
-                  $ultimoPagamento-> setTime(0,0);
+                  $primeiraVenda = verifyDate($rowQuery['primeiro_pagamento']);
+                  $ultimaVenda = verifyDate($rowQuery['ultimo_pagamento']);
+
                   $dataPasseio = new DateTime($rowQueryTodosPasseio['dataPasseio']);
-                  $dataLancamento = new DateTime($rowQueryTodosPasseio['dataLancamento']);
-                  $tempoDeVenda = $primeiroPagamento->diff($ultimoPagamento);
-                  if ($dataLancamento->format('d/m/Y') !== '30/11/-0001') {
-                    $tempoPrimeiraVenda = $dataLancamento->diff($primeiroPagamento);
-                    $dataLancamento = $dataLancamento->format('d/m/Y');
-                    $tempoPrimeiraVenda = $tempoPrimeiraVenda->format('%a dias');
-                  } else {
-                    $dataLancamento = ' ';
-                    $tempoPrimeiraVenda = ' ';
+                  $dataLancamento = verifyDate($rowQueryTodosPasseio['dataLancamento']);
+
+                  $tempoTotalEmVenda = dateDiff($primeiraVenda, $ultimaVenda);
+                  $tempoAtePrimeiraVenda = dateDiff($primeiraVenda, $dataLancamento);
+                  $tempoTotalDeVenda = dateDiff($ultimaVenda, $dataLancamento);
+                  if (!$dataLancamento->isEmpty) {
                   }
                   $totalPagantes = $rowQuery['pagantes'];
                 ?>
                   <tr>
+                    <!-- DADOS DO PASSEIO -->
                     <td> <?php echo $nomePasseio ?></td>
-                    <td> <?php echo $dataPasseio->format('d/m/Y') ?> </td>
-                    <td> <?php echo $primeiroPagamento->format('d/m/Y') ?> </td>
-                    <td> <?php echo $ultimoPagamento->format('d/m/Y') ?> </td>
-                    <td> <?php echo $tempoDeVenda->format('%a dias') ?> </td>
-                    <td> <?php echo  $tempoPrimeiraVenda ?> </td>
-                    <td> <?php echo $totalPagantes ?> </td>
-                    <td> <?php
-                          echo $dataLancamento;
-                          ?> </td>
+                    <td> <?php echo $dataPasseio->format('d/m/Y'); ?></td>
+                    <td> <?php echo $primeiraVenda->dateFormated; ?></td>
+                    <td> <?php echo $ultimaVenda->dateFormated; ?></td>
+                    <td> <?php echo $dataLancamento->dateFormated; ?> </td>
+                    <td> <?php echo $totalPagantes;?></td>
+                    <!-- CÁLCULOS -->
+                    <td> <?php echo $tempoTotalEmVenda; ?></td>
+                    <td> <?php echo $tempoAtePrimeiraVenda; ?></td>
+                    <td> <?php echo $tempoTotalDeVenda; ?></td>
+
                   </tr>
                 <?php
                 }
@@ -94,7 +93,9 @@ $executaQueryTodosPasseio = mysqli_query($conexao, $queryTodosPasseio);
     </div>
   </div>
 
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="includes/plugins/DataTables/configFiles/dataTablesRelPeriodVendas.js"> </script>
+
 </body>
 
 </html>

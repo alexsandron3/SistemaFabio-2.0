@@ -10,7 +10,7 @@ $idPagamentoAntigo = filter_input(INPUT_GET, 'idPagamentoAntigo', FILTER_SANITIZ
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/novoInclude.php"); ?>
+  <?php include_once("./includes/mdbcss.php"); ?>
 
   <title>TRANSFERIR PAGAMENTO</title>
 </head>
@@ -72,24 +72,24 @@ $idPagamentoAntigo = filter_input(INPUT_GET, 'idPagamentoAntigo', FILTER_SANITIZ
               $buttonCarregarInformacoes = filter_input(INPUT_POST, 'buttonEnviaNomePasseio', FILTER_SANITIZE_STRING);
               $idPasseioSelecionado = filter_input(INPUT_POST, 'idPasseioLista', FILTER_SANITIZE_NUMBER_INT);
               $idCliente = filter_input(INPUT_POST, 'idCliente', FILTER_SANITIZE_NUMBER_INT);
-              
-              if($idPasseioSelecionado == 1){
-                mensagensWarningNoSession("SELECIONE UM PASSEIO");
-              }else{
 
-              
-              if ($buttonCarregarInformacoes) {
-                $queryBuscaSeJaExistePagamento = "SELECT idPagamento FROM pagamento_passeio WHERE idCliente='$idCliente' AND idPasseio='$idPasseioSelecionado'";
-                $resultadoqueryBuscaSeJaExistePagamento = mysqli_query($conexao, $queryBuscaSeJaExistePagamento);
-                if (mysqli_num_rows($resultadoqueryBuscaSeJaExistePagamento) == 0) {
-                  mensagensSucessNoSession("TRANSFERÊNCIA LIBERADA, CLIQUE EM 'FINALIZAR TRANSFERÊNCIA' PARA FINALIZAR O PROCESSO");
-                  #echo "<p class='h5 text-center alert-info'>  </p>";
-                  ?> <input type='submit' class='btn btn-info btn-md' value='FINALIZAR TRASNSFERÊNCIA' name='buttonFinalizarPagamento'>
-                <?php } else{
-                  mensagensWarningNoSession("TRANSFERÊNCIA NÃO LIBERADA POR ESSE CLIENTE JÁ TER UM PAGAMENTO NESTE PASSEIO");
+              if ($idPasseioSelecionado == 1) {
+                mensagensWarningNoSession("SELECIONE UM PASSEIO");
+              } else {
+
+
+                if ($buttonCarregarInformacoes) {
+                  $queryBuscaSeJaExistePagamento = "SELECT idPagamento FROM pagamento_passeio WHERE idCliente='$idCliente' AND idPasseio='$idPasseioSelecionado'";
+                  $resultadoqueryBuscaSeJaExistePagamento = mysqli_query($conexao, $queryBuscaSeJaExistePagamento);
+                  if (mysqli_num_rows($resultadoqueryBuscaSeJaExistePagamento) == 0) {
+                    mensagensSucessNoSession("TRANSFERÊNCIA LIBERADA, CLIQUE EM 'FINALIZAR TRANSFERÊNCIA' PARA FINALIZAR O PROCESSO");
+                    #echo "<p class='h5 text-center alert-info'>  </p>";
+              ?> <input type='submit' class='btn btn-info btn-md' value='FINALIZAR TRASNSFERÊNCIA' name='buttonFinalizarPagamento'>
+              <?php } else {
+                    mensagensWarningNoSession("TRANSFERÊNCIA NÃO LIBERADA POR ESSE CLIENTE JÁ TER UM PAGAMENTO NESTE PASSEIO");
+                  }
                 }
               }
-            }
               ?>
               <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseioSelecionado" value="<?php echo $idPasseioSelecionado; ?>" onchange="idPasseioSelecionadoFun()" readonly="readonly">
               <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioAntigo" id="idPasseioAntigo" value="<?php echo $idPasseioAntigo; ?>" readonly="readonly">
@@ -100,6 +100,7 @@ $idPagamentoAntigo = filter_input(INPUT_GET, 'idPagamentoAntigo', FILTER_SANITIZ
       </div>
     </div>
   </div>
+  <?php include_once("./includes/mdbJs.php"); ?>
   <script src="config/novoScript.js"></script>
 </body>
 

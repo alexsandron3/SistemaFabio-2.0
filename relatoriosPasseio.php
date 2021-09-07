@@ -68,7 +68,7 @@ if (!empty($idPasseio)) {
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/novoInclude.php"); ?>
+<?php include_once("./includes/mdbcss.php"); ?>
 
   <title>LUCROS</title>
 </head>
@@ -307,6 +307,7 @@ if (!empty($idPasseio)) {
         </div>
       </div>
     </div>
+    <?php include_once("./includes/mdbJs.php"); ?>
     <script src="assets/js/material-kit.js?v=2.0.7" type="text/javascript"></script>
     
 </body>
