@@ -78,20 +78,37 @@ const registerInformation = (data) => {
 // 
 
 // Rendering pages
-const render = (location) => {
-  $.get(`${location}.php`, {
-  }).done(function(data) {
-    $('#page-change').html(data);
-
+const render = (location, id) => {
+  let fullLink;
+  let idFormated;
+  let isEditing = false;
+  if (id) {
+    idFormated = id.split('=').pop();
+    fullLink = `${location}.php${id}`;
+    isEditing = true;
+    // console.log(fullLink);
+  }
+  $.post(`${location}.php`,{
+    editMode: isEditing,
+  }).done(function(dataPost){
+    $('#page-change').html(dataPost);
     const pageType = $('#page-type').text();
-    // console.log(pageType);
+    $.post('findClient.php', {
+      id: idFormated,
+    }).done(function(data) {
+      if(isEditing){
+        fillForm(data);
+      }
+    });
     formatInput();
     pageActions(pageType);
- 
-    
   });
 };
-
+const fillForm = (data) => {
+  $('#nomeCliente').val();
+  const obj = JSON.parse(data);
+  $('form').deserialize(obj.data);
+}
 const pageActions = (page) => {
   switch (page) {
     case 'form':
@@ -119,7 +136,14 @@ const pageActions = (page) => {
 
 //changing Page
 const switchRoute = (fullLink) => {
+  const editMode = fullLink.includes('?')
   let route = fullLink.split('#').pop();
+  route = route.split('?').shift();
+  let id;
+  if (editMode) {
+    id = fullLink.split('?').pop();
+    id = `?${id}`; 
+  }
   switch (route) {
     case '#':
       break;
@@ -127,7 +151,7 @@ const switchRoute = (fullLink) => {
       render('default');
       break;
     default:
-      render(route);
+      render(route, id);
       break;
   }
 };

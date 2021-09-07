@@ -58,7 +58,7 @@ function executeSelect($stmt) {
     $result = $stmt->get_result();
 		$response = array();
 		$response['status'] = 1;
-		$response['msg'] = "PESQUISADO(A) com sucesso";
+		$response['msg'] = "Pesquisa realizada com SUCESSO";
 		$response['sql'] = $result;
   }else{
     $response = array();

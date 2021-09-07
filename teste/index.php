@@ -64,6 +64,7 @@
   <script src="../config/novoScript.js"></script>
   <!-- Notify -->
   <script src="../includes/plugins/bootstrap-notify.min.js"></script>
+  <script src="../includes/plugins/jquery.deserialize.js"></script>
 
 </body>
 

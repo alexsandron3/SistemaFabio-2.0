@@ -1,27 +1,27 @@
-<?php 
-if (isset($_REQUEST['edit'])){
-  echo $_REQUEST['edit'];
+<?php
+if (isset($_REQUEST['editMode']) && $_REQUEST['editMode'] === 'true') {
+  $formTitle = 'EDITAR CLIENTE';
 }else{
-  echo "fail";
+  $formTitle = 'CADASTRAR CLIENTE';
 }
 ?>
 
 
 <span class="invisible" id="page-type">form</span>
 
-<p class="h2 text-center">CADASTRAR CLIENTE</p>
+<p class="h2 text-center"><?php echo $formTitle?></p>
 <form action="SCRIPTS/registroCliente.php" autocomplete="off" method="POST" id="form">
   <div class="form-row">
     <div class="col">
       <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label>
-      <input type="text" class="block-form campos-de-texto form-control" name="nomeCliente" id="nomeCliente" required="required" >
+      <input type="text" class="block-form campos-de-texto form-control" name="nomeCliente" id="nomeCliente" required="required">
     </div>
   </div>
 
   <div class="form-row my-4">
     <div class="col">
       <label class="col-form-label text-dark" for="emailCliente">EMAIL: </label>
-      <input type="email" class="block-form campo-de-email form-control" name="emailCliente" id="emailCliente" >
+      <input type="email" class="block-form campo-de-email form-control" name="emailCliente" id="emailCliente">
     </div>
   </div>
 
@@ -35,7 +35,7 @@ if (isset($_REQUEST['edit'])){
   <div class="form-row my-4">
     <div class="col">
       <label class=" col-form-label text-dark" for="orgaoEmissor">EMISSOR: </label>
-      <input type="text" class="block-form campos-de-texto form-control" name="orgaoEmissor" id="orgaoEmissor" autocomplete="ON" >
+      <input type="text" class="block-form campos-de-texto form-control" name="orgaoEmissor" id="orgaoEmissor" autocomplete="ON">
     </div>
   </div>
 
@@ -56,11 +56,11 @@ if (isset($_REQUEST['edit'])){
   <div class="form-row my-4">
     <div class="col">
       <label class="col-form-label text-dark" for="dataNascimento">NASCIMENTO: </label>
-      <input type="date" class="block-form form-control" name="dataNascimento" id="dataNascimento" onblur="ageCount(dataNascimento.value)">
+      <input type="date" class="block-form form-control" name="dataNascimento" id="dataNascimento">
     </div>
     <div class="col">
       <label class="col-form-label text-dark" for="idadeCliente">IDADE DO CLIENTE: </label>
-      <input type="text" class="block-form form-control" name="idadeCliente" id="idadeCliente" readonly="readonly" onblur="ageCount()">
+      <input type="text" class="block-form form-control" name="idadeCliente" id="idadeCliente" readonly="readonly" >
     </div>
   </div>
 
@@ -79,21 +79,21 @@ if (isset($_REQUEST['edit'])){
   <div class="form-row my-4">
     <div class="col">
       <label class="col-form-label text-dark" for="profissao">PROFISSÃO</label>
-      <input type="text" class="block-form campos-de-texto form-control" id="profissao" name="profissao" >
+      <input type="text" class="block-form campos-de-texto form-control" id="profissao" name="profissao">
     </div>
   </div>
 
   <div class="form-row my-4">
     <div class="col">
       <label class="col-form-label text-dark" for="nacionalidade">NACIONALIDADE</label>
-      <input type="text" class="block-form campos-de-texto form-control" id="nacionalidade" name="nacionalidade" >
+      <input type="text" class="block-form campos-de-texto form-control" id="nacionalidade" name="nacionalidade">
     </div>
   </div>
 
   <div class="form-row my-4">
     <div class="col">
       <label class="col-form-label text-dark" for="poltrona">POLTRONA</label>
-      <input type="text" class="block-form text-area form-control" id="poltrona" name="poltrona" value="" >
+      <input type="text" class="block-form text-area form-control" id="poltrona" name="poltrona" value="">
     </div>
   </div>
   <div class="form-group row">
@@ -118,11 +118,11 @@ if (isset($_REQUEST['edit'])){
     <div class="row">
       <div class="col-6">
         <label class="col-form-label text-dark" for="enderecoCliente">ENDEREÇO: </label>
-        <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="text-area form-control" name="enderecoCliente" id="enderecoCliente" rows="3" ></textarea>
+        <textarea data-toggle="tooltip" data-placement="left" title="ENDEREÇO DO CLIENTE" class="text-area form-control" name="enderecoCliente" id="enderecoCliente" rows="3"></textarea>
       </div>
       <div class="col-6">
         <label class="col-form-label text-dark" for="referencia">REFERÊNCIA: </label>
-        <textarea class="text-area form-control" name="referencia" id="referencia" rows="3" > </textarea>
+        <textarea class="text-area form-control" name="referencia" id="referencia" rows="3"> </textarea>
       </div>
     </div>
     <div class="block-form form-group row">
@@ -132,13 +132,13 @@ if (isset($_REQUEST['edit'])){
       </div>
       <div class="col">
         <label class=" col-form-label text-dark" for="pessoaContato">QUEM CONTATAR: </label>
-        <input class="form-control campos-de-texto" type="text" name="pessoaContato" id="pessoaContato" data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR" >
+        <input class="form-control campos-de-texto" type="text" name="pessoaContato" id="pessoaContato" data-toggle="tooltip" data-placement="left" title="QUEM CONTATAR">
       </div>
     </div>
     <div class="form-group row">
       <div class="col">
         <label class="col-form-label text-dark" for="redeSocial">REDES SOCIAIS: </label>
-        <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1" ></textarea>
+        <textarea class="form-control " name="redeSocial" id="redeSocial" cols="3" rows="1"></textarea>
       </div>
       <div class="col">
         <div class="row">

@@ -47,5 +47,5 @@ if(isset($_REQUEST['value'])){
     print_r(json_encode($response));
   }
   $stmt->close();
-
+  $conn->close();
 }
