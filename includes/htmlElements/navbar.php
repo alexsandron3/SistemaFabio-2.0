@@ -43,7 +43,10 @@
           <!-- Dropdown menu -->
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="#cadastroCliente">CLIENTE</a>
+              <a class="dropdown-item" href="#cliente">CLIENTE</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#cliente?id=''">EDITAR CLIENTE</a>
             </li>
             <li>
               <a class="dropdown-item" href="#cadastroDespesas">DESPESAS</a>

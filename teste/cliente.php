@@ -1,5 +1,9 @@
 <?php 
-
+if (isset($_REQUEST['edit'])){
+  echo $_REQUEST['edit'];
+}else{
+  echo "fail";
+}
 ?>
 
 
