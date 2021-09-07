@@ -36,24 +36,38 @@ function gerarLog($tipo, $conexao, $idUser,  $nomeCliente, $nomePasseio, $dataPa
 	}
 	return $queryLog;
 }
-
-//Função de CADASTRO com REDIRECT
-function register($stmt)
+// Novas funcoes
+function executeInsert($stmt)
 {
 	// $permissaoParaCadatrar    = retornaPermissao('cadastrar');
 	if ($stmt->execute()) {
-		$msg = array();
-		$msg['status'] = 1;
-		$msg['msg'] = "CADASTRADO(A) com sucesso";
-		print_r(json_encode($msg));
-	
+		$response = array();
+		$response['status'] = 1;
+		$response['msg'] = "CADASTRADO(A) com sucesso";
+
 	} else {
-		$msg = array();
-		$msg['status'] = 0;
-		$msg['msg'] = "FALHA ao cadastrar";
-		print_r(json_encode($msg));
+		$response = array();
+		$response['status'] = 0;
+		$response['msg'] = "FALHA ao cadastrar"; 
 	}
+	return $response;
 }
+
+function executeSelect($stmt) {
+  if ($stmt->execute()) {
+    $result = $stmt->get_result();
+		$response = array();
+		$response['status'] = 1;
+		$response['msg'] = "PESQUISADO(A) com sucesso";
+		$response['sql'] = $result;
+  }else{
+    $response = array();
+		$response['status'] = 0;
+		$response['msg'] = "FALHA ao pesquisar";
+  }
+	return $response;
+}
+//Função de CADASTRO com REDIRECT
 
 function cadastro($query, $conexao, $tipoCadastro, $paginaRedirecionamento)
 {
