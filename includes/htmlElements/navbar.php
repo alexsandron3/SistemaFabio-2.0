@@ -197,12 +197,16 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item" href="teste.php">RELATÓRIO DE VENDAS</a>
+              <a class="dropdown-item" href="relatorioDiario.php">RELATÓRIO DE VENDAS</a>
             </li>
             <!-- <li>
                             <a class="dropdown-item" href="teste.php">RELATÓRIO VENDAS ADICIONAL</a>
                         </li> -->
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logout.php">SAIR</a>
+
         </li>
       </ul>
 
