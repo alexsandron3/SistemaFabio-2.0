@@ -76,7 +76,7 @@ include_once("./includes/header.php");
 <script src="./includes/plugins/jqueryMask/src/jquery.mask.js"></script>
 <script src="./includes/plugins/JqueryRestrict/jquery.alphanum.js"> </script>
   <!-- <script src="includes/plugins/DataTables/configFiles/dataTablesRelVendas.js"> </script> -->
-  <script src="teste.js"></script>
+  <script src="script.js"></script>
 
 </body>
 
