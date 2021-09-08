@@ -1,20 +1,8 @@
+
+
+
 const pageActions = (page, isEditing) => {
-  switch (page) {
-    case 'form':
-      const submit = document.getElementById('submit');
-      submit.addEventListener('click', (event) => {
-        event.preventDefault();
-        const formValues = $('form').serialize();
-        // Verify if nome is empty
-        if(formValues){
-          registerInformation(formValues, isEditing);
-        }
-      }) 
-      break;
-  
-    default:
-      break;
-  }
+
 }
 
 // Filling forms
@@ -61,7 +49,6 @@ const render = (location, id) => {
               id: selectId
             }).done(function(data) {
               const serverResponse = JSON.parse(data); 
-              // console.log(serverResponse.despesa);
               fillForm(serverResponse);
             })
             formatInput();

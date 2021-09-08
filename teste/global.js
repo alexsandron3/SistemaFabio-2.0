@@ -1,3 +1,4 @@
+// Formating inputs
 const formatInput = () => {
   $('input').keyup(function() {
     $(this).val($(this).val().toUpperCase());
@@ -31,16 +32,67 @@ const formatInput = () => {
     });
   })
 }
+// Getting page link
+$(document).ready(function() {
+  // Rendering pages
+  const renderPage = (location, id) => {
+    if (location.includes('cliente')) {
+      renderClientPage(location, id)
+    }
+  };
+  //changing Page
+const changePage = (fullLink) => {
+  const editMode = fullLink.includes('?')
+  let page = fullLink.split('#').pop();
+  page = page.split('?').shift();
+  let id;
+  if (editMode) {
+    id = fullLink.split('?').pop();
+    id = `?${id}`; 
+  }
+  switch (page) {
+    case '#':
+      break;
+    case 'home':
+      renderPage('default');
+      break;
+    default:
+      renderPage(page, id);
+      break;
+  }
+};
+  let fullLink = $(location).attr('href');
+  changePage(fullLink);
+  $(window).on('hashchange', function(event){
+    const origEvent = event.originalEvent;
+    let fullLink = origEvent.newURL;
+    changePage(fullLink);
+  });
+});
 
-const sendNotification = (information) => {
-  console.log(information);
-  $.notify(information, {
+
+
+
+const identifyForm = (link, isEditing) => {
+  const submit = document.getElementById('submit');
+  submit.addEventListener('click', (event) => {
+    event.preventDefault();
+    const formValues = $('form').serialize();
+    // Verify if nome is empty
+    if ($('#nomeCliente').length) {
+      clientForm(link, formValues, isEditing)
+    }
+  }) 
+}
+
+const sendNotification = (notification) => {
+  $.notify(notification.msg, {
     newest_on_top: true,
     animate: {
       enter: 'animated fadeInRight',
       exit: 'animated fadeOutRight'
     },
-    type: information.type,
+    type: notification.type,
     allow_dismiss: true,
     showProgressbar: true,
     timer: 50
@@ -54,8 +106,6 @@ const registerInformation = (data, isEditing) => {
     value: data
   }).done(function (data) {
     const serverResponse = JSON.parse(data);
-
-    console.log(serverResponse);
     if(serverResponse.status === 1){
       const notificationInfo = {
         msg: serverResponse.msg,

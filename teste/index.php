@@ -31,7 +31,7 @@
     <div class="row py-5">
       <div class="col-10 mx-auto">
         <div class="card rounded shadow border-0">
-          <div class="card-body p-5 bg-white rounded" id="page-change">
+          <div class="card-body p-5 bg-white rounded" id="load-content">
             <div class="" id="msg">
 
             </div>

@@ -26,7 +26,7 @@ if (isset($_REQUEST['value'])) {
   $statusCliente = 1;
   $clienteRedeSocial = $searcharray['clienteRedeSocial'];
   $idCliente = $searcharray['idCliente'];
-  
+
   $sqlRegisterUser = "UPDATE cliente SET nomeCliente=?, emailCliente=?, rgCliente=?, orgaoEmissor=?, cpfCliente=?, telefoneCliente=?, dataNascimento=?,idadeCliente=?, cpfConsultado=?, dataCpfConsultado=?,referencia=?, enderecoCliente=?, telefoneContato=?,pessoaContato=?, redeSocial=?, nacionalidade=?, poltrona= ?, profissao=?, estadoCivil=?, clienteRedeSocial=?
   WHERE idCliente=?";
 
@@ -35,15 +35,16 @@ if (isset($_REQUEST['value'])) {
 
   if ($stmt = $conn->prepare($sqlRegisterUser)) {
     $stmt->bind_param('sssssssisssssssssssii', $nomeCliente, $emailCliente, $rgCliente, $orgaoEmissor, $cpfCliente, $telefoneCliente, $dataNascimento, $idadeCliente, $cpfConsultado, $dataCpfConsultado, $referencia, $enderecoCliente, $telefoneContato, $pessoaContato, $redeSocial, $nacionalidade, $poltrona, $profissao, $estadoCivil, $clienteRedeSocial, $idCliente);
-    print_r($stmt);
     $response = executeUpdate($stmt);
-    if($stmt->affected_rows > 0){
-      $response['serverResponse']['msg'] = "Cliente atualizado com SUCESSO!!";
-    } else {
-      $response['serverResponse']['status'] = 0;
-      $response['serverResponse']['msg'] = "FALHA ao atualizar cliente!!";
+    $response['serverResponse']['msg'] = "Cliente atualizado com SUCESSO!!";
+    // $response['serverResponse']['status'] = 0;
+    // $response['serverResponse']['msg'] = "FALHA ao atualizar cliente!!";
 
-    }
+
+
+  } else {
+    $response['serverResponse']['status'] = 0;
+    $response['serverResponse']['msg'] = "Erro interno!!";
 
   }
 
