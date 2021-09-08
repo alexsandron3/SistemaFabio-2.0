@@ -35,7 +35,16 @@ if (isset($_REQUEST['value'])) {
 
   if ($stmt = $conn->prepare($sqlRegisterUser)) {
     $stmt->bind_param('sssssssisssssssssssii', $nomeCliente, $emailCliente, $rgCliente, $orgaoEmissor, $cpfCliente, $telefoneCliente, $dataNascimento, $idadeCliente, $cpfConsultado, $dataCpfConsultado, $referencia, $enderecoCliente, $telefoneContato, $pessoaContato, $redeSocial, $nacionalidade, $poltrona, $profissao, $estadoCivil, $clienteRedeSocial, $idCliente);
+    print_r($stmt);
     $response = executeUpdate($stmt);
+    if($stmt->affected_rows > 0){
+      $response['serverResponse']['msg'] = "Cliente atualizado com SUCESSO!!";
+    } else {
+      $response['serverResponse']['status'] = 0;
+      $response['serverResponse']['msg'] = "FALHA ao atualizar cliente!!";
+
+    }
+
   }
 
   print_r(json_encode($response));

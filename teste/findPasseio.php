@@ -21,16 +21,17 @@ if (isset($_REQUEST['hideInactives'])) {
     // $stmt->bind_param("i", $statusPasseio);
     // $statusPasseio = $_REQUEST['hideInactives'];
     $response = executeSelect($stmt);
-    $apiAnswer['serveStatus'] = $response;
-    if ($response['sql']->num_rows > 0) {
-      while ($row = $response['sql']->fetch_array(MYSQLI_ASSOC)) {
-        $apiAnswer['data'][] = $row;
+    $apiAnswer = $response;
+    if ($response['serverResponse']['sql']->num_rows > 0) {
+      while ($row = $response['serverResponse']['sql']->fetch_array(MYSQLI_ASSOC)) {
+        $apiAnswer['clientes'][] = $row;
       }
     }else{
-      $apiAnswer['serverStatus']['msg'] = 'Passeio não encontrado';
+      $apiAnswer['serverResponse']['status'] = 0;
+      $apiAnswer['serverResponse']['msg'] = 'Passeio não encontrado';
     }
   }else{
-    $apiAnswer['serverStatus']['msg'] = 'Erro Interno!';
+    $apiAnswer['serverResponse']['msg'] = 'Erro Interno!';
 
   }
 }

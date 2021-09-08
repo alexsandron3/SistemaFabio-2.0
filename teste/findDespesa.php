@@ -9,16 +9,17 @@ if (isset($_REQUEST['id'])) {
   if ($stmt = $conn->prepare($sql)) {
     $stmt->bind_param('i', $id);
     $response = executeSelect($stmt);
-    $apiAnswer['data'] = $response;
-    if ($response['sql']->num_rows > 0) {
-      while ($row = $response['sql']->fetch_array(MYSQLI_ASSOC)) {
+    $apiAnswer= $response;
+    if ($response['serverResponse']['sql']->num_rows > 0) {
+      while ($row = $response['serverResponse']['sql']->fetch_array(MYSQLI_ASSOC)) {
         $apiAnswer['despesa'] = $row;
       }
     }else{
-      $apiAnswer['serverStatus']['msg'] = 'Despesa não encontrado';
+      $apiAnswer['serverResponse']['status'] = 0;
+      $apiAnswer['serverResponse']['msg'] = 'Despesa não encontrado';
     }
   }else{
-    $apiAnswer['msg'] = 'Erro Interno!';
+    $apiAnswer['serverResponse']['msg'] = 'Erro Interno!';
   }
 }
 print_r(json_encode($apiAnswer));

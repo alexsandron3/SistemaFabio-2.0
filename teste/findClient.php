@@ -8,11 +8,12 @@ if (isset($_REQUEST['id'])) {
   if($stmt = $conn->prepare($sql)){
     $stmt->bind_param("i", $id);
     $response = executeSelect($stmt);
-    $apiAnswer['serverStatus'] = $response;
-    if ($response['sql']->num_rows > 0) {
-      $apiAnswer['data'] = $response['sql']->fetch_array(MYSQLI_ASSOC);
+    $apiAnswer = $response;
+
+    if ($response['serverResponse']['sql']->num_rows > 0) {
+      $apiAnswer['cliente'] = $response['serverResponse']['sql']->fetch_array(MYSQLI_ASSOC);
     }else{
-      $apiAnswer['serverStatus']['msg'] = 'Cliente não encontrado';
+      $apiAnswer['serverResponse']['msg'] = 'Cliente não encontrado';
     }
   }
   print_r(json_encode($apiAnswer));

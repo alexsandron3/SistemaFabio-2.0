@@ -40,45 +40,43 @@ function gerarLog($tipo, $conexao, $idUser,  $nomeCliente, $nomePasseio, $dataPa
 function executeInsert($stmt)
 {
 	// $permissaoParaCadatrar    = retornaPermissao('cadastrar');
+	$response = array();
 	if ($stmt->execute()) {
-		$response = array();
-		$response['status'] = 1;
-		$response['msg'] = "CADASTRADO(A) com sucesso";
-
+		$result = $stmt->get_result();
+		$response['serverResponse']['status'] = 1;
+		$response['serverResponse']['msg'] = "CADASTRADO(A) com sucesso";
+		$response['serverResponse']['sql'] = $result;
 	} else {
-		$response = array();
-		$response['status'] = 0;
-		$response['msg'] = "FALHA ao cadastrar"; 
+		$response['serverResponse']['status'] = 0;
+		$response['serverResponse']['msg'] = "FALHA ao cadastrar"; 
 	}
 	return $response;
 }
 
 function executeSelect($stmt) {
+	$response = array();
   if ($stmt->execute()) {
     $result = $stmt->get_result();
-		$response = array();
-		$response['status'] = 1;
-		$response['msg'] = "Pesquisa realizada com SUCESSO";
-		$response['sql'] = $result;
+		$response['serverResponse']['status'] = 1;
+		$response['serverResponse']['msg'] = "Pesquisa realizada com SUCESSO";
+		$response['serverResponse']['sql'] = $result;
   } else {
-    $response = array();
-		$response['status'] = 0;
-		$response['msg'] = "FALHA ao pesquisar";
+		$response['serverResponse']['status'] = 0;
+		$response['serverResponse']['msg'] = "FALHA ao pesquisar";
   }
 	return $response;
 }
 
 function executeUpdate ($stmt) {
+	$response = array();
 	if ($stmt->execute()) {
 		$result = $stmt->get_result();
-		$response = array();
-		$response['status'] = 1;
-		$response['msg'] = "Atualização realizada com SUCESSO";
-		$response['sql'] = $result;
+		$response['serverResponse']['status'] = 1;
+		$response['serverResponse']['msg'] = "Atualização realizada com SUCESSO";
+		$response['serverResponse']['sql'] = $result;
 	} else {
-		$response = array();
-		$response['status'] = 0;
-		$response['msg'] = "FALHA ao atualizar";
+		$response['serverResponse']['status'] = 0;
+		$response['serverResponse']['msg'] = "FALHA ao atualizar";
 	}
 
 	return $response;

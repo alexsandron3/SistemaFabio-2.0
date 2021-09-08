@@ -35,14 +35,24 @@ if(isset($_REQUEST['value'])){
     $response = executeSelect($stmt);
     
     // Verificando se já existe este usuário
-    if ($response['sql']->num_rows === 0 || $cpfCliente === NULL) {
+    if ($response['serverResponse']['sql']->num_rows === 0 || $cpfCliente === NULL) {
       if ($stmt = $conn->prepare($sqlRegisterUser)) {
         $stmt->bind_param('sssssssisssssssisss', $nomeCliente, $emailCliente, $rgCliente, $orgaoEmissor, $cpfCliente, $telefoneCliente, $dataNascimento, $idadeCliente, $cpfConsultado, $dataCpfConsultado, $referencia, $enderecoCliente, $telefoneContato, $pessoaContato, $redeSocial, $statusCliente, $nacionalidade, $profissao, $estadoCivil);
         $response = executeInsert($stmt);
+        if($stmt->affected_rows !== -1) {
+          $response['serverResponse']['msg'] = 'Cliente cadastrado com SUCESSO!!';
+        }else{
+          $response['serverResponse']['status'] = 0;
+          $response['serverResponse']['msg'] = 'FALHA ao cadastrar cliente!!';
+
+        }
+
+      }else{
+        echo "opa";
       }
     }else{
-      $response['status'] = 0;
-      $response['msg'] = 'CPF já cadastrado';
+      $response['serverResponse']['status'] = 0;
+      $response['serverResponse']['msg'] = 'CPF já cadastrado!!';
     }
     print_r(json_encode($response));
   }
