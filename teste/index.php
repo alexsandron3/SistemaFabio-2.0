@@ -60,11 +60,12 @@
   <script src="../includes/plugins/jqueryMask/src/jquery.mask.js"></script>
   <script src="../includes/plugins/JqueryRestrict/jquery.alphanum.js"> </script>
   <script src="../includes/plugins/jquery.validate.min.js"> </script>
-  <!-- <script src="script.js"></script> -->
   <script src="../config/novoScript.js"></script>
   <!-- Notify -->
   <script src="../includes/plugins/bootstrap-notify.min.js"></script>
   <script src="../includes/plugins/jquery.deserialize.js"></script>
+
+  <!-- Main script -->
   <script src="main.js"></script>
 
 </body>

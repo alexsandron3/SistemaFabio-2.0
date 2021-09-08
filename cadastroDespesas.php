@@ -23,7 +23,7 @@ include_once("./includes/header.php");
         <div class="card-body p-5 bg-white rounded ">
           <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
           <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
-          <fcorm action="" method="POST" autocomplete="OFF">
+          <form action="" method="POST" autocomplete="OFF">
             <div class="form-row my-4">
               <label class="col-sm-2 col-form-label" for="nomePasseio">PASSEIO</label>
               <input type="hidden" name="nomePasseio" value=" ">

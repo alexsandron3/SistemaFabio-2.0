@@ -49,7 +49,7 @@
               <a class="dropdown-item" href="#cliente?id=110">EDITAR CLIENTE</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#cadastroDespesas">DESPESAS</a>
+              <a class="dropdown-item" href="#despesa">DESPESAS</a>
             </li>
             <li>
               <a class="dropdown-item" href="#cadastroPasseio">PASSEIO</a>
