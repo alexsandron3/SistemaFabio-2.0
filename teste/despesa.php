@@ -4,8 +4,7 @@
 <form action="" method="POST" autocomplete="OFF" class="mb-5">
   <div class="form-row mb-5">
     <label class="col-form-label" for="nomePasseio">PASSEIO</label>
-    <input type="hidden" name="nomePasseio" value=" ">
-    <select class="form-control ml-3 col" name="idPasseioLista" id="selectPasseio">
+    <select class="form-control ml-3 col" name="idPasseio" id="selectPasseio">
       <option value="">SELECIONAR</option>
     </select>
   </div>

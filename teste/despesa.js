@@ -9,7 +9,6 @@ const pageActions = (page, isEditing) => {
         if(formValues){
           registerInformation(formValues, isEditing);
         }
-
       }) 
       break;
   
@@ -62,7 +61,7 @@ const render = (location, id) => {
               id: selectId
             }).done(function(data) {
               const serverResponse = JSON.parse(data); 
-              console.log(serverResponse.despesa);
+              // console.log(serverResponse.despesa);
               fillForm(serverResponse);
             })
             formatInput();

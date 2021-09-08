@@ -1,20 +1,5 @@
-// Sending notifications
-const sendNotification = (information) => {
-  $.notify(information.msg, {
-    newest_on_top: true,
-    animate: {
-      enter: 'animated fadeInRight',
-      exit: 'animated fadeOutRight'
-    },
-    type: information.type,
-    allow_dismiss: true,
-    showProgressbar: true,
-    timer: 50
-  })
-}
-
 // Registering to DB
-const registerInformation = (data, isEditing) => {
+const registerClientInformation = (data, isEditing) => {
   const apiPoint = isEditing ? 'updateClient' : 'registerClient'
   $.post(`${apiPoint}.php`,{
     value: data
@@ -94,7 +79,7 @@ const pageActions = (page, isEditing) => {
         const formValues = $('form').serialize();
         // Verify if nome is empty
         if($.trim($('#nomeCliente').val()) !== ''){
-          registerInformation(formValues, isEditing);
+          registerClientInformation(formValues, isEditing);
           
         }else {
           const notificationInfo = {

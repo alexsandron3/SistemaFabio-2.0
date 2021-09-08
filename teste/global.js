@@ -33,7 +33,8 @@ const formatInput = () => {
 }
 
 const sendNotification = (information) => {
-  $.notify(information.msg, {
+  console.log(information);
+  $.notify(information, {
     newest_on_top: true,
     animate: {
       enter: 'animated fadeInRight',
@@ -54,6 +55,7 @@ const registerInformation = (data, isEditing) => {
   }).done(function (data) {
     const serverResponse = JSON.parse(data);
 
+    console.log(serverResponse);
     if(serverResponse.status === 1){
       const notificationInfo = {
         msg: serverResponse.msg,

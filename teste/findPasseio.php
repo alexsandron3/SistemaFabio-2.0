@@ -30,7 +30,7 @@ if (isset($_REQUEST['hideInactives'])) {
       $apiAnswer['serverStatus']['msg'] = 'Passeio não encontrado';
     }
   }else{
-    $apiAnswer['msg'] = 'Erro Interno!';
+    $apiAnswer['serverStatus']['msg'] = 'Erro Interno!';
 
   }
 }
