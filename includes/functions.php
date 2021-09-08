@@ -60,11 +60,27 @@ function executeSelect($stmt) {
 		$response['status'] = 1;
 		$response['msg'] = "Pesquisa realizada com SUCESSO";
 		$response['sql'] = $result;
-  }else{
+  } else {
     $response = array();
 		$response['status'] = 0;
 		$response['msg'] = "FALHA ao pesquisar";
   }
+	return $response;
+}
+
+function executeUpdate ($stmt) {
+	if ($stmt->execute()) {
+		$result = $stmt->get_result();
+		$response = array();
+		$response['status'] = 1;
+		$response['msg'] = "Atualização realizada com SUCESSO";
+		$response['sql'] = $result;
+	} else {
+		$response = array();
+		$response['status'] = 0;
+		$response['msg'] = "FALHA ao atualizar";
+	}
+
 	return $response;
 }
 //Função de CADASTRO com REDIRECT

@@ -49,8 +49,9 @@ const formatInput = () => {
 }
 
 // Registering to DB
-const registerInformation = (data) => {
-  $.post('api.php',{
+const registerInformation = (data, isEditing) => {
+  const apiPoint = isEditing ? 'updateClient' : 'registerClient'
+  $.post(`${apiPoint}.php`,{
     value: data
   }).done(function (data) {
     const serverResponse = JSON.parse(data);
@@ -62,7 +63,9 @@ const registerInformation = (data) => {
       }
       sendNotification(notificationInfo);
       // Reset form after submit
-      $('form').trigger('reset');
+      if (!isEditing) {
+        $('form').trigger('reset');
+      }
 
     }else{
       const notificationInfo = {
@@ -71,11 +74,11 @@ const registerInformation = (data) => {
       }
       sendNotification(notificationInfo);
     }
+
   }).fail(function () {
   });
 };
 
-// 
 
 // Rendering pages
 const render = (location, id) => {
@@ -86,7 +89,6 @@ const render = (location, id) => {
     idFormated = id.split('=').pop();
     fullLink = `${location}.php${id}`;
     isEditing = true;
-    // console.log(fullLink);
   }
   $.post(`${location}.php`,{
     editMode: isEditing,
@@ -101,24 +103,37 @@ const render = (location, id) => {
       }
     });
     formatInput();
-    pageActions(pageType);
+    pageActions(pageType, isEditing);
   });
 };
+
+// Filling forms
 const fillForm = (data) => {
   $('#nomeCliente').val();
   const obj = JSON.parse(data);
   $('form').deserialize(obj.data);
+  $('#dataNascimento').change(function() {
+    const birth = moment(this.value);
+    const age = moment().diff(birth, 'years');
+    $('#idadeCliente').val(age);
+  })
+  // let birth = $('#dataNascimento').val();
+  // birth = moment(birth);
+  // console.log(moment().diff(birth, 'years'));
 }
-const pageActions = (page) => {
+
+const pageActions = (page, isEditing) => {
   switch (page) {
     case 'form':
       const submit = document.getElementById('submit');
       submit.addEventListener('click', (event) => {
+        
         event.preventDefault();
         const formValues = $('form').serialize();
         // Verify if nome is empty
         if($.trim($('#nomeCliente').val()) !== ''){
-          registerInformation(formValues);
+          registerInformation(formValues, isEditing);
+          
         }else {
           const notificationInfo = {
             msg: 'Campo nome Não preenchido',

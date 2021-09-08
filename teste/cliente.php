@@ -11,6 +11,13 @@ if (isset($_REQUEST['editMode']) && $_REQUEST['editMode'] === 'true') {
 
 <p class="h2 text-center"><?php echo $formTitle?></p>
 <form action="SCRIPTS/registroCliente.php" autocomplete="off" method="POST" id="form">
+  
+  <div class="form-row">
+    <div class="col">
+      <!-- <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label> -->
+      <input type="hidden" class="block-form campos-de-texto form-control" name="idCliente" id="idCliente" required="required">
+    </div>
+  </div>
   <div class="form-row">
     <div class="col">
       <label class=" col-form-label text-dark" for="nomeCliente">NOME: </label>
