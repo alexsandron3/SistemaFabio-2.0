@@ -117,97 +117,97 @@ function verificaDataPasseio() {
 
 }
 //CÁLCULO DOS CAMPOS MONETÁRIOS 
-function calculoDespesas() {
-    //Seção do valores unitários
+// function calculoDespesas() {
+//     //Seção do valores unitários
 
-    var valorAereo = Number(document.getElementById('valorAereo').value);
-    var valorAlmocoCliente = Number(document.getElementById('valorAlmocoCliente').value);
-    var valorAlmocoMotorista = Number(document.getElementById('valorAlmocoMotorista').value);
-    var valorAutorizacaoTransporte = Number(document.getElementById('valorAutorizacaoTransporte').value);
-    var valorEscuna = Number(document.getElementById('valorEscuna').value);
-    var valorEstacionamento = Number(document.getElementById('valorEstacionamento').value);
-    var valorGuia = Number(document.getElementById('valorGuia').value);
-    var valorHospedagem = Number(document.getElementById('valorHospedagem').value);
-    var valorImpulsionamento = Number(document.getElementById('valorImpulsionamento').value);
-    var valorIngresso = Number(document.getElementById('valorIngresso').value);
-    var valorKitLanche = Number(document.getElementById('valorKitLanche').value);
-    var valorMarketing = Number(document.getElementById('valorMarketing').value);
-    var valorMicro = Number(document.getElementById('valorMicro').value);
-    var valorOnibus = Number(document.getElementById('valorOnibus').value);
-    var valorPulseira = Number(document.getElementById('valorPulseira').value);
-    var valorSeguroViagem = Number(document.getElementById('valorSeguroViagem').value);
-    var valorServicos = Number(document.getElementById('valorServicos').value);
-    var valorTaxi = Number(document.getElementById('valorTaxi').value);
-    var valorVan = Number(document.getElementById('valorVan').value);
-    var outros = Number(document.getElementById('outros').value);
+//     var valorAereo = Number(document.getElementById('valorAereo').value);
+//     var valorAlmocoCliente = Number(document.getElementById('valorAlmocoCliente').value);
+//     var valorAlmocoMotorista = Number(document.getElementById('valorAlmocoMotorista').value);
+//     var valorAutorizacaoTransporte = Number(document.getElementById('valorAutorizacaoTransporte').value);
+//     var valorEscuna = Number(document.getElementById('valorEscuna').value);
+//     var valorEstacionamento = Number(document.getElementById('valorEstacionamento').value);
+//     var valorGuia = Number(document.getElementById('valorGuia').value);
+//     var valorHospedagem = Number(document.getElementById('valorHospedagem').value);
+//     var valorImpulsionamento = Number(document.getElementById('valorImpulsionamento').value);
+//     var valorIngresso = Number(document.getElementById('valorIngresso').value);
+//     var valorKitLanche = Number(document.getElementById('valorKitLanche').value);
+//     var valorMarketing = Number(document.getElementById('valorMarketing').value);
+//     var valorMicro = Number(document.getElementById('valorMicro').value);
+//     var valorOnibus = Number(document.getElementById('valorOnibus').value);
+//     var valorPulseira = Number(document.getElementById('valorPulseira').value);
+//     var valorSeguroViagem = Number(document.getElementById('valorSeguroViagem').value);
+//     var valorServicos = Number(document.getElementById('valorServicos').value);
+//     var valorTaxi = Number(document.getElementById('valorTaxi').value);
+//     var valorVan = Number(document.getElementById('valorVan').value);
+//     var outros = Number(document.getElementById('outros').value);
 
-    //Seção de quantidade
-    var quantidadeAereo = Number(document.getElementById('quantidadeAereo').value);
-    var quantidadeAlmocoCliente = Number(document.getElementById('quantidadeAlmocoCliente').value);
-    var quantidadeAlmocoMotorista = Number(document.getElementById('quantidadeAlmocoMotorista').value);
-    var quantidadeAutorizacaoTransporte = Number(document.getElementById('quantidadeAutorizacaoTransporte').value);
-    var quantidadeEscuna = Number(document.getElementById('quantidadeEscuna').value);
-    var quantidadeEstacionamento = Number(document.getElementById('quantidadeEstacionamento').value);
-    var quantidadeGuia = Number(document.getElementById('quantidadeGuia').value);
-    var quantidadeHospedagem = Number(document.getElementById('quantidadeHospedagem').value);
-    var quantidadeImpulsionamento = Number(document.getElementById('quantidadeImpulsionamento').value);
-    var quantidadeIngresso = Number(document.getElementById('quantidadeIngresso').value);
-    var quantidadeKitLanche = Number(document.getElementById('quantidadeKitLanche').value);
-    var quantidadeMarketing = Number(document.getElementById('quantidadeMarketing').value);
-    var quantidadeMicro = Number(document.getElementById('quantidadeMicro').value);
-    var quantidadeOnibus = Number(document.getElementById('quantidadeOnibus').value);
-    var quantidadePulseira = Number(document.getElementById('quantidadePulseira').value);
-    var quantidadeSeguroViagem = Number(document.getElementById('quantidadeSeguroViagem').value);
-    var quantidadeServicos = Number(document.getElementById('quantidadeServicos').value);
-    var quantidadeTaxi = Number(document.getElementById('quantidadeTaxi').value);
-    var quantidadeVan = Number(document.getElementById('quantidadeVan').value);
-    //Seção de total de cada despesa
-    var valorTotalAereo = valorAereo * quantidadeAereo;
-    var valorTotalAlmocoCliente = valorAlmocoCliente * quantidadeAlmocoCliente;
-    var valorTotalAlmocoMotorista = valorAlmocoMotorista * quantidadeAlmocoMotorista;
-    var valorTotalTransporte = valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte;
-    var valorTotalEscuna = valorEscuna * quantidadeEscuna;
-    var valorTotalEstacionamento = valorEstacionamento * quantidadeEstacionamento;
-    var valorTotalGuia = valorGuia * quantidadeGuia;
-    var valorTotalHospedagem = valorHospedagem * quantidadeHospedagem;
-    var valorTotalImpulsionamento = valorImpulsionamento * quantidadeImpulsionamento;
-    var valorTotalIngresso = valorIngresso * quantidadeIngresso;
-    var valorTotalKitLanche = valorKitLanche * quantidadeKitLanche;
-    var valorTotalMarketing = valorMarketing * quantidadeMarketing;
-    var valorTotalMicro = valorMicro * quantidadeMicro;
-    var valorTotalOnibus = valorOnibus * quantidadeOnibus;
-    var valorTotalPulseira = valorPulseira * quantidadePulseira;
-    var valorTotalSeguroViagem = valorSeguroViagem * quantidadeSeguroViagem;
-    var valorTotalServicos = valorServicos * quantidadeServicos;
-    var valorTotalTaxi = valorTaxi * quantidadeTaxi;
-    var valorTotalVan = valorVan * quantidadeVan;
+//     //Seção de quantidade
+//     var quantidadeAereo = Number(document.getElementById('quantidadeAereo').value);
+//     var quantidadeAlmocoCliente = Number(document.getElementById('quantidadeAlmocoCliente').value);
+//     var quantidadeAlmocoMotorista = Number(document.getElementById('quantidadeAlmocoMotorista').value);
+//     var quantidadeAutorizacaoTransporte = Number(document.getElementById('quantidadeAutorizacaoTransporte').value);
+//     var quantidadeEscuna = Number(document.getElementById('quantidadeEscuna').value);
+//     var quantidadeEstacionamento = Number(document.getElementById('quantidadeEstacionamento').value);
+//     var quantidadeGuia = Number(document.getElementById('quantidadeGuia').value);
+//     var quantidadeHospedagem = Number(document.getElementById('quantidadeHospedagem').value);
+//     var quantidadeImpulsionamento = Number(document.getElementById('quantidadeImpulsionamento').value);
+//     var quantidadeIngresso = Number(document.getElementById('quantidadeIngresso').value);
+//     var quantidadeKitLanche = Number(document.getElementById('quantidadeKitLanche').value);
+//     var quantidadeMarketing = Number(document.getElementById('quantidadeMarketing').value);
+//     var quantidadeMicro = Number(document.getElementById('quantidadeMicro').value);
+//     var quantidadeOnibus = Number(document.getElementById('quantidadeOnibus').value);
+//     var quantidadePulseira = Number(document.getElementById('quantidadePulseira').value);
+//     var quantidadeSeguroViagem = Number(document.getElementById('quantidadeSeguroViagem').value);
+//     var quantidadeServicos = Number(document.getElementById('quantidadeServicos').value);
+//     var quantidadeTaxi = Number(document.getElementById('quantidadeTaxi').value);
+//     var quantidadeVan = Number(document.getElementById('quantidadeVan').value);
+//     //Seção de total de cada despesa
+//     var valorTotalAereo = valorAereo * quantidadeAereo;
+//     var valorTotalAlmocoCliente = valorAlmocoCliente * quantidadeAlmocoCliente;
+//     var valorTotalAlmocoMotorista = valorAlmocoMotorista * quantidadeAlmocoMotorista;
+//     var valorTotalTransporte = valorAutorizacaoTransporte * quantidadeAutorizacaoTransporte;
+//     var valorTotalEscuna = valorEscuna * quantidadeEscuna;
+//     var valorTotalEstacionamento = valorEstacionamento * quantidadeEstacionamento;
+//     var valorTotalGuia = valorGuia * quantidadeGuia;
+//     var valorTotalHospedagem = valorHospedagem * quantidadeHospedagem;
+//     var valorTotalImpulsionamento = valorImpulsionamento * quantidadeImpulsionamento;
+//     var valorTotalIngresso = valorIngresso * quantidadeIngresso;
+//     var valorTotalKitLanche = valorKitLanche * quantidadeKitLanche;
+//     var valorTotalMarketing = valorMarketing * quantidadeMarketing;
+//     var valorTotalMicro = valorMicro * quantidadeMicro;
+//     var valorTotalOnibus = valorOnibus * quantidadeOnibus;
+//     var valorTotalPulseira = valorPulseira * quantidadePulseira;
+//     var valorTotalSeguroViagem = valorSeguroViagem * quantidadeSeguroViagem;
+//     var valorTotalServicos = valorServicos * quantidadeServicos;
+//     var valorTotalTaxi = valorTaxi * quantidadeTaxi;
+//     var valorTotalVan = valorVan * quantidadeVan;
 
-    document.getElementById('valorTotalAereo').value = valorTotalAereo;
-    document.getElementById('valorTotalAlmocoCliente').value = valorTotalAlmocoCliente;
-    document.getElementById('valorTotalAlmocoMotorista').value = valorTotalAlmocoMotorista;
-    document.getElementById('valorTotalTransporte').value = valorTotalTransporte;
-    document.getElementById('valorTotalEscuna').value = valorTotalEscuna;
-    document.getElementById('valorTotalEstacionamento').value = valorTotalEstacionamento;
-    document.getElementById('valorTotalGuia').value = valorTotalGuia;
-    document.getElementById('valorTotalHospedagem').value = valorTotalHospedagem;
-    document.getElementById('valorTotalImpulsionamento').value = valorTotalImpulsionamento;
-    document.getElementById('valorTotalIngresso').value = valorTotalIngresso;
-    document.getElementById('valorTotalKitLanche').value = valorTotalKitLanche;
-    document.getElementById('valorTotalMarketing').value = valorTotalMarketing;
-    document.getElementById('valorTotalMicro').value = valorTotalMicro;
-    document.getElementById('valorTotalOnibus').value = valorTotalOnibus;
-    document.getElementById('valorTotalPulseira').value = valorTotalPulseira;
-    document.getElementById('valorTotalSeguroViagem').value = valorTotalSeguroViagem;
-    document.getElementById('valorTotalServicos').value = valorTotalServicos;
-    document.getElementById('valorTotalTaxi').value = valorTotalTaxi;
-    document.getElementById('valorTotalVan').value = valorTotalVan;
+//     document.getElementById('valorTotalAereo').value = valorTotalAereo;
+//     document.getElementById('valorTotalAlmocoCliente').value = valorTotalAlmocoCliente;
+//     document.getElementById('valorTotalAlmocoMotorista').value = valorTotalAlmocoMotorista;
+//     document.getElementById('valorTotalTransporte').value = valorTotalTransporte;
+//     document.getElementById('valorTotalEscuna').value = valorTotalEscuna;
+//     document.getElementById('valorTotalEstacionamento').value = valorTotalEstacionamento;
+//     document.getElementById('valorTotalGuia').value = valorTotalGuia;
+//     document.getElementById('valorTotalHospedagem').value = valorTotalHospedagem;
+//     document.getElementById('valorTotalImpulsionamento').value = valorTotalImpulsionamento;
+//     document.getElementById('valorTotalIngresso').value = valorTotalIngresso;
+//     document.getElementById('valorTotalKitLanche').value = valorTotalKitLanche;
+//     document.getElementById('valorTotalMarketing').value = valorTotalMarketing;
+//     document.getElementById('valorTotalMicro').value = valorTotalMicro;
+//     document.getElementById('valorTotalOnibus').value = valorTotalOnibus;
+//     document.getElementById('valorTotalPulseira').value = valorTotalPulseira;
+//     document.getElementById('valorTotalSeguroViagem').value = valorTotalSeguroViagem;
+//     document.getElementById('valorTotalServicos').value = valorTotalServicos;
+//     document.getElementById('valorTotalTaxi').value = valorTotalTaxi;
+//     document.getElementById('valorTotalVan').value = valorTotalVan;
 
-    //ValorTotal
-    var valorTotal = valorTotalAereo + valorTotalAlmocoCliente + valorTotalAlmocoMotorista + valorTotalTransporte + valorTotalEscuna + valorTotalEstacionamento + valorTotalGuia +
-        valorTotalHospedagem + valorTotalImpulsionamento + valorTotalIngresso + valorTotalKitLanche + valorTotalMarketing + valorTotalMicro + valorTotalOnibus + valorTotalPulseira +
-        valorTotalSeguroViagem + valorTotalServicos + valorTotalTaxi + valorTotalVan + outros;
-    document.getElementById('totalDespesas').value = valorTotal;
-}
+//     //ValorTotal
+//     var valorTotal = valorTotalAereo + valorTotalAlmocoCliente + valorTotalAlmocoMotorista + valorTotalTransporte + valorTotalEscuna + valorTotalEstacionamento + valorTotalGuia +
+//         valorTotalHospedagem + valorTotalImpulsionamento + valorTotalIngresso + valorTotalKitLanche + valorTotalMarketing + valorTotalMicro + valorTotalOnibus + valorTotalPulseira +
+//         valorTotalSeguroViagem + valorTotalServicos + valorTotalTaxi + valorTotalVan + outros;
+//     document.getElementById('totalDespesas').value = valorTotal;
+// }
 //VERIFICAÇÕES
 // VERIFICANDO PASSEIO EM CADASTRO DE DESPESAS
 function verificaIdPasseioSelecionadoFun() {

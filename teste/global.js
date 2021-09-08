@@ -32,3 +32,47 @@ const formatInput = () => {
   })
 }
 
+const sendNotification = (information) => {
+  $.notify(information.msg, {
+    newest_on_top: true,
+    animate: {
+      enter: 'animated fadeInRight',
+      exit: 'animated fadeOutRight'
+    },
+    type: information.type,
+    allow_dismiss: true,
+    showProgressbar: true,
+    timer: 50
+  })
+}
+
+
+const registerInformation = (data, isEditing) => {
+  const apiPoint = isEditing ? 'updateDespesa' : 'registerDespesa'
+  $.post(`${apiPoint}.php`,{
+    value: data
+  }).done(function (data) {
+    const serverResponse = JSON.parse(data);
+
+    if(serverResponse.status === 1){
+      const notificationInfo = {
+        msg: serverResponse.msg,
+        type: 'success',
+      }
+      sendNotification(notificationInfo);
+      // Reset form after submit
+      if (!isEditing) {
+        $('form').trigger('reset');
+      }
+
+    }else{
+      const notificationInfo = {
+        msg: serverResponse.msg,
+        type: 'danger',
+      }
+      sendNotification(notificationInfo);
+    }
+
+  }).fail(function () {
+  });
+};

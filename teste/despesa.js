@@ -6,16 +6,10 @@ const pageActions = (page, isEditing) => {
         event.preventDefault();
         const formValues = $('form').serialize();
         // Verify if nome is empty
-        if($.trim($('#nomeCliente').val()) !== ''){
+        if(formValues){
           registerInformation(formValues, isEditing);
-          
-        }else {
-          const notificationInfo = {
-            msg: 'Campo nome Não preenchido',
-            type: 'warning',
-          }
-          sendNotification(notificationInfo);
         }
+
       }) 
       break;
   
@@ -28,8 +22,7 @@ const pageActions = (page, isEditing) => {
 const fillForm = (data) => {
   $('#nomeCliente').val();
   const obj = data;
-  console.log(obj.data[0]);
-  $('form').deserialize(obj.data);
+  $('form').deserialize(obj.despesa);
 }
 
 // Rendering pages
@@ -65,13 +58,14 @@ const render = (location, id) => {
             return passeio.idPasseio === selectId;
           })
           if (selectId) {
-            $.post('findPasseio.php', {
-              hideInactives: true,
+            $.post('findDespesa.php', {
               id: selectId
             }).done(function(data) {
               const serverResponse = JSON.parse(data); 
+              console.log(serverResponse.despesa);
               fillForm(serverResponse);
             })
+            formatInput();
             $('.inputs').show();
           }else{
             $('.inputs').hide();
@@ -79,7 +73,6 @@ const render = (location, id) => {
         })
       }
     });
-    formatInput();
     pageActions(pageType, isEditing);
   });
 };
