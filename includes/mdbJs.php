@@ -13,3 +13,6 @@
 <!-- JQUERY PLUGINS -->
 <script src="./includes/plugins/jqueryMask/src/jquery.mask.js"></script>
 <script src="./includes/plugins/JqueryRestrict/jquery.alphanum.js"> </script>
+
+<!-- SweetAlert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
