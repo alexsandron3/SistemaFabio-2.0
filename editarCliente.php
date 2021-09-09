@@ -233,19 +233,17 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
 
             <button type="submit" name="cadastrarClienteBtn" id="submit" class="btn btn-info btn-md">ATUALIZAR</button>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-info btn-md ml-5" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
               HISTÓRICO
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">PAGAMENTOS DESTE CLIENTE</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <table class="table table-hover table-dark">
@@ -281,25 +279,18 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
                     </table>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                   </div>
                 </div>
               </div>
             </div>
-          </form>
         </div>
+        </form>
       </div>
     </div>
   </div>
+  </div>
   <?php include_once("./includes/mdbJs.php"); ?>
-  <script>
-    Swal.fire({
-      title: 'Error!',
-      text: 'Do you want to continue',
-      icon: 'error',
-      confirmButtonText: 'Cool'
-    })
-  </script>
   <script src="config/novoScript.js"></script>
 </body>
 
