@@ -292,6 +292,14 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
     </div>
   </div>
   <?php include_once("./includes/mdbJs.php"); ?>
+  <script>
+    Swal.fire({
+      title: 'Error!',
+      text: 'Do you want to continue',
+      icon: 'error',
+      confirmButtonText: 'Cool'
+    })
+  </script>
   <script src="config/novoScript.js"></script>
 </body>
 
