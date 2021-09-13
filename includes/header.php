@@ -7,11 +7,11 @@
     { 
         session_start(); 
     } 
-    //VERIFICANDO SE USUÁRIO ESTÁ LOGADO
+    // VERIFICANDO SE USUÁRIO ESTÁ LOGADO
     // if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     //     header("location: login.php");
     //     exit;
-    //     }
+    // }
 
 
     //ARQUIVOS NECESSÁRIOS PARA UM INCLUDE
@@ -23,10 +23,4 @@
     include_once("servicos/servicoMsgText.php");
     include_once("servicos/servicoMensagens.php");
     include_once("constantes.php");
-    include_once("htmlElements/esconderTabelas.php"); 
-
-    
-
-
-
-?>
+    include_once("htmlElements/esconderTabelas.php");

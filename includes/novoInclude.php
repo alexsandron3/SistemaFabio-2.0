@@ -56,3 +56,14 @@
 <!-- JQUERY MASK -->
 <script src="./includes/plugins/jqueryMask/src/jquery.mask.js"></script>
 <script src="./includes/plugins/JqueryRestrict/jquery.alphanum.js"> </script>
+
+<div class="calcSum">
+  <input type="text">
+  <input type="text">
+  <input type="text">
+</div>
+<div class="calcSum">
+  <input type="text">
+  <input type="text">
+  <input type="text">
+</div>

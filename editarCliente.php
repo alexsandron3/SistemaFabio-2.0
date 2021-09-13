@@ -236,7 +236,16 @@ $rowResultadoBuscaPeloIdCliente = mysqli_fetch_assoc($resultadoBuscaPeloIdClient
             <button type="button" class="btn btn-info btn-md ml-5" data-toggle="modal" data-target="#exampleModal">
               HISTÓRICO
             </button>
-
+                      <div class="sum{1}">
+                        <input type="text">
+                        <input type="text">
+                        <input type="text">
+                      </div>
+                      <div class="sum{2}">
+                        <input type="text">
+                        <input type="text">
+                        <input type="text">
+                      </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
