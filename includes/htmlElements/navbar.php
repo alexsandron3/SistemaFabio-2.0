@@ -32,7 +32,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <!-- Link -->
         <li class="nav-item">
-          <a class="nav-link" href="#home">INÍCIO</a>
+          <a class="nav-link" href="#default">INÍCIO</a>
         </li>
 
         <!-- CADASTRAR -->

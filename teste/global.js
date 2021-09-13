@@ -33,42 +33,28 @@ const formatInput = () => {
   })
 }
 // Getting page link
-$(document).ready(function() {
-  // Rendering pages
-  const renderPage = (location, id) => {
-    if (location.includes('cliente')) {
-      renderClientPage(location, id)
-    }
-  };
-  //changing Page
-const changePage = (fullLink) => {
-  const editMode = fullLink.includes('?')
+$(function () {
+  $(window).on('hashchange', hashchanged);
+  hashchanged();
+});
+
+function hashchanged () {
+  const fullLink = location.hash;
   let page = fullLink.split('#').pop();
   page = page.split('?').shift();
   let id;
-  if (editMode) {
+  if (fullLink.includes('?')) {
     id = fullLink.split('?').pop();
     id = `?${id}`; 
+    $('#load-content').load(`${page}.php${id}`);
+    $.post(`${page}.php${id}`);
   }
-  switch (page) {
-    case '#':
-      break;
-    case 'home':
-      renderPage('default');
-      break;
-    default:
-      renderPage(page, id);
-      break;
-  }
-};
-  let fullLink = $(location).attr('href');
-  changePage(fullLink);
-  $(window).on('hashchange', function(event){
-    const origEvent = event.originalEvent;
-    let fullLink = origEvent.newURL;
-    changePage(fullLink);
-  });
-});
+  $('#load-content').load(`${page}.php`);
+
+}
+
+
+
 
 
 

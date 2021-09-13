@@ -1,9 +1,10 @@
 <?php
-if (isset($_REQUEST['editMode']) && $_REQUEST['editMode'] === 'true') {
+if (isset($_REQUEST['id'])) {
   $formTitle = 'EDITAR CLIENTE';
 }else{
   $formTitle = 'CADASTRAR CLIENTE';
 }
+echo $_REQUEST['id'];
 ?>
 
 
