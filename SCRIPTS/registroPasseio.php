@@ -12,14 +12,15 @@
     $anotacoes            = filter_input(INPUT_POST, 'anotacoesPasseio',     FILTER_SANITIZE_STRING);
     $statusPasseio        = filter_input(INPUT_POST, 'statusPasseio',        FILTER_VALIDATE_BOOLEAN);
     $dataLancamentoPasseio= filter_input(INPUT_POST, 'dataLancamentoPasseio',FILTER_SANITIZE_STRING);
+    $itensPacote          = filter_input(INPUT_POST, 'itensPacote',          FILTER_SANITIZE_STRING);
     $idUser               = $_SESSION['id'];
 
 
     /* -----------------------------------------------------------------------------------------------------  */
 
     $queryCadastraPasseio = "INSERT INTO
-                            passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao, statusPasseio, dataLancamento)
-                            VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao', '$statusPasseio', '$dataLancamentoPasseio')
+                            passeio (nomePasseio, localPasseio, valorPasseio, dataPasseio, anotacoes, lotacao, idadeIsencao, statusPasseio, dataLancamento, itensPacote)
+                            VALUES  ('$nomePasseio', '$localPasseio', '$valorPasseio', '$dataPasseio', '$anotacoes', '$lotacao', '$idadeIsencao', '$statusPasseio', '$dataLancamentoPasseio', '$itensPacote')
                             ";
 
     /* -----------------------------------------------------------------------------------------------------  */

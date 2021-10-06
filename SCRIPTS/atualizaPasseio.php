@@ -13,13 +13,15 @@
     $idadeIsencao        = filter_input(INPUT_POST, 'idadeIsencao',         FILTER_SANITIZE_NUMBER_INT);
     $statusPasseio       = filter_input(INPUT_POST, 'statusPasseio',        FILTER_VALIDATE_BOOLEAN);
     $dataLancamentoPasseio= filter_input(INPUT_POST, 'dataLancamentoPasseio',FILTER_SANITIZE_STRING);
+    $itensPacote          = filter_input(INPUT_POST, 'itensPacote',          FILTER_SANITIZE_STRING);
+
     $idUser              = $_SESSION['id'];
 
     /* -----------------------------------------------------------------------------------------------------  */
 
     $queryAtualizaPasseio = "UPDATE passeio SET
                             nomePasseio='$nomePasseio', localPasseio='$localPasseio', valorPasseio='$valorPasseio', lotacao='$lotacao', dataPasseio='$dataPasseio', anotacoes='$anotacoes', 
-                            idadeIsencao='$idadeIsencao', statusPasseio='$statusPasseio', dataLancamento='$dataLancamentoPasseio'
+                            idadeIsencao='$idadeIsencao', statusPasseio='$statusPasseio', dataLancamento='$dataLancamentoPasseio', itensPacote='$itensPacote'
                             WHERE idPasseio='$idPasseio'";
     /* -----------------------------------------------------------------------------------------------------  */
     //ATUALIZANDO E GERANDO LOG

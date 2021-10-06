@@ -4,6 +4,9 @@ $idCliente = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $queryBuscarInformacoesCliente = "SELECT * FROM cliente WHERE idCliente=$idCliente";
 $executaQueryBuscarInformacoesCliente = mysqli_query($conn, $queryBuscarInformacoesCliente);
 $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoesCliente);
+$queryBuscarTodosPasseios = "SELECT nomePasseio, idPasseio FROM passeio";
+$executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios);
+
 ?>
 
 <!DOCTYPE html>
@@ -123,7 +126,17 @@ $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoes
 
     <h3> <b> 1 - OBJETO DO CONTRATO: </b> </h3>
     <p class="h4"> Cláusula 1ª. O presente contrato tem como OBJETO, a prestação, pela CONTRATADA, à <b>CONTRATANTE</b>,
-      dos serviços na área de turismo referente ao passeio <a href="#" id="nomePasseio" data-type="text" data-placement="right" data-title="NOME DO PASSEIO REQUISITADO">PASSEIO </a> , para vagas <a href="#" id="vagasSolicitadas" data-type="text" data-placement="right" data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGAS.
+      dos serviços na área de turismo referente ao passeio 
+      <select name="" id="">
+        <option value="">Selecionar</option>
+        <?php 
+        while($rowBuscarTodosPasseios = mysqli_fetch_assoc($executaQueryBuscarTodosPasseios)) {
+          
+        ?>
+        <option value="<?php echo $rowBuscarTodosPasseios['idPasseio'] ?>"><?php echo $rowBuscarTodosPasseios['nomePasseio'] ?></option>
+
+        <?php }?>
+      </select> , para vagas <a href="#" id="vagasSolicitadas" data-type="text" data-placement="right" data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGAS.
     </p>
 
     <p class="h4"> <a href="#" id="itensDoPacote" data-type="wysihtml5" data-placement="right" data-title="ITENS DO PACOTE"> ITENS DO PACOTE: </a></p>

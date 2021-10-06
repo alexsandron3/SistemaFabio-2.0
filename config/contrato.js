@@ -69,4 +69,13 @@ $(document).ready(function () {
     $('#testemunha1').editable();
     $('#testemunha2').editable();
 
+    $('select').on('blur',function () {
+        $.get('api/infoPasseio.php', {
+            id: this.value
+        }).done(function(data) {
+            data = JSON.parse(data);
+            const text = `ITENS DO PACOTE:<br/>${data.itensPacote}`
+            $('#itensDoPacote').html(text)
+        })
+    })
 });
