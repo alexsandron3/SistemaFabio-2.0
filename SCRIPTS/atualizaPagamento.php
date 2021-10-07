@@ -18,6 +18,9 @@
     $localEmbarque                  = filter_input(INPUT_POST, 'localEmbarque',          FILTER_SANITIZE_STRING);
     $valorPagoAtual                 = filter_input(INPUT_POST, 'valorPagoAtual',         FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $taxaPagamento                  = filter_input(INPUT_POST, 'taxaPagamento',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $valorContrato               = filter_input(INPUT_POST, 'valorContrato',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $numeroVagas                 = filter_input(INPUT_POST, 'numeroVagas',            FILTER_SANITIZE_NUMBER_INT);
+    $opcionais                   = filter_input(INPUT_POST, 'opcionais',              FILTER_SANITIZE_STRING);
     $idUser                         = $_SESSION['id'];
 
     $clienteParceiro = (empty($clienteParceiro))? 0: $clienteParceiro;
@@ -51,7 +54,7 @@
 
     $queryUpdatePagamentoCliente    =  "UPDATE pagamento_passeio SET    
                                     valorVendido='$valorVendido', valorPago='$valorPago', previsaoPagamento='$previsaoPagamento', anotacoes='$anotacoes', historicoPagamento='$historicoPagamento', statusPagamento='$statusPagamento', clienteParceiro='$clienteParceiro' ,valorPendente='$valorPendente', seguroViagem='$statusEditaSeguroViagemCliente',
-                                    transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque', dataPagamento=NOW(), lastModified=NOW(), clienteDesistente='$clienteDesistente'
+                                    transporte='$transporteCliente', taxaPagamento='$taxaPagamento', localEmbarque='$localEmbarque', dataPagamento=NOW(), lastModified=NOW(), clienteDesistente='$clienteDesistente', valorContrato='$valorContrato', numeroVagas='$numeroVagas', opcionais='$opcionais'
                                     WHERE idPagamento='$idPagamento'
                                     ";
 

@@ -4,6 +4,8 @@ include_once("./includes/header.php");
 
 /* -----------------------------------------------------------------------------------------------------  */
 $idCliente = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$linkGerarContrato    = "contrato.php?id=" . $idCliente;
+
 /* -----------------------------------------------------------------------------------------------------  */
 $queryBuscaIdCliente = "SELECT nomeCliente, idadeCliente, referencia FROM cliente WHERE idCliente = '$idCliente'";
 $resultadoIdCliente = mysqli_query($conexao, $queryBuscaIdCliente);
@@ -263,6 +265,7 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
             <input type="submit" class="btn btn-info btn-sm" value="FINALIZAR PAGAMENTO" id="buttonFinalizarPagamento" name="buttonFinalizarPagamento" <?php echo $buttonFinalizarPagamento; ?>>
             <input type="hidden" class="form-control col-sm-1 ml-3" name="idClienteSelecionado" id="idCliente" readonly="readonly" value="<?php echo $idCliente ?>">
             <input type="hidden" class="form-control col-sm-1 ml-3" name="idPasseioSelecionado" id="idPasseio" readonly="readonly" value="<?php echo $idPasseioSelecionado ?>">
+            <button type="button" class='btn btn-dark btn-sm' onclick="novaJanela('<?php echo $linkGerarContrato; ?>')" data-toggle='tooltip' data-placement='top' title='GERAR CONTRATO'><i class='material-icons'>description</i></button>
           </form>
         </div>
       </div>
