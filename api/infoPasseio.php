@@ -1,7 +1,7 @@
 <?php
   include_once("../includes/header.php");
   if (isset($_REQUEST["id"])) {
-    $query = "SELECT * FROM passeio WHERE idPasseio= ?";
+    $query = "SELECT * FROM passeio p, pagamento_passeio pp, cliente c WHERE p.idPasseio= ? and pp.idPasseio=p.idPasseio and pp.idCliente=c.idCliente";
     if ($stmt = mysqli_prepare($conexao, $query)) {
       mysqli_stmt_bind_param($stmt, "i", $idPasseio);
       $idPasseio = $_REQUEST['id'];

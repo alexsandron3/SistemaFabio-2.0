@@ -76,6 +76,9 @@ $(document).ready(function () {
             data = JSON.parse(data);
             const text = `ITENS DO PACOTE:<br/>${data.itensPacote}`
             $('#itensDoPacote').html(text)
+            $('#vagasSolicitadas').html(data.numeroVagas)
+            $('#valorTotal').html(parseFloat(data.valorContrato).toPrecision(4))
+            console.log();
         })
     })
 });
