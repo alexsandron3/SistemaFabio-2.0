@@ -132,6 +132,18 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                             </div>
                           </div>
                           <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='valorContrato'>VALOR DO CONTRATO</label>
+                            <div class='col-6'>
+                              <input type='text' class='block-form campo-monetario form-control' name='valorContrato' id='valorContrato' value='0' placeholder='VALOR DO CONTRATO'>
+                            </div>
+                          </div>
+                          <div class='form-row my-4'>
+                            <label class='col-sm-2 col-form-label' for='numeroVagas'>NUMERO DE VAGAS</label>
+                            <div class='col-6'>
+                              <input type='text' class='block-form campo-monetario form-control' name='numeroVagas' id='numeroVagas' value='0' placeholder='NUMERO DE VAGAS'>
+                            </div>
+                          </div>
+                          <div class='form-row my-4'>
                             <label class='col-sm-2 col-form-label' for='localEmbarque'>LOCAL DE EMBARQUE</label>
                             <div class='col-6'>
                               <input type='text' class='block-form campos-de-texto form-control' name='localEmbarque' id='localEmbarque' placeholder='LOCAL DE EMBARQUE' required='required' autocomplete='on' >
@@ -207,16 +219,18 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                             </div>
                           </fieldset>
                           <div class='form-row my-4' >
+                            <label class='col-3 col-form-label' for='opcionais'>OPCIONAIS</label>
+                            <textarea class='text-area form-control  ml-3' name='opcionais' id='opcionais' cols='20' rows='3'  maxlength='500'></textarea>
+
+                          </div>
+                          <div class='form-row my-4' >
                             <label class='col-3 col-form-label' for='anotacoes'>ANOTAÇÕES</label>
-                            <textarea class='text-area form-control  ml-3' name='anotacoes' id='anotacoes' cols='20' rows='3' placeholder='ANOTAÇÕES'  maxlength='500'></textarea>
+                            <textarea class='text-area form-control  ml-3' name='anotacoes' id='anotacoes' cols='20' rows='3'   maxlength='500'></textarea>
                             <label class='col-form-label' for='anotacoes'>HISTÓRICO</label>
                             <textarea class='form-control ml-3' name='historicoPagamento' id='historicoPagamento' cols='30' rows='3' placeholder='historicoPagamento' maxlength='500'>  </textarea>
                             <textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3' placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'>  </textarea>
                           </div>
-                          <div class='form-row my-4' >
-                            <label class='col-3 col-form-label' for='opcionais'>OPCIONAIS</label>
-                            <textarea class='text-area form-control  ml-3' name='opcionais' id='opcionais' cols='20' rows='3'  maxlength='500'></textarea>
-                          </div>
+                          
               <?php
                         } else {
                           mensagensWarningNoSession("VOCÊ PRECISA CRIAR AS DESPESAS DESTE PASSEIO, REDIRECIONANDO PARA A ÁREA DE CRIAÇÃO DE DESPESAS");
