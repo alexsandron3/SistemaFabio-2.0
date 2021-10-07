@@ -73,11 +73,15 @@ $(document).ready(function () {
     $('#testemunha1').editable();
     $('#testemunha2').editable();
 
+    
     $('select').on('blur',function () {
+        const idCliente = $(location).attr('href').split('=').pop();
         $.get('api/infoPasseio.php', {
-            id: this.value
+            id: this.value,
+            idCliente: idCliente
         }).done(function(data) {
             data = JSON.parse(data);
+            if(data.status === 0) return 0;
             const itensPacote = `ITENS DO PACOTE:<br/>${data.itensPacote}`
             const opcionaisPacote = `ITENS DO PACOTE:<br/>${data.opcionais}`
             $('#itensDoPacote').html(itensPacote)
