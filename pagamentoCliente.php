@@ -33,10 +33,8 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
             <?php
             if ($idCliente == 0) {
               mensagensInfoNoSession("POR FAVOR, SELECIONE UM CLIENTE");
-              #echo "<p class='h4 text-center alert-danger'>POR FAVOR, SELECIONE UM CLIENTE </p>";
             } else {
               mensagensInfoNoSession("CLIENTE: " . $rowIdCliente['nomeCliente']);
-              #echo "<p class='h4 text-center alert-primary'>CLIENTE: " . $rowIdCliente['nomeCliente'] . "</p>";
             }
             ?>
             <div class="form-row">
@@ -214,6 +212,10 @@ $idadeCliente = calcularIdade($idCliente, $conn, "");
                             <label class='col-form-label' for='anotacoes'>HISTÓRICO</label>
                             <textarea class='form-control ml-3' name='historicoPagamento' id='historicoPagamento' cols='30' rows='3' placeholder='historicoPagamento' maxlength='500'>  </textarea>
                             <textarea style='display:none;' class='form-control col-sm-3 ml-3' name='historicoPagamentoAntigo' id='historicoPagamentoAntigo' cols='6' rows='3' placeholder='historicoPagamentoAntigo' maxlength='500' disabled='disabled' onblur='(new calculoPagamentoCliente()).novoValorPago()'>  </textarea>
+                          </div>
+                          <div class='form-row my-4' >
+                            <label class='col-3 col-form-label' for='opcionais'>OPCIONAIS</label>
+                            <textarea class='text-area form-control  ml-3' name='opcionais' id='opcionais' cols='20' rows='3'  maxlength='500'></textarea>
                           </div>
               <?php
                         } else {

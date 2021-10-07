@@ -21,8 +21,9 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
   <style> .body{background-color:white;} img {max-width: 111px; max-height: 106px;}</style>
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
   <link href="config/style.css" rel="stylesheet">
-  <link href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=2.0.7" rel="stylesheet" />
   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <!-- <link href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=2.0.7" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <!-- PRINT -->
 
