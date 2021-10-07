@@ -44,6 +44,10 @@ $(document).ready(function () {
         title: 'ITENS DO PACOTE',
         rows: 10
     });
+    $('#opcionaisDoPacote').editable({
+        title: 'OPCIONAIS DO PACOTE',
+        rows: 10
+    });
 
     //toggle `popup` / `inline` mode
     $.fn.editable.defaults.mode = 'popup';
@@ -74,8 +78,10 @@ $(document).ready(function () {
             id: this.value
         }).done(function(data) {
             data = JSON.parse(data);
-            const text = `ITENS DO PACOTE:<br/>${data.itensPacote}`
-            $('#itensDoPacote').html(text)
+            const itensPacote = `ITENS DO PACOTE:<br/>${data.itensPacote}`
+            const opcionaisPacote = `ITENS DO PACOTE:<br/>${data.opcionais}`
+            $('#itensDoPacote').html(itensPacote)
+            $('#opcionaisDoPacote').html(opcionaisPacote)
             $('#vagasSolicitadas').html(data.numeroVagas)
             $('#valorTotal').html(parseFloat(data.valorContrato).toPrecision(4))
             console.log();

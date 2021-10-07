@@ -141,6 +141,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
     </p>
 
     <p class="h4"> <a href="#" id="itensDoPacote" data-type="wysihtml5" data-placement="right" data-title="ITENS DO PACOTE"> ITENS DO PACOTE: </a></p>
+    <p class="h4"> <a href="#" id="opcionaisDoPacote" data-type="wysihtml5" data-placement="right" data-title="OPCIONAIS DO PACOTE"> OPCIONAIS DO PACOTE: </a></p>
 
     <h3> <b> 2- DESISTÊNCIA E CANCELAMENTO: </b> </h3>
     <p class="h4"> <span class="h3"> <b>2.1 - DESISTÊNCIA: </b></span> A desistência por parte do <b> CONTRATANTE</b>
