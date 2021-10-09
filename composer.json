@@ -1,0 +1,13 @@
+{
+    "autoload": {
+      "psr-4": {
+          "Includes\\": "includes"
+      },
+      "files": [
+          "./includes/pdoCONEXAO.php"
+      ]  
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.3"
+    }
+}
