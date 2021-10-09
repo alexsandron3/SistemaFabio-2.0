@@ -25,4 +25,4 @@
   }else {
     $apiAnswer =  selectAll($conn, $showInactives, $data);
   }
-echo json_encode($apiAnswer); 
+echo json_encode($apiAnswer);
