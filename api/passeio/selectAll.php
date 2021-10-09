@@ -1,7 +1,7 @@
 <?php
   function selectAll($conn, $showInactives = null) {
     $query = 'SELECT * FROM passeio WHERE statusPasseio NOT IN (0)';
-    if($showInactives === 1 ) $query = 'SELECT * FROM passeio';
+    if($showInactives == 1 ) $query = 'SELECT * FROM passeio';
     $stmt = $conn->prepare($query);
     $response = executeSelect($stmt);
     $apiAnswer = $response;

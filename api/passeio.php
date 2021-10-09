@@ -7,13 +7,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 $apiAnswer = array();
+$showInactives = 0;
+if (isset($_REQUEST['showInactives'])) $showInactives = $_REQUEST['showInactives'];
 if(isset($_GET['id'])) {
-  // $response['response']['showInactives'] = 0;
-  if(isset($_GET['showInactives'])) $response['response']['showInactives'] = $_REQUEST['showInactives'];
-  $apiAnswer = select($conn, $_REQUEST['id']);
+  $apiAnswer = select($conn, $_REQUEST['id'], $showInactives);
 }else {
-  $apiAnswer =  selectAll($conn);
-  // print_r($answer);
+  $apiAnswer =  selectAll($conn, $showInactives);
 }
-// echo dirname(__DIR__)."/includes/header.php";
 echo json_encode($apiAnswer); 
