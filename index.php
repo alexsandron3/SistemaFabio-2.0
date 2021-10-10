@@ -141,7 +141,7 @@ include_once("./includes/header.php");
 
                   while ($rowResultadoListaPasseio = mysqli_fetch_assoc($resultadoListaPasseio)) {
                     $idPasseio = $rowResultadoListaPasseio['idPasseio'];
-                    $pagamentosUltimoDia = "SELECT dataPagamento, statusPagamento FROM pagamento_passeio WHERE dataPagamento >= NOW() - INTERVAL 1 DAY AND idPasseio = $idPasseio ";
+                    $pagamentosUltimoDia = "SELECT dataPagamento, statusPagamento FROM pagamento_passeio WHERE dataPagamento >= NOW() - INTERVAL 1 DAY AND idPasseio = $idPasseio";
                     $resultadoPagamentosUltimoDia = mysqli_query($conexao, $pagamentosUltimoDia);
                     $qtdPagamento = mysqli_num_rows($resultadoPagamentosUltimoDia);
                     $interessadosUltimoDia = 0;

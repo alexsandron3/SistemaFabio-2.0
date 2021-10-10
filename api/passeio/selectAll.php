@@ -1,5 +1,7 @@
 <?php
   function selectAll($conn, $showInactives = null, $data) {
+    $time_start = microtime(true);
+
     $query = 'SELECT * FROM passeio WHERE statusPasseio NOT IN (0)';
     if($showInactives == 1 ) $query = 'SELECT * FROM passeio WHERE 1';
     $types = "";
@@ -22,9 +24,23 @@
     
     $apiAnswer = $response;
     if ($response['serverResponse']['sql']->num_rows > 0) {
-      while ($row = $response['serverResponse']['sql']->fetch_array(MYSQLI_ASSOC)) {
-        $apiAnswer['passeios'][] = $row;
+      for($i = 0; $passeio[$i] = $response['serverResponse']['sql']->fetch_assoc(); $i++) ;
+      array_pop($passeio);
+      foreach ($passeio as $key => $value) {
+        $id = $passeio[$key]['idPasseio'];
+        $payments = "SELECT pp.statusPagamento, pp.idPasseio FROM pagamento_passeio pp WHERE pp.idPasseio= $id";
+        $stm = $conn->prepare($payments);
+        $resp = executeSelect($stm);
+        for($i = 0; $pagamento[$i] = $resp['serverResponse']['sql']->fetch_assoc(); $i++) ;
+        array_pop($pagamento);
+        $passeio[$key]['pagamentos'] = $pagamento;
+
       }
+      $time_end = microtime(true);
+      $execution_time = ($time_end - $time_start);
+      $apiAnswer['passeios'][] = $passeio;
+      $apiAnswer['serverResponse']['execTime'] = $execution_time;
+
       return $apiAnswer;
     }
   }
