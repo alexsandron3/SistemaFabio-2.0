@@ -13,25 +13,40 @@
   // $showInactives = 0;
   // $inicio = null;
   // $fim = null;
-  // if (isset($_GET['inicio']) && isset($_GET['fim'])){
-  //   $inicio = $_GET['inicio'];
-  //   $fim = $_GET['fim'];
-  // }  
   // $data = array(
-  //   'inicio' => $inicio,
-  //   'fim' => $fim,
-  // );
+    //   'inicio' => $inicio,
+    //   'fim' => $fim,
+    // );
+    
+    // if (isset($_GET['showInactives'])) $showInactives = $_GET['showInactives'];
+    // if(isset($_GET['id'])) {
+      //   $apiAnswer = select($conn, $_GET['id'], $showInactives);
+      // }else {
+        //   $apiAnswer =  selectAll($conn, $showInactives, $data);
+        // }
+        // $apiAnswer = countStatus($conn, $_GET['id']);
+  $query = '';
+  $types = "";
+  $params = [];
+  if (isset($_GET['inicio']) && isset($_GET['fim'])){
+    $inicio = $_GET['inicio'];
+    $fim = $_GET['fim'];
+    $query .= 'AND dataPasseio BETWEEN ? AND ?';
+    $types .= 'ss';
+    $params[] = $_GET['inicio'];
+    $params[] = $_GET['fim'];
+  }  
 
-  // if (isset($_GET['showInactives'])) $showInactives = $_GET['showInactives'];
-  // if(isset($_GET['id'])) {
-  //   $apiAnswer = select($conn, $_GET['id'], $showInactives);
-  // }else {
-  //   $apiAnswer =  selectAll($conn, $showInactives, $data);
-  // }
-  // $apiAnswer = countStatus($conn, $_GET['id']);
-  $passeioId = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 as confirmado, 0 as crianca, 0 as interessado, 0 as parceiro, 0 as quitado FROM passeio;";
-  $stmt = $conn->prepare($passeioId);
-  $response = executeSelect($stmt);
+  $passeioId = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 as confirmado, 0 as crianca, 0 as interessado, 0 as parceiro, 0 as quitado FROM passeio WHERE 1 $query";
+  if(strlen($types) > 0) {
+    $stmt = $conn->prepare($passeioId);
+    $stmt->bind_param($types, ...$params);
+    $response = executeSelect($stmt);
+  }else {
+    $stmt = $conn->prepare($passeioId);
+    $response = executeSelect($stmt);
+
+  }
   $apiAnswer = $response;
 
   // while ($row = ) {
