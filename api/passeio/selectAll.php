@@ -28,12 +28,14 @@
       array_pop($passeio);
       foreach ($passeio as $key => $value) {
         $id = $passeio[$key]['idPasseio'];
-        $payments = "SELECT pp.statusPagamento, pp.idPasseio FROM pagamento_passeio pp WHERE pp.idPasseio= $id";
+        $payments = "SELECT statusPagamento, idPasseio FROM pagamento_passeio pp WHERE idPasseio= $id ORDER BY idPasseio";
         $stm = $conn->prepare($payments);
         $resp = executeSelect($stm);
         for($i = 0; $pagamento[$i] = $resp['serverResponse']['sql']->fetch_assoc(); $i++) ;
         array_pop($pagamento);
+        
         $passeio[$key]['pagamentos'] = $pagamento;
+        // $passeio[$key]['query'] = $payments;
 
       }
       $time_end = microtime(true);
