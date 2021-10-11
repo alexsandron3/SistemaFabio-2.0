@@ -29,7 +29,7 @@
   //   $apiAnswer =  selectAll($conn, $showInactives, $data);
   // }
   // $apiAnswer = countStatus($conn, $_GET['id']);
-  $passeioId = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao FROM passeio";
+  $passeioId = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 as confirmado, 0 as crianca, 0 as interessado, 0 as parceiro, 0 as quitado FROM passeio;";
   $stmt = $conn->prepare($passeioId);
   $response = executeSelect($stmt);
   $apiAnswer = $response;
@@ -37,12 +37,12 @@
   // while ($row = ) {
   //   // $id = $row;
   // }
-  $apiAnswer['passeio'] = $response['serverResponse']['sql']->fetch_all(MYSQLI_ASSOC);
+  $apiAnswer['passeios'] = $response['serverResponse']['sql']->fetch_all(MYSQLI_ASSOC);
   // while ($row = $response['serverResponse']['sql']->fetch_array(MYSQLI_ASSOC)) {
   //   // $id = $row;
   //   $apiAnswer['passeio'][] = $row;
   // }
-  foreach ($apiAnswer['passeio'] as $key => $value) {
+  foreach ($apiAnswer['passeios'] as $key => $value) {
     // print_r($value['idPasseio']);
     $id = $value['idPasseio'];
     // print_r($row);
@@ -50,7 +50,13 @@
     $stmt1 = $conn->prepare($query);
     $response1 = executeSelect($stmt1);
     while($result = $response1['serverResponse']['sql']->fetch_array(MYSQLI_ASSOC)) {
-      $apiAnswer['passeio'][$key]['pagamentos'][] = $result;
+      if ($result['statusPagamento'] === CLIENTE_INTERESSADO) $texto = 'interessado';
+      if ($result['statusPagamento'] === CLIENTE_CONFIRMADO) $texto = 'confirmado';
+      if ($result['statusPagamento'] === PAGAMENTO_QUITADO) $texto = 'quitado';
+      if ($result['statusPagamento'] === CLIENTE_PARCEIRO) $texto = 'parceiro';
+      if ($result['statusPagamento'] === CLIENTE_CRIANCA) $texto = 'crianca';
+      
+      $apiAnswer['passeios'][$key][$texto] = $result['pagamentos'];
 
     }
   }
