@@ -1,5 +1,5 @@
 <?php
-  include_once("../includes/header.php");
+  include_once("../includes/header_copy.php");
 
   function countStatus($conn, $id) {
 

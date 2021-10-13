@@ -1,5 +1,5 @@
 <?php
-  include_once("../../includes/header.php");
+  include_once("../../includes/header_copy.php");
   header('Access-Control-Allow-Origin: *');
   header('Access-Control-Allow-Methods: GET, POST');
   header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');

@@ -1,5 +1,5 @@
 <?php
-  include_once("../includes/header.php");
+  include_once("../includes/header_copy.php");
   include_once("passeio/selectAll.php");
   include_once("passeio/select.php");
   // required headers

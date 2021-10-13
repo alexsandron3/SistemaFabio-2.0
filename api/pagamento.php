@@ -1,5 +1,5 @@
 <?php
-  include_once("../includes/header.php");
+  include_once("../includes/header_copy.php");
   // include_once("pagamento/selectAll.php");
   include_once("pagamento/select.php");
   include_once("pagamento/countStatus.php");
