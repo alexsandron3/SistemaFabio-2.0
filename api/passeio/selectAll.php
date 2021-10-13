@@ -38,6 +38,7 @@
         // $passeio[$key]['query'] = $payments;
 
       }
+      
       $time_end = microtime(true);
       $execution_time = ($time_end - $time_start);
       $apiAnswer['passeios'][] = $passeio;

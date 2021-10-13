@@ -10,7 +10,7 @@
   // print_r($response['passeios']);
   foreach ($apiResponse['passeios'] as $key => $passeio) {
     $idPasseio = $passeio['idPasseio'];
-    $query = 'SELECT statusPagamento, idPagamento FROM pagamento_passeio WHERE idPasseio = ?';
+    $query = 'SELECT idPasseio FROM passeio';
     if($stmt = $conn->prepare($query)){
       $stmt->bind_param('i', $idPasseio);
       $response = executeSelect($stmt);
