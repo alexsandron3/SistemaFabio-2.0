@@ -2,7 +2,51 @@
 
     include_once("header.php");
     include_once("constantes.php");
+// Novas funcoes
+function executeInsert($stmt)
+{
+	// $permissaoParaCadatrar    = retornaPermissao('cadastrar');
+	$response = array();
+	if ($stmt->execute()) {
+		$result = $stmt->get_result();
+		$response['serverResponse']['status'] = 1;
+		$response['serverResponse']['msg'] = "CADASTRADO(A) com sucesso";
+		$response['serverResponse']['sql'] = $result;
+	} else {
+		$response['serverResponse']['status'] = 0;
+		$response['serverResponse']['msg'] = "FALHA ao cadastrar"; 
+	}
+	return $response;
+}
 
+function executeSelect($stmt) {
+	$response = array();
+  if ($stmt->execute()) {
+    $result = $stmt->get_result();
+		$response['serverResponse']['status'] = 1;
+		$response['serverResponse']['msg'] = "Pesquisa realizada com SUCESSO";
+		$response['serverResponse']['sql'] = $result;
+  } else {
+		$response['serverResponse']['status'] = 0;
+		$response['serverResponse']['msg'] = "FALHA ao pesquisar";
+  }
+	return $response;
+}
+
+function executeUpdate ($stmt) {
+	$response = array();
+	if ($stmt->execute()) {
+		$result = $stmt->get_result();
+		$response['serverResponse']['status'] = 1;
+		$response['serverResponse']['msg'] = "Atualização realizada com SUCESSO";
+		$response['serverResponse']['sql'] = $result;
+	} else {
+		$response['serverResponse']['status'] = 0;
+		$response['serverResponse']['msg'] = "FALHA ao atualizar";
+	}
+
+	return $response;
+}
 
     //Função parar GERAR LOG das atividades realizadas no sistema
     function gerarLog($tipo, $conexao, $idUser,  $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, $tipoModificacao, $sinalDeFalhaNaOperacao ){
