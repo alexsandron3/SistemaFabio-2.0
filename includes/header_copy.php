@@ -17,7 +17,7 @@
     //ARQUIVOS NECESSÁRIOS PARA UM INCLUDE
     include_once("conexao.php");
     include_once("pdoCONEXAO.php");
-    include_once("functions.php");
+    include_once("func.php");
     include_once("servicos/servicoValidacaoPermissao.php");
     include_once("servicos/servicoRedirecionamento.php");
     include_once("servicos/servicoMsgText.php");
