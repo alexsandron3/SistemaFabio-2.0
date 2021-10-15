@@ -8,13 +8,6 @@
   header('Access-Control-Allow-Methods: POST');
   header('Content-Type: application/json; charset=UTF-8');
   header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
-  function msg ($success, $status, $message, $extra= []) {
-    return array_merge([
-      'succes' => $success,
-      'status' => $status,
-      'message' => $message
-    ], $extra);
-  }
   require __DIR__.'/classes/Database.php';
   require __DIR__.'/classes/JwtHandler.php';
   
@@ -23,28 +16,26 @@
 
   $data = json_decode(file_get_contents("php://input"));
   $returnData = [];
+  return json_encode(var_dump($data));
 
   if($_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     $returnData = msg(0, 404, 'Page Not Foud!');
-  }elseif (!isset($data->email) 
+  }elseif (!isset($data->username) 
   || !isset($data->password)
-  || empty(trim($data->email))
+  || empty(trim($data->username))
   || empty(trim($data->password))) {
-    $fields = ['fields' => ['email','password']];
-    $returnData = msg(0,422,'Please Fill in all Required Fields!',$fields);
+    $fields = ['fields' => ['username','password']];
+    $returnData = msg(0,422,'Por favor, preencha todos os campos!',$fields);
   }else {
-    $email = trim($data->email);
+    $username = trim($data->username);
     $password = trim($data->password);
-    if(!$email){
-      $returnData = msg(0,422,'Invalid Email Address!');
-    }elseif (strlen($password) < 2) {
-      $returnData = msg(0,422,'Your password must be at least 8 characters long!');
-
+    if(!$username){
+      $returnData = msg(0,422,'Usuário inválido!');
     }else {
       try {
-        $fetch_user_by_email = "SELECT * FROM `users` WHERE `username`=:email";
-        $query_stmt = $conn->prepare($fetch_user_by_email);
-        $query_stmt->bindValue(':email', $email,PDO::PARAM_STR);
+        $fetch_user_by_username = "SELECT * FROM `users` WHERE `username`=:username";
+        $query_stmt = $conn->prepare($fetch_user_by_username);
+        $query_stmt->bindValue(':username', $username,PDO::PARAM_STR);
         $query_stmt->execute();
 
         // IF FINDS A USER BY NAME
@@ -65,7 +56,7 @@
             $returnData = msg(0, 422, 'Senha inválida!');
           }
         }else {
-          $returnData = msg(0,422,'Invalid Email Address!');
+          $returnData = msg(0,422,'Invalid username Address!');
 
         }
       } catch (\Throwable $th) {

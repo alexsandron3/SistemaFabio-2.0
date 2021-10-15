@@ -3,7 +3,13 @@
 include_once("header.php");
 include_once("constantes.php");
 
-
+function msg ($success, $status, $message, $extra = []) {
+	return array_merge([
+		'succes' => $success,
+		'status' => $status,
+		'message' => $message
+	], $extra);
+}
 //Função parar GERAR LOG das atividades realizadas no sistema
 function gerarLog($tipo, $conexao, $idUser,  $nomeCliente, $nomePasseio, $dataPasseio, $valorPago, $tipoModificacao, $sinalDeFalhaNaOperacao)
 {
