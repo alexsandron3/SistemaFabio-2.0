@@ -1,3 +1,6 @@
+const extenso = require('extenso');
+const BigNumber = require('bignumber.js');
+
 $(document).ready(function () {
     $('#dob').editable({
         format: 'dd-mm-yyyy',
@@ -83,12 +86,16 @@ $(document).ready(function () {
             data = JSON.parse(data);
             if(data.status === 0) return 0;
             const itensPacote = `ITENS DO PACOTE:<br/>${data.itensPacote}`
-            const opcionaisPacote = `ITENS DO PACOTE:<br/>${data.opcionais}`
+            const opcionaisPacote = `OPCIONAIS DO PACOTE:<br/>${data.opcionais}`
+            const valorContrato = new BigNumber(data.valorContrato);
+            const valorString = String(valorContrato).replace('.', ',');
+            const valorEmExtenso = extenso(valorString).replace('inteiros', 'reais').replace('centésimos', 'centavos');
+
             $('#itensDoPacote').html(itensPacote)
             $('#opcionaisDoPacote').html(opcionaisPacote)
             $('#vagasSolicitadas').html(data.numeroVagas)
-            $('#valorTotal').html(parseFloat(data.valorContrato).toPrecision(4))
-            console.log();
+            $('#valorTotal').html(`${valorContrato.toFixed(2)} (${valorEmExtenso})`)
+            console.log(valorEmExtenso, valorString);
         })
     })
 });
