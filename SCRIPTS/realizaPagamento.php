@@ -16,7 +16,12 @@
     $localEmbarque               = filter_input(INPUT_POST, 'localEmbarque',          FILTER_SANITIZE_STRING);
     $clienteParceiro             = filter_input(INPUT_POST, 'clienteParceiro',        FILTER_VALIDATE_BOOLEAN);
     $historicoPagamento          = filter_input(INPUT_POST, 'historicoPagamento',     FILTER_SANITIZE_STRING);
+    $idPasseio                   = filter_input(INPUT_POST, 'idPasseioSelecionado',   FILTER_SANITIZE_NUMBER_INT); 
+    $valorContrato               = filter_input(INPUT_POST, 'valorContrato',          FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $numeroVagas                 = filter_input(INPUT_POST, 'numeroVagas',            FILTER_SANITIZE_NUMBER_INT);
+    $opcionais                   = filter_input(INPUT_POST, 'opcionais',              FILTER_SANITIZE_STRING);
     $idUser                      = $_SESSION['id'];
+
 
 
     if(empty($taxaPagamento)){
@@ -62,9 +67,9 @@
     
 
     $queryEnviaPagamentoCliente = "INSERT INTO pagamento_passeio 
-                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento, createdAt)  
+                                (idCliente, idPasseio, valorVendido, valorPago, previsaoPagamento, anotacoes, valorPendente, statusPagamento, transporte, seguroViagem, taxaPagamento, localEmbarque, clienteParceiro, historicoPagamento, dataPagamento, createdAt, valorContrato, numeroVagas, opcionais)  
                                 VALUES ('$idCliente', '$idPasseio', '$valorVendido', '$valorPago', '$previsaoPagamento', '$anotacoes', '$valorPendente', '$statusPagamento', '$transporteCliente', '$seguroViagemCliente', 
-                                '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW(), NOW())
+                                '$taxaPagamento', '$localEmbarque', '$clienteParceiro', '$historicoPagamento', NOW(), NOW(), $valorContrato, $numeroVagas, '$opcionais')
                                 ";
  
     // echo $queryEnviaPagamentoCliente;
