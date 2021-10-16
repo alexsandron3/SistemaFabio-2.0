@@ -45,7 +45,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
   <script src="config/bootstrap-editable.min.js"></script>
 
   <!-- main.js -->
-  <script src="config/contrato.js"></script>
+  <script src="config/bundle.js"></script>
   <script type="text/javascript">
     function print_page() {
       var ButtonControl = document.getElementById("btnprint");
@@ -88,7 +88,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
       border: none;
       /* needed for Firefox: */
       overflow: hidden;
-      width: 150px;
+      width: 300px;
     }
 
     .float-center {
@@ -226,7 +226,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
                 data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGAS.
             </p>
 
-            <p class="h4"> <a href="#" id="itensDoPacote" data-type="wysihtml5" data-placement="right"
+            <p class="h4 mb-4"> <a href="#" id="itensDoPacote" data-type="wysihtml5" data-placement="right"
                 data-title="ITENS DO PACOTE"> ITENS DO PACOTE: </a></p>
             <p class="h4"> <a href="#" id="opcionaisDoPacote" data-type="wysihtml5" data-placement="right"
                 data-title="OPCIONAIS DO PACOTE"> OPCIONAIS DO PACOTE: </a></p>
@@ -395,7 +395,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
             <h3> <b> 12 - PRAZO DE VIGÊNCIA: </b></h3>
             <p class="h4">O presente contrato terá início em
               <a href="#" id="inicioVigenciaContrato" data-type="date" data-pk="1"
-                data-title="SELECIONE A DATA">dd/mm/aaaa</a>
+                data-title="SELECIONE A DATA"><?php echo date('d/m/Y') ?></a>
               e término em <a href="#" id="terminoVigenciaContrato" data-type="date" data-pk="1"
                 data-title="SELECIONE A DATA">dd/mm/aaaa</a>.
             </p>
@@ -407,7 +407,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
             <p class="h4">Por estarem assim justos e acordados, firmam o presente instrumento, em duas vias de igual
               teor. </p>
             <p class="h4">São João de Meriti, <a href="#" id="dob" data-type="date" data-pk="1"
-                data-title="SELECIONE A DATA">dd/mm/aaaa</a>. </p>
+                data-title="SELECIONE A DATA"><?php echo date('d/m/Y') ?></a>. </p>
             <div class="row">
               <div class="col">
                 <img src="img/assinaturaTais.png" alt="">

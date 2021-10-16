@@ -112,6 +112,12 @@ include_once("./includes/header.php");
                     id="dataLancamentoPasseio" required="required" data-toggle="tooltip" data-placement="left"
                     title="DATA DE LANÇAMENTO DO PASSEIO">
                 </div>
+                <div class="col-lg-6">
+                  <label class=" col-form-label text-dark pt-3" for="prazoVigencia">PRAZO DE VIGÊNCIA</label>
+                  <input type="date" class="block-form form-control col-lg-5  pb-2" name="prazoVigencia"
+                    id="prazoVigencia" required="required" data-toggle="tooltip" data-placement="left"
+                    title="DATA DE LANÇAMENTO DO PASSEIO">
+                </div>
               </div>
             </fieldset>
 
