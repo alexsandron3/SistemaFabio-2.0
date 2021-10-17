@@ -1,28 +1,52 @@
 <?php
-  include_once("../includes/header.php");
-  include_once("passeio/selectAll.php");
-  include_once("passeio/select.php");
-  // required headers
-  header('Access-Control-Allow-Origin: *');
+  include_once('../includes/header.php');
+  require __DIR__.'/classes/Database.php';
+  header('Access-Control-Allow-Headers: access');
   header('Access-Control-Allow-Methods: GET, POST');
-  header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-  $apiAnswer = array();
-  $showInactives = 0;
-  $inicio = null;
-  $fim = null;
-  if (isset($_GET['inicio']) && isset($_GET['fim'])){
-    $inicio = $_GET['inicio'];
-    $fim = $_GET['fim'];
-  }  
-  $data = array(
-    'inicio' => $inicio,
-    'fim' => $fim,
-  );
+  header('Content-Type: application/json; charset=UTF-8');
+  header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+  header('Access-Control-Allow-Origin: *');
 
-  if (isset($_GET['showInactives'])) $showInactives = $_GET['showInactives'];
-  if(isset($_GET['id'])) {
-    $apiAnswer = select($conn, $_GET['id'], $showInactives);
-  }else {
-    $apiAnswer =  selectAll($conn, $showInactives, $data);
+
+  $db_connection = new Database();
+  $conn = $db_connection->dbConnection();
+  $data = json_decode(file_get_contents("php://input"));
+  $returnData = [];
+
+  if($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if(isset($_GET['pesquisarPasseio'])){
+      $wordToSearch = "%{$_GET['pesquisarPasseio']}%";
+    }else{
+      $wordToSearch = "% %";
+
+    }
+
+    try {
+      $fetch_passeio = "SELECT * FROM passeio WHERE nomePasseio LIKE :wordToSearch OR localPasseio LIKE :wordToSearch OR idPasseio LIKE :wordToSearch";
+      $stmt = $conn->prepare($fetch_passeio);
+      $stmt->bindValue(':wordToSearch', $wordToSearch, PDO::PARAM_STR);
+      $stmt->execute();
+
+      if($stmt->rowCount()){
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $returnData = [
+          "success" => 1,
+          "message" => 'Pesquisa realizada com sucesso!',
+          "usuario" => $row
+        ];
+      }else {
+        $returnData = msg(0, 422, 'Passeio não encontrado!');
+      }
+    } catch (\Throwable $e) {
+      $returnData = msg(0,500,$e->getMessage());
+
+    }
+
+  }else{
+    return json_encode(print_r('AAAABBB'));
+
   }
-echo json_encode($apiAnswer);
+
+  echo json_encode($returnData);
+
+
