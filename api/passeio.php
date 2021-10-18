@@ -11,6 +11,7 @@
   $db_connection = new Database();
   $conn = $db_connection->dbConnection();
   $data = json_decode(file_get_contents("php://input"));
+  // return print_r(json_encode($data));
   $returnData = [];
 
   if($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -18,7 +19,6 @@
       $wordToSearch = "%{$_GET['pesquisarPasseio']}%";
     }else{
       $wordToSearch = "% %";
-
     }
 
     try {
@@ -32,7 +32,7 @@
         $returnData = [
           "success" => 1,
           "message" => 'Pesquisa realizada com sucesso!',
-          "usuario" => $row
+          "passeio" => $row
         ];
       }else {
         $returnData = msg(0, 422, 'Passeio não encontrado!');
@@ -43,7 +43,26 @@
     }
 
   }else{
-    return json_encode(print_r('AAAABBB'));
+    // echo gettype();
+    try {
+      $add_passeio = "INSERT INTO passeio (anotacoes, dataLancamento, dataPasseio ,idadeIsencao, itensPacote, localPasseio, lotacao, nomePasseio, prazoVigencia, statusPasseio, valorPasseio) VALUES (:anotacoes, :dataLancamento, :dataPasseio, :idadeIsencao, :itensPacote, :localPasseio, :lotacao, :nomePasseio, :prazoVigencia, :statusPasseio, :valorPasseio)";
+      $stmt = $conn->prepare($add_passeio);
+      if($stmt->execute((array) $data)) {
+        $returnData = [
+          "success" => 1,
+          "message" => 'Cadastro realizado com sucesso!',
+        ];
+      }else{
+        $returnData = [
+          "success" => 1,
+          "message" => 'Hove um erro!',
+        ];
+      }
+    } catch (\Throwable $e) {
+      $returnData = msg(0,500,$e->getMessage());
+
+    }
+    // return json_encode($returnData);
 
   }
 
