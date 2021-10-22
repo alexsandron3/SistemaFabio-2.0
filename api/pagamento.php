@@ -1,4 +1,4 @@
-<?php
+  <?php
   include_once("../includes/header.php");
   // include_once("pagamento/selectAll.php");
   include_once("pagamento/select.php");
