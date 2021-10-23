@@ -142,7 +142,7 @@ $transporte = $rowIdPagamento['transporte'];
                 <label class='col-sm-2 col-form-label' for='previsaoPagamento'>PREVISÃO PAGAMENTO</label>
                 <div class='col-sm-3'>
                   <input type='date' class='block-form form-control' name='previsaoPagamento' id='previsaoPagamento'
-                    value='<?php echo $rowIdPagamento[' previsaoPagamento'] ?>' placeholder='PREVISÃO PAGAMENTO'
+                    value='<?php echo $rowIdPagamento['previsaoPagamento'] ?>' placeholder='PREVISÃO PAGAMENTO'
                   onblur='verificaDataDePrevisaoPagamento()'>
                 </div>
               </div>

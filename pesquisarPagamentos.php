@@ -3,7 +3,7 @@
 include_once("./includes/header.php");
 include_once("./includes/constantes.php");
 // =================================================================================================================================
-$query = " SELECT pp.historicoPagamento, pp.idPagamento, c.nomeCliente, p.nomePasseio, p.dataPasseio 
+$query = " SELECT pp.historicoPagamento, pp.idPagamento, c.nomeCliente, c.referencia, p.nomePasseio, p.dataPasseio 
             FROM pagamento_passeio pp, cliente c, passeio p 
             WHERE pp.idCliente=c.idCliente AND pp.idPasseio=p.idPasseio AND historicoPagamento REGEXP '\r\n'";
 $executaQuery = mysqli_query($conn, $query);
@@ -36,6 +36,7 @@ $executaQuery = mysqli_query($conn, $query);
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
+                                    <th scope="col">Referência</th>
                                     <th scope="col">Data do último pagamento</th>
                                     <th scope="col">Último pagamento</th>
                                     <th scope="col">Passeio</th>
@@ -49,12 +50,17 @@ $executaQuery = mysqli_query($conn, $query);
                                     $ultimaLinha = substr_count($resultadoQuery['historicoPagamento'], "\n");
                                     $string = $resultadoQuery['historicoPagamento'];
                                     $nomeCliente = $resultadoQuery['nomeCliente'];
+                                    $nrefernciaClienteomeCliente = $resultadoQuery['refernciaCliente'];
                                     $passeio = $resultadoQuery['nomePasseio'];
                                     list($sentence[]) = array_slice(explode(PHP_EOL, $string), -1, $ultimaLinha);
                                 ?>
                                     <tr>
                                         <td><?php
                                             echo $nomeCliente;
+                                            ?>
+                                        </td>
+                                        <td><?php
+                                            echo $refernciaCliente;
                                             ?>
                                         </td>
                                         <td><?php
