@@ -375,7 +375,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
             <div id="itemA" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;">a) Para garantir sua reserva o <b>CONTRATANTE</b> se compromete a dar uma entrada no valor de R$ 0.00 até PREVISÃO DE PAGAMENTO através de __.</div>
             </p>
             <p class="h4">
-            <div id="itemB" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;"> b) O restante do pagamento realizado conforme discriminado abaixo: <br> __</div>
+            <div id="itemB" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;"> b) O restante do pagamento realizado conforme discriminado: <br> __</div>
             </p>
             <p class="h4">
 
