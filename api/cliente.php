@@ -72,6 +72,7 @@
           $returnData = [
             "success" => 1,
             "message" => 'Cadastro realizado com sucesso!',
+            "cliente" => $conn->lastInsertId(),
           ];
         }else{
           $returnData = [
