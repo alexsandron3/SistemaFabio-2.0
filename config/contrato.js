@@ -1,4 +1,3 @@
-const extenso = require('extenso');
 const BigNumber = require('bignumber.js');
 
 $(document).ready(function () {
@@ -91,7 +90,7 @@ $(document).ready(function () {
             // const valorString = String(valorContrato).replace('.', ',');
             // const valorString = String(valorContrato);
             // const valorEmExtenso = extenso(valorString).replace('inteiros', 'reais').replace('centésimos', 'centavos');
-            const valorEmExtenso = '';
+            // const valorEmExtenso = '';
 
             $('#itensDoPacote').html(itensPacote)
             $('#opcionaisDoPacote').html(opcionaisPacote)
