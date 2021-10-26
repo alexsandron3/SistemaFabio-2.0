@@ -4,7 +4,7 @@ $idCliente = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $queryBuscarInformacoesCliente = "SELECT * FROM cliente WHERE idCliente=$idCliente";
 $executaQueryBuscarInformacoesCliente = mysqli_query($conn, $queryBuscarInformacoesCliente);
 $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoesCliente);
-$queryBuscarTodosPasseios = "SELECT nomePasseio, idPasseio, prazoVigencia, dataPasseio FROM passeio WHERE statusPasseio NOT IN (0)";
+$queryBuscarTodosPasseios = "SELECT nomePasseio, idPasseio, prazoVigencia, dataPasseio FROM passeio WHERE statusPasseio NOT IN (0) ORDER BY dataPasseio ";
 $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios);
 
 ?>
