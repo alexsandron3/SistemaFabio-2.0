@@ -4,7 +4,7 @@ $idCliente = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $queryBuscarInformacoesCliente = "SELECT * FROM cliente WHERE idCliente=$idCliente";
 $executaQueryBuscarInformacoesCliente = mysqli_query($conn, $queryBuscarInformacoesCliente);
 $rowBuscarInformacoesCliente = mysqli_fetch_assoc($executaQueryBuscarInformacoesCliente);
-$queryBuscarTodosPasseios = "SELECT nomePasseio, idPasseio FROM passeio";
+$queryBuscarTodosPasseios = "SELECT nomePasseio, idPasseio, prazoVigencia FROM passeio";
 $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios);
 
 ?>
@@ -89,6 +89,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
       /* needed for Firefox: */
       overflow: hidden;
       width: 300px;
+      height: 50px;
     }
 
     .float-center {
@@ -222,8 +223,8 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
                 </option>
 
                 <?php }?>
-              </select> , para vagas <a href="#" id="vagasSolicitadas" data-type="text" data-placement="right"
-                data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGAS.
+              </select> , para <a href="#" id="vagasSolicitadas" data-type="text" data-placement="right"
+                data-title="QUANTIDADE DE VAGAS REQUISITADAS 1">0 </a> VAGA(S).
             </p>
 
             <p class="h4 mb-4"> <a href="#" id="itensDoPacote" data-type="wysihtml5" data-placement="right"
@@ -371,21 +372,14 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
               </a> da seguinte forma:
             </p>
             <p class="h4">
-            <div id="itemA" data-type="wysihtml5" data-pk="1">a) Para garantir sua reserva o <b>CONTRATANTE</b> se
-              compromete a
-              dar uma entrada no valor de R$ 0.00 até PREVISÃO DE PAGAMENTO através de __.</div>
+            <div id="itemA" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;">a) Para garantir sua reserva o <b>CONTRATANTE</b> se compromete a dar uma entrada no valor de R$ 0.00 até PREVISÃO DE PAGAMENTO através de __.</div>
             </p>
             <p class="h4">
-            <div id="itemB" data-type="wysihtml5" data-pk="1"> b) O restante do pagamento será realizado conforme
-              discriminado
-              abaixo: <br> __</div>
+            <div id="itemB" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;"> b) O restante do pagamento realizado conforme discriminado abaixo: <br> __</div>
             </p>
             <p class="h4">
 
-            <div id="itemC" data-type="wysihtml5" data-pk="1">c) A falta do pagamento acordado nos itens “a” e/ou “b”
-              dentro do
-              prazo estabelecido ensejará o cancelamento do presente contrato. Ficando sua vaga à disposição da
-              <b>CONTRATADA</b> para venda.
+            <div id="itemC" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;">c) A falta do pagamento acordado nos itens “a” e/ou “b” dentro do prazo estabelecido ensejará o cancelamento do presente contrato. Ficando sua vaga à disposição da <b>CONTRATADA</b> para venda.
             </div>
             </p>
             <p class="h4">d) Nos casos em que a forma de pagamento acordada for em boleto bancário o contrato será
@@ -397,7 +391,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
               <a href="#" id="inicioVigenciaContrato" data-type="date" data-pk="1"
                 data-title="SELECIONE A DATA"><?php echo date('d/m/Y') ?></a>
               e término em <a href="#" id="terminoVigenciaContrato" data-type="date" data-pk="1"
-                data-title="SELECIONE A DATA">dd/mm/aaaa</a>.
+                data-title="SELECIONE A DATA"><?php echo $rowBuscarTodosPasseios['prazoVigencia'] ?></a>.
             </p>
             <h3> <b> 13 - FORO </b></h3>
             <p class="h4">Fica estabelecido pelas partes que o foro escolhido é o da comarca de São João de Meriti/RJ,
