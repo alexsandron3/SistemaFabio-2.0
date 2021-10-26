@@ -89,14 +89,16 @@ $(document).ready(function () {
             const itensPacote = `ITENS DO PACOTE:<br/>${data.itensPacote}`
             const opcionaisPacote = `OPCIONAIS DO PACOTE:<br/>${data.opcionais}`
             const valorContrato = new BigNumber(data.valorContrato);
-            const valorString = String(valorContrato).replace('.', ',');
-            const valorEmExtenso = extenso(valorString).replace('inteiros', 'reais').replace('centésimos', 'centavos');
+            // const valorString = String(valorContrato).replace('.', ',');
+            // const valorString = String(valorContrato);
+            // const valorEmExtenso = extenso(valorString).replace('inteiros', 'reais').replace('centésimos', 'centavos');
+            const valorEmExtenso = '';
 
             $('#itensDoPacote').html(itensPacote)
             $('#opcionaisDoPacote').html(opcionaisPacote)
             $('#vagasSolicitadas').html(data.numeroVagas)
-            $('#valorTotal').html(`${valorContrato.toFixed(2)} (${valorEmExtenso})`)
-            console.log(valorEmExtenso, valorString);
+            $('#valorTotal').html(`${valorContrato.toFixed(2)} ( )`)
+            // console.log(valorEmExtenso, valorString);
         })
     })
 });
