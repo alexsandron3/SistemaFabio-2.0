@@ -88,7 +88,7 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
       border: none;
       /* needed for Firefox: */
       overflow: hidden;
-      width: 300px;
+      width: 500px;
       height: 50px;
     }
 
@@ -377,11 +377,11 @@ $executaQueryBuscarTodosPasseios = mysqli_query($conn, $queryBuscarTodosPasseios
             <div id="itemA" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;">a) Para garantir sua reserva o <b>CONTRATANTE</b> se compromete a dar uma entrada no valor de R$ 0.00 até PREVISÃO DE PAGAMENTO através de __.</div>
             </p>
             <p class="h4">
-            <div id="itemB" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;"> b) O restante do pagamento realizado conforme discriminado: <br> __</div>
+            <div id="itemB" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;"> b) O pagamento do saldo restante será realizado conforme discriminado: <br> __</div>
             </p>
             <p class="h4">
 
-            <div id="itemC" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;">c) A falta do pagamento acordado nos itens “a” e/ou “b” dentro do prazo estabelecido ensejará o cancelamento do presente contrato. Ficando sua vaga à disposição da <b>CONTRATADA</b> para venda.
+            <div id="itemC" data-type="wysihtml5" data-pk="1" style="font-size: 1.5rem;">c) A falta do pagamento acordado nos itens “a” e/ou “b” dentro do prazo estabelecido ensejará o cancelamento do presente contrato. Ficando sua vaga à disposição da <b>CONTRATADA</b> para venda;
             </div>
             </p>
             <p class="h4">d) Nos casos em que a forma de pagamento acordada for em boleto bancário o contrato será
