@@ -2,3 +2,4 @@ conexao.php
 pdoConexao.php
 includes/pdoCONEXAO.php
 includes/conexao.php
+node_modules
