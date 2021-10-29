@@ -55,25 +55,63 @@ $(document).ready(function () {
     $.fn.editable.defaults.mode = 'popup';
 
     //make username editable
-    $('#nome').editable();
-    $('#nacionalidade').editable();
-    $('#profissao').editable();
-    $('#estadoCivil').editable();
-    $('#identidade').editable();
-    $('#telefone').editable();
-    $('#cpf').editable();
-    $('#enderecoCliente').editable();
-    $('#nomePasseio').editable();
-    $('#vagasSolicitadas').editable();
-    $('#valorTotal').editable();
-    $('#valorEntrada').editable();
-    $('#previsaoPagamento').editable();
-    $('#metodoPagamento').editable();
-    $('#restantePagamento').editable();
-    $('#dataDeHoje').editable();
-    $('#assinaturaContratante').editable();
-    $('#testemunha1').editable();
-    $('#testemunha2').editable();
+   $('#nome').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#nacionalidade').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#profissao').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#estadoCivil').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#identidade').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#telefone').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#cpf').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#enderecoCliente').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#nomePasseio').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#vagasSolicitadas').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#valorTotal').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#valorEntrada').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#previsaoPagamento').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#metodoPagamento').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#restantePagamento').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#dataDeHoje').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#assinaturaContratante').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#testemunha1').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
+      $('#testemunha2').editable({
+        emptytext: 'NÃO INFORMADO ',
+      });
 
     
     $('select').on('blur',function () {
