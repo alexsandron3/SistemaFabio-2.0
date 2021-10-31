@@ -52,6 +52,7 @@
   }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
     // return print_r(json_encode($data));
     try {
+      // Define status do pagamento
       $fetch_passeio = "SELECT lotacao, idadeIsencao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio=:idPasseio";
       $stmt = $conn->prepare($fetch_passeio);
       $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
@@ -60,7 +61,17 @@
       
       $data->statusPagamento =  (statusPagamento($data->valorPendente, $data->valorPago, $data->idadeCliente, $row['idadeIsencao'], 
       $data->clienteParceiro));
-      // return print_r(json_encode($data->statusPagamento));
+
+      // Verifica quantidade de vaga
+      $CLIENTE_INTERESSADO = CLIENTE_INTERESSADO;
+      $CLIENTE_PARCEIRO    = CLIENTE_PARCEIRO;
+      $fetch_quantidadeVagas = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=:idPasseio AND statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
+      $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
+      $stmt->execute();
+      $rowStatusPagamento = $stmt->fetch(PDO::FETCH_ASSOC);
+      
+
+      // return print_r(json_encode($fetch_quantidadeVagas));
       
       /* $returnData = [
         "success" => 1,
