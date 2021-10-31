@@ -50,45 +50,66 @@
     
 
   }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
-  // return print_r(json_encode($data));
+    // return print_r(json_encode($data));
     try {
-    $add_pagamento = "INSERT INTO pagamento_passeio (
-      valorVendido,
-      valorPago,
-      valorPendente,
-      taxaPagamento,
-      previsaoPagamento,
-      localEmbarque,
-      transporte,
-      opcionais,
-      anotacoes,
-      seguroViagem,
-      clienteParceiro,
-      valorContrato,
-      clienteDesistente,
-      historicoPagamento,
-      idCliente,
-      idPasseio,
-      createdAt
-    ) VALUES (    
-      :valorVendido,
-      :valorPago,
-      :valorPendente,
-      :taxaPagamento,
-      :previsaoPagamento,
-      :localEmbarque,
-      :transporte,
-      :opcionais,
-      :anotacoes,
-      :seguroViagem,
-      :clienteParceiro,
-      :valorContrato,
-      :clienteDesistente,
-      :historicoPagamento,
-      :idCliente,
-      :idPasseio,
-      NOW()
-    )";
+      $fetch_passeio = "SELECT lotacao, idadeIsencao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio=:idPasseio";
+      $stmt = $conn->prepare($fetch_passeio);
+      $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      
+      $data->statusPagamento =  (statusPagamento($data->valorPendente, $data->valorPago, $data->idadeCliente, $row['idadeIsencao'], 
+      $data->clienteParceiro));
+      // return print_r(json_encode($data->statusPagamento));
+      
+      /* $returnData = [
+        "success" => 1,
+        "message" => 'Pesquisa realizada com sucesso!',
+        "passeio" => $row['lotacao']
+      ];
+      return  print_r(json_encode($returnData)); */
+      
+      unset($data->idadeCliente);
+      $add_pagamento = "INSERT INTO pagamento_passeio (
+        valorVendido,
+        valorPago,
+        valorPendente,
+        taxaPagamento,
+        previsaoPagamento,
+        localEmbarque,
+        transporte,
+        opcionais,
+        anotacoes,
+        seguroViagem,
+        clienteParceiro,
+        valorContrato,
+        clienteDesistente,
+        historicoPagamento,
+        idCliente,
+        idPasseio,
+        statusPagamento,
+        createdAt
+      ) 
+      VALUES (    
+        :valorVendido,
+        :valorPago,
+        :valorPendente,
+        :taxaPagamento,
+        :previsaoPagamento,
+        :localEmbarque,
+        :transporte,
+        :opcionais,
+        :anotacoes,
+        :seguroViagem,
+        :clienteParceiro,
+        :valorContrato,
+        :clienteDesistente,
+        :historicoPagamento,
+        :idCliente,
+        :idPasseio,
+        :statusPagamento,
+        NOW()
+      )";
         $stmt = $conn->prepare($add_pagamento);
         if($stmt->execute((array) $data)) {
           $returnData = [

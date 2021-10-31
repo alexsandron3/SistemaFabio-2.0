@@ -62,7 +62,6 @@
           "message" => 'Já existe uma passeio na mesma DATA com o mesmo NOME!',
         ];
       }else{
-
         $add_passeio = "INSERT INTO passeio (anotacoes, dataLancamento, dataPasseio ,idadeIsencao, itensPacote, localPasseio, lotacao, nomePasseio, prazoVigencia, statusPasseio, valorPasseio) VALUES (:anotacoes, :dataLancamento, :dataPasseio, :idadeIsencao, :itensPacote, :localPasseio, :lotacao, :nomePasseio, :prazoVigencia, :statusPasseio, :valorPasseio)";
         $stmt = $conn->prepare($add_passeio);
         if($stmt->execute((array) $data)) {
