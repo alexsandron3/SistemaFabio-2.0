@@ -50,23 +50,46 @@
     
 
   }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
-  return print_r(json_encode($data));
-
+  // return print_r(json_encode($data));
     try {
-      $verify_passeio = "SELECT nomePasseio, dataPasseio, idPasseio FROM passeio WHERE nomePasseio = :nomePasseio AND dataPasseio = :dataPasseio";
-      $stmt = $conn->prepare($verify_passeio);
-      $stmt->bindValue(':nomePasseio', $data->nomePasseio, PDO::PARAM_STR);
-      $stmt->bindValue(':dataPasseio', $data->dataPasseio, PDO::PARAM_STR);
-      $stmt->execute();
-      if($stmt->rowCount()){
-        $returnData = [
-          "success" => 0,
-          "message" => 'Já existe uma passeio na mesma DATA com o mesmo NOME!',
-        ];
-      }else{
-
-        $add_passeio = "INSERT INTO passeio (anotacoes, dataLancamento, dataPasseio ,idadeIsencao, itensPacote, localPasseio, lotacao, nomePasseio, prazoVigencia, statusPasseio, valorPasseio) VALUES (:anotacoes, :dataLancamento, :dataPasseio, :idadeIsencao, :itensPacote, :localPasseio, :lotacao, :nomePasseio, :prazoVigencia, :statusPasseio, :valorPasseio)";
-        $stmt = $conn->prepare($add_passeio);
+    $add_pagamento = "INSERT INTO pagamento_passeio (
+      valorVendido,
+      valorPago,
+      valorPendente,
+      taxaPagamento,
+      previsaoPagamento,
+      localEmbarque,
+      transporte,
+      opcionais,
+      anotacoes,
+      seguroViagem,
+      clienteParceiro,
+      valorContrato,
+      clienteDesistente,
+      historicoPagamento,
+      idCliente,
+      idPasseio,
+      createdAt
+    ) VALUES (    
+      :valorVendido,
+      :valorPago,
+      :valorPendente,
+      :taxaPagamento,
+      :previsaoPagamento,
+      :localEmbarque,
+      :transporte,
+      :opcionais,
+      :anotacoes,
+      :seguroViagem,
+      :clienteParceiro,
+      :valorContrato,
+      :clienteDesistente,
+      :historicoPagamento,
+      :idCliente,
+      :idPasseio,
+      NOW()
+    )";
+        $stmt = $conn->prepare($add_pagamento);
         if($stmt->execute((array) $data)) {
           $returnData = [
             "success" => 1,
@@ -75,10 +98,10 @@
         }else{
           $returnData = [
             "success" => 1,
-            "message" => 'Hove um erro!',
+            "message" => 'Hove um erro, tente novamente ou entre em contato com o suporte!',
           ];
         }
-      }
+      
     } catch (\Throwable $e) {
       $returnData = msg(0,500,$e->getMessage());
 
