@@ -5,7 +5,7 @@ include_once("constantes.php");
 
 function msg ($success, $status, $message, $extra = []) {
 	return array_merge([
-		'succes' => $success,
+		'success' => $success,
 		'status' => $status,
 		'message' => $message
 	], $extra);

@@ -1,66 +1,108 @@
-  <?php
-  include_once("../includes/header.php");
-  // include_once("pagamento/selectAll.php");
-  include_once("pagamento/select.php");
-  include_once("pagamento/countStatus.php");
-  // required headers
+<?php
+  include_once('../includes/header.php');
+  require __DIR__.'/classes/Database.php';
+  header('Access-Control-Allow-Headers: access');
+  header('Access-Control-Allow-Methods: GET, POST, UPDATE');
+  header('Content-Type: application/json; charset=UTF-8');
+  header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
   header('Access-Control-Allow-Origin: *');
-  header('Access-Control-Allow-Methods: GET, POST');
-  header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-  $apiAnswer = array();
-  $time_start = microtime(true);
-  $query = ' AND statusPasseio NOT IN (0) ';
-  $types = "";
-  $params = [];
-  if(isset($_GET['exibirEncerrados'])) {
-    $exibirEncerrados = $_GET['exibirEncerrados'];
-    if($exibirEncerrados == true) $query = '' ;
-  }
-  if (isset($_GET['inicio']) && isset($_GET['fim'])){
-    $dataInicio = $_GET['inicio'];
-    $dataFim = $_GET['fim'];
-    $query .= 'AND dataPasseio BETWEEN ? AND ?';
-    $types .= 'ss';
-    $params[] = $_GET['inicio'];
-    $params[] = $_GET['fim'];
-  }
-  
-
-  $queryListaPasseio = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 as confirmado, 0 as crianca, 0 as interessado, 0 as parceiro, 0 as quitado FROM passeio WHERE 1 $query";
-  if(strlen($types) > 0) {
-    $stmt = $conn->prepare($queryListaPasseio);
-    $stmt->bind_param($types, ...$params);
-    $response = executeSelect($stmt);
-  }else {
-    $stmt = $conn->prepare($queryListaPasseio);
-    $response = executeSelect($stmt);
-
-  }
-  $apiAnswer = $response;
 
 
-  $apiAnswer['passeios'] = $response['serverResponse']['sql']->fetch_all(MYSQLI_ASSOC);
-
-  foreach ($apiAnswer['passeios'] as $key => $value) {
-
-    $id = $value['idPasseio'];
-    $query = "SELECT pp.statusPagamento, COUNT(*) AS pagamentos FROM pagamento_passeio pp WHERE pp.idPasseio = $id GROUP BY statusPagamento";
-    $stmt1 = $conn->prepare($query);
-    $response1 = executeSelect($stmt1);
-    while($result = $response1['serverResponse']['sql']->fetch_array(MYSQLI_ASSOC)) {
-      if ($result['statusPagamento'] === CLIENTE_INTERESSADO) $texto = 'interessado';
-      if ($result['statusPagamento'] === CLIENTE_CONFIRMADO) $texto = 'confirmado';
-      if ($result['statusPagamento'] === PAGAMENTO_QUITADO) $texto = 'quitado';
-      if ($result['statusPagamento'] === CLIENTE_PARCEIRO) $texto = 'parceiro';
-      if ($result['statusPagamento'] === CLIENTE_CRIANCA) $texto = 'crianca';
+  $db_connection = new Database();
+  $conn = $db_connection->dbConnection();
+  $data = json_decode(file_get_contents("php://input"));
+  // return print_r(json_encode($data));
+  $returnData = [];
+  $bindValues = array();
+  if($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if(isset($_GET['idPagamento'])){
+      $bindValues['idPagamento'] = $_GET['idPagamento'];
       
-      $apiAnswer['passeios'][$key][$texto] = $result['pagamentos'];
+      $fetch_pagamento = "SELECT * FROM pagamento WHERE idPagamento = :idPagamento";
+      $stmt = $conn->prepare($fetch_pagamento);
+      
+    }elseif (isset($_GET['idCliente']) && isset($_GET['idPasseio'])){
+      $bindValues['idCliente'] = $_GET['idCliente'];
+      $bindValues['idPasseio'] = $_GET['idPasseio'];
+      $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idCliente = :idCliente AND idPasseio = :idPasseio";
+      // return print_r($fetch_pagamento);
+    }
+      $stmt = $conn->prepare($fetch_pagamento);
+
+      try {
+
+        $stmt->execute($bindValues);
+  
+        if($stmt->rowCount()){
+          $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          $returnData = [
+            "success" => 1,
+            "message" => 'Pesquisa realizada com sucesso!',
+            "pagamento" => $row
+          ];
+        }else {
+          $returnData = msg(0, 422, 'Pagamento não encontrado!');
+        }
+      } catch (\Throwable $e) {
+        $returnData = msg(0,500,$e->getMessage());
+  
+      }
+    
+
+  }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
+  return print_r(json_encode($data));
+
+    try {
+      $verify_passeio = "SELECT nomePasseio, dataPasseio, idPasseio FROM passeio WHERE nomePasseio = :nomePasseio AND dataPasseio = :dataPasseio";
+      $stmt = $conn->prepare($verify_passeio);
+      $stmt->bindValue(':nomePasseio', $data->nomePasseio, PDO::PARAM_STR);
+      $stmt->bindValue(':dataPasseio', $data->dataPasseio, PDO::PARAM_STR);
+      $stmt->execute();
+      if($stmt->rowCount()){
+        $returnData = [
+          "success" => 0,
+          "message" => 'Já existe uma passeio na mesma DATA com o mesmo NOME!',
+        ];
+      }else{
+
+        $add_passeio = "INSERT INTO passeio (anotacoes, dataLancamento, dataPasseio ,idadeIsencao, itensPacote, localPasseio, lotacao, nomePasseio, prazoVigencia, statusPasseio, valorPasseio) VALUES (:anotacoes, :dataLancamento, :dataPasseio, :idadeIsencao, :itensPacote, :localPasseio, :lotacao, :nomePasseio, :prazoVigencia, :statusPasseio, :valorPasseio)";
+        $stmt = $conn->prepare($add_passeio);
+        if($stmt->execute((array) $data)) {
+          $returnData = [
+            "success" => 1,
+            "message" => 'Cadastro realizado com sucesso!',
+          ];
+        }else{
+          $returnData = [
+            "success" => 1,
+            "message" => 'Hove um erro!',
+          ];
+        }
+      }
+    } catch (\Throwable $e) {
+      $returnData = msg(0,500,$e->getMessage());
 
     }
+  }elseif ($_SERVER['REQUEST_METHOD'] === 'UPDATE') {
+    $update_passeio = "UPDATE passeio SET anotacoes=:anotacoes, dataLancamento=:dataLancamento, dataPasseio=:dataPasseio, idadeIsencao=:idadeIsencao , itensPacote=:itensPacote ,localPasseio=:localPasseio ,lotacao=:lotacao ,nomePasseio=:nomePasseio ,prazoVigencia=:prazoVigencia ,statusPasseio=:statusPasseio ,valorPasseio=:valorPasseio WHERE idpasseio=:idPasseio";
+  // return print_r(json_encode($data));
+
+    $stmt = $conn->prepare($update_passeio);
+    $stmt->execute((array) $data);
+    if($stmt->rowCount()){
+      $returnData = [
+        "success" => 1,
+        "message" => 'Atualização realizada com sucesso!',
+      ];
+    }else{
+      $returnData = [
+        "success" => 0,
+        "message" => 'Alterações não realizadas, tente novamente ou entre em contato com o suporte!',
+      ];
+    }
+
   }
 
-$time_end = microtime(true);
-$execution_time = ($time_end - $time_start);
-$apiAnswer['serverResponse']['execTime'] = $execution_time;
+  echo json_encode($returnData);
 
-echo json_encode($apiAnswer);
+
