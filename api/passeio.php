@@ -1,6 +1,6 @@
 <?php
   // include_once('./includes/header.php');
-$dbHost = "mysql742.umbler.com";
+$dbHost = "mysql742.umbler.com:41890";
 $dbUsuario = "adminfabio";
 $dbSenha = "ZgvwRP0R";
 $dbNome = "fabiopasseios";
