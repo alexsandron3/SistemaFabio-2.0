@@ -69,7 +69,7 @@
       $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
       $stmt->execute();
       $rowStatusPagamento = $stmt->fetch(PDO::FETCH_ASSOC);
-      
+          
 
       // return print_r(json_encode($fetch_quantidadeVagas));
       
