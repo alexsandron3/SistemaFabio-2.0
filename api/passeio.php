@@ -1,8 +1,8 @@
 <?php
-  include_once('./includes/header.php');
-  $dbHost = "localhost";
-$dbUsuario = "root";
-$dbSenha = "";
+  // include_once('./includes/header.php');
+$dbHost = "mysql742.umbler.com";
+$dbUsuario = "adminfabio";
+$dbSenha = "ZgvwRP0R";
 $dbNome = "fabiopasseios";
 
 //CRIANDO CONEXÃO
