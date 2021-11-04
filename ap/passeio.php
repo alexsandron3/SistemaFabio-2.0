@@ -1,5 +1,5 @@
 <?php
-  include_once('../includes/header.php');
+  // include_once('../includes/header.php');
   require __DIR__.'/classes/Database.php';
   header('Access-Control-Allow-Headers: access');
   header('Access-Control-Allow-Methods: GET, POST, UPDATE');
