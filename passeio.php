@@ -1,5 +1,18 @@
 <?php
-  include_once('./includes/header.php');
+  // include_once('./includes/header.php');
+/* $dbHost = "mysql742.umbler.com:41890";
+$dbUsuario = "adminfabio";
+$dbSenha = "ZgvwRP0R";
+$dbNome = "fabiopasseios";
+
+//CRIANDO CONEXÃO
+$conexao = mysqli_connect($dbHost, $dbUsuario, $dbSenha, $dbNome);
+
+//VERIFICANDO CONEXÃO
+if (!$conexao) {
+    die("Conexão falhou: " . mysqli_connect_error());
+} */
+
   require __DIR__.'/classes/Database.php';
   header('Access-Control-Allow-Headers: access');
   header('Access-Control-Allow-Methods: GET, POST, UPDATE');
