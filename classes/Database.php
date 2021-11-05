@@ -1,6 +1,6 @@
 <?php
   class Database {
-    private $db_host = "mysql742.umbler.com";
+    private $db_host = "mysql742.umbler.com:41890";
     private $db_name = "fabiopasseios";
     private $db_username = "adminfabio";
     private $db_password = "ZgvwRP0R";
