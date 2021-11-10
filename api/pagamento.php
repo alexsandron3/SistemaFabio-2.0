@@ -26,6 +26,18 @@
       $bindValues['idPasseio'] = $_GET['idPasseio'];
       $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idCliente = :idCliente AND idPasseio = :idPasseio";
       // return print_r(json_encode($_GET['idPasseio']));
+    }elseif(isset($_GET['inicio']) && isset($_GET['fim'])) {
+      $bindValues['inicio'] = $_GET['inicio'];
+      $bindValues['fim'] = $_GET['fim'];
+      $query = ' AND statusPasseio NOT IN (0) ';
+      if(isset($_GET['exibirEncerrados']) AND $_GET['exibirEncerrados'] === 'true') {
+        $query = '';
+        // return 'opa';
+      }
+      // if(isset($_GET['exibirEncerrados'])) $bindValues['exibirEncerrados'] = $_GET['exibirEncerrados'];
+      $fetch_pagamento = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 as confirmado, 0 as crianca, 0 as interessado, 0 as parceiro, 0 as quitado FROM passeio WHERE dataPasseio BETWEEN :inicio AND :fim ";
+      $fetch_pagamento .= $query;
+      // echo $fetch_pagamento, $query;
     }
       $stmt = $conn->prepare($fetch_pagamento);
 
@@ -34,12 +46,39 @@
         $stmt->execute($bindValues);
   
         if($stmt->rowCount()){
-          $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          $returnData = [
-            "success" => 1,
-            "message" => 'Pesquisa realizada com sucesso!',
-            "pagamento" => $row
-          ];
+          if(isset($_GET['inicio']) && isset($_GET['fim'])) {
+            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($row as $key => $value) {
+                $id = $value['idPasseio'];
+                $query = "SELECT pp.statusPagamento, COUNT(*) AS pagamentos FROM pagamento_passeio pp WHERE pp.idPasseio = $id GROUP BY statusPagamento";
+                $stmt1 = $conn->prepare($query);
+                $stmt1->execute();
+
+                while($rowPagamentosPasseio = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+                  if ($rowPagamentosPasseio['statusPagamento'] == CLIENTE_INTERESSADO) $texto = 'interessado';
+                  if ($rowPagamentosPasseio['statusPagamento'] == CLIENTE_CONFIRMADO) $texto = 'confirmado';
+                  if ($rowPagamentosPasseio['statusPagamento'] == PAGAMENTO_QUITADO) $texto = 'quitado';
+                  if ($rowPagamentosPasseio['statusPagamento'] == CLIENTE_PARCEIRO) $texto = 'parceiro';
+                  if ($rowPagamentosPasseio['statusPagamento'] == CLIENTE_CRIANCA) $texto = 'crianca';
+                  
+                  $row[$key][$texto] = $rowPagamentosPasseio['pagamentos'];
+
+                }
+            }
+            $returnData = [
+              "success" => 1,
+              "message" => 'Pesquisa realizada com sucesso!',
+              "passeios" => $row
+            ];
+          }else {
+            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $returnData = [
+              "success" => 1,
+              "message" => 'Pesquisa realizada com sucesso!',
+              "pagamento" => $row
+            ];
+          }
+
         }else {
           $returnData = msg(0, 422, 'Pagamento não encontrado!');
         }
