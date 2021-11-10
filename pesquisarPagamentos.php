@@ -50,7 +50,7 @@ $executaQuery = mysqli_query($conn, $query);
                                     $ultimaLinha = substr_count($resultadoQuery['historicoPagamento'], "\n");
                                     $string = $resultadoQuery['historicoPagamento'];
                                     $nomeCliente = $resultadoQuery['nomeCliente'];
-                                    $nrefernciaClienteomeCliente = $resultadoQuery['refernciaCliente'];
+                                    $refernciaCliente = $resultadoQuery['referencia'];
                                     $passeio = $resultadoQuery['nomePasseio'];
                                     list($sentence[]) = array_slice(explode(PHP_EOL, $string), -1, $ultimaLinha);
                                 ?>
