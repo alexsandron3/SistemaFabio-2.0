@@ -18,14 +18,14 @@
     if(isset($_GET['idPagamento'])){
       $bindValues['idPagamento'] = $_GET['idPagamento'];
       
-      $fetch_pagamento = "SELECT * FROM pagamento WHERE idPagamento = :idPagamento";
+      $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idPagamento = :idPagamento";
       $stmt = $conn->prepare($fetch_pagamento);
       
     }elseif (isset($_GET['idCliente']) && isset($_GET['idPasseio'])){
       $bindValues['idCliente'] = $_GET['idCliente'];
       $bindValues['idPasseio'] = $_GET['idPasseio'];
       $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idCliente = :idCliente AND idPasseio = :idPasseio";
-      // return print_r($fetch_pagamento);
+      // return print_r(json_encode($_GET['idPasseio']));
     }
       $stmt = $conn->prepare($fetch_pagamento);
 
@@ -58,27 +58,34 @@
       $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
       $stmt->execute();
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $idadeIsencao = $row['idadeIsencao'];
+      $lotacao = $row['lotacao'];
       
-      $data->statusPagamento =  (statusPagamento($data->valorPendente, $data->valorPago, $data->idadeCliente, $row['idadeIsencao'], 
+      $data->statusPagamento =  (statusPagamento($data->valorPendente, $data->valorPago, $data->idadeCliente, $idadeIsencao, 
       $data->clienteParceiro));
+
+      // Verifica se cliente já realizou pagamento
+      $response = file_get_contents("http://localhost/SistemaFabio-2.0/api/pagamento.php?idCliente={$data->idCliente}&idPasseio={$data->idPasseio}");
+      $response = json_decode($response);
+        // return print_r(json_encode($response));
+      if($response->success === 1) {
+        $returnData = [
+          "success" => 0,
+          "message" => 'Este cliente já tem um pagamento para este passeio!',
+        ];
+        return print_r(json_encode($returnData));
+      }
 
       // Verifica quantidade de vaga
       $CLIENTE_INTERESSADO = CLIENTE_INTERESSADO;
       $CLIENTE_PARCEIRO    = CLIENTE_PARCEIRO;
       $fetch_quantidadeVagas = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=:idPasseio AND statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
+      $stmt = $conn->prepare($fetch_quantidadeVagas);
       $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
       $stmt->execute();
-      $rowStatusPagamento = $stmt->fetch(PDO::FETCH_ASSOC);
-      
-
-      // return print_r(json_encode($fetch_quantidadeVagas));
-      
-      /* $returnData = [
-        "success" => 1,
-        "message" => 'Pesquisa realizada com sucesso!',
-        "passeio" => $row['lotacao']
-      ];
-      return  print_r(json_encode($returnData)); */
+      $qtdConfirmados = $stmt->rowCount();
+      $alertaVagasRestantes = $lotacao * PORCENTAGEM_VAGAS_OCUPADAS;
+      $vagasRestantes = ($lotacao - $qtdConfirmados) - VAGA_ATUAL;
       
       unset($data->idadeCliente);
       $add_pagamento = "INSERT INTO pagamento_passeio (
@@ -99,6 +106,7 @@
         idCliente,
         idPasseio,
         statusPagamento,
+        dataPagamento,
         createdAt
       ) 
       VALUES (    
@@ -119,21 +127,42 @@
         :idCliente,
         :idPasseio,
         :statusPagamento,
+        NOW(),
         NOW()
       )";
+      if($lotacao <= $qtdConfirmados) {
+        $returnData = [
+          "success" => 0,
+          "message" => "Limite de vagas atingido!",
+          "opa1" => $lotacao,
+          "opa" => $qtdConfirmados,
+        ];
+      }elseif($lotacao > $qtdConfirmados) {
         $stmt = $conn->prepare($add_pagamento);
         if($stmt->execute((array) $data)) {
-          $returnData = [
-            "success" => 1,
-            "message" => 'Cadastro realizado com sucesso!',
-          ];
+            if($data->statusPagamento === CLIENTE_INTERESSADO  || $data->statusPagamento === CLIENTE_CRIANCA) {
+              $vagasRestantes = $lotacao - $qtdConfirmados;
+            }
+          if(($qtdConfirmados + VAGA_ATUAL) >= $lotacao) {
+            $returnData = [
+              "success" => 2,
+              "message" => 'Cadastro realizado com sucesso! LIMITE DE VAGAS ATINGIDO!',
+              "left" => "Existem apenas $vagasRestantes vagas disponíveis"
+            ];
+          }else {
+            $returnData = [
+              "success" => 1,
+              "message" => 'Cadastro realizado com sucesso!',
+              "left" => "Existem apenas $vagasRestantes vagas disponíveis"
+            ];
+          }
         }else{
           $returnData = [
             "success" => 1,
             "message" => 'Hove um erro, tente novamente ou entre em contato com o suporte!',
           ];
         }
-      
+      }
     } catch (\Throwable $e) {
       $returnData = msg(0,500,$e->getMessage());
 
