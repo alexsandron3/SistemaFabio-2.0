@@ -1,7 +1,7 @@
 <?php 
-$dbHost = "mysql742.umbler.com";
-$dbUsuario = "adminfabio";
-$dbSenha = "ZgvwRP0R";
+$dbHost = "localhost";
+$dbUsuario = "root";
+$dbSenha = "";
 $dbNome = "fabiopasseios";
 
 //CRIANDO CONEXÃO
