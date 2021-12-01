@@ -50,6 +50,7 @@ include_once("./includes/header.php");
                   <th scope="col">Nº VENDAS</th>
                   <th scope="col">VALOR VENDA</th>
                   <th scope="col">VALOR PAGO</th>
+                  <th scope="col">OUTROS</th>
                 </tr>
               </thead>
               <tbody id="tbodyTeste">

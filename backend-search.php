@@ -3,8 +3,11 @@ include_once("./includes/header.php");
 
 if (isset($_REQUEST["inicio"]) && isset($_REQUEST["fim"])) {
   // Prepare a select statement
-  $sql = "SELECT p.nomePasseio, p.dataPasseio, count(pp.idPagamento) AS 'NVendas',SUM(pp.valorVendido) AS 'ValorVenda', SUM(pp.valorPago) AS 'ValorPago' FROM pagamento_passeio pp, passeio p WHERE `createdAt` BETWEEN ? AND ? AND statusPagamento NOT IN (0) AND pp.valorPago > 0 AND p.idPasseio = pp.idPasseio GROUP BY pp.idPasseio;";
-
+  $filterByUser = ' ';
+  // if($_SESSION['nivelAcesso'] === 3) {
+  //   $filterByUser = "AND createdBy = {$_SESSION["id"]}";
+  // }
+  $sql = "SELECT p.nomePasseio, p.dataPasseio, p.idPasseio, count(pp.idPagamento) AS 'NVendas',SUM(pp.valorVendido) AS 'ValorVenda', SUM(pp.valorPago) AS 'ValorPago' FROM pagamento_passeio pp, passeio p WHERE `createdAt` BETWEEN ? AND ? AND statusPagamento NOT IN (0) AND pp.valorPago > 0 AND p.idPasseio = pp.idPasseio $filterByUser GROUP BY pp.idPasseio";
   if ($stmt = mysqli_prepare($conexao, $sql)) {
     // Bind variables to the prepared statement as parameters
     mysqli_stmt_bind_param($stmt, "ss", $inicioDataPasseio, $fimDataPasseio);
@@ -24,6 +27,7 @@ if (isset($_REQUEST["inicio"]) && isset($_REQUEST["fim"])) {
         // }
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
           $nomePasseio = $row['nomePasseio'];
+          $idPasseio = $row['idPasseio'];
           $dataPasseio = verifyDate($row['dataPasseio']);
           $NVendas = $row['NVendas'];
           $ValorVenda = $row['ValorVenda'];
@@ -35,6 +39,13 @@ if (isset($_REQUEST["inicio"]) && isset($_REQUEST["fim"])) {
             <td><?php echo $NVendas; ?></td>
             <td><?php echo $ValorVenda; ?></td>
             <td><?php echo $ValorPago; ?></td>
+            <td> 
+              <a 
+                target="_blank"
+                href="detalhes.php?id=<?php echo $idPasseio;?>&inicio=<?php echo $_REQUEST["inicio"]?>&fim=<?php echo $_REQUEST["fim"] ?>"
+              > Mais detalhes
+              </a>
+            </td>
           </tbody>
 <?php
         }
