@@ -14,6 +14,7 @@
     define('ADMINISTRADOR', 0);
     define('USUARIO_CHEFE', 1);
     define('USUARIO_SIMPLES', 2);
+    define('USUARIO_VENDEDOR', 3);
 
     //MESES DO ANO
 

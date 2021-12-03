@@ -61,6 +61,7 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                   <th class="text-center">Nº DE ORDEM</th>
                   <th>Passeio</th>
                   <th>Data</th>
+                  <th>Lucros estimados</th>
                   <th class="text-right">Ações</th>
                 </tr>
               </thead>
@@ -70,7 +71,19 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                 while ($rowPesquisaIntervaloData      = mysqli_fetch_assoc($resultadPesquisaIntervaloData)) {
                   $dataPasseio = (empty($rowPesquisaIntervaloData['dataPasseio'])) ? "" : date_create($rowPesquisaIntervaloData['dataPasseio']);
                   $dataPasseioFromatada = (empty($dataPasseio)) ? "" : date_format($dataPasseio, "d/m/Y");
-
+                  $id = $rowPesquisaIntervaloData['idPasseio'];
+                  $query = "SELECT SUM(pp.valorPendente) AS valorPendente, SUM(pp.valorPago) AS valorPago, SUM(d.totalDespesas) AS totalDespesas from pagamento_passeio pp, despesa d WHERE pp.idPasseio = d.idPasseio AND pp.idPasseio = $id";
+                  $rowCalculo = mysqli_query($conn, $query);
+                  $rowTotal = mysqli_fetch_assoc($rowCalculo);
+                  $queryBuscaDespesa = "SELECT SUM(d.totalDespesas) AS totalDespesas FROM  despesa d WHERE d.idPasseio= $id";
+                  $rowCalculo = mysqli_query($conn, $queryBuscaDespesa);
+                  $rowDespesa = mysqli_fetch_assoc($rowCalculo);
+                  // print_r( $rowTotal['']);
+                  $valorPendente = $rowTotal['valorPendente'];
+                  $valorPago = $rowTotal['valorPago'];
+                  $totalDespesas = $rowDespesa['totalDespesas'];
+                  $lucrosEstimados = $valorPago + $valorPendente - $totalDespesas;
+                  
                   /* -----------------------------------------------------------------------------------------------------  */
                 ?>
                   <tr class="text-bold">
@@ -84,6 +97,11 @@ if (!empty($inicioDataPasseio) and !empty($fimDataPasseio)) {
                       $linkEditarDespesas       = "editaDespesas.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
                       $linkRelatoriosDoPasseio  = "relatoriosDoPasseio.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
                       $linkLucrosDoPasseio      = "relatoriosPasseio.php?id=" . $rowPesquisaIntervaloData['idPasseio'];
+                      ?>
+                    </td>
+                    <td>
+                      <?php 
+                      echo $lucrosEstimados;
                       ?>
                     </td>
                     <td class="td-actions text-right">

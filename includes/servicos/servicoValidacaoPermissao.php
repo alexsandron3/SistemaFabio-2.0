@@ -41,7 +41,18 @@
                 "visualizarLog" => false
 
             );
-        }
+        } else if ($_SESSION['nivelAcesso'] == USUARIO_VENDEDOR) {
+        $operacoesPermitidas = array(
+            "gerarLog"      => true,
+            "cadastrar"     => true,
+            "atualizar"     => true,
+            "visualizar"    => true,
+            "apagar"        => false,
+            "transferir"    => false,
+            "visualizarLog" => false
+
+        );
+    }
         return $operacoesPermitidas;
     }
     

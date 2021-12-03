@@ -15,8 +15,13 @@
 
     $allowed = array(
         "cadastroCliente",
+        "registroCliente",
+        "editarCliente",
+        "pesquisarCliente",
         "relatorioDiario",
-        "cadastroPagamento",
+        "pagamentoCliente",
+        "realizaCliente",
+        "atualizaCliente",
         "editarPagamento",
         "backend-search"
     );
@@ -24,7 +29,7 @@
     //     $page = explode('/', $_SERVER['REQUEST_URI']);
     //     $fileName = explode('.', end($page));
     //     if (!in_array($fileName[0], $allowed)){
-    //         header("location: http://localhost/SistemaFabio-2.0/cadastroCliente.php");
+    //         header("location: http://localhost/SistemaFabio-2.0/relatorioDiario.php");
     //         die();
     //     }
     // }
