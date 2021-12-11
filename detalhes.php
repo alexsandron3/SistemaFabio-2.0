@@ -6,15 +6,13 @@ include_once("./includes/header.php");
 $idPasseioGet   = filter_input(INPUT_GET, 'id',            FILTER_SANITIZE_NUMBER_INT);
 $inicio   = filter_input(INPUT_GET, 'inicio',            FILTER_SANITIZE_STRING);
 $fim   = filter_input(INPUT_GET, 'fim',            FILTER_SANITIZE_STRING);
-echo $inicio;
-echo $fim;
+
 /* -----------------------------------------------------------------------------------------------------  */
 $filterByUser = ' ';
 if ($_SESSION['nivelAcesso'] === 3) {
   $filterByUser = "AND createdBy = {$_SESSION["id"]}";
 }
 $listaDetalhes = "SELECT p.nomePasseio, p.dataPasseio, pp.valorVendido, pp.valorPago, u.username FROM pagamento_passeio pp, passeio p, users u WHERE createdAt BETWEEN '$inicio' AND '$fim' AND statusPagamento NOT IN (0) AND pp.valorPago > 0 AND p.idPasseio = pp.idPasseio AND pp.idPasseio = 30 $filterByUser AND u.id = {$_SESSION["id"]} ;";
-echo $listaDetalhes;
 $resultadolistaDetalhes = mysqli_query($conexao, $listaDetalhes);
 
 $pegarNomePasseio = "SELECT nomePasseio, lotacao, dataPasseio FROM passeio WHERE idPasseio='$idPasseioGet'";

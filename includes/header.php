@@ -25,14 +25,14 @@
         "editarPagamento",
         "backend-search"
     );
-    // if( $_SESSION['nivelAcesso'] === 3){
-    //     $page = explode('/', $_SERVER['REQUEST_URI']);
-    //     $fileName = explode('.', end($page));
-    //     if (!in_array($fileName[0], $allowed)){
-    //         header("location: http://localhost/SistemaFabio-2.0/relatorioDiario.php");
-    //         die();
-    //     }
-    // }
+    if( $_SESSION['nivelAcesso'] === 3){
+        $page = explode('/', $_SERVER['REQUEST_URI']);
+        $fileName = explode('.', end($page));
+        if (!in_array($fileName[0], $allowed)){
+            header("location: http://localhost/SistemaFabio-2.0/relatorioDiario.php");
+            die();
+        }
+    }
 
 
     //ARQUIVOS NECESSÁRIOS PARA UM INCLUDE
