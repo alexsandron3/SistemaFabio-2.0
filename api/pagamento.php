@@ -18,7 +18,7 @@
     if(isset($_GET['idPagamento'])){
       $bindValues['idPagamento'] = $_GET['idPagamento'];
       
-      $fetch_pagamento = "SELECT * FROM pagamento WHERE idPagamento = :idPagamento";
+      $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idPagamento = :idPagamento";
       $stmt = $conn->prepare($fetch_pagamento);
       
     }elseif (isset($_GET['idCliente']) && isset($_GET['idPasseio'])){
@@ -26,6 +26,14 @@
       $bindValues['idPasseio'] = $_GET['idPasseio'];
       $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idCliente = :idCliente AND idPasseio = :idPasseio";
       // return print_r($fetch_pagamento);
+    }elseif(isset($_GET['inicio']) && isset($_GET['fim'])) {
+      $bindValues['inicio'] = $_GET['inicio'];
+      $bindValues['fim'] = $_GET['fim'];
+      $fetch_pagamento = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 AS confirmado, 0 AS crianca, 0 AS interessado, 0 as quitado FROM passeio WHERE dataPasseio BETWEEN :inicio AND :fim";
+      
+    }else {
+      $fetch_pagamento = '';
+      $returnData = msg(0, 422, 'Não encontrado');
     }
       $stmt = $conn->prepare($fetch_pagamento);
 
@@ -40,6 +48,22 @@
             "message" => 'Pesquisa realizada com sucesso!',
             "pagamento" => $row
           ];
+          if(isset($_GET['inicio']) && isset($_GET['fim']))
+            foreach ($returnData['pagamento'] as $index => $value) {
+              $fetch_pagamento = "SELECT pp.statusPagamento, COUNT(*) AS pagamentos FROM pagamento_passeio pp WHERE pp.idPasseio = {$value['idPasseio']} GROUP BY statusPagamento";
+              $stmt1 = $conn->prepare($fetch_pagamento);
+              $stmt1->execute();
+              $response1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+              for ($i = 0; $i < count($response1); $i++) {
+                if ($response1[$i]['statusPagamento'] == CLIENTE_INTERESSADO) $texto = 'interessado';
+                if ($response1[$i]['statusPagamento'] == PAGAMENTO_QUITADO) $texto = 'quitado';
+                if ($response1[$i]['statusPagamento'] == CLIENTE_CONFIRMADO) $texto = 'confirmado';
+                if ($response1[$i]['statusPagamento'] == CLIENTE_PARCEIRO) $texto = 'parceiro';
+                if ($response1[$i]['statusPagamento'] == CLIENTE_CRIANCA) $texto = 'crianca';
+                $returnData['pagamento'][$index][$texto] = $response1[$i]['pagamentos'];
+              }
+            }
         }else {
           $returnData = msg(0, 422, 'Pagamento não encontrado!');
         }

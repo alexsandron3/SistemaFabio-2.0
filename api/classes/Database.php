@@ -1,9 +1,9 @@
 <?php
   class Database {
-    private $db_host = "mysql742.umbler.com";
+    private $db_host = "localhost";
     private $db_name = "fabiopasseios";
-    private $db_username = "adminfabio";
-    private $db_password = "ZgvwRP0R";
+    private $db_username = "root";
+    private $db_password = "";
 
     public function dbConnection() {
       try {
