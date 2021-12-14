@@ -7,7 +7,7 @@ $idPasseioGet   = filter_input(INPUT_GET, 'id',            FILTER_SANITIZE_NUMBE
 
 /* -----------------------------------------------------------------------------------------------------  */
 
-$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.rgCliente, c.orgaoEmissor, c.idadeCliente, c.idCliente, c.dataNascimento, pp.idPagamento, pp.valorPago  
+$queryBuscaPeloIdPasseio = "SELECT  p.nomePasseio, p.idPasseio, c.nomeCliente, c.rgCliente, c.orgaoEmissor, c.idadeCliente, c.idCliente, c.dataNascimento, c.telefoneCliente, pp.idPagamento, pp.valorPago  
                               FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0) ";
 $resultadoBuscaPasseio = mysqli_query($conexao, $queryBuscaPeloIdPasseio);
 /* -----------------------------------------------------------------------------------------------------  */
@@ -59,6 +59,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                 <tr>
                   <th class="text-center">Nº ORDEM</th>
                   <th> NOME </th>
+                  <th> TELEFONE </th>
                   <th> IDADE </th>
                   <th> Nº IDENTIDADE </th>
                   <th> ORGÃO EMISSOR</th>
@@ -88,6 +89,7 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                 ?>
                   <tr>
                     <td class="text-center"><?php echo ++$contador; ?></td>
+                    <td><?php echo $rowBuscaPasseio['telefoneCliente'] . "<BR/>"; ?></td>
                     <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
                     <td><?php $idade = calcularIdade($idCliente, $conn, $data);
                         echo $idade; ?></td>
