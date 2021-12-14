@@ -1,6 +1,6 @@
 <?php
   //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
-  include_once("./includes/header.php");
+  include_once("../includes/header.php");
 
    /* -----------------------------------------------------------------------------------------------------  */
 

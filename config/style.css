@@ -1,14 +1,22 @@
-.more_info {
-    border-bottom: 1px dotted;
+
+.text-invisble{
+    display: none;
+}
+
+.box{
+    height: 100px;
+    width: 50%;
+    border: 1px solid black;
+}
+.box-red{
+    height: 500px;
+    width: auto;
+    border: 1px solid red;
+}
+
+.Assinatura-Linha{
+    margin-top: -1px;
     position: relative;
-  }
-  
-  .more_info .title {
-      position: absolute;
-      top: 20px;
-      background: silver;
-      padding: 4px;
-      left: 0;
-      white-space: nowrap;
-  }
-  
+    
+}
+

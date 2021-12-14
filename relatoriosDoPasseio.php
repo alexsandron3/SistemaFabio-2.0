@@ -1,100 +1,44 @@
 <?php
-      if(!isset($_SESSION)) 
-      { 
-          session_start(); 
-      } 
-  $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-  header("location: login.php");
-  exit;
-}
+//VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
+include_once("./includes/header.php");
+$idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
 ?>
 
 <!DOCTYPE html>
 <html lang="PT-BR">
 
 <head>
-<?php include_once("./includes/head.php");?>
-
+<?php include_once("./includes/mdbcss.php"); ?>
   <title>RELATORIOS PASSEIO</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">INÍCIO </a>
-        </li>
-        <li class="nav-item ">
-        <a class="nav-link" href="relatoriosPasseio.php">RELATÓRIOS </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            PESQUISAR
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="pesquisarCliente.php">CLIENTE</a>
-            <a class="dropdown-item" href="pesquisarPasseio.php">PASSEIO</a>
-            <!-- <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a> -->
+  <!-- INCLUSÃO DA NAVBAR -->
+  <?php include_once("./includes/htmlElements/navbar.php"); ?>
+
+  <div class="row py-5">
+    <div class="col-lg-11 mx-auto">
+      <div class="card rounded shadow border-0">
+        <p class="h2 text-center">RELATÓRIOS DO PASSEIO</p>
+        <div class="card-body p-5 bg-white rounded ">
+          <!-- INCLUSÃO DE MENSAGENS DE ERRO E SUCESSO -->
+          <?php include_once("./includes/servicos/servicoSessionMsg.php"); ?>
+
+          <div class="text-center">
+          <a  href="listaAniversariantesMes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">ANIVERSARIANTES</a>
+            <a  href="listaClientes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">LISTA DE PASSAGEIROS</a>
+            <a  href="pagamentosPendentes.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PAGAMENTOS PENDENTES</a>
+            <a  href="pontosDeEmbarque.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round">PONTOS DE EMBARQUE</a>
+            <a  href="SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet ?>" class="btn btn-info btn-round"> <i class="material-icons mr-2">save_alt</i> SEGURO VIAGEM</a>
           </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            CADASTRAR
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="cadastroCliente.php">CLIENTE</a>
-            <a class="dropdown-item" href="cadastroPasseio.php">PASSEIO</a>
-            <a class="dropdown-item" href="cadastroDespesas.php">DESPESAS</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="logout.php" >SAIR </a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
-  </nav>
-  <?php
-      if(isset($_SESSION['msg'])){
-        echo $_SESSION['msg'];
-        unset($_SESSION['msg']);
-      }
-  ?>
-  <div class="d-flex flex-column">
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2"></div>
-  <div class="p-2 text-center">
-  <a target="_blank" href="listaClientes.php?id=<?php echo $idPasseioGet?>" class="btn btn-info">LISTA PASSAGEIROS</a> 
-  <a target="_blank" href="pontosDeEmbarque.php?id=<?php echo $idPasseioGet?>" class="btn btn-info" >PONTOS DE EMBARQUE</a> 
-  <a target="_blank" href="pagamentosPendentes.php?id=<?php echo $idPasseioGet?>" class="btn btn-info">PAGAMENTOS PENDENTES</a> 
-  <a target="_blank" href="SCRIPTS/exportarExcel.php?id=<?php echo $idPasseioGet?>" class="btn btn-info">SEGURO VIAGEM</a>
   </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <?php include_once("./includes/mdbJs.php"); ?>
+
 </body>
+
+
 </html>

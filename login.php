@@ -1,10 +1,8 @@
 <?php
-    //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
-    include_once("./includes/header.php");
-	
+
  
 // Include config file
-require_once "PHP/pdoCONEXAO.php";
+require_once "includes/pdoCONEXAO.php";
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -89,16 +87,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="420;url=logout.php" />
-    <title>Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+<?php include_once("./includes/novoInclude.php"); ?>
+    <link rel="stylesheet" href="config/style1.css">
+    <link rel="stylesheet" href="config/bootstrap_login.css">
+
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
+
+.bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
     </style>
 </head>
-<body>
+<!-- <body>
     <div class="wrapper">
         <h2>Login</h2>
         <p>INSIRA SUAS CREDENCIAS DE LOGIN.</p>
@@ -114,10 +125,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="submit" class="btn bg-secondary text-white" value="Login">
             </div>
-            <!-- <p>Don't have an account? <a href="register.php">Sign up now</a>.</p> -->
         </form>
     </div>    
+</body> -->
+<body class="d-flex h-100 text-center text-dark">
+
+  <main class="form-signin">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="on">
+      <img class="mb-4" src="img/fabioPasseiosLogo.jpeg" alt="" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">Logar-se</h1>
+
+      <div class="form-floating mb-2 <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+      <span class="help-block"><?php echo $username_err; ?></span>
+
+        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Nome de usuário" value="<?php echo $username; ?>">
+
+      </div>
+      <div class="form-floating <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Senha">
+        <span class="help-block"><?php echo $password_err; ?></span>
+
+      </div>
+      <input type="submit" class="btn bg-secondary text-white" value="Login">
+      <p class="mt-5 mb-3 text-muted">&copy; 2021–2021</p>
+    </form>
+  </main>
+
+
+
 </body>
+
 </html>

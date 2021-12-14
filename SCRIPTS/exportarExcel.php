@@ -1,6 +1,9 @@
+<pre>
+
 <?php
+  ob_start();
     //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
-    include_once("./includes/header.php");
+    include_once("../includes/conexao.php");
 
    /* -----------------------------------------------------------------------------------------------------  */
   //SCRIPT PARA EXPORTAR ARQUIVO EXCEL
@@ -9,7 +12,7 @@
 
    $buscaPeloIdPasseio = "SELECT p.nomePasseio, p.idPasseio, c.nomeCliente, p.dataPasseio, c.cpfCliente, c.dataNascimento, pp.statusPagamento, pp.idPagamento, 
                               pp.idCliente, pp.valorPago, pp.valorVendido, pp.clienteParceiro, SUBSTRING_INDEX(c.nomeCliente, ' ', 1) AS primeiroNome 
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.seguroViagem= 1 AND pp.statusPagamento NOT IN(0) ";
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.seguroViagem= 1 AND pp.statusPagamento NOT IN(0) AND pp.clienteDesistente NOT IN(1) ";
      
 
    
@@ -43,7 +46,7 @@
     $primeiroNome = $rowDados['primeiroNome'];
 
     if (($pos = strpos($nomeCliente, " ")) !== FALSE) { 
-    $nomeSeguroViagem = substr($nomeCliente, strpos($nomeCliente, " ") + 1);    
+      $nomeSeguroViagem = substr($nomeCliente, strpos($nomeCliente, " ") + 1);    
     
     }else{
       $nomeSeguroViagem = "";
@@ -54,10 +57,15 @@
 
     print $dados;
 
+ 
   }
   /* -----------------------------------------------------------------------------------------------------  */
 
-header('Content-Encoding: UTF-8');
-header('Content-type: text/csv; charset=UTF-8');
-header('Content-Disposition: attachment; filename='.$filename.'.xls');
+  header('Content-Encoding:UTF-8');
+  header('Content-type:text/xls; charset=UTF-8');
+  header('Content-Disposition: attachment; filename='.$filename.'.xls');
+
+
+
+
 ?> 

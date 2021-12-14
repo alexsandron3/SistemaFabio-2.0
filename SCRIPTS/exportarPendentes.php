@@ -1,11 +1,11 @@
 <?php
     //VERIFICACAO DE SESSOES E INCLUDES NECESSARIOS E CONEXAO AO BANCO DE DADOS
-    include_once("./includes/header.php");
+    include_once("../includes/header.php");
    /* -----------------------------------------------------------------------------------------------------  */
    $idPasseioGet = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
    $buscaPeloIdPasseio = "SELECT  p.nomePasseio, p.dataPasseio , p.idPasseio, c.nomeCliente, c.idCliente, c.referencia, pp.valorPendente , pp.anotacoes, pp.statusPagamento
-                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0,1,3) ORDER BY nomeCliente";
+                              FROM passeio p, pagamento_passeio pp, cliente c WHERE pp.idPasseio='$idPasseioGet' AND pp.idPasseio=p.idPasseio AND pp.idCliente=c.idCliente AND pp.statusPagamento NOT IN(0,1,3) AND pp.clienteDesistente NOT IN(1) ORDER BY nomeCliente";
   
 
   /* -----------------------------------------------------------------------------------------------------  */

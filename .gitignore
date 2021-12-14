@@ -1,4 +1,5 @@
-PHP/conexao.php
-teste.html
-teste.php
-PHP/pdoCONEXAO.php
+conexao.php
+pdoConexao.php
+includes/pdoCONEXAO.php
+includes/conexao.php
+node_modules
