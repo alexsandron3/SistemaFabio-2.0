@@ -29,8 +29,9 @@
     }elseif(isset($_GET['inicio']) && isset($_GET['fim'])) {
       $bindValues['inicio'] = $_GET['inicio'];
       $bindValues['fim'] = $_GET['fim'];
-      $fetch_pagamento = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 AS confirmado, 0 AS crianca, 0 AS interessado, 0 as quitado FROM passeio WHERE dataPasseio BETWEEN :inicio AND :fim";
-      
+      $mostrarEncerrados = json_decode( $_GET['mostrarEncerrados']);
+      $showCloseds = $mostrarEncerrados === true ? '' : 'AND statusPasseio NOT IN (0)';
+      $fetch_pagamento = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 AS confirmado, 0 AS crianca, 0 AS interessado, 0 as quitado FROM passeio WHERE dataPasseio BETWEEN :inicio AND :fim $showCloseds";
     }else {
       $fetch_pagamento = '';
       $returnData = msg(0, 422, 'Não encontrado');
