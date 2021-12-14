@@ -89,8 +89,8 @@ $dataPasseio = date_create($rowpegarNomePasseio['dataPasseio']);
                 ?>
                   <tr>
                     <td class="text-center"><?php echo ++$contador; ?></td>
-                    <td><?php echo $rowBuscaPasseio['telefoneCliente'] . "<BR/>"; ?></td>
                     <td><?php echo $rowBuscaPasseio['nomeCliente'] . "<BR/>"; ?></td>
+                    <td><?php echo $rowBuscaPasseio['telefoneCliente'] . "<BR/>"; ?></td>
                     <td><?php $idade = calcularIdade($idCliente, $conn, $data);
                         echo $idade; ?></td>
                     <td><?php echo $rowBuscaPasseio['rgCliente'] . "<BR/>"; ?> </td>
