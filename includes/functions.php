@@ -225,7 +225,7 @@ function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idad
 			$statusPagamento = CLIENTE_PARCEIRO;
 		}
 	}
-	return $statusPagamento;
+	return  strval($statusPagamento);
 }
 function identificarMes($data)
 {
