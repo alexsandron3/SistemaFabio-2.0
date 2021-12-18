@@ -26,11 +26,11 @@
       $stmt = $conn->prepare($fetch_favorites);
       $stmt->execute($bindValues);
       $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idCliente = :idCliente";
+      $fetch_pagamento = "SELECT * FROM pagamento_passeio pp, passeio p WHERE pp.idCliente = :idCliente AND pp.idPasseio = p.idPasseio";
       $returnData = [
         "success" => 1,
         "message" => 'Pesquisa realizada com sucesso!',
-        "favoritos" => $row
+        "pagamento" => array("favoritos" => $row) 
       ];
       // return print_r(json_encode($returnData));
 
@@ -59,7 +59,7 @@
           $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
           
           if($_GET["idCliente"]) {
-            $returnData['pagamento'] = $row;
+            $returnData['pagamento']['pagamentos'] = $row;
           }else {
             $returnData = [
               "success" => 1,
