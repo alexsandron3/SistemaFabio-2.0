@@ -2,7 +2,7 @@
   include_once('../includes/header.php');
   require __DIR__.'/classes/Database.php';
   header('Access-Control-Allow-Headers: access');
-  header('Access-Control-Allow-Methods: GET, POST, UPDATE');
+  header('Access-Control-Allow-Methods: GET, POST, PUT');
   header('Content-Type: application/json; charset=UTF-8');
   header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
   header('Access-Control-Allow-Origin: *');
@@ -80,7 +80,7 @@
       $returnData = msg(0,500,$e->getMessage());
 
     }
-  }elseif ($_SERVER['REQUEST_METHOD'] === 'UPDATE') {
+  }elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $update_passeio = "UPDATE passeio SET anotacoes=:anotacoes, dataLancamento=:dataLancamento, dataPasseio=:dataPasseio, idadeIsencao=:idadeIsencao , itensPacote=:itensPacote ,localPasseio=:localPasseio ,lotacao=:lotacao ,nomePasseio=:nomePasseio ,prazoVigencia=:prazoVigencia ,statusPasseio=:statusPasseio ,valorPasseio=:valorPasseio WHERE idpasseio=:idPasseio";
   // return print_r(json_encode($data));
 
