@@ -26,7 +26,7 @@
       }else{
         $wordToSearch = "% %";
       }
-      $fetch_passeio = "SELECT * FROM passeio WHERE nomePasseio LIKE :wordToSearch OR localPasseio LIKE :wordToSearch OR idPasseio LIKE :wordToSearch";
+      $fetch_passeio = "SELECT * FROM passeio WHERE nomePasseio LIKE :wordToSearch OR localPasseio LIKE :wordToSearch OR idPasseio LIKE :wordToSearch OR dataPasseio LIKE :wordToSearch";
       $stmt = $conn->prepare($fetch_passeio);
     }
       try {
