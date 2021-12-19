@@ -2,7 +2,7 @@
   include_once('../includes/header.php');
   require __DIR__.'/classes/Database.php';
   header('Access-Control-Allow-Headers: access');
-  header('Access-Control-Allow-Methods: GET, POST, UPDATE');
+  header('Access-Control-Allow-Methods: GET, POST, PUT');
   header('Content-Type: application/json; charset=UTF-8');
   header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
   header('Access-Control-Allow-Origin: *');
@@ -26,7 +26,7 @@
       }else{
         $wordToSearch = "% %";
       }
-      $fetch_cliente = "SELECT * FROM cliente WHERE nomecliente LIKE :wordToSearch OR cpfCliente LIKE :wordToSearch OR idCliente LIKE :wordToSearch OR telefoneCliente  LIKE :wordToSearch OR referencia LIKE :wordToSearch";
+      $fetch_cliente = "SELECT * FROM cliente WHERE nomeCliente LIKE :wordToSearch OR cpfCliente LIKE :wordToSearch OR idCliente LIKE :wordToSearch OR telefoneCliente  LIKE :wordToSearch OR referencia LIKE :wordToSearch";
       $stmt = $conn->prepare($fetch_cliente);
     }
       try {
@@ -54,9 +54,9 @@
       // SELECT c.cpfCliente, c.nomeCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'
   // return print_r(json_encode($data));
 
-      $verify_cliente = "SELECT nomecliente, cpfCliente, idCliente FROM cliente WHERE nomecliente = :nomecliente AND cpfCliente = :cpfCliente";
+      $verify_cliente = "SELECT nomeCliente, cpfCliente, idCliente FROM cliente WHERE nomeCliente = :nomeCliente AND cpfCliente = :cpfCliente";
       $stmt = $conn->prepare($verify_cliente);
-      $stmt->bindValue(':nomecliente', $data->nomeCliente, PDO::PARAM_STR);
+      $stmt->bindValue(':nomeCliente', $data->nomeCliente, PDO::PARAM_STR);
       $stmt->bindValue(':cpfCliente', $data->cpfCliente, PDO::PARAM_STR);
       $stmt->execute();
       if($stmt->rowCount()){
@@ -85,7 +85,7 @@
       $returnData = msg(0,500,$e->getMessage());
 
     }
-  }elseif ($_SERVER['REQUEST_METHOD'] === 'UPDATE') {
+  }elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $update_cliente = "UPDATE cliente SET 
     nomeCliente=:nomeCliente,
     emailCliente=:emailCliente,
@@ -107,7 +107,8 @@
     estadoCivil=:estadoCivil,
     clienteRedeSocial=:clienteRedeSocial,
     poltrona=:poltrona,
-    statusCliente=:statusCliente  WHERE idCliente=:idCliente";
+    statusCliente=:statusCliente  WHERE idCliente=:idCliente"; 
+    // 22
     
     $stmt = $conn->prepare($update_cliente);
     // return print_r(json_encode($data));

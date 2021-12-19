@@ -58,7 +58,7 @@
         if($stmt->rowCount()){
           $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
           
-          if($_GET["idCliente"]) {
+          if(isset($_GET["idCliente"])) {
             $returnData['pagamento']['pagamentos'] = $row;
           }else {
             $returnData = [
