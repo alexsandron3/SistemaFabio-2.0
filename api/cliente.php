@@ -41,7 +41,7 @@
             "cliente" => $row
           ];
         }else {
-          $returnData = msg(0, 422, 'Passeio não encontrado!');
+          $returnData = msg(0, 422, 'Cliente não encontrado!');
         }
       } catch (\Throwable $e) {
         $returnData = msg(0,500,$e->getMessage());
@@ -51,8 +51,6 @@
 
   }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
     try {
-      // SELECT c.cpfCliente, c.nomeCliente, c.idCliente FROM cliente c WHERE c.cpfCliente='$cpf' AND c.nomeCliente='$nome'
-  // return print_r(json_encode($data));
 
       $verify_cliente = "SELECT nomeCliente, cpfCliente, idCliente FROM cliente WHERE nomeCliente = :nomeCliente AND cpfCliente = :cpfCliente";
       $stmt = $conn->prepare($verify_cliente);
@@ -86,28 +84,33 @@
 
     }
   }elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    $update_cliente = "UPDATE cliente SET 
-    nomeCliente=:nomeCliente,
-    emailCliente=:emailCliente,
-    rgCliente=:rgCliente,
-    orgaoEmissor=:orgaoEmissor,
-    cpfCliente=:cpfCliente,
-    telefoneCliente=:telefoneCliente,
-    dataNascimento=:dataNascimento,
-    idadeCliente=:idadeCliente,
-    referencia=:referencia,
-    pessoaContato=:pessoaContato,
-    telefoneContato=:telefoneContato,
-    cpfConsultado=:cpfConsultado,
-    dataCpfConsultado=:dataCpfConsultado,
-    redeSocial=:redeSocial,
-    enderecoCliente=:enderecoCliente,
-    nacionalidade=:nacionalidade,
-    profissao=:profissao,
-    estadoCivil=:estadoCivil,
-    clienteRedeSocial=:clienteRedeSocial,
-    poltrona=:poltrona,
-    statusCliente=:statusCliente  WHERE idCliente=:idCliente"; 
+
+    if(isset($data->idCliente) && isset($data->statusCliente) && count((array)$data) === 2){
+      $update_cliente = "UPDATE cliente SET statusCliente=:statusCliente WHERE idCliente=:idCliente";
+    }else {
+      $update_cliente = "UPDATE cliente SET 
+      nomeCliente=:nomeCliente,
+      emailCliente=:emailCliente,
+      rgCliente=:rgCliente,
+      orgaoEmissor=:orgaoEmissor,
+      cpfCliente=:cpfCliente,
+      telefoneCliente=:telefoneCliente,
+      dataNascimento=:dataNascimento,
+      idadeCliente=:idadeCliente,
+      referencia=:referencia,
+      pessoaContato=:pessoaContato,
+      telefoneContato=:telefoneContato,
+      cpfConsultado=:cpfConsultado,
+      dataCpfConsultado=:dataCpfConsultado,
+      redeSocial=:redeSocial,
+      enderecoCliente=:enderecoCliente,
+      nacionalidade=:nacionalidade,
+      profissao=:profissao,
+      estadoCivil=:estadoCivil,
+      clienteRedeSocial=:clienteRedeSocial,
+      poltrona=:poltrona,
+      statusCliente=:statusCliente  WHERE idCliente=:idCliente";
+    }
     // 22
     
     $stmt = $conn->prepare($update_cliente);
