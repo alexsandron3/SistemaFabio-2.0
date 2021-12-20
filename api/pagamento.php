@@ -16,11 +16,16 @@
   $bindValues = array();
   if($_SERVER['REQUEST_METHOD'] === 'GET') {
     if(isset($_GET['idPagamento'])){
+      // --------------------------------------------------------------------
+
       $bindValues['idPagamento'] = $_GET['idPagamento'];
       
       $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idPagamento=:idPagamento";
+      // --------------------------------------------------------------------
       
     }elseif(isset($_GET['idCliente'])){
+      // --------------------------------------------------------------------
+
       $bindValues['idCliente'] = $_GET['idCliente'];
       $fetch_favorites = "SELECT COUNT(p.nomePasseio) AS quantidade, nomePasseio as passeio FROM pagamento_passeio pp, passeio p where idCliente=:idCliente AND pp.idPasseio = p.idPasseio GROUP BY p.nomePasseio;";
       $stmt = $conn->prepare($fetch_favorites);
@@ -32,20 +37,33 @@
         "message" => 'Pesquisa realizada com sucesso!',
         "pagamento" => array("favoritos" => $row) 
       ];
-      // return print_r(json_encode($returnData));
+      // --------------------------------------------------------------------
 
     }elseif (isset($_GET['idCliente']) && isset($_GET['idPasseio'])){
+      // --------------------------------------------------------------------
+
       $bindValues['idCliente'] = $_GET['idCliente'];
       $bindValues['idPasseio'] = $_GET['idPasseio'];
       $fetch_pagamento = "SELECT * FROM pagamento_passeio WHERE idCliente = :idCliente AND idPasseio = :idPasseio";
-      // return print_r($fetch_pagamento);
+      // --------------------------------------------------------------------
     }elseif(isset($_GET['inicio']) && isset($_GET['fim'])) {
+      // --------------------------------------------------------------------
+
       $bindValues['inicio'] = $_GET['inicio'];
       $bindValues['fim'] = $_GET['fim'];
       $mostrarEncerrados = json_decode( $_GET['mostrarEncerrados']);
       $showCloseds = $mostrarEncerrados === true ? '' : 'AND statusPasseio NOT IN (0)';
       $fetch_pagamento = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 AS confirmado, 0 AS crianca, 0 AS interessado, 0 as quitado FROM passeio WHERE dataPasseio BETWEEN :inicio AND :fim $showCloseds";
-    }else {
+      // --------------------------------------------------------------------
+
+    }else if (isset($_GET['idPasseio'])){
+      // --------------------------------------------------------------------
+      $bindValues['idPasseio'] = $_GET['idPasseio'];
+      $fetch_pagamento = "SELECT DISTINCT pp.*, c.nomeCliente, c.referencia, c.rgCliente, c.telefoneCliente, p.nomePasseio, p.dataPasseio, p.lotacao, p.valorPasseio FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idPasseio = :idPasseio AND pp.idCliente = c.idCliente AND pp.idPasseio=p.idPasseio";
+ 
+      // --------------------------------------------------------------------
+
+    } else {
       $fetch_pagamento = '';
       $returnData = msg(0, 422, 'Não encontrado');
     }
