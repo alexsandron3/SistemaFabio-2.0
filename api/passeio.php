@@ -81,9 +81,12 @@
 
     }
   }elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    $update_passeio = "UPDATE passeio SET anotacoes=:anotacoes, dataLancamento=:dataLancamento, dataPasseio=:dataPasseio, idadeIsencao=:idadeIsencao , itensPacote=:itensPacote ,localPasseio=:localPasseio ,lotacao=:lotacao ,nomePasseio=:nomePasseio ,prazoVigencia=:prazoVigencia ,statusPasseio=:statusPasseio ,valorPasseio=:valorPasseio WHERE idpasseio=:idPasseio";
-  // return print_r(json_encode($data));
-
+    if (isset($data->idPasseio) && isset($data->statusPasseio) && count((array)$data) === 2){
+      $update_passeio = "UPDATE passeio SET statusPasseio=:statusPasseio WHERE idPasseio=:idPasseio";
+      
+    } else {
+      $update_passeio = "UPDATE passeio SET anotacoes=:anotacoes, dataLancamento=:dataLancamento, dataPasseio=:dataPasseio, idadeIsencao=:idadeIsencao , itensPacote=:itensPacote ,localPasseio=:localPasseio ,lotacao=:lotacao ,nomePasseio=:nomePasseio ,prazoVigencia=:prazoVigencia ,statusPasseio=:statusPasseio ,valorPasseio=:valorPasseio WHERE idpasseio=:idPasseio";
+    }
     $stmt = $conn->prepare($update_passeio);
     $stmt->execute((array) $data);
     if($stmt->rowCount()){
@@ -97,7 +100,6 @@
         "message" => 'Alterações não realizadas, tente novamente ou entre em contato com o suporte!',
       ];
     }
-
   }
 
   echo json_encode($returnData);
