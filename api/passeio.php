@@ -2,7 +2,7 @@
   include_once('../includes/header.php');
   require __DIR__.'/classes/Database.php';
   header('Access-Control-Allow-Headers: access');
-  header('Access-Control-Allow-Methods: GET, POST, PUT');
+  header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
   header('Content-Type: application/json; charset=UTF-8');
   header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
   header('Access-Control-Allow-Origin: *');
@@ -100,7 +100,48 @@
         "message" => 'Alterações não realizadas, tente novamente ou entre em contato com o suporte!',
       ];
     }
+  } elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+  $idPasseio = $data->idPasseio;
+  try {
+    // Verificando se existe algum pagamento
+    $buscarPagamentos = "SELECT idPagamento FROM pagamento_passeio WHERE idPasseio =:idPasseio";
+    $stmt = $conn->prepare($buscarPagamentos);
+    $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
+    $stmt->execute();
+    if ($stmt->rowCount()) {
+      $returnData = [
+        "success" => 2,
+        "message" => 'Este passeio não pôde ser deletado pois existem pagamentos inclusos nele!',
+      ];
+
+    }else{
+      // Deletando despesa
+      $deletarDespesa = "DELETE FROM despesa WHERE idPasseio=:idPasseio";
+      $stmt = $conn->prepare($deletarDespesa);
+      $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
+      $stmt->execute();
+      // Deletando passeio
+      $deletarPasseio = "DELETE FROM passeio WHERE idPasseio=:idPasseio";
+      $stmt = $conn->prepare($deletarPasseio);
+      $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
+      $stmt->execute();
+    
+      if ($stmt->rowCount()) {
+        $returnData = [
+          "success" => 1,
+          "message" => 'Passeio deletado com sucesso!',
+        ];
+      } else {
+        $returnData = [
+          "success" => 0,
+          "message" => 'Alterações não realizadas, tente novamente ou entre em contato com o suporte!',
+        ];
+      }
+    }
+  } catch (\Throwable $e) {
+    $returnData = msg(0, 500, $e->getMessage());
   }
+}
 
   echo json_encode($returnData);
 
