@@ -2,7 +2,7 @@
   include_once('../includes/header.php');
   require __DIR__.'/classes/Database.php';
   header('Access-Control-Allow-Headers: access');
-  header('Access-Control-Allow-Methods: GET, POST, PUT');
+  header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
   header('Content-Type: application/json; charset=UTF-8');
   header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
   header('Access-Control-Allow-Origin: *');
@@ -59,7 +59,7 @@
     }else if (isset($_GET['idPasseio'])){
       // --------------------------------------------------------------------
       $bindValues['idPasseio'] = $_GET['idPasseio'];
-      $fetch_pagamento = "SELECT DISTINCT pp.*, c.nomeCliente, c.referencia, c.rgCliente, c.telefoneCliente, p.nomePasseio, p.dataPasseio, p.lotacao, p.valorPasseio FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idPasseio = :idPasseio AND pp.idCliente = c.idCliente AND pp.idPasseio=p.idPasseio";
+      $fetch_pagamento = "SELECT DISTINCT pp.*, c.nomeCliente, c.referencia, c.rgCliente, c.telefoneCliente, c.idadeCliente, p.nomePasseio, p.dataPasseio, p.lotacao, p.valorPasseio FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idPasseio = :idPasseio AND pp.idCliente = c.idCliente AND pp.idPasseio=p.idPasseio";
  
       // --------------------------------------------------------------------
 
@@ -113,47 +113,58 @@
     
 
   }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
+    // return print_r(json_encode($data));
+
     try {
-      // Verifica se pagamento já existe
-
+      $idPasseio = strval($data->idPasseio);
+      $idCliente = strval($data->idCliente);
+      
+      // Verifica se já esta cliene já realizou um pagamento
       $fetch_pagamento = "SELECT idPagamento FROM pagamento_passeio WHERE idPasseio=:idPasseio AND idCliente=:idCliente";
+      // return print_r(json_encode($data->idPasseio);
       $stmt = $conn->prepare($fetch_pagamento);
-      $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
-      $stmt->bindValue('idCliente', $data->idCliente, PDO::PARAM_STR);
+      $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
+      $stmt->bindValue('idCliente', $idCliente, PDO::PARAM_STR);
       $stmt->execute();
-
+      
       if($stmt->rowCount()){
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $returnData = [
-          "success" => 2,
-          "message" => 'Este cliente já realizou um pagamento para este passeio!',
-          "pagamento" => $row
-        ];
-        return print_r(json_encode($returnData));
-      }
-
-
-      // Define status do pagamento
-      $fetch_passeio = "SELECT lotacao, idadeIsencao, nomePasseio, dataPasseio FROM passeio WHERE idPasseio=:idPasseio";
-      $stmt = $conn->prepare($fetch_passeio);
-      $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
-      $stmt->execute();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
       
-      $data->statusPagamento =  (statusPagamento($data->valorPendente, $data->valorPago, $data->idadeCliente, $row['idadeIsencao'], 
-      $data->clienteParceiro));
-      
-      // Verifica quantidade de vaga
-      $CLIENTE_INTERESSADO = CLIENTE_INTERESSADO;
-      $CLIENTE_PARCEIRO    = CLIENTE_PARCEIRO;
-      $fetch_quantidadeVagas = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=:idPasseio AND statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
-      $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
-      $stmt->execute();
-      $rowStatusPagamento = $stmt->fetch(PDO::FETCH_ASSOC);
-      
-      // Cadastra o pagamento
-      unset($data->idadeCliente);
+      $returnData = [
+        "success" => 2,
+        "message" => 'Este cliente já realizou um pagamento para este passeio!',
+        "pagamento" => $row
+      ];
+      return print_r(json_encode($returnData));
+    }
+    
+    // Busca informações do passeio
+    $CLIENTE_INTERESSADO = CLIENTE_INTERESSADO;
+    $CLIENTE_PARCEIRO    = CLIENTE_PARCEIRO;
+    $fetch_passeio = "SELECT p.lotacao, p.idadeIsencao, p.nomePasseio, p.dataPasseio, COUNT(pp.statusPagamento) AS confirmados FROM passeio p, pagamento_passeio pp WHERE p.idPasseio=:idPasseio AND p.idPasseio=pp.idPasseio AND pp.statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
+    $stmt = $conn->prepare($fetch_passeio);
+    $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    // Verifica se passeio está lotado
+    $vagasRestantes = $row['lotacao'] -  $row['confirmados'];
+    
+    if($vagasRestantes <= 0){
+      $returnData = [
+        "success" => 2,
+        "message" => 'Limite de vagas atingido!',
+      ];
+      return print_r(json_encode($returnData));
+    }
+    
+    // Define status do pagamento
+    $data->statusPagamento =  (statusPagamento($data->valorPendente, $data->valorPago, $data->idadeCliente, $row['idadeIsencao'], 
+    $data->clienteParceiro));
+    
+    
+    // Cadastra o pagamento
+    unset($data->idadeCliente);
       $add_pagamento = "INSERT INTO pagamento_passeio (
         idCliente,
         idPasseio,
@@ -184,7 +195,7 @@
         :valorPendente,
         :seguroViagem,
         :clienteParceiro,
-        :valorcontrato,
+        :valorContrato,
         :numeroVagas,
         :opcionais,
         :previsaoPagamento,
@@ -192,8 +203,8 @@
         :transporte,
         :anotacoes,
         :historicoPagamento,
-        :statusPagamento,
         :clienteDesistente,
+        :statusPagamento,
         NOW()
       )";
         $stmt = $conn->prepare($add_pagamento);
@@ -222,21 +233,16 @@
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $data->statusPagamento =  (statusPagamento(
-      $data->valorPendente,
-      $data->valorPago,
-      $data->idadeCliente,
-      $row['idadeIsencao'],
-      $data->clienteParceiro
-    ));
+    $data->statusPagamento =  (
+      statusPagamento(
+        $data->valorPendente,
+        $data->valorPago,
+        $data->idadeCliente,
+        $row['idadeIsencao'],
+        $data->clienteParceiro
+      )
+    );
     
-    // Verifica quantidade de vaga
-    $CLIENTE_INTERESSADO = CLIENTE_INTERESSADO;
-    $CLIENTE_PARCEIRO    = CLIENTE_PARCEIRO;
-    $fetch_quantidadeVagas = "SELECT statusPagamento AS qtdConfirmados FROM pagamento_passeio WHERE idPasseio=:idPasseio AND statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
-    $stmt->bindValue('idPasseio', $data->idPasseio, PDO::PARAM_STR);
-    $stmt->execute();
-    $rowStatusPagamento = $stmt->fetch(PDO::FETCH_ASSOC);
     
     // Atualiza o pagamento 
     
@@ -273,6 +279,26 @@
         "message" => 'Atualização realizada com sucesso!',
       ];
     }else{
+      $returnData = [
+        "success" => 0,
+        "message" => 'Alterações não realizadas, tente novamente ou entre em contato com o suporte!',
+      ];
+    }
+
+  }elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    $idPagamento = $data->idPagamento;
+
+    $deletarPagamento = "DELETE FROM pagamento_passeio WHERE idPagamento=:idPagamento"; 
+    $stmt = $conn->prepare($deletarPagamento);
+    $stmt->bindValue('idPagamento', $idPagamento, PDO::PARAM_STR);
+    $stmt->execute((array)$data);
+
+    if ($stmt->rowCount()) {
+      $returnData = [
+        "success" => 1,
+        "message" => 'Pagamento deletado com sucesso!',
+      ];
+    } else {
       $returnData = [
         "success" => 0,
         "message" => 'Alterações não realizadas, tente novamente ou entre em contato com o suporte!',
