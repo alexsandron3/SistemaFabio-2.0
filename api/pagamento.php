@@ -59,7 +59,7 @@
     }else if (isset($_GET['idPasseio'])){
       // --------------------------------------------------------------------
       $bindValues['idPasseio'] = $_GET['idPasseio'];
-      $fetch_pagamento = "SELECT DISTINCT pp.*, c.nomeCliente, c.referencia, c.rgCliente, c.telefoneCliente, c.idadeCliente, p.nomePasseio, p.dataPasseio, p.lotacao, p.valorPasseio FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idPasseio = :idPasseio AND pp.idCliente = c.idCliente AND pp.idPasseio=p.idPasseio";
+      $fetch_pagamento = "SELECT DISTINCT pp.*, c.nomeCliente, c.referencia, c.rgCliente, c.telefoneCliente, c.idadeCliente, c.dataNascimento, c.orgaoEmissor, c.poltrona, p.nomePasseio, p.dataPasseio, p.lotacao, p.valorPasseio FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idPasseio = :idPasseio AND pp.idCliente = c.idCliente AND pp.idPasseio=p.idPasseio";
  
       // --------------------------------------------------------------------
 
