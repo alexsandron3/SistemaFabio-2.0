@@ -209,23 +209,13 @@ function calculaIntervaloTempo($conn, $coluna, $tabela, $condicao, $data = "")
 }
 function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idadeIsencao, $clienteParceiro)
 {
-	$statusPagamento = null;
-	if ($idadeCliente <= $idadeIsencao) {
-		$statusPagamento = CLIENTE_CRIANCA;
-	} elseif ($clienteParceiro == 1) {
-		$statusPagamento = CLIENTE_PARCEIRO;
-	} else {
-		if ($valorPendenteCliente < 0 and $valorPago == 0 and $clienteParceiro == 0) {
-			$statusPagamento = CLIENTE_INTERESSADO;
-		} elseif ($valorPendenteCliente == 0) {
-			$statusPagamento = PAGAMENTO_QUITADO;
-		} elseif ($valorPendenteCliente < 0 and $valorPago > 0 and $clienteParceiro == 0) {
-			$statusPagamento = CLIENTE_CONFIRMADO;
-		} elseif ($clienteParceiro == 1) {
-			$statusPagamento = CLIENTE_PARCEIRO;
-		}
-	}
-	return  strval($statusPagamento);
+	// $statusPagamento = null;
+	if($idadeCliente <= $idadeIsencao) return CLIENTE_CRIANCA;
+	if($clienteParceiro === 1) return  CLIENTE_PARCEIRO;
+	if($valorPendenteCliente <= 0 && $valorPago === 0 && $clienteParceiro === 0) return  CLIENTE_INTERESSADO;
+	if($valorPendenteCliente === 0 && $valorPago > 0) return  PAGAMENTO_QUITADO;
+	if($valorPendenteCliente < 0 && $valorPago > 0 ) return  CLIENTE_CONFIRMADO;
+	// return  strval($statusPagamento);
 }
 function identificarMes($data)
 {
