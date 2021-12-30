@@ -18,8 +18,13 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
   if(isset($_GET['inicio']) && isset($_GET['fim'])) {
     $bindValues['inicio'] = $_GET['inicio'];
     $bindValues['fim'] = $_GET['fim'];
+    if(isset($_GET['idPasseio'])){
+      $bindValues['idPasseio'] = $_GET['idPasseio'];
 
-    $query = "SELECT pp.idPagamento, p.nomePasseio, p.dataPasseio, u.userName FROM pagamento_passeio pp, passeio p, users u WHERE pp.dataPagamentoEfetuado BETWEEN :inicio AND :fim AND pp.createdBy = u.id";
+      $query = "SELECT p.nomePasseio, p.dataPasseio, pp.idPagamento, pp.valorPago, pp.valorVendido, pp.dataPagamentoEfetuado, u.username FROM passeio p, pagamento_passeio pp, users u WHERE `dataPagamentoEfetuado` BETWEEN :inicio AND :fim AND pp.idPasseio=:idPasseio AND p.idPasseio = pp.idPasseio AND pp.createdBy = u.id";
+    }else {
+      $query = "SELECT p.nomePasseio, p.dataPasseio, p.idPasseio, count(pp.idPagamento) AS 'NVendas', SUM(pp.valorVendido) AS 'valorVenda', SUM(pp.valorPago) AS 'valorPago' FROM pagamento_passeio pp, passeio p WHERE `dataPagamentoEfetuado` BETWEEN :inicio AND :fim  AND p.idPasseio = pp.idPasseio GROUP BY pp.idPasseio";
+    }
 
   };
   $stmt = $conn->prepare($query);
