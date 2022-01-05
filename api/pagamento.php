@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $bindValues['fim'] = $_GET['fim'];
     $mostrarEncerrados = json_decode($_GET['mostrarEncerrados']);
     $showCloseds = $mostrarEncerrados === true ? '' : 'AND statusPasseio NOT IN (0)';
-    $fetch_pagamento = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 AS confirmado, 0 AS crianca, 0 AS interessado, 0 as quitado FROM passeio WHERE dataPasseio BETWEEN :inicio AND :fim $showCloseds";
+    $fetch_pagamento = "SELECT idPasseio, nomePasseio, dataPasseio, lotacao, 0 AS confirmado, 0 AS crianca, 0 AS interessado, 0 as quitado, 0 as parceiro FROM passeio WHERE dataPasseio BETWEEN :inicio AND :fim $showCloseds";
     // --------------------------------------------------------------------
 
   } else if (isset($_GET['idPasseio']) && count($_GET) === 1) {
