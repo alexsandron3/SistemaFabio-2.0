@@ -26,7 +26,9 @@
       }else{
         $wordToSearch = "% %";
       }
-      $fetch_passeio = "SELECT * FROM passeio WHERE nomePasseio LIKE :wordToSearch OR localPasseio LIKE :wordToSearch OR idPasseio LIKE :wordToSearch OR dataPasseio LIKE :wordToSearch";
+      $mostrarEncerrados = json_decode($_GET['mostrarEncerrados']);
+      $queryMostrarEncerrados = $mostrarEncerrados === true ? '' : 'AND statusPasseio NOT IN (0)';
+      $fetch_passeio = "SELECT * FROM passeio WHERE nomePasseio LIKE :wordToSearch $queryMostrarEncerrados OR localPasseio LIKE :wordToSearch $queryMostrarEncerrados OR idPasseio LIKE :wordToSearch $queryMostrarEncerrados OR dataPasseio LIKE :wordToSearch $queryMostrarEncerrados";
       $stmt = $conn->prepare($fetch_passeio);
     }
       try {
