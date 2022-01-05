@@ -211,9 +211,9 @@ function statusPagamento($valorPendenteCliente, $valorPago, $idadeCliente, $idad
 {
 	// $statusPagamento = null;
 	if($idadeCliente <= $idadeIsencao) return CLIENTE_CRIANCA;
-	if($clienteParceiro === 1) return  CLIENTE_PARCEIRO;
-	if($valorPendenteCliente <= 0 && $valorPago === 0 && $clienteParceiro === 0) return  CLIENTE_INTERESSADO;
-	if($valorPendenteCliente === 0 && $valorPago > 0) return  PAGAMENTO_QUITADO;
+	if($clienteParceiro == 1) return  CLIENTE_PARCEIRO;
+	if($valorPendenteCliente <= 0 && $valorPago == 0 && $clienteParceiro === 0) return  CLIENTE_INTERESSADO;
+	if($valorPendenteCliente == 0 && $valorPago > 0) return  PAGAMENTO_QUITADO;
 	if($valorPendenteCliente < 0 && $valorPago > 0 ) return  CLIENTE_CONFIRMADO;
 	// return  strval($statusPagamento);
 }
