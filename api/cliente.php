@@ -26,7 +26,9 @@
       }else{
         $wordToSearch = "% %";
       }
-      $fetch_cliente = "SELECT * FROM cliente WHERE nomeCliente LIKE :wordToSearch OR cpfCliente LIKE :wordToSearch OR idCliente LIKE :wordToSearch OR telefoneCliente  LIKE :wordToSearch OR referencia LIKE :wordToSearch";
+      $mostrarInativos = json_decode($_GET['mostrarInativos']);
+      $queryMostrarInativos = $mostrarInativos === true ? '' : 'AND statusCliente NOT IN (0)';
+      $fetch_cliente = "SELECT * FROM cliente WHERE nomeCliente LIKE :wordToSearch $queryMostrarInativos OR cpfCliente LIKE :wordToSearch $queryMostrarInativos OR idCliente LIKE :wordToSearch $queryMostrarInativos OR telefoneCliente  LIKE :wordToSearch $queryMostrarInativos OR referencia LIKE :wordToSearch $queryMostrarInativos";
       $stmt = $conn->prepare($fetch_cliente);
     }
       try {
