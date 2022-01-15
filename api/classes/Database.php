@@ -1,13 +1,13 @@
 <?php
   class Database {
-    private $db_host = "localhost";
-    private $db_name = "fabiopasseios";
-    private $db_username = "root";
+    // private $db_host = $_ENV['DBhost'];
+    // private $db_name = "fabiopasseios";
+    // private $db_username = "root";
     private $db_password = "";
 
     public function dbConnection() {
       try {
-        $conn = new PDO('mysql:host='.$this->db_host.';dbname='.$this->db_name,$this->db_username,$this->db_password);
+        $conn = new PDO('mysql:host='. $_ENV['DBhost'].';dbname='. $_ENV['DBname'],$_ENV['DBuser'], $_ENV['DBpass']);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
       } catch (PDOException $e) {

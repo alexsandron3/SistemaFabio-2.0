@@ -1,4 +1,10 @@
 <?php
+
+    use Dotenv\Dotenv;
+
+    require  __DIR__ . '../../vendor/autoload.php';
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
     //CHARSET
     header("Content-type: text/html; charset=utf-8");
 
