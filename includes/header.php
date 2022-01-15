@@ -4,7 +4,7 @@
     // echo __DIR__ . ;
     require  __DIR__ . '../../vendor/autoload.php';
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__. '\..' );
-    $dotenv->load();
+    $dotenv->safeLoad();
     //CHARSET
     header("Content-type: text/html; charset=utf-8");
 
