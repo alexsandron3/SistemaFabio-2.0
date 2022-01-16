@@ -63,7 +63,9 @@
             $returnData = [
               "success" => 1,
               "message" => 'Logado com sucesso',
-              "token" => $token
+              "token" => $token,
+              "username" => $username,
+              "userId" => $row['id']
             ];
           }else {
             $returnData = msg(0, 422, 'Senha inválida!');

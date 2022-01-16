@@ -193,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         clienteDesistente,
         statusPagamento,
         createdAt,
+        createdBy,
         dataPagamentoEfetuado
       ) 
       VALUES (    
@@ -215,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         :clienteDesistente,
         :statusPagamento,
         NOW(),
+        :createdBy,
         $dataPagamentoEfetuado
       )";
 
