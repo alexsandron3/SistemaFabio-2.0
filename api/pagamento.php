@@ -86,6 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
       if (isset($_GET["idCliente"])) {
         $returnData['pagamento']['pagamentos'] = $row;
+        $returnData['success'] = 1;
+        $returnData['message'] = 'Pesquisa realizada com sucesso!';
       } else {
         $returnData = [
           "success" => 1,
