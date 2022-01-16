@@ -11,6 +11,15 @@
   $db_connection = new Database();
   $conn = $db_connection->dbConnection();
   $data = json_decode(file_get_contents("php://input"));
+  $allHeaders = getallheaders();
+  $auth = new Auth($conn, $allHeaders);
+  $Auth = $auth->isValid();
+  if (!$Auth['success']) {
+    echo json_encode($auth->isValid());
+    $conn = null;
+    exit();
+    return 0;
+  }   
   // return print_r(json_encode($data));
   $returnData = [];
 

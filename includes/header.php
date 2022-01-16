@@ -1,5 +1,6 @@
 <?php
     require  __DIR__ . '../../vendor/autoload.php';
+    require_once(__DIR__ . '../../api/AuthMiddleware.php');
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__. '\..' );
     $dotenv->safeLoad();
     //CHARSET

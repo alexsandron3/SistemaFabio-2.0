@@ -14,6 +14,15 @@ $data = json_decode(file_get_contents("php://input"));
 $returnData = [];
 $bindValues = array();
 $query = '';
+$allHeaders = getallheaders();
+$auth = new Auth($conn, $allHeaders);
+$Auth = $auth->isValid();
+if (!$Auth['success']) {
+  echo json_encode($auth->isValid());
+  $conn = null;
+  exit();
+  return 0;
+}   
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $query = "SELECT pp.historicoPagamento, pp.idPagamento, c.nomeCliente, c.referencia, p.nomePasseio, p.dataPasseio FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idCliente=c.idCliente AND pp.idPasseio=p.idPasseio AND historicoPagamento REGEXP '\r\n' AND statusPagamento NOT IN(0)";
 

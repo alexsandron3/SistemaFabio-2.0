@@ -18,6 +18,15 @@ $quitado = PAGAMENTO_QUITADO;
 $confimado = CLIENTE_CONFIRMADO;
 $parceiro = CLIENTE_PARCEIRO;
 $crianca = CLIENTE_CRIANCA;
+$allHeaders = getallheaders();
+$auth = new Auth($conn, $allHeaders);
+$Auth = $auth->isValid();
+if (!$Auth['success']) {
+  echo json_encode($auth->isValid());
+  $conn = null;
+  exit();
+  return 0;
+}   
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
   $query =  "SELECT  c.nomeCliente, c.idCliente, c.referencia, pp.anotacoes , pp.idPagamento, pp.valorPendente, pp.previsaoPagamento, pp.statusPagamento, p.idPasseio, p.nomePasseio, p.dataPasseio FROM  pagamento_passeio pp, cliente c, passeio p  WHERE statusPagamento NOT IN ({$quitado}) AND valorPendente < 0 AND c.idCliente = pp.idCliente AND p.idPasseio= pp.idPasseio";
   $stmt = $conn->prepare($query);

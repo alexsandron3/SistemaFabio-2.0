@@ -10,7 +10,15 @@ header('Access-Control-Allow-Origin: *');
 $db_connection = new Database();
 $conn = $db_connection->dbConnection();
 $data = json_decode(file_get_contents("php://input"));
-// return print_r(json_encode($data));
+$allHeaders = getallheaders();
+$auth = new Auth($conn, $allHeaders);
+$Auth = $auth->isValid();
+if (!$Auth['success']) {
+  echo json_encode($auth->isValid());
+  $conn = null;
+  exit();
+  return 0;
+}
 $returnData = [];
 $bindValues = array();
 $query = '';

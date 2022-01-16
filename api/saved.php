@@ -12,6 +12,15 @@
   $query = ' AND statusPasseio NOT IN (0) ';
   $types = "";
   $params = [];
+  $allHeaders = getallheaders();
+  $auth = new Auth($conn, $allHeaders);
+  $Auth = $auth->isValid();
+  if (!$Auth['success']) {
+    echo json_encode($auth->isValid());
+    $conn = null;
+    exit();
+    return 0;
+  }   
   if(isset($_GET['exibirEncerrados'])) {
     $exibirEncerrados = $_GET['exibirEncerrados'];
     if($exibirEncerrados == true) $query = '' ;

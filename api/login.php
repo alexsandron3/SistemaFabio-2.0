@@ -1,7 +1,20 @@
 <?php
-  include_once('../includes/header.php');
+// include_once('../includes/loginHeader.php');
+  require  __DIR__ . '../../vendor/autoload.php';
+  $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '\..');
+  $dotenv->safeLoad();
   include_once('passeio/selectAll.php');
   include_once('passeio/select.php');
+  function msg($success, $status, $message, $extra = [])
+  {
+    return array_merge([
+      'success' => $success,
+      'status' => $status,
+      'message' => $message
+    ],
+      $extra
+    );
+  }
   // required headers
   header('Access-Control-Allow-Origin: *');
   header('Access-Control-Allow-Headers: access');
@@ -16,7 +29,7 @@
 
   $data = json_decode(file_get_contents("php://input"));
   $returnData = [];
-  return json_encode(var_dump($data));
+  // return json_encode(var_dump($data));
 
   if($_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     $returnData = msg(0, 404, 'Page Not Foud!');
