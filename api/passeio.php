@@ -32,7 +32,7 @@
       if(isset($_GET['pesquisarPasseio'])){
         $wordToSearch = "%{$_GET['pesquisarPasseio']}%";
       }else{
-        $wordToSearch = "% %";
+        $wordToSearch = "%%";
       }
       $mostrarEncerrados = isset($_GET['mostrarEncerrados']) ? json_decode($_GET['mostrarEncerrados']) : false ;
       $queryMostrarEncerrados = $mostrarEncerrados === true ? '' : 'AND statusPasseio NOT IN (0)';
