@@ -33,7 +33,7 @@
       if(isset($_GET['pesquisarCliente'])){
         $wordToSearch = "%{$_GET['pesquisarCliente']}%";
       }else{
-        $wordToSearch = "% %";
+        $wordToSearch = "%%";
       }
       $mostrarInativos = json_decode($_GET['mostrarInativos']);
       $queryMostrarInativos = $mostrarInativos === true ? '' : 'AND statusCliente NOT IN (0)';
