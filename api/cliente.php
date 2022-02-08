@@ -120,7 +120,8 @@
       estadoCivil=:estadoCivil,
       clienteRedeSocial=:clienteRedeSocial,
       poltrona=:poltrona,
-      statusCliente=:statusCliente  WHERE idCliente=:idCliente";
+      statusCliente=:statusCliente,
+      statusCpf=:statusCpf  WHERE idCliente=:idCliente";
     }
     // 22
     
