@@ -11,15 +11,15 @@
   $db_connection = new Database();
   $conn = $db_connection->dbConnection();
   $data = json_decode(file_get_contents("php://input"));
-  // $allHeaders = getallheaders();
-  // $auth = new Auth($conn, $allHeaders);
-  // $Auth = $auth->isValid();
-  // if (!$Auth['success']) {
-  //   echo json_encode($auth->isValid());
-  //   $conn = null;
-  //   exit();
-  //   return 0;
-  // }   
+  $allHeaders = getallheaders();
+  $auth = new Auth($conn, $allHeaders);
+  $Auth = $auth->isValid();
+  if (!$Auth['success']) {
+    echo json_encode($auth->isValid());
+    $conn = null;
+    exit();
+    return 0;
+  }   
   $returnData = [];
 
   if($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -45,7 +45,6 @@
         
         if(true || $stmt->rowCount()){
           $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          return print_r(json_encode($row));
           $returnData = [
             "success" => 1,
             "message" => 'Pesquisa realizada com sucesso!',
