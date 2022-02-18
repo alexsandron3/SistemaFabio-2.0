@@ -19,7 +19,6 @@ if (!$Auth['success']) {
   exit();
   return 0;
 }   
-return print_r(json_encode($data));
 $returnData = [];
 $bindValues = array();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
