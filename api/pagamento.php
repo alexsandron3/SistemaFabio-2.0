@@ -13,12 +13,12 @@ $data = json_decode(file_get_contents("php://input"));
 $allHeaders = getallheaders();
 $auth = new Auth($conn, $allHeaders);
 $Auth = $auth->isValid();
-if (!$Auth['success']) {
-  echo json_encode($auth->isValid());
-  $conn = null;
-  exit();
-  return 0;
-}   
+// if (!$Auth['success']) {
+//   echo json_encode($auth->isValid());
+//   $conn = null;
+//   exit();
+//   return 0;
+// }   
 $returnData = [];
 $bindValues = array();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -141,17 +141,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       return print_r(json_encode($returnData));
     }
 
-    // Busca informações do passeio
     $CLIENTE_INTERESSADO = CLIENTE_INTERESSADO;
     $CLIENTE_PARCEIRO    = CLIENTE_PARCEIRO;
-    $fetch_passeio = "SELECT p.lotacao, p.idadeIsencao, p.nomePasseio, p.dataPasseio, COUNT(pp.statusPagamento) AS confirmados FROM passeio p, pagamento_passeio pp WHERE p.idPasseio=:idPasseio AND p.idPasseio=pp.idPasseio AND pp.statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
+    // Busca confirmados  
+    $fetch_passeio = "SELECT COUNT(pp.statusPagamento) AS confirmados FROM passeio p, pagamento_passeio pp WHERE p.idPasseio=:idPasseio AND p.idPasseio=pp.idPasseio AND pp.statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
+    $stmt = $conn->prepare($fetch_passeio);
+    $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $confirmados = $row['confirmados'];
+    // Busca informações do passeio
+    $fetch_passeio = "SELECT p.lotacao, p.idadeIsencao, p.nomePasseio, p.dataPasseio FROM passeio p WHERE p.idPasseio=:idPasseio";
     $stmt = $conn->prepare($fetch_passeio);
     $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Verifica se passeio está lotado
-    $vagasRestantes = $row['lotacao'] -  $row['confirmados'];
+    $vagasRestantes = $row['lotacao'] -  $confirmados;
     if ($vagasRestantes <= 0) {
       $returnData = [
         "success" => 2,
