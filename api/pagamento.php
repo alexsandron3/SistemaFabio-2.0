@@ -13,12 +13,12 @@ $data = json_decode(file_get_contents("php://input"));
 $allHeaders = getallheaders();
 $auth = new Auth($conn, $allHeaders);
 $Auth = $auth->isValid();
-// if (!$Auth['success']) {
-//   echo json_encode($auth->isValid());
-//   $conn = null;
-//   exit();
-//   return 0;
-// }   
+if (!$Auth['success']) {
+  echo json_encode($auth->isValid());
+  $conn = null;
+  exit();
+  return 0;
+}   
 $returnData = [];
 $bindValues = array();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
