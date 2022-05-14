@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   } else if (isset($_GET['idPasseio']) && count($_GET) === 1) {
     // --------------------------------------------------------------------
     $bindValues['idPasseio'] = $_GET['idPasseio'];
-    $fetch_pagamento = "SELECT DISTINCT pp.*, c.nomeCliente, c.referencia, c.rgCliente, c.telefoneCliente, c.idadeCliente, c.dataNascimento, c.orgaoEmissor, c.poltrona, c.cpfCliente, p.nomePasseio, p.dataPasseio, p.lotacao, p.valorPasseio FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idPasseio = :idPasseio AND pp.idCliente = c.idCliente AND pp.idPasseio=p.idPasseio";
+    $fetch_pagamento = "SELECT DISTINCT pp.*, c.*, p.* FROM pagamento_passeio pp, cliente c, passeio p WHERE pp.idPasseio = :idPasseio AND pp.idCliente = c.idCliente AND pp.idPasseio=p.idPasseio";
 
     // --------------------------------------------------------------------
 
