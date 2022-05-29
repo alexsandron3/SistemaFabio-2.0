@@ -143,8 +143,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $CLIENTE_INTERESSADO = CLIENTE_INTERESSADO;
     $CLIENTE_PARCEIRO    = CLIENTE_PARCEIRO;
+    $CLIENTE_CRIANCA     = CLIENTE_CRIANCA; 
     // Busca confirmados  
-    $fetch_passeio = "SELECT COUNT(pp.statusPagamento) AS confirmados FROM passeio p, pagamento_passeio pp WHERE p.idPasseio=:idPasseio AND p.idPasseio=pp.idPasseio AND pp.statusPagamento NOT IN ({$CLIENTE_INTERESSADO},{$CLIENTE_PARCEIRO})";
+    $fetch_passeio = "SELECT COUNT(pp.statusPagamento) AS confirmados FROM passeio p, pagamento_passeio pp WHERE p.idPasseio=:idPasseio AND p.idPasseio=pp.idPasseio AND pp.statusPagamento NOT IN ({$CLIENTE_INTERESSADO} ${CLIENTE_CRIANCA})";
     $stmt = $conn->prepare($fetch_passeio);
     $stmt->bindValue('idPasseio', $idPasseio, PDO::PARAM_STR);
     $stmt->execute();
