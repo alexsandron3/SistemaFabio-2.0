@@ -272,7 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $firstPayment = "dataPagamentoEfetuado=NULL";
   
   // return print_r( $row);
-  if (empty($row['dataPagamentoEfetuado'])  || $row['dataPagamentoEfetuado'] === 'NULL' && $data->statusPagamento !== CLIENTE_INTERESSADO) {
+  if ((empty($row['dataPagamentoEfetuado'])  || $row['dataPagamentoEfetuado'] === 'NULL') && $data->statusPagamento !== CLIENTE_INTERESSADO) {
     $firstPayment = "dataPagamentoEfetuado=NOW()";
   }else {
     $dataPagamentoEfetuado = $row['dataPagamentoEfetuado'];
